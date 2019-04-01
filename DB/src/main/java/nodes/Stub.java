@@ -17,6 +17,7 @@ import java.util.concurrent.ScheduledExecutorService;
 public class Stub {
 
     String endereco;
+    private final String masterAddress = "localhost:12340";
     ManagedMessagingService ms;
     ScheduledExecutorService ses = Executors.newSingleThreadScheduledExecutor();
     Serializer s = SerializerProtocol.newSerializer();
@@ -32,11 +33,34 @@ public class Stub {
 
     private void registaHandlers(){
 
+        /**
+         *
+         * Recebe uma mensagem com a resposta do get por parte do stub
+         * Contem já o valor correspondete à chave (pode ser null)
+         *
+         */
         ms.registerHandler("getReply",(a,m) -> {
             GetReply gr = s.decode(m);
 
             System.out.println("O valor é: " + gr.value.toString());
             this.requests.get(gr.id).complete(gr.value);
+
+        },ses);
+
+
+        /**
+         *
+         * Recebe uma mensagem com a resposta do get por parte do master
+         * Contem o endereço do slave que devemos de contactar
+         *
+         */
+
+        ms.registerHandler("getMaster",(a,m) -> {
+            ReplyMaster rm = s.decode(m);
+
+            System.out.println("O slave que contém a minha key é: " + rm.endereco);
+            GetRequest gt = new GetRequest(rm.id, rm.key);
+            ms.sendAsync(Address.from(rm.endereco), "get", s.encode(gt));
 
         },ses);
 
@@ -48,7 +72,7 @@ public class Stub {
         requests.put(requestID, jsonCF);
 
         GetRequest gt = new GetRequest(requestID, key);
-        ms.sendAsync(Address.from("localhost:12345"), "get", s.encode(gt));
+        ms.sendAsync(Address.from(masterAddress), "get", s.encode(gt));
 
         return requests.get(requestID);
     }
@@ -59,8 +83,8 @@ public class Stub {
 
         Stub s = new Stub(endereco);
 
-        s.get(10001);
-        s.get(100);
+        //s.get(10001);
+        s.get(50);
 
         while(true){
             try {

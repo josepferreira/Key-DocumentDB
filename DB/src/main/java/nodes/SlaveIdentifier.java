@@ -9,4 +9,12 @@ public class SlaveIdentifier {
         this.endereco = endereco;
         this.keys = keys;
     }
+
+    @Override
+    public String toString() {
+        return "SlaveIdentifier{" +
+                "endereco='" + endereco + '\'' +
+                ", keys=" + keys +
+                '}';
+    }
 }

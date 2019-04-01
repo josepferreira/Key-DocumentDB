@@ -25,4 +25,12 @@ public class KeysUniverse {
     public int hashCode() {
         return Objects.hash(min, max);
     }
+
+    @Override
+    public String toString() {
+        return "KeysUniverse{" +
+                "min=" + min +
+                ", max=" + max +
+                '}';
+    }
 }

@@ -10,4 +10,12 @@ public class GetRequest {
     public GetRequest(String id, long key) {
         this.id = id; this.key = key;
     }
+
+    @Override
+    public String toString() {
+        return "GetRequest{" +
+                "key=" + key +
+                ", id='" + id + '\'' +
+                '}';
+    }
 }

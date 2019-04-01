@@ -37,7 +37,7 @@ public class Slave {
 
         try {
             this.options = new Options().setCreateIfMissing(true);
-            this.db = RocksDB.open(options, "./teste");
+            this.db = RocksDB.open(options, "./localdb/" + endereco.replaceAll(":", "") + "/");
 
         } catch (RocksDBException e) {
             System.out.println("Exceçãoooooooooooooooo: " + e.getMessage());
@@ -45,17 +45,41 @@ public class Slave {
 
         this.registaHandlers();
 
-        long aux = 100;
-        byte[] key1 = Longs.toByteArray(aux);
+        switch (endereco) {
 
-        JSONObject json = new JSONObject();
-        json.put("ola", 1);
+            case "localhost:12341":
+                long aux = 50;
+                byte[] key1 = Longs.toByteArray(aux);
+                JSONObject json = new JSONObject();
+                json.put("ola1", 1);
+                try {
+                    db.put(key1, json.toString().getBytes());
+                } catch (RocksDBException e) {
+                    e.printStackTrace();
 
-        try {
-            db.put(key1, json.toString().getBytes());
-        } catch (RocksDBException e) {
-            e.printStackTrace();
-            System.out.println("No inserir");
+                }
+            case "localhost:12342":
+                long aux2 = 150;
+                byte[] key2 = Longs.toByteArray(aux2);
+                JSONObject json2 = new JSONObject();
+                json2.put("ola2", 2);
+                try {
+                    db.put(key2, json2.toString().getBytes());
+                } catch (RocksDBException e) {
+                    e.printStackTrace();
+
+                }
+            case "localhost:12343":
+                long aux3 = 250;
+                byte[] key3 = Longs.toByteArray(aux3);
+                JSONObject json3 = new JSONObject();
+                json3.put("ol3", 3);
+                try {
+                    db.put(key3, json3.toString().getBytes());
+                } catch (RocksDBException e) {
+                    e.printStackTrace();
+                }
+
         }
 
     }
@@ -72,33 +96,52 @@ public class Slave {
 
         },ses);*/
 
+
+        // **** Handler para responder a um getefetuado pelo stub
         ms.registerHandler("get",(a,m) -> {
+
             GetRequest gr = s.decode(m);
             byte[] keys = Longs.toByteArray(gr.key);
-            System.out.println("Tiu no get");
-            try {
-                System.out.println("Ola");
-                byte[] value = db.get(keys);
-                System.out.println("ole");
-                String ret = new String(value);
-                JSONObject json = new JSONObject(ret);
 
-                GetReply grp = new GetReply(gr.id, gr.key, json);
-                ms.sendAsync(a, "getReply", s.encode(grp));
+            try {
+
+                byte[] value = db.get(keys);
+
+                if(value == null){
+                    GetReply grp = new GetReply(gr.id, gr.key, null);
+                    ms.sendAsync(a, "getReply", s.encode(grp));
+                }else {
+
+                    String ret = new String(value);
+                    JSONObject json = new JSONObject(ret);
+
+                    GetReply grp = new GetReply(gr.id, gr.key, json);
+                    ms.sendAsync(a, "getReply", s.encode(grp));
+
+                }
+
             } catch (RocksDBException e) {
                 e.printStackTrace();
-                System.out.println("la la la");
             } catch (Exception e) {
-                System.out.println("ERRO NA STRING!!");
+                System.out.println("ERRO NA STRING: " + e.getMessage());
             }
 
 
         },ses);
     }
 
+
+    @Override
+    public String toString() {
+        return "Slave{" +
+                "endereco='" + endereco +
+                '}';
+    }
+
     public static void main(String[] args) {
 
-        Slave s = new Slave("localhost:12345");
+        //Para já o valor do args deve de ser 1 ou 2 ou 3
+        Slave s = new Slave("localhost:1234" + args[0]);
 
         while(true){
             try {
