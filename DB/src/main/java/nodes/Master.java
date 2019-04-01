@@ -30,7 +30,7 @@ public class Master {
             PutRequest pr = s.decode(m);
 
             SlaveIdentifier slave = slaves.get(new KeysUniverse(pr.key,pr.key));
-            ReplyMaster rm = new ReplyMaster(slave.endereco,slave.keys);
+            ReplyMaster rm = new ReplyMaster(pr.id, slave.endereco,slave.keys);
 
             ms.sendAsync(a,"putMaster",s.encode(rm));
 
@@ -40,7 +40,7 @@ public class Master {
             PutRequest pr = s.decode(m);
 
             SlaveIdentifier slave = slaves.get(new KeysUniverse(pr.key,pr.key));
-            ReplyMaster rm = new ReplyMaster(slave.endereco,slave.keys);
+            ReplyMaster rm = new ReplyMaster(pr.id, slave.endereco,slave.keys);
 
             ms.sendAsync(a,"getMaster",s.encode(rm));
 

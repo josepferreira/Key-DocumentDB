@@ -7,8 +7,10 @@ import java.util.HashMap;
 public class ReplyMaster {
     public String endereco;
     public KeysUniverse keys;
+    public String id;
 
-    public ReplyMaster(String endereco, KeysUniverse keys) {
+    public ReplyMaster(String id, String endereco, KeysUniverse keys) {
+        this.id = id;
         this.endereco = endereco;
         this.keys = keys;
     }
