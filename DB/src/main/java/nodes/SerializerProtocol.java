@@ -13,7 +13,8 @@ public class SerializerProtocol {
                 GetReply.class,
                 PutRequest.class,
                 PutReply.class,
-                ReplyMaster.class
+                ReplyMaster.class,
+                ScanReply.class
         ).build();
     }
 }

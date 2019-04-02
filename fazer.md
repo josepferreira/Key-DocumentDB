@@ -23,5 +23,7 @@
 ### Dúvidas
 
 * pensar já em algo do algoritmo de distribuição?
-* pensar em mais, tinha uma do stub mas n me lembro qual é
+* como fazer o scan com o rocksdb?
+* como juntar maps já ordenados de forma eficiente?
+* tentar ver mais para mandar mail
 

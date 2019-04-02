@@ -5,27 +5,30 @@ import io.atomix.cluster.messaging.ManagedMessagingService;
 import io.atomix.cluster.messaging.impl.NettyMessagingService;
 import io.atomix.utils.net.Address;
 import io.atomix.utils.serializer.Serializer;
-import messages.GetReply;
-import messages.GetRequest;
-import messages.PutRequest;
-import messages.ReplyMaster;
+import messages.*;
 import org.json.JSONObject;
 import org.rocksdb.RocksDB;
 import org.rocksdb.Options;
 import org.rocksdb.RocksDBException;
 
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.TreeMap;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
 public class Slave {
 
     public String endereco;
+    public KeysUniverse minhasChaves;
     ManagedMessagingService ms;
     ScheduledExecutorService ses = Executors.newSingleThreadScheduledExecutor();
     Serializer s = SerializerProtocol.newSerializer();
     Options options;
     RocksDB db;
+    HashMap<String,Put> putRequests = new HashMap<>();
+    HashSet<String> scanRequests = new HashSet<>();
 
     public Slave(String endereco) {
         RocksDB.loadLibrary();
@@ -80,21 +83,45 @@ public class Slave {
                     e.printStackTrace();
                 }
 
+
+
         }
 
     }
 
     private void registaHandlers(){
 
-        /*ms.registerHandler("put",(a,m) -> {
+        //handler para responder ao pedido put, efetuado pelo stub
+        ms.registerHandler("put",(o,m) -> {
             PutRequest pr = s.decode(m);
 
-            SlaveIdentifier slave = slaves.get(new KeysUniverse(pr.key,pr.key));
-            ReplyMaster rm = new ReplyMaster(slave.endereco,slave.keys);
+            //convém guardar os pedidos certo???
+            Put p = putRequests.get(pr.id);
+            if(p == null){
+                p = new Put(pr,new CompletableFuture<Boolean>());
+                putRequests.put(pr.id,p);
 
-            ms.sendAsync(a,"putMaster",s.encode(rm));
+                p.cf.thenAccept(a -> {
+                    PutReply pl = new PutReply(pr.id,a);
+                    ms.sendAsync(o, "putReply", s.encode(pl));
+                });
 
-        },ses);*/
+                ////se ainda n inseriu insere
+                byte[] key = Longs.toByteArray(pr.key);
+                try {
+                    db.put(key, pr.value.toString().getBytes());
+                    p.cf.complete(true);
+                } catch (RocksDBException e) {
+                    p.cf.complete(false);
+                    e.printStackTrace();
+                    System.out.println("Erro ao realizar put na BD local!");
+                }
+            }
+            else{
+                //já aconteceu algo, ver pq recebeu novo pedido
+            }
+
+        },ses);
 
 
         // **** Handler para responder a um getefetuado pelo stub
@@ -126,6 +153,20 @@ public class Slave {
                 System.out.println("ERRO NA STRING: " + e.getMessage());
             }
 
+
+        },ses);
+
+        ms.registerHandler("scan", (o,m) -> {
+
+            String id = s.decode(m);
+            scanRequests.add(id); //ver depois o que acontece se já existe
+            TreeMap<Long,JSONObject> docs = new TreeMap<>();
+
+            //de alguma forma faz o scan à bd, ver a melhor forma
+
+            SlaveScanReply ssr = new SlaveScanReply(docs,id);
+
+            ms.sendAsync(o, "scanReply", s.encode(ssr));
 
         },ses);
     }

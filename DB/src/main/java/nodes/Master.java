@@ -7,18 +7,19 @@ import io.atomix.utils.serializer.Serializer;
 import messages.*;
 
 import java.util.HashMap;
+import java.util.TreeMap;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
-public class Master {
+public class  Master {
 
-    public HashMap<KeysUniverse,SlaveIdentifier> slaves = new HashMap<>();
+    public TreeMap<KeysUniverse,SlaveIdentifier> slaves = new TreeMap<>();
     public String endereco;
     ManagedMessagingService ms;
     ScheduledExecutorService ses = Executors.newSingleThreadScheduledExecutor();
     Serializer s = SerializerProtocol.newSerializer();
 
-    public Master(HashMap<KeysUniverse, SlaveIdentifier> slaves, String endereco) {
+    public Master(TreeMap<KeysUniverse, SlaveIdentifier> slaves, String endereco) {
         this.slaves = slaves;
         this.endereco = endereco;
         ms = NettyMessagingService.builder().withAddress(Address.from(endereco)).build();
@@ -63,6 +64,25 @@ public class Master {
             ms.sendAsync(a,"getMaster", s.encode(rm));
 
         },ses);
+
+        ms.registerHandler("scan", (o,m) -> {
+
+            ScanReply sr = new ScanReply(s.decode(m), this.slaves);
+
+            ms.sendAsync(o, "scanMaster", s.encode(sr));
+        },ses);
+    }
+
+    public void teste(){
+        long key = 50;
+        System.out.println("Olha o menino: " + key);
+        System.out.println("Vamos ver como está o slave: " + slaves.toString());
+        KeysUniverse ku = new KeysUniverse(key, key);
+        System.out.println("As ku são: " + ku.toString());
+        System.out.println("O hashcode é: " + ku.hashCode());
+        System.out.println("Vou so fazer um equals: " + ku.equals((new KeysUniverse(0,100))));
+        SlaveIdentifier slaveI = slaves.get((new KeysUniverse(0,100)));
+        System.out.println("Passei: " + slaveI);
     }
 
     public static void main(String[] args){
@@ -70,7 +90,7 @@ public class Master {
         // ******* Povoamento **********
         //Para já está povoado hardecoded ...
 
-        HashMap<KeysUniverse,SlaveIdentifier> slaves = new HashMap<>();
+        TreeMap<KeysUniverse,SlaveIdentifier> slaves = new TreeMap<>();
         String endereco = "localhost:12340";
 
         KeysUniverse ku1 = new KeysUniverse(0, 100);
@@ -86,6 +106,10 @@ public class Master {
         slaves.put(ku3, slave3);
 
         Master m = new Master(slaves, endereco);
+
+        m.teste();
+
+
 
         while(true){
             try {

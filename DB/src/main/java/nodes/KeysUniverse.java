@@ -1,7 +1,7 @@
 package nodes;
 import java.util.Objects;
 
-public class KeysUniverse {
+public class KeysUniverse implements Comparable{
     public long min;
     public long max;
 
@@ -17,7 +17,7 @@ public class KeysUniverse {
         if (o == null || getClass() != o.getClass()) return false;
         KeysUniverse that = (KeysUniverse) o;
 
-        return (min <= that.min) && (max > that.max) && (that.min <= that.max); //basta que esteja contido no intervalo,
+        return (min >= that.min) && (max < that.max) && (that.min <= that.max); //basta que esteja contido no intervalo,
         // para ser considerado igual. Importante para a procura no hashmap
     }
 
@@ -32,5 +32,13 @@ public class KeysUniverse {
                 "min=" + min +
                 ", max=" + max +
                 '}';
+    }
+
+
+    @Override
+    public int compareTo(Object o) {
+        KeysUniverse ku = (KeysUniverse)o;
+
+        return Long.compare(this.max,ku.max);
     }
 }
