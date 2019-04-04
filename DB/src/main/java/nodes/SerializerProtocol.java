@@ -14,7 +14,9 @@ public class SerializerProtocol {
                 PutRequest.class,
                 PutReply.class,
                 ReplyMaster.class,
-                ScanReply.class
+                ScanReply.class,
+                RemoveRequest.class,
+                RemoveReply.class
         ).build();
     }
 }

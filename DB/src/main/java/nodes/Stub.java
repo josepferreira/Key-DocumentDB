@@ -23,7 +23,8 @@ public class Stub {
     ManagedMessagingService ms;
     ScheduledExecutorService ses = Executors.newSingleThreadScheduledExecutor();
     Serializer s = SerializerProtocol.newSerializer();
-    HashMap<String, CompletableFuture<JSONObject>> requests = new HashMap<>();
+    HashMap<String, Get> getRequests = new HashMap<>();
+    HashMap<String, Remove> removeRequests = new HashMap<>();
     HashMap<String, Put> putRequests = new HashMap<>();
     HashMap<String, Scan> scanRequests = new HashMap<>();
 
@@ -46,8 +47,19 @@ public class Stub {
         ms.registerHandler("getReply",(a,m) -> {
             GetReply gr = s.decode(m);
 
-            System.out.println("O valor é: " + gr.value.toString());
-            this.requests.get(gr.id).complete(gr.value);
+            if(gr.value == null)
+                System.out.println("O valor retornado é nulo");
+            else
+                System.out.println("O valor é: " + gr.value.toString());
+            this.getRequests.get(gr.id).cf.complete(gr.value);
+
+        },ses);
+
+        ms.registerHandler("removeReply",(a,m) -> {
+            RemoveReply rr = s.decode(m);
+
+            System.out.println("O valor é: " + rr.sucess);
+            this.removeRequests.get(rr.id).cf.complete(rr.sucess);
 
         },ses);
 
@@ -55,7 +67,10 @@ public class Stub {
             GetReply gr = s.decode(m);
 
             System.out.println("O valor é: " + gr.value.toString());
-            this.requests.get(gr.id).complete(gr.value);
+
+            //TENS DE VER ISTO AQUI!!! SE É PARA MANDAR TRUE OU NÃO ... SÓ PUS ASSIM PARA NAO DAR ERRO
+
+            this.putRequests.get(gr.id).cf.complete(true);
 
         },ses);
 
@@ -71,8 +86,27 @@ public class Stub {
             ReplyMaster rm = s.decode(m);
 
             System.out.println("O slave que contém a minha key é: " + rm.endereco);
-            GetRequest gt = new GetRequest(rm.id, rm.key);
-            ms.sendAsync(Address.from(rm.endereco), "get", s.encode(gt));
+            Get g = getRequests.get(rm.id);
+
+            if(g == null){
+                System.out.println("Deu nulo no get ... Algo errado!");
+            }
+
+            ms.sendAsync(Address.from(rm.endereco), "get", s.encode(g.request));
+
+        },ses);
+
+        ms.registerHandler("removeMaster",(a,m) -> {
+            ReplyMaster rm = s.decode(m);
+
+            System.out.println("O slave que contém a minha key é: " + rm.endereco);
+            Remove r = removeRequests.get(rm.id);
+
+            if(r == null){
+                System.out.println("Deu nulo no get ... Algo errado!");
+            }
+
+            ms.sendAsync(Address.from(rm.endereco), "remove", s.encode(r.request));
 
         },ses);
 
@@ -130,12 +164,27 @@ public class Stub {
     public CompletableFuture<JSONObject> get(long key){
         CompletableFuture<JSONObject> jsonCF = new CompletableFuture<>();
         String requestID = UUID.randomUUID().toString();
-        requests.put(requestID, jsonCF);
 
-        GetRequest gt = new GetRequest(requestID, key);
-        ms.sendAsync(masterAddress, "get", s.encode(gt));
+        GetRequest gr = new GetRequest(requestID, key);
+        Get g = new Get(gr, jsonCF);
+        getRequests.put(requestID, g);
 
-        return requests.get(requestID);
+        ms.sendAsync(masterAddress, "get", s.encode(gr));
+
+        return jsonCF;
+    }
+
+    public CompletableFuture<Boolean> remove(long key){
+        CompletableFuture<Boolean> jsonCF = new CompletableFuture<>();
+        String requestID = UUID.randomUUID().toString();
+
+        RemoveRequest rr = new RemoveRequest(requestID, key);
+        Remove r = new Remove(rr, jsonCF);
+        removeRequests.put(requestID, r);
+
+        ms.sendAsync(masterAddress, "remove", s.encode(rr));
+
+        return jsonCF;
     }
 
     public CompletableFuture<Boolean> put(long key, JSONObject value){
@@ -173,7 +222,14 @@ public class Stub {
         Stub s = new Stub(endereco);
 
         //s.get(10001);
-        s.get(50);
+        s.get(150);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        s.remove(150);
+        s.get(150);
 
         while(true){
             try {

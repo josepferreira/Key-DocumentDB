@@ -131,14 +131,12 @@ public class Slave {
             byte[] keys = Longs.toByteArray(gr.key);
 
             try {
-
                 byte[] value = db.get(keys);
 
                 if(value == null){
-                    GetReply grp = new GetReply(gr.id, gr.key, null);
+                    GetReply grp = new GetReply(gr.id, gr.key, null);;
                     ms.sendAsync(a, "getReply", s.encode(grp));
                 }else {
-
                     String ret = new String(value);
                     JSONObject json = new JSONObject(ret);
 
@@ -149,8 +147,48 @@ public class Slave {
 
             } catch (RocksDBException e) {
                 e.printStackTrace();
+                GetReply grp = new GetReply(gr.id, gr.key, null);
+                ms.sendAsync(a, "getReply", s.encode(grp));
             } catch (Exception e) {
                 System.out.println("ERRO NA STRING: " + e.getMessage());
+                GetReply grp = new GetReply(gr.id, gr.key, null);
+                ms.sendAsync(a, "getReply", s.encode(grp));
+            }
+
+
+        },ses);
+
+
+        ms.registerHandler("remove",(a,m) -> {
+
+            RemoveRequest rr = s.decode(m);
+            byte[] keys = Longs.toByteArray(rr.key);
+
+            try {
+                byte[] value = db.get(keys);
+
+                if(value == null){
+                    RemoveReply rrp = new RemoveReply(rr.id, false);
+                    ms.sendAsync(a, "removeReply", s.encode(rrp));
+                }else {
+
+
+                    db.delete(keys);
+
+                    RemoveReply rrp = new RemoveReply(rr.id, true);
+                    ms.sendAsync(a, "removeReply", s.encode(rrp));
+
+                }
+
+            } catch (RocksDBException e) {
+                e.printStackTrace();
+                System.out.println("DEU PROBLEMAS A ELIMINAR O VALOR ...");
+                RemoveReply rrp = new RemoveReply(rr.id, false);
+                ms.sendAsync(a, "removeReply", s.encode(rrp));
+            } catch (Exception e) {
+                System.out.println("ERRO NA STRING: " + e.getMessage());
+                RemoveReply rrp = new RemoveReply(rr.id, false);
+                ms.sendAsync(a, "removeReply", s.encode(rrp));
             }
 
 

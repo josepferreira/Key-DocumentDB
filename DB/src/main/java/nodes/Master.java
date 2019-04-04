@@ -42,26 +42,22 @@ public class  Master {
         },ses);
 
         ms.registerHandler("get",(a,m) -> {
-            System.out.println("Chegou-me um get");
             GetRequest gr = s.decode(m);
-            System.out.println("Olha o menino: " + gr);
-            System.out.println("Vamos ver como está o slave: " + slaves.toString());
             KeysUniverse ku = new KeysUniverse(gr.key, gr.key);
-            System.out.println("As ku são: " + ku.toString());
-            System.out.println("O hashcode é: " + ku.hashCode());
-            System.out.println("Vou so fazer um equals: " + ku.equals((new KeysUniverse(0,100))));
-            SlaveIdentifier slaveI = slaves.get((new KeysUniverse(0,100)));
-            System.out.println("Passei: " + slaveI);
-            /*if(slaves.containsKey(ku)){
-                System.out.println("Eu tenho a key!");
-                slaves.get(ku);
-            }*/
-            System.out.println("Vou buscar o endereço ... " + slaveI.endereco);
-            System.out.println(("olha a key: " + slaveI.keys.toString()));
+            SlaveIdentifier slaveI = slaves.get(ku);
             ReplyMaster rm = new ReplyMaster(gr.id, slaveI.endereco, slaveI.keys, gr.key);
-            System.out.println("Vou mandar par ao endereco: " + slaveI.endereco);
 
             ms.sendAsync(a,"getMaster", s.encode(rm));
+
+        },ses);
+
+        ms.registerHandler("remove",(a,m) -> {
+            RemoveRequest rr = s.decode(m);
+            KeysUniverse ku = new KeysUniverse(rr.key, rr.key);
+            SlaveIdentifier slaveI = slaves.get(ku);
+            ReplyMaster rm = new ReplyMaster(rr.id, slaveI.endereco, slaveI.keys, rr.key);
+
+            ms.sendAsync(a,"removeMaster", s.encode(rm));
 
         },ses);
 
@@ -97,9 +93,9 @@ public class  Master {
         KeysUniverse ku2 = new KeysUniverse(100, 200);
         KeysUniverse ku3 = new KeysUniverse(200, 300);
 
-        SlaveIdentifier slave1 = new SlaveIdentifier("localhost:1231", ku1);
-        SlaveIdentifier slave2 = new SlaveIdentifier("localhost:1232", ku2);
-        SlaveIdentifier slave3 = new SlaveIdentifier("localhost:1233", ku3);
+        SlaveIdentifier slave1 = new SlaveIdentifier("localhost:12341", ku1);
+        SlaveIdentifier slave2 = new SlaveIdentifier("localhost:12342", ku2);
+        SlaveIdentifier slave3 = new SlaveIdentifier("localhost:12343", ku3);
 
         slaves.put(ku1, slave1);
         slaves.put(ku2, slave2);

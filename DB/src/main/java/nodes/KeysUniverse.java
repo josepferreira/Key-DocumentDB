@@ -37,8 +37,16 @@ public class KeysUniverse implements Comparable{
 
     @Override
     public int compareTo(Object o) {
-        KeysUniverse ku = (KeysUniverse)o;
+        KeysUniverse ku = (KeysUniverse) o;
 
-        return Long.compare(this.max,ku.max);
+        if(ku.min >= this.max && ku.max >= this.max)
+            return 1;
+
+        if(ku.max <= this.min && ku.min <= this.min)
+            return -1;
+
+        return 0;
+
+        //return Long.compare(this.max,ku.max);
     }
 }
