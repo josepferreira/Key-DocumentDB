@@ -23,7 +23,7 @@
 ### Dúvidas
 
 * pensar já em algo do algoritmo de distribuição?
-* como fazer o scan com o rocksdb?
+* como fazer o scan com o rocksdb? para já é realizado usando um iterador
 * como juntar maps já ordenados de forma eficiente?
-* tentar ver mais para mandar mail
+* pensar já nas projeções e seleções?
 

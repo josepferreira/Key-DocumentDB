@@ -10,6 +10,7 @@ import org.json.JSONObject;
 import org.rocksdb.RocksDB;
 import org.rocksdb.Options;
 import org.rocksdb.RocksDBException;
+import org.rocksdb.RocksIterator;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -198,15 +199,31 @@ public class Slave {
 
             String id = s.decode(m);
             scanRequests.add(id); //ver depois o que acontece se já existe
-            TreeMap<Long,JSONObject> docs = new TreeMap<>();
+            TreeMap<Long,JSONObject> docs = new TreeMap<>(); //n será muito eficiente, provavelmente por causa de andar sempre a mudar o map
 
             //de alguma forma faz o scan à bd, ver a melhor forma
+            docs = getScan();
 
             SlaveScanReply ssr = new SlaveScanReply(docs,id);
 
             ms.sendAsync(o, "scanReply", s.encode(ssr));
 
         },ses);
+    }
+
+    private TreeMap<Long,JSONObject> getScan() {
+
+            TreeMap<Long,JSONObject> docs = new TreeMap<>();
+            RocksIterator iterador = db.newIterator();
+            iterador.seekToFirst();
+            while (iterador.isValid()) {
+                long k = Longs.fromByteArray(iterador.key());
+                String v = new String(iterador.value());
+                JSONObject json = new JSONObject(v);
+                docs.put(k,json);
+                iterador.next();
+            }
+            return docs;
     }
 
 
