@@ -27,3 +27,9 @@
 * como juntar maps já ordenados de forma eficiente?
 * pensar já nas projeções e seleções?
 
+## Protótipo 2
+
+1. adicionar projeções e seleções aos métodos get e scan
+2. começar a pesquisar algoritmos de distribuição eficientes
+3. tentar verificar ordenação nos mapas
+
