@@ -3,13 +3,13 @@ package messages;
 
 import org.json.JSONObject;
 
-import java.util.TreeMap;
+import java.util.LinkedHashMap;
 
 public class SlaveScanReply {
-    public TreeMap<Long, JSONObject> docs;
+    public LinkedHashMap<Long, JSONObject> docs;
     public String id;
 
-    public SlaveScanReply(TreeMap<Long, JSONObject> docs, String id) {
+    public SlaveScanReply(LinkedHashMap<Long, JSONObject> docs, String id) {
         this.docs = docs;
         this.id = id;
     }

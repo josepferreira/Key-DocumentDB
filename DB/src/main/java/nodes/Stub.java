@@ -8,10 +8,7 @@ import io.atomix.utils.serializer.Serializer;
 import messages.*;
 import org.json.JSONObject;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.TreeMap;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -133,7 +130,7 @@ public class Stub {
             Collection<CompletableFuture<Void>> aux = sc.cfsSlaves.values();
             CompletableFuture.allOf(aux.toArray(new CompletableFuture[aux.size()])).thenAccept( a -> {
 
-                TreeMap<Long,JSONObject> res = new TreeMap<>();
+                LinkedHashMap<Long,JSONObject> res = new LinkedHashMap<>();
                 for(SlaveIdentifier si : sc.slaves.values()){
                     res.putAll(sc.respostas.get(si));
                 }
@@ -156,6 +153,8 @@ public class Stub {
             SlaveIdentifier si = new SlaveIdentifier(o.toString(),null);
             sc.respostas.put(si,ssr.docs);
             sc.cfsSlaves.get(o.toString()).complete(null);
+
+
         }, ses);
 
 
@@ -201,8 +200,8 @@ public class Stub {
 
     }
 
-    public CompletableFuture<TreeMap<Long,JSONObject>> scan(){
-        CompletableFuture<TreeMap<Long,JSONObject>> cf = new CompletableFuture<>();
+    public CompletableFuture<LinkedHashMap<Long,JSONObject>> scan(){
+        CompletableFuture<LinkedHashMap<Long,JSONObject>> cf = new CompletableFuture<>();
         String requestID = UUID.randomUUID().toString();
 
         Scan s = new Scan(requestID,cf);
