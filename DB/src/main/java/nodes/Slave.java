@@ -1,5 +1,6 @@
 package nodes;
 
+import com.google.common.collect.Maps;
 import com.google.common.primitives.Longs;
 import io.atomix.cluster.messaging.ManagedMessagingService;
 import io.atomix.cluster.messaging.impl.NettyMessagingService;
@@ -12,12 +13,12 @@ import org.rocksdb.Options;
 import org.rocksdb.RocksDBException;
 import org.rocksdb.RocksIterator;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.TreeMap;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.function.Function;
+import java.util.function.Predicate;
 
 public class Slave {
 
@@ -224,6 +225,16 @@ public class Slave {
                 iterador.next();
             }
             return docs;
+    }
+
+    //função que filtra um conjunto de documentos segundo uma lista de filtros
+    private Map<Long,JSONObject> filtro(Map<Long,JSONObject> docs, ArrayList<Predicate<JSONObject>> filters) {
+
+        Predicate<JSONObject> pred = filters.stream().reduce(Predicate::and).orElse(x -> true);
+        pred = pred.negate();
+        docs.values().removeIf(pred);
+
+        return docs;
     }
 
 
