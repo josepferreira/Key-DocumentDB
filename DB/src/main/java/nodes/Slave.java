@@ -17,7 +17,6 @@ import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.function.Function;
 import java.util.function.Predicate;
 
 public class Slave {
@@ -200,7 +199,7 @@ public class Slave {
 
             String id = s.decode(m);
             scanRequests.add(id); //ver depois o que acontece se já existe
-            TreeMap<Long,JSONObject> docs = new TreeMap<>(); //n será muito eficiente, provavelmente por causa de andar sempre a mudar o map
+            LinkedHashMap<Long,JSONObject> docs = new LinkedHashMap<>(); //n será muito eficiente, provavelmente por causa de andar sempre a mudar o map
 
             //de alguma forma faz o scan à bd, ver a melhor forma
             docs = getScan();
@@ -212,9 +211,9 @@ public class Slave {
         },ses);
     }
 
-    private TreeMap<Long,JSONObject> getScan() {
+    private LinkedHashMap<Long,JSONObject> getScan() {
 
-            TreeMap<Long,JSONObject> docs = new TreeMap<>();
+            LinkedHashMap<Long,JSONObject> docs = new LinkedHashMap<>();
             RocksIterator iterador = db.newIterator();
             iterador.seekToFirst();
             while (iterador.isValid()) {

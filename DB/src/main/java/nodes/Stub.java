@@ -12,6 +12,7 @@ import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.function.Predicate;
 
 public class Stub {
 
@@ -211,6 +212,19 @@ public class Stub {
 
         return cf;
 
+
+    }
+
+    public CompletableFuture<LinkedHashMap<Long,JSONObject>> scan(ArrayList<Predicate> filtros, HashMap<Boolean, ArrayList<String>> projecoes){
+        CompletableFuture<LinkedHashMap<Long,JSONObject>> cf = new CompletableFuture<>();
+        String requestID = UUID.randomUUID().toString();
+
+        Scan s = new Scan(requestID,cf);
+        scanRequests.put(requestID,s);
+
+        ms.sendAsync(masterAddress,"scan", this.s.encode(requestID));
+
+        return cf;
 
     }
 

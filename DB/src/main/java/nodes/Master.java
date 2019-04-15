@@ -1,5 +1,13 @@
 package nodes;
 
+import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
+import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import io.atomix.cluster.messaging.*;
 import io.atomix.cluster.messaging.impl.NettyMessagingService;
 import io.atomix.utils.net.Address;
@@ -107,13 +115,34 @@ public class  Master {
 
 
 
-        while(true){
+        /*while(true){
             try {
                 Thread.sleep(10000000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        }
+        }*/
+
+        /*String jsonString = "{'ola': 'mania', 'meu': mania}";
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        SimpleFilterProvider filterProvider = new SimpleFilterProvider();
+        filterProvider.addFilter("empFilter",
+                SimpleBeanPropertyFilter.filterOutAllExcept("\"v1\""));
+
+
+
+        objectMapper.setFilterProvider(filterProvider);
+        try {
+            JsonNode actualObj = objectMapper.readTree("{\"k1\":\"v1\"}");
+            String s = objectMapper.writeValueAsString(actualObj);
+            System.out.println(s);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }*/
+
+
+
 
     }
 }
