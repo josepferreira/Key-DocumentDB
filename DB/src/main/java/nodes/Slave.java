@@ -1,6 +1,5 @@
 package nodes;
 
-import com.google.common.collect.Maps;
 import com.google.common.primitives.Longs;
 import io.atomix.cluster.messaging.ManagedMessagingService;
 import io.atomix.cluster.messaging.impl.NettyMessagingService;
@@ -197,20 +196,56 @@ public class Slave {
 
         ms.registerHandler("scan", (o,m) -> {
 
-            String id = s.decode(m);
-            scanRequests.add(id); //ver depois o que acontece se já existe
+            ScanRequest sr = s.decode(m);
+            scanRequests.add(sr.id); //ver depois o que acontece se já existe
             LinkedHashMap<Long,JSONObject> docs = new LinkedHashMap<>(); //n será muito eficiente, provavelmente por causa de andar sempre a mudar o map
 
             //de alguma forma faz o scan à bd, ver a melhor forma
-            docs = getScan();
+            if(sr.filtros == null){
+                if(sr.projeções == null){
+                    docs = getScan();
+                }
+                else{
+                    docs = getScan(sr.projeções);
+                }
+            }
+            else{
+                if(sr.projeções == null){
+                    docs = getScan(filtro(sr.filtros));
+                }
+                else{
+                    docs = getScan(filtro(sr.filtros),sr.projeções);
+                }
 
-            SlaveScanReply ssr = new SlaveScanReply(docs,id);
+            }
+
+            SlaveScanReply ssr = new SlaveScanReply(docs,sr.id);
 
             ms.sendAsync(o, "scanReply", s.encode(ssr));
 
         },ses);
     }
 
+    private JSONObject aplicaProjecao(JSONObject o, HashMap<Boolean, ArrayList<String>> p){
+        ArrayList<String> f = p.get(false);
+        if(f != null){
+            for(String aux: f){
+                o.remove(aux);
+            }
+        }
+        ArrayList<String> t = p.get(true);
+        if(f != null){
+            JSONObject aux = o;
+            o = new JSONObject();
+            for(String a: f){
+                o.put(a,aux.get(a));
+            }
+        }
+
+        return o;
+    }
+
+    //scan para todos os objectos, sem projecções
     private LinkedHashMap<Long,JSONObject> getScan() {
 
             LinkedHashMap<Long,JSONObject> docs = new LinkedHashMap<>();
@@ -226,14 +261,67 @@ public class Slave {
             return docs;
     }
 
-    //função que filtra um conjunto de documentos segundo uma lista de filtros
-    private Map<Long,JSONObject> filtro(Map<Long,JSONObject> docs, ArrayList<Predicate<JSONObject>> filters) {
+    //scan para todos os objectos, com projecções
+    private LinkedHashMap<Long,JSONObject> getScan(HashMap<Boolean,ArrayList<String>> p) {
+
+        LinkedHashMap<Long,JSONObject> docs = new LinkedHashMap<>();
+        RocksIterator iterador = db.newIterator();
+        iterador.seekToFirst();
+        while (iterador.isValid()) {
+            long k = Longs.fromByteArray(iterador.key());
+            String v = new String(iterador.value());
+            JSONObject json = new JSONObject(v);
+            docs.put(k,aplicaProjecao(json,p)); //aplica as projecções aos objectos
+            iterador.next();
+        }
+        return docs;
+    }
+
+    //scan com filtros, sem projecções
+    private LinkedHashMap<Long,JSONObject> getScan(Predicate<JSONObject> filtros) {
+
+        LinkedHashMap<Long,JSONObject> docs = new LinkedHashMap<>();
+        RocksIterator iterador = db.newIterator();
+        iterador.seekToFirst();
+        while (iterador.isValid()) {
+            long k = Longs.fromByteArray(iterador.key());
+            String v = new String(iterador.value());
+            JSONObject json = new JSONObject(v);
+            if(filtros.test(json)) {
+                //adiciona apenas se passar nos filtros
+                docs.put(k,json);
+            }
+            iterador.next();
+        }
+        return docs;
+    }
+
+    //scan com filtros, com projecções
+    private LinkedHashMap<Long,JSONObject> getScan(Predicate<JSONObject> filtros, HashMap<Boolean,ArrayList<String>> p) {
+
+        LinkedHashMap<Long,JSONObject> docs = new LinkedHashMap<>();
+        RocksIterator iterador = db.newIterator();
+        iterador.seekToFirst();
+        while (iterador.isValid()) {
+            long k = Longs.fromByteArray(iterador.key());
+            String v = new String(iterador.value());
+            JSONObject json = new JSONObject(v);
+            if(filtros.test(json)) {
+                //adiciona apenas se passar nos filtros
+                docs.put(k,aplicaProjecao(json,p)); //aplica as projeções ao objecto
+            }
+            iterador.next();
+        }
+        return docs;
+    }
+
+    //função que cria o filtro a partir dos vários filtros
+    private Predicate<JSONObject> filtro(ArrayList<Predicate<JSONObject>> filters) {
 
         Predicate<JSONObject> pred = filters.stream().reduce(Predicate::and).orElse(x -> true);
         pred = pred.negate();
-        docs.values().removeIf(pred);
 
-        return docs;
+        return pred;
     }
 
 

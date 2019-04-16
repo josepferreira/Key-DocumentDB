@@ -30,6 +30,11 @@
 ## Protótipo 2
 
 1. adicionar projeções e seleções aos métodos get e scan
-2. começar a pesquisar algoritmos de distribuição eficientes
-3. tentar verificar ordenação nos mapas
+2. alterar forma de distribuição, sendo mais granular os conjuntos e realizar algoritmo de distribuição
+3. criar buffers para ordenação dos mapas
 
+## Protótipo 3
+
+1. tentar aplicar diversos tipos de chaves
+2. aplicar as medidas de performance para iniciar o aumento/diminuição no número de servidores
+3. ver multi-get e multi-put
