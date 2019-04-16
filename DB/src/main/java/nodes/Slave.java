@@ -129,21 +129,76 @@ public class Slave {
 
             GetRequest gr = s.decode(m);
             byte[] keys = Longs.toByteArray(gr.key);
+            byte[] value = null;
 
             try {
-                byte[] value = db.get(keys);
+                value = db.get(keys);
 
                 if(value == null){
                     GetReply grp = new GetReply(gr.id, gr.key, null);;
                     ms.sendAsync(a, "getReply", s.encode(grp));
-                }else {
+                }else{
+                    if(gr.filtros == null && gr.projecoes == null){
+                        //Vai ser um get normal
+                        String ret = new String(value);
+                        JSONObject json = new JSONObject(ret);
+
+                        GetReply grp = new GetReply(gr.id, gr.key, json);
+                        ms.sendAsync(a, "getReply", s.encode(grp));
+
+                    }else{
+                        if(gr.projecoes != null && gr.filtros != null){
+                            //Vai ser um get com projeções e filtros
+                            String ret = new String(value);
+                            JSONObject json = new JSONObject(ret);
+
+                            Predicate<JSONObject> filtros = this.filtro(gr.filtros);
+                            if(filtros.test(json)){
+                                //Passou no filtro
+                                JSONObject jsonToReturn = this.aplicaProjecao(json, gr.projecoes);
+
+                                GetReply grp = new GetReply(gr.id, gr.key, jsonToReturn);
+                                ms.sendAsync(a, "getReply", s.encode(grp));
+                            }else{
+                                //não passou no filtro, vai um null
+                                GetReply grp = new GetReply(gr.id, gr.key, null);;
+                                ms.sendAsync(a, "getReply", s.encode(grp));
+                            }
+                        }else{
+                            if(gr.projecoes != null){
+                                String ret = new String(value);
+                                JSONObject json = new JSONObject(ret);
+
+                                JSONObject jsonToReturn = this.aplicaProjecao(json, gr.projecoes);
+
+                                GetReply grp = new GetReply(gr.id, gr.key, jsonToReturn);
+                                ms.sendAsync(a, "getReply", s.encode(grp));
+                            }else{
+                                //são gets apenas com filtros
+                                String ret = new String(value);
+                                JSONObject json = new JSONObject(ret);
+
+                                Predicate<JSONObject> filtros = this.filtro(gr.filtros);
+                                if(filtros.test(json)){
+                                    //Passou no filtro
+                                    GetReply grp = new GetReply(gr.id, gr.key, json);
+                                    ms.sendAsync(a, "getReply", s.encode(grp));
+                                }else{
+                                    //não passou no filtro, vai um null
+                                    GetReply grp = new GetReply(gr.id, gr.key, null);;
+                                    ms.sendAsync(a, "getReply", s.encode(grp));
+                                }
+                            }
+                        }
+                    }
+                }/*else {
                     String ret = new String(value);
                     JSONObject json = new JSONObject(ret);
 
                     GetReply grp = new GetReply(gr.id, gr.key, json);
                     ms.sendAsync(a, "getReply", s.encode(grp));
 
-                }
+                }*/
 
             } catch (RocksDBException e) {
                 e.printStackTrace();
@@ -154,6 +209,7 @@ public class Slave {
                 GetReply grp = new GetReply(gr.id, gr.key, null);
                 ms.sendAsync(a, "getReply", s.encode(grp));
             }
+
 
 
         },ses);

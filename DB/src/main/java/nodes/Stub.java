@@ -161,6 +161,12 @@ public class Stub {
 
     }
 
+    // ****************** GET *******************************
+
+
+
+
+
     public CompletableFuture<JSONObject> get(long key){
         CompletableFuture<JSONObject> jsonCF = new CompletableFuture<>();
         String requestID = UUID.randomUUID().toString();
@@ -173,6 +179,62 @@ public class Stub {
 
         return jsonCF;
     }
+
+
+    public CompletableFuture<JSONObject> get(long key, ArrayList<Predicate<JSONObject>> filtros){
+        CompletableFuture<JSONObject> cf = new CompletableFuture<>();
+        String requestID = UUID.randomUUID().toString();
+
+        GetRequest gr = new GetRequest(requestID, key, filtros);
+        Get g = new Get(gr, cf, gr.filtros, gr.projecoes);
+        getRequests.put(requestID, g);
+
+        ms.sendAsync(masterAddress,"get", this.s.encode(gr));
+
+        return cf;
+
+    }
+
+    public CompletableFuture<JSONObject> get(long key, HashMap<Boolean, ArrayList<String>> projecoes){
+        CompletableFuture<JSONObject> cf = new CompletableFuture<>();
+        String requestID = UUID.randomUUID().toString();
+
+        GetRequest gr = new GetRequest(requestID, key, projecoes);
+        Get g = new Get(gr, cf, gr.filtros, gr.projecoes);
+        getRequests.put(requestID, g);
+
+        ms.sendAsync(masterAddress,"get", this.s.encode(gr));
+
+        return cf;
+
+    }
+
+    public CompletableFuture< JSONObject> get(long key, ArrayList<Predicate<JSONObject>> filtros, HashMap<Boolean, ArrayList<String>> projecoes){
+        CompletableFuture<JSONObject> cf = new CompletableFuture<>();
+        String requestID = UUID.randomUUID().toString();
+
+        GetRequest gr = new GetRequest(requestID, key, filtros, projecoes);
+        Get g = new Get(gr, cf, gr.filtros, gr.projecoes);
+        getRequests.put(requestID, g);
+
+        ms.sendAsync(masterAddress,"get", this.s.encode(gr));
+
+        return cf;
+
+    }
+
+
+
+
+
+
+
+
+    // ************************ REMOVE *****************************
+
+
+
+
 
     public CompletableFuture<Boolean> remove(long key){
         CompletableFuture<Boolean> jsonCF = new CompletableFuture<>();
@@ -187,6 +249,10 @@ public class Stub {
         return jsonCF;
     }
 
+
+
+    // ************ PUT ****************
+
     public CompletableFuture<Boolean> put(long key, JSONObject value){
         CompletableFuture<Boolean> cf = new CompletableFuture<>();
         String requestID = UUID.randomUUID().toString();
@@ -200,6 +266,15 @@ public class Stub {
         return cf;
 
     }
+
+
+
+
+    // ********************* SCAN ***********************************
+
+
+
+
 
     public CompletableFuture<LinkedHashMap<Long,JSONObject>> scan(){
         CompletableFuture<LinkedHashMap<Long,JSONObject>> cf = new CompletableFuture<>();
