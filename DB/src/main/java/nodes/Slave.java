@@ -198,6 +198,7 @@ public class Slave {
 
             ScanRequest sr = s.decode(m);
             scanRequests.add(sr.id); //ver depois o que acontece se já existe
+            // e ver se n é melhor colocar o scan todo!!!
             LinkedHashMap<Long,JSONObject> docs = new LinkedHashMap<>(); //n será muito eficiente, provavelmente por causa de andar sempre a mudar o map
 
             //de alguma forma faz o scan à bd, ver a melhor forma

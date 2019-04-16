@@ -138,9 +138,9 @@ public class Stub {
 
                 sc.cf.complete(res);
             });
-
+            ScanRequest srq = new ScanRequest(sc.id,sc.filtros,sc.projeções);
             for(SlaveIdentifier si : sc.slaves.values()){
-                ms.sendAsync(Address.from(si.endereco), "scan", s.encode(sr.id));
+                ms.sendAsync(Address.from(si.endereco), "scan", s.encode(srq));
             }
 
         },ses);
@@ -205,14 +205,42 @@ public class Stub {
         CompletableFuture<LinkedHashMap<Long,JSONObject>> cf = new CompletableFuture<>();
         String requestID = UUID.randomUUID().toString();
 
-        Scan s = new Scan(requestID,cf);
-        scanRequests.put(requestID,s);
         ScanRequest sr = new ScanRequest(requestID,null,null);
+        Scan s = new Scan(requestID,cf,sr.filtros,sr.projeções);
+        scanRequests.put(requestID,s);
 
-        ms.sendAsync(masterAddress,"scan", this.s.encode(sr));
+        ms.sendAsync(masterAddress,"scan", this.s.encode(requestID));
 
         return cf;
 
+
+    }
+
+    public CompletableFuture<LinkedHashMap<Long,JSONObject>> scan(ArrayList<Predicate<JSONObject>> filtros){
+        CompletableFuture<LinkedHashMap<Long,JSONObject>> cf = new CompletableFuture<>();
+        String requestID = UUID.randomUUID().toString();
+
+        ScanRequest sr = new ScanRequest(requestID,filtros,null);
+        Scan s = new Scan(requestID,cf,sr.filtros,sr.projeções);
+        scanRequests.put(requestID,s);
+
+        ms.sendAsync(masterAddress,"scan", this.s.encode(requestID));
+
+        return cf;
+
+    }
+
+    public CompletableFuture<LinkedHashMap<Long,JSONObject>> scan(HashMap<Boolean, ArrayList<String>> projecoes){
+        CompletableFuture<LinkedHashMap<Long,JSONObject>> cf = new CompletableFuture<>();
+        String requestID = UUID.randomUUID().toString();
+
+        ScanRequest sr = new ScanRequest(requestID,null,projecoes);
+        Scan s = new Scan(requestID,cf,sr.filtros,sr.projeções);
+        scanRequests.put(requestID,s);
+
+        ms.sendAsync(masterAddress,"scan", this.s.encode(requestID));
+
+        return cf;
 
     }
 
@@ -220,11 +248,11 @@ public class Stub {
         CompletableFuture<LinkedHashMap<Long,JSONObject>> cf = new CompletableFuture<>();
         String requestID = UUID.randomUUID().toString();
 
-        Scan s = new Scan(requestID,cf);
-        scanRequests.put(requestID,s);
         ScanRequest sr = new ScanRequest(requestID,filtros,projecoes);
+        Scan s = new Scan(requestID,cf,sr.filtros,sr.projeções);
+        scanRequests.put(requestID,s);
 
-        ms.sendAsync(masterAddress,"scan", this.s.encode(sr));
+        ms.sendAsync(masterAddress,"scan", this.s.encode(requestID));
 
         return cf;
 
