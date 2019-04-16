@@ -207,22 +207,24 @@ public class Stub {
 
         Scan s = new Scan(requestID,cf);
         scanRequests.put(requestID,s);
+        ScanRequest sr = new ScanRequest(requestID,null,null);
 
-        ms.sendAsync(masterAddress,"scan", this.s.encode(requestID));
+        ms.sendAsync(masterAddress,"scan", this.s.encode(sr));
 
         return cf;
 
 
     }
 
-    public CompletableFuture<LinkedHashMap<Long,JSONObject>> scan(ArrayList<Predicate> filtros, HashMap<Boolean, ArrayList<String>> projecoes){
+    public CompletableFuture<LinkedHashMap<Long,JSONObject>> scan(ArrayList<Predicate<JSONObject>> filtros, HashMap<Boolean, ArrayList<String>> projecoes){
         CompletableFuture<LinkedHashMap<Long,JSONObject>> cf = new CompletableFuture<>();
         String requestID = UUID.randomUUID().toString();
 
         Scan s = new Scan(requestID,cf);
         scanRequests.put(requestID,s);
+        ScanRequest sr = new ScanRequest(requestID,filtros,projecoes);
 
-        ms.sendAsync(masterAddress,"scan", this.s.encode(requestID));
+        ms.sendAsync(masterAddress,"scan", this.s.encode(sr));
 
         return cf;
 
