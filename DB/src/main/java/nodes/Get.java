@@ -15,17 +15,17 @@ public class Get {
     public GetRequest request;
     public CompletableFuture<JSONObject> cf;
     public ArrayList<Predicate<JSONObject>> filtros;
-    public HashMap<Boolean,ArrayList<String>> projeções;
+    public HashMap<Boolean,ArrayList<String>> projecoes;
 
     public Get(GetRequest request, CompletableFuture<JSONObject> cf) {
         this.request = request;
         this.cf = cf;
     }
 
-    public Get(GetRequest request, CompletableFuture<JSONObject> cf, ArrayList<Predicate<JSONObject>> filtros, HashMap<Boolean, ArrayList<String>> projeções) {
+    public Get(GetRequest request, CompletableFuture<JSONObject> cf, ArrayList<Predicate<JSONObject>> filtros, HashMap<Boolean, ArrayList<String>> projecoes) {
         this.request = request;
         this.cf = cf;
         this.filtros = filtros;
-        this.projeções = projeções;
+        this.projecoes = projecoes;
     }
 }

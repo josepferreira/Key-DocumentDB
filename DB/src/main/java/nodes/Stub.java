@@ -249,6 +249,48 @@ public class Stub {
         return jsonCF;
     }
 
+    public CompletableFuture<Boolean> remove(long key, List<Predicate<JSONObject>> filtros){
+        CompletableFuture<Boolean> cf = new CompletableFuture<>();
+        String requestID = UUID.randomUUID().toString();
+
+        RemoveRequest rr = new RemoveRequest(requestID, key, (ArrayList<Predicate<JSONObject>>) filtros, null);
+        Remove r = new Remove(rr, cf, rr.filtros, rr.projecoes);
+        removeRequests.put(requestID, r);
+
+        ms.sendAsync(masterAddress,"get", this.s.encode(rr));
+
+        return cf;
+
+    }
+
+    public CompletableFuture<Boolean>remove(long key, ArrayList<String> projecoes){
+        CompletableFuture<Boolean> cf = new CompletableFuture<>();
+        String requestID = UUID.randomUUID().toString();
+
+        RemoveRequest rr = new RemoveRequest(requestID, key, null, projecoes);
+        Remove r = new Remove(rr, cf, rr.filtros, rr.projecoes);
+        removeRequests.put(requestID, r);
+
+        ms.sendAsync(masterAddress,"get", this.s.encode(rr));
+
+        return cf;
+
+    }
+
+    public CompletableFuture<Boolean> remove(long key, ArrayList<Predicate<JSONObject>> filtros, ArrayList<String> projecoes){
+        CompletableFuture<Boolean> cf = new CompletableFuture<>();
+        String requestID = UUID.randomUUID().toString();
+
+        RemoveRequest rr = new RemoveRequest(requestID, key, filtros, projecoes);
+        Remove r = new Remove(rr, cf, rr.filtros, rr.projecoes);
+        removeRequests.put(requestID, r);
+
+        ms.sendAsync(masterAddress,"get", this.s.encode(rr));
+
+        return cf;
+
+    }
+
 
 
     // ************ PUT ****************

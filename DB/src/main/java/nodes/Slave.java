@@ -191,14 +191,7 @@ public class Slave {
                             }
                         }
                     }
-                }/*else {
-                    String ret = new String(value);
-                    JSONObject json = new JSONObject(ret);
-
-                    GetReply grp = new GetReply(gr.id, gr.key, json);
-                    ms.sendAsync(a, "getReply", s.encode(grp));
-
-                }*/
+                }
 
             } catch (RocksDBException e) {
                 e.printStackTrace();
@@ -228,12 +221,72 @@ public class Slave {
                     ms.sendAsync(a, "removeReply", s.encode(rrp));
                 }else {
 
+                    if (rr.filtros == null && rr.projecoes == null) {
+                        //Vai ser um remove normal
+                        db.delete(keys);
 
-                    db.delete(keys);
+                        RemoveReply rrp = new RemoveReply(rr.id, true);
+                        ms.sendAsync(a, "removeReply", s.encode(rrp));
 
-                    RemoveReply rrp = new RemoveReply(rr.id, true);
-                    ms.sendAsync(a, "removeReply", s.encode(rrp));
+                    } else {
+                        if (rr.projecoes != null && rr.filtros != null) {
+                            //Vai ser um get com projeções e filtros
+                            String ret = new String(value);
+                            JSONObject json = new JSONObject(ret);
 
+                            Predicate<JSONObject> filtros = this.filtro(rr.filtros);
+                            if (filtros.test(json)) {
+                                //Passou no filtro
+                                for(String s: rr.projecoes)
+                                    json.remove(s);
+
+                                db.put(value, json.toString().getBytes());
+
+                                RemoveReply rrp = new RemoveReply(rr.id, true);
+                                ms.sendAsync(a, "removeReply", s.encode(rrp));
+                            } else {
+                                //não passou no filtro, não pode eliminar
+                                RemoveReply rrp = new RemoveReply(rr.id, false);
+                                ms.sendAsync(a, "removeReply", s.encode(rrp));
+                            }
+                        } else {
+                            if (rr.projecoes != null) {
+                                String ret = new String(value);
+                                JSONObject json = new JSONObject(ret);
+
+                                for(String s: rr.projecoes)
+                                    json.remove(s);
+
+                                db.put(value, json.toString().getBytes());
+
+                                RemoveReply rrp = new RemoveReply(rr.id, true);
+                                ms.sendAsync(a, "removeReply", s.encode(rrp));
+                            } else {
+                                //são gets apenas com filtros
+                                String ret = new String(value);
+                                JSONObject json = new JSONObject(ret);
+
+                                Predicate<JSONObject> filtros = this.filtro(rr.filtros);
+                                if (filtros.test(json)) {
+                                    //Passou no filtro
+                                    db.delete(keys);
+
+                                    RemoveReply rrp = new RemoveReply(rr.id, true);
+                                    ms.sendAsync(a, "removeReply", s.encode(rrp));
+                                } else {
+                                    //não passou no filtro, logo não pode eliminar
+                                    RemoveReply rrp = new RemoveReply(rr.id, false);
+                                    ms.sendAsync(a, "removeReply", s.encode(rrp));
+                                }
+                            }
+                        }
+
+                        /*db.delete(keys);
+
+                        RemoveReply rrp = new RemoveReply(rr.id, true);
+                        ms.sendAsync(a, "removeReply", s.encode(rrp));*/
+
+                    }
                 }
 
             } catch (RocksDBException e) {
