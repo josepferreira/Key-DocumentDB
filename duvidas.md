@@ -1,5 +1,7 @@
 ## Dúvidas
 
+* Como é que o master cria um slave que está noutra máquina.
+
 * Será melhor realizarmos a junção das respostas parciais todas no fim?
 Ou é melhor irmos inserindo à medida que vamos recebendo respostas?
     1. Preciso só ter atenção que apenas se pode juntar com o anterior e o seguinte. 

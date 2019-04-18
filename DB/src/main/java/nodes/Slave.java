@@ -20,8 +20,9 @@ import java.util.function.Predicate;
 
 public class Slave {
 
+    private final Address masterAddress = Address.from("localhost:12340");
     public String endereco;
-    public KeysUniverse minhasChaves;
+    public HashSet<KeysUniverse> minhasChaves;
     ManagedMessagingService ms;
     ScheduledExecutorService ses = Executors.newSingleThreadScheduledExecutor();
     Serializer s = SerializerProtocol.newSerializer();
@@ -48,7 +49,9 @@ public class Slave {
 
         this.registaHandlers();
 
-        switch (endereco) {
+        ms.sendAsync(masterAddress,"start",null);
+
+        /*switch (endereco) {
 
             case "localhost:12341":
                 long aux = 50;
@@ -70,7 +73,6 @@ public class Slave {
                     db.put(key2, json2.toString().getBytes());
                 } catch (RocksDBException e) {
                     e.printStackTrace();
-
                 }
             case "localhost:12343":
                 long aux3 = 250;
@@ -85,7 +87,7 @@ public class Slave {
 
 
 
-        }
+        }*/
 
     }
 
@@ -334,6 +336,12 @@ public class Slave {
             ms.sendAsync(o, "scanReply", s.encode(ssr));
 
         },ses);
+
+        ms.registerHandler("start", (o,m) -> {
+            KeysUniverse ku = s.decode(m);
+
+            minhasChaves.add(ku);
+        }, ses);
     }
 
     private JSONObject aplicaProjecao(JSONObject o, HashMap<Boolean, ArrayList<String>> p){

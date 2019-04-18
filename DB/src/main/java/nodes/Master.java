@@ -15,6 +15,8 @@ import io.atomix.utils.serializer.Serializer;
 import messages.*;
 
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.TreeMap;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -26,6 +28,7 @@ public class  Master {
     ManagedMessagingService ms;
     ScheduledExecutorService ses = Executors.newSingleThreadScheduledExecutor();
     Serializer s = SerializerProtocol.newSerializer();
+    private HashSet<String> start = new HashSet<>();
 
     public Master(TreeMap<KeysUniverse, SlaveIdentifier> slaves, String endereco) {
         this.slaves = slaves;
@@ -75,6 +78,29 @@ public class  Master {
 
             ms.sendAsync(o, "scanMaster", s.encode(sr));
         },ses);
+
+        ms.registerHandler("start", (o,m) -> { //para já assumimos que só são feitos 3. depois ver como contornar este problema
+            start.add(o.toString());
+
+            if(start.size() > 2){
+                //enviar o conjunto das chaves
+                Iterator<String> it = start.iterator();
+                Address end = Address.from(it.next());
+                long chunk = 50;
+                for(int i=0; i < 9; i++){
+                    long inicial = i*50;
+                    long finall = (i+1)*50;
+
+                    if(i == 8) finall = Long.MAX_VALUE;
+                    KeysUniverse ku = new KeysUniverse(inicial,finall);
+                    slaves.put(ku,new SlaveIdentifier(end.toString(),ku));
+
+                    ms.sendAsync(end,"start",s.encode(ku));
+
+                    if(9 % (i+1) == 0) end = Address.from(it.next());
+                }
+            }
+        }, ses);
     }
 
     public void teste(){
