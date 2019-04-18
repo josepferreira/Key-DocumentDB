@@ -80,6 +80,7 @@ public class  Master {
         },ses);
 
         ms.registerHandler("start", (o,m) -> { //para já assumimos que só são feitos 3. depois ver como contornar este problema
+            System.out.println("Recebi uma mensagem de start");
             start.add(o.toString());
 
             if(start.size() > 2){
@@ -95,9 +96,11 @@ public class  Master {
                     KeysUniverse ku = new KeysUniverse(inicial,finall);
                     slaves.put(ku,new SlaveIdentifier(end.toString(),ku));
 
+                    System.out.println("Vou mandar uma mensagem para o: " + end.toString());
                     ms.sendAsync(end,"start",s.encode(ku));
 
-                    if(9 % (i+1) == 0) end = Address.from(it.next());
+
+                    if((i+1) % 3 == 0) end = Address.from(it.next());
                 }
             }
         }, ses);
@@ -123,7 +126,7 @@ public class  Master {
         TreeMap<KeysUniverse,SlaveIdentifier> slaves = new TreeMap<>();
         String endereco = "localhost:12340";
 
-        KeysUniverse ku1 = new KeysUniverse(0, 100);
+        /*KeysUniverse ku1 = new KeysUniverse(0, 100);
         KeysUniverse ku2 = new KeysUniverse(100, 200);
         KeysUniverse ku3 = new KeysUniverse(200, 300);
 
@@ -133,11 +136,11 @@ public class  Master {
 
         slaves.put(ku1, slave1);
         slaves.put(ku2, slave2);
-        slaves.put(ku3, slave3);
+        slaves.put(ku3, slave3);*/
 
         Master m = new Master(slaves, endereco);
 
-        m.teste();
+        //m.teste();
 
 
 

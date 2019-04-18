@@ -22,7 +22,7 @@ public class Slave {
 
     private final Address masterAddress = Address.from("localhost:12340");
     public String endereco;
-    public HashSet<KeysUniverse> minhasChaves;
+    public TreeSet<KeysUniverse> minhasChaves = new TreeSet<>();
     ManagedMessagingService ms;
     ScheduledExecutorService ses = Executors.newSingleThreadScheduledExecutor();
     Serializer s = SerializerProtocol.newSerializer();
@@ -49,7 +49,8 @@ public class Slave {
 
         this.registaHandlers();
 
-        ms.sendAsync(masterAddress,"start",null);
+        System.out.println("VOu enviar uma mensagem para o master de start");
+        ms.sendAsync(masterAddress,"start",s.encode(""));
 
         /*switch (endereco) {
 
@@ -338,9 +339,11 @@ public class Slave {
         },ses);
 
         ms.registerHandler("start", (o,m) -> {
+            System.out.println("Recebi uma mensagem com a chave qe eu vou utilziar");
             KeysUniverse ku = s.decode(m);
-
+            System.out.println("Entre duas nadegas");
             minhasChaves.add(ku);
+            System.out.println("Vamos ver as chaves: " + minhasChaves.toString());
         }, ses);
     }
 

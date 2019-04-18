@@ -26,6 +26,8 @@ public class Stub {
     HashMap<String, Put> putRequests = new HashMap<>();
     HashMap<String, Scan> scanRequests = new HashMap<>();
 
+    private TreeMap<KeysUniverse,String> cache = new TreeMap<>();
+
     public Stub(String endereco){
         this.endereco = endereco;
         this.ms = NettyMessagingService.builder().withAddress(Address.from(endereco)).build();
@@ -90,6 +92,7 @@ public class Stub {
                 System.out.println("Deu nulo no get ... Algo errado!");
             }
 
+            this.cache.put(rm.keys, rm.endereco);
             ms.sendAsync(Address.from(rm.endereco), "get", s.encode(g.request));
 
         },ses);
@@ -104,6 +107,7 @@ public class Stub {
                 System.out.println("Deu nulo no get ... Algo errado!");
             }
 
+            this.cache.put(rm.keys, rm.endereco);
             ms.sendAsync(Address.from(rm.endereco), "remove", s.encode(r.request));
 
         },ses);
@@ -118,6 +122,8 @@ public class Stub {
                 //Estranho, ver este caso
             }
 
+
+            this.cache.put(rm.keys, rm.endereco);
             ms.sendAsync(Address.from(rm.endereco), "put", s.encode(p.request));
 
         },ses);
@@ -164,6 +170,16 @@ public class Stub {
     // ****************** GET *******************************
 
 
+    private void enviaMensagem(long key, GetRequest gr){
+        KeysUniverse ku = new KeysUniverse(key, key);
+
+        String end = this.cache.get(ku);
+
+        if(end == null)
+            ms.sendAsync(masterAddress, "get", s.encode(gr));
+        else
+            ms.sendAsync(Address.from(end), "get", s.encode(gr));
+    }
 
 
 
@@ -175,7 +191,7 @@ public class Stub {
         Get g = new Get(gr, jsonCF);
         getRequests.put(requestID, g);
 
-        ms.sendAsync(masterAddress, "get", s.encode(gr));
+        enviaMensagem(key, gr);
 
         return jsonCF;
     }
@@ -203,8 +219,7 @@ public class Stub {
         Get g = new Get(gr, cf, gr.filtros, gr.projecoes);
         getRequests.put(requestID, g);
 
-        ms.sendAsync(masterAddress,"get", this.s.encode(gr));
-
+        enviaMensagem(key, gr);
         return cf;
 
     }
@@ -217,8 +232,7 @@ public class Stub {
         Get g = new Get(gr, cf, gr.filtros, gr.projecoes);
         getRequests.put(requestID, g);
 
-        ms.sendAsync(masterAddress,"get", this.s.encode(gr));
-
+        enviaMensagem(key, gr);
         return cf;
 
     }
@@ -233,7 +247,16 @@ public class Stub {
     // ************************ REMOVE *****************************
 
 
+    private void enviaMensagem(long key, RemoveRequest rr){
+        KeysUniverse ku = new KeysUniverse(key, key);
 
+        String end = this.cache.get(ku);
+
+        if(end == null)
+            ms.sendAsync(masterAddress, "remove", s.encode(rr));
+        else
+            ms.sendAsync(Address.from(end), "remove", s.encode(rr));
+    }
 
 
     public CompletableFuture<Boolean> remove(long key){
@@ -244,8 +267,7 @@ public class Stub {
         Remove r = new Remove(rr, jsonCF);
         removeRequests.put(requestID, r);
 
-        ms.sendAsync(masterAddress, "remove", s.encode(rr));
-
+        enviaMensagem(key, rr);
         return jsonCF;
     }
 
@@ -257,8 +279,7 @@ public class Stub {
         Remove r = new Remove(rr, cf, rr.filtros, rr.projecoes);
         removeRequests.put(requestID, r);
 
-        ms.sendAsync(masterAddress,"get", this.s.encode(rr));
-
+        enviaMensagem(key, rr);
         return cf;
 
     }
@@ -271,8 +292,7 @@ public class Stub {
         Remove r = new Remove(rr, cf, rr.filtros, rr.projecoes);
         removeRequests.put(requestID, r);
 
-        ms.sendAsync(masterAddress,"get", this.s.encode(rr));
-
+        enviaMensagem(key, rr);
         return cf;
 
     }
@@ -285,8 +305,7 @@ public class Stub {
         Remove r = new Remove(rr, cf, rr.filtros, rr.projecoes);
         removeRequests.put(requestID, r);
 
-        ms.sendAsync(masterAddress,"get", this.s.encode(rr));
-
+        enviaMensagem(key, rr);
         return cf;
 
     }
@@ -294,6 +313,17 @@ public class Stub {
 
 
     // ************ PUT ****************
+
+    private void enviaMensagem(long key, PutRequest pr){
+        KeysUniverse ku = new KeysUniverse(key, key);
+
+        String end = this.cache.get(ku);
+
+        if(end == null)
+            ms.sendAsync(masterAddress, "put", s.encode(pr));
+        else
+            ms.sendAsync(Address.from(end), "put", s.encode(pr));
+    }
 
     public CompletableFuture<Boolean> put(long key, JSONObject value){
         CompletableFuture<Boolean> cf = new CompletableFuture<>();
@@ -303,7 +333,7 @@ public class Stub {
         Put p = new Put(pr, cf);
         putRequests.put(requestID, p);
 
-        ms.sendAsync(masterAddress,"put", s.encode(pr));
+        enviaMensagem(key, pr);
 
         return cf;
 
