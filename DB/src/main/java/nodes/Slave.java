@@ -332,7 +332,7 @@ public class Slave {
 
             }
 
-            SlaveScanReply ssr = new SlaveScanReply(docs,sr.id);
+            SlaveScanReply ssr = new SlaveScanReply(docs,sr.ku,sr.id);
 
             ms.sendAsync(o, "scanReply", s.encode(ssr));
 

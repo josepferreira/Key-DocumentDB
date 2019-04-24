@@ -134,20 +134,19 @@ public class Stub {
             Scan sc = scanRequests.get(sr.id);
             sc.adicionaSlaves(sr.slaves);
 
-            Collection<CompletableFuture<Void>> aux = sc.cfsSlaves.values();
+            /*Collection<CompletableFuture<Void>> aux = sc.cfsSlaves.values();
             CompletableFuture.allOf(aux.toArray(new CompletableFuture[aux.size()])).thenAccept( a -> {
 
                 LinkedHashMap<Long,JSONObject> res = new LinkedHashMap<>();
                 for(SlaveIdentifier si : sc.slaves.values()){
                     res.putAll(sc.respostas.get(si));
                 }
-
-                sc.cf.complete(res);
-            });
-            ScanRequest srq = new ScanRequest(sc.id,sc.filtros,sc.projeções);
-            for(SlaveIdentifier si : sc.slaves.values()){
-                ms.sendAsync(Address.from(si.endereco), "scan", s.encode(srq));
+            });*/
+            for(Map.Entry<KeysUniverse,SlaveIdentifier> me: sc.slaves.entrySet()){
+                ScanRequest srq = new ScanRequest(sc.id,sc.filtros,sc.projeções,me.getKey());
+                ms.sendAsync(Address.from(me.getValue().endereco), "scan", s.encode(srq));
             }
+
 
         },ses);
 
@@ -157,9 +156,27 @@ public class Stub {
 
             Scan sc = scanRequests.get(ssr.id);
 
-            SlaveIdentifier si = new SlaveIdentifier(o.toString(),null);
-            sc.respostas.put(si,ssr.docs);
-            sc.cfsSlaves.get(o.toString()).complete(null);
+            int indice = sc.indicesKeys.get(ssr.universe);
+
+            if(indice == 0 || sc.mycfs.get(indice-1).isDone()){
+                //o anterior está completo pelo q podemos completar este e os próximos q tenham resposta
+                sc.mycfs.get(indice).complete(ssr.docs);
+
+                //agr vamos ver se os próximos podem ser completos
+                KeysUniverse ku = sc.indicesKeys.higherKey(ssr.universe);
+                LinkedHashMap<Long,JSONObject> respostas = sc.respostas.get(ku);
+                indice++;
+                while(respostas != null){
+                    sc.mycfs.get(indice).complete(respostas);
+                    ku = sc.indicesKeys.higherKey(ku);
+                    respostas = sc.respostas.get(ku);
+                    indice++;
+                }
+            }
+            else{
+                //senao n podemos completar e apenas adicionamos às respostas
+            }
+            sc.respostas.put(ssr.universe,ssr.docs);
 
 
         }, ses);
@@ -348,60 +365,63 @@ public class Stub {
 
 
 
-    public CompletableFuture<LinkedHashMap<Long,JSONObject>> scan(){
-        CompletableFuture<LinkedHashMap<Long,JSONObject>> cf = new CompletableFuture<>();
+    public CompletableFuture<ArrayList<CompletableFuture<LinkedHashMap<Long,JSONObject>>>> scan(){
+        CompletableFuture<Void> cf = new CompletableFuture<>();
         String requestID = UUID.randomUUID().toString();
 
-        ScanRequest sr = new ScanRequest(requestID,null,null);
+        ScanRequest sr = new ScanRequest(requestID,null,null,null);
         Scan s = new Scan(requestID,cf,sr.filtros,sr.projeções);
         scanRequests.put(requestID,s);
 
         ms.sendAsync(masterAddress,"scan", this.s.encode(requestID));
 
-        return cf;
+        CompletableFuture<ArrayList<CompletableFuture<LinkedHashMap<Long,JSONObject>>>> ncf =  cf.thenCompose(a -> {return s.cfs;});
+        return ncf;
 
 
     }
 
-    public CompletableFuture<LinkedHashMap<Long,JSONObject>> scan(ArrayList<Predicate<JSONObject>> filtros){
-        CompletableFuture<LinkedHashMap<Long,JSONObject>> cf = new CompletableFuture<>();
+    public CompletableFuture<ArrayList<CompletableFuture<LinkedHashMap<Long,JSONObject>>>> scan(ArrayList<Predicate<JSONObject>> filtros){
+        CompletableFuture<Void> cf = new CompletableFuture<>();
         String requestID = UUID.randomUUID().toString();
 
-        ScanRequest sr = new ScanRequest(requestID,filtros,null);
+        ScanRequest sr = new ScanRequest(requestID,filtros,null, null);
         Scan s = new Scan(requestID,cf,sr.filtros,sr.projeções);
         scanRequests.put(requestID,s);
 
         ms.sendAsync(masterAddress,"scan", this.s.encode(requestID));
 
-        return cf;
+        CompletableFuture<ArrayList<CompletableFuture<LinkedHashMap<Long,JSONObject>>>> ncf =  cf.thenCompose(a -> {return s.cfs;});
+        return ncf;
 
     }
 
-    public CompletableFuture<LinkedHashMap<Long,JSONObject>> scan(HashMap<Boolean, ArrayList<String>> projecoes){
-        CompletableFuture<LinkedHashMap<Long,JSONObject>> cf = new CompletableFuture<>();
+    public CompletableFuture<ArrayList<CompletableFuture<LinkedHashMap<Long,JSONObject>>>> scan(HashMap<Boolean, ArrayList<String>> projecoes){
+        CompletableFuture<Void> cf = new CompletableFuture<>();
         String requestID = UUID.randomUUID().toString();
 
-        ScanRequest sr = new ScanRequest(requestID,null,projecoes);
+        ScanRequest sr = new ScanRequest(requestID,null,projecoes, null);
         Scan s = new Scan(requestID,cf,sr.filtros,sr.projeções);
         scanRequests.put(requestID,s);
 
         ms.sendAsync(masterAddress,"scan", this.s.encode(requestID));
 
-        return cf;
-
+        CompletableFuture<ArrayList<CompletableFuture<LinkedHashMap<Long,JSONObject>>>> ncf =  cf.thenCompose(a -> {return s.cfs;});
+        return ncf;
     }
 
-    public CompletableFuture<LinkedHashMap<Long,JSONObject>> scan(ArrayList<Predicate<JSONObject>> filtros, HashMap<Boolean, ArrayList<String>> projecoes){
-        CompletableFuture<LinkedHashMap<Long,JSONObject>> cf = new CompletableFuture<>();
+    public CompletableFuture<ArrayList<CompletableFuture<LinkedHashMap<Long,JSONObject>>>> scan(ArrayList<Predicate<JSONObject>> filtros, HashMap<Boolean, ArrayList<String>> projecoes){
+        CompletableFuture<Void> cf = new CompletableFuture<>();
         String requestID = UUID.randomUUID().toString();
 
-        ScanRequest sr = new ScanRequest(requestID,filtros,projecoes);
+        ScanRequest sr = new ScanRequest(requestID,filtros,projecoes, null);
         Scan s = new Scan(requestID,cf,sr.filtros,sr.projeções);
         scanRequests.put(requestID,s);
 
         ms.sendAsync(masterAddress,"scan", this.s.encode(requestID));
 
-        return cf;
+        CompletableFuture<ArrayList<CompletableFuture<LinkedHashMap<Long,JSONObject>>>> ncf =  cf.thenCompose(a -> {return s.cfs;});
+        return ncf;
 
     }
 

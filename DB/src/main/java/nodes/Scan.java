@@ -11,14 +11,18 @@ import java.util.function.Predicate;
 
 public class Scan {
     String id;
-    CompletableFuture<LinkedHashMap<Long, JSONObject>> cf;
+    CompletableFuture<Void> cf;
     HashMap<SlaveIdentifier,CompletableFuture<Void>> cfsSlaves= new HashMap<>();
     TreeMap<KeysUniverse,SlaveIdentifier> slaves;
-    HashMap<SlaveIdentifier, LinkedHashMap<Long, JSONObject>> respostas = new HashMap<>();
+
+    HashMap<KeysUniverse, LinkedHashMap<Long, JSONObject>> respostas = new HashMap<>();
     public ArrayList<Predicate<JSONObject>> filtros;
     public HashMap<Boolean,ArrayList<String>> projeções;
+    public CompletableFuture<ArrayList<CompletableFuture<LinkedHashMap<Long,JSONObject>>>> cfs;
+    public ArrayList<CompletableFuture<LinkedHashMap<Long,JSONObject>>> mycfs = new ArrayList<>();
+    public TreeMap<KeysUniverse,Integer> indicesKeys = new TreeMap<>();
 
-    public Scan(String id, CompletableFuture<LinkedHashMap<Long, JSONObject>> cf,
+    public Scan(String id, CompletableFuture<Void> cf,
                 ArrayList<Predicate<JSONObject>> filtros, HashMap<Boolean,ArrayList<String>> projecoes) {
         this.id = id;
         this.cf = cf;
@@ -31,6 +35,12 @@ public class Scan {
 
         for(SlaveIdentifier si: slaves.values()){
             cfsSlaves.put(si,new CompletableFuture<>());
+            mycfs.add(new CompletableFuture<LinkedHashMap<Long, JSONObject>>());
+            indicesKeys.put(si.keys,mycfs.size()-1);
         }
+
+        //já sei quais são os slaves, posso completar para retornar
+        cfs.complete(mycfs);
+        cf.complete(null);
     }
 }
