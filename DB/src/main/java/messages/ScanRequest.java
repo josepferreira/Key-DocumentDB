@@ -10,13 +10,17 @@ import java.util.function.Predicate;
 public class ScanRequest {
     public String id;
     public ArrayList<Predicate<JSONObject>> filtros;
-    public HashMap<Boolean,ArrayList<String>> projeções;
+    public HashMap<Boolean,ArrayList<String>> projecoes;
     public KeysUniverse ku;
+    public int nrMaximo;
+    public long ultimaChave;
 
-    public ScanRequest(String id, ArrayList<Predicate<JSONObject>> filtros, HashMap<Boolean, ArrayList<String>> projeções, KeysUniverse ku) {
+    public ScanRequest(String id, ArrayList<Predicate<JSONObject>> filtros, HashMap<Boolean, ArrayList<String>> projecoes, KeysUniverse ku, int nrMaximo, long ultimaChave) {
         this.id = id;
         this.filtros = filtros;
-        this.projeções = projeções;
+        this.projecoes = projecoes;
         this.ku = ku;
+        this.nrMaximo = nrMaximo;
+        this.ultimaChave = ultimaChave;
     }
 }

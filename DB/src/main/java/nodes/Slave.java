@@ -18,6 +18,15 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.function.Predicate;
 
+class ResultadoScan{
+    public long ultimaChave;
+    public LinkedHashMap<Long,JSONObject> docs;
+
+    public ResultadoScan(long ultimaChave, LinkedHashMap<Long, JSONObject> docs) {
+        this.ultimaChave = ultimaChave;
+        this.docs = docs;
+    }
+}
 public class Slave {
 
     private final Address masterAddress = Address.from("localhost:12340");
@@ -311,28 +320,28 @@ public class Slave {
             ScanRequest sr = s.decode(m);
             scanRequests.add(sr.id); //ver depois o que acontece se já existe
             // e ver se n é melhor colocar o scan todo!!!
-            LinkedHashMap<Long,JSONObject> docs = new LinkedHashMap<>(); //n será muito eficiente, provavelmente por causa de andar sempre a mudar o map
+            ResultadoScan docs = null; //n será muito eficiente, provavelmente por causa de andar sempre a mudar o map
 
             //de alguma forma faz o scan à bd, ver a melhor forma
             if(sr.filtros == null){
-                if(sr.projeções == null){
-                    docs = getScan();
+                if(sr.projecoes == null){
+                    docs = getScan(sr.nrMaximo, sr.ultimaChave,sr.ku);
                 }
-                else{
-                    docs = getScan(sr.projeções);
+                /*else{
+                    docs = getScan(sr.projecoes);
                 }
             }
             else{
-                if(sr.projeções == null){
+                if(sr.projecoes == null){
                     docs = getScan(filtro(sr.filtros));
                 }
                 else{
-                    docs = getScan(filtro(sr.filtros),sr.projeções);
-                }
+                    docs = getScan(filtro(sr.filtros),sr.projecoes);
+                }*/
 
             }
 
-            SlaveScanReply ssr = new SlaveScanReply(docs,sr.ku,sr.id);
+            SlaveScanReply ssr = new SlaveScanReply(docs.docs,sr.ku,sr.id,docs.ultimaChave);
 
             ms.sendAsync(o, "scanReply", s.encode(ssr));
 
@@ -367,19 +376,34 @@ public class Slave {
     }
 
     //scan para todos os objectos, sem projecções
-    private LinkedHashMap<Long,JSONObject> getScan() {
+    private ResultadoScan getScan(int nrMaximo, long ultimaChave, KeysUniverse ku) {
 
             LinkedHashMap<Long,JSONObject> docs = new LinkedHashMap<>();
             RocksIterator iterador = db.newIterator();
-            iterador.seekToFirst();
+            if(ultimaChave == -1){
+                ultimaChave = ku.min;
+            }
+            int quantos = 0;
+
+            iterador.seek(Longs.toByteArray(ultimaChave));
+            long chave = ultimaChave;
             while (iterador.isValid()) {
                 long k = Longs.fromByteArray(iterador.key());
+                if(k >= ku.max){
+                    //n está neste universe
+                    break;
+                }
+                chave = k;
                 String v = new String(iterador.value());
                 JSONObject json = new JSONObject(v);
                 docs.put(k,json);
+                quantos++;
+                if(quantos >= nrMaximo){
+                    break;
+                }
                 iterador.next();
             }
-            return docs;
+            return new ResultadoScan(chave,docs);
     }
 
     //scan para todos os objectos, com projecções

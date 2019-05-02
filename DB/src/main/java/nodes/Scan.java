@@ -1,5 +1,10 @@
 package nodes;
 
+import io.atomix.cluster.messaging.ManagedMessagingService;
+import io.atomix.utils.net.Address;
+import io.atomix.utils.serializer.Serializer;
+import messages.ScanRequest;
+import messages.SlaveScanReply;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -11,36 +16,85 @@ import java.util.function.Predicate;
 
 public class Scan {
     String id;
-    CompletableFuture<Void> cf;
-    HashMap<SlaveIdentifier,CompletableFuture<Void>> cfsSlaves= new HashMap<>();
-    TreeMap<KeysUniverse,SlaveIdentifier> slaves;
+    long ultimoVisto  = -1;
+    KeysUniverse ultimoUniverso = null;
+    ArrayList<Predicate<JSONObject>> filtros;
+    HashMap<Boolean,ArrayList<String>> projecoes;
+    int nrMaximo;
+    private TreeMap<KeysUniverse,SlaveIdentifier> cache;
+    private Serializer s = SerializerProtocol.newSerializer();
+    private int tamanhoAtual = 0;
+    private CompletableFuture<Void> cf;
+    public LinkedHashMap<Long,JSONObject> docs = new LinkedHashMap<>();
+    private boolean existemMais = true;
+    private ManagedMessagingService ms;
+    private CompletableFuture<Void> esperaCache = new CompletableFuture<>();
 
-    HashMap<KeysUniverse, LinkedHashMap<Long, JSONObject>> respostas = new HashMap<>();
-    public ArrayList<Predicate<JSONObject>> filtros;
-    public HashMap<Boolean,ArrayList<String>> projeções;
-    public CompletableFuture<ArrayList<CompletableFuture<LinkedHashMap<Long,JSONObject>>>> cfs;
-    public ArrayList<CompletableFuture<LinkedHashMap<Long,JSONObject>>> mycfs = new ArrayList<>();
-    public TreeMap<KeysUniverse,Integer> indicesKeys = new TreeMap<>();
-
-    public Scan(String id, CompletableFuture<Void> cf,
-                ArrayList<Predicate<JSONObject>> filtros, HashMap<Boolean,ArrayList<String>> projecoes) {
+    public Scan(String id, ArrayList<Predicate<JSONObject>> filtros, HashMap<Boolean, ArrayList<String>> projecoes, int nrMaximo,
+                ManagedMessagingService ms) {
         this.id = id;
-        this.cf = cf;
         this.filtros = filtros;
-        this.projeções = projecoes;
+        this.projecoes = projecoes;
+        this.nrMaximo = nrMaximo;
+        this.ms = ms;
     }
 
-    public void adicionaSlaves(TreeMap<KeysUniverse,SlaveIdentifier> s){
-        slaves = s;
+    public void registaCache(TreeMap<KeysUniverse, SlaveIdentifier> cache){
+        this.cache = cache;
+        esperaCache.complete(null);
+    }
 
-        for(SlaveIdentifier si: slaves.values()){
-            cfsSlaves.put(si,new CompletableFuture<>());
-            mycfs.add(new CompletableFuture<LinkedHashMap<Long, JSONObject>>());
-            indicesKeys.put(si.keys,mycfs.size()-1);
+    public CompletableFuture<Void> getMore() throws Exception{
+        cf = new CompletableFuture<>();
+        if(!existemMais){
+            throw new Exception("Não existem mais");
         }
+        esperaCache.thenAccept(a ->{
+            if(ultimoVisto == -1){
+                //n foi buscar nenhuma ainda
+                String endereco = cache.get(cache.firstKey()).endereco; //assumindo que existe em cache
+                ScanRequest sr = new ScanRequest(id,filtros,projecoes,cache.firstKey(),nrMaximo,-1);
+                ms.sendAsync(Address.from(endereco),"scan",s.encode(sr));
+            }
+            else{
+                //senao vai buscar a ultima ao universo atual
+                //n foi buscar nenhuma ainda
+                String endereco = cache.get(ultimoUniverso).endereco; //assumindo que existe em cache
+                ScanRequest sr = new ScanRequest(id,filtros,projecoes,ultimoUniverso,nrMaximo,ultimoVisto);
+                docs = new LinkedHashMap<>();
+                tamanhoAtual = 0;
+                ms.sendAsync(Address.from(endereco),"scan",s.encode(sr));
 
-        //já sei quais são os slaves, posso completar para retornar
-        cfs.complete(mycfs);
-        cf.complete(null);
+            }
+        });
+        return cf;
     }
+
+    public void registaResposta(SlaveScanReply ssr){
+        int tamanho = ssr.docs.size();
+        tamanhoAtual += tamanho;
+        docs.putAll(ssr.docs);
+        if(tamanhoAtual == nrMaximo){
+            ultimoVisto = ssr.ultimaChave;
+            ultimoUniverso = ssr.universe;
+
+                //vamos ter de responder
+            cf.complete(null);
+        }
+        else{
+            //pode pedir mais ao próximo
+            KeysUniverse proximo = cache.higherKey(ultimoUniverso);
+            if(proximo == null){
+                existemMais = false;
+            }
+            else {
+                String endereco = cache.get(proximo).endereco; //assumindo que existe em cache
+                ScanRequest sr = new ScanRequest(id, filtros, projecoes, ultimoUniverso, nrMaximo - tamanhoAtual, -1);
+                ms.sendAsync(Address.from(endereco), "scan", s.encode(sr));
+                ultimoUniverso = proximo;
+            }
+        }
+    }
+
+
 }
