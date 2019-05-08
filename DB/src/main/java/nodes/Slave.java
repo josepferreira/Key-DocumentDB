@@ -103,6 +103,7 @@ public class Slave {
 
             //convém guardar os pedidos certo???
             Put p = putRequests.get(pr.id);
+            p.request
             if(p == null){
                 p = new Put(pr,new CompletableFuture<Boolean>());
                 putRequests.put(pr.id,p);

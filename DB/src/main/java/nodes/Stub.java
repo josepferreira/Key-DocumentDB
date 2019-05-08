@@ -156,12 +156,12 @@ public class Stub {
     private void enviaMensagem(long key, GetRequest gr){
         KeysUniverse ku = new KeysUniverse(key, key);
 
-        String end = this.cache.get(ku).endereco;
+        SlaveIdentifier end = this.cache.get(ku);
 
         if(end == null)
             ms.sendAsync(masterAddress, "get", s.encode(gr));
         else
-            ms.sendAsync(Address.from(end), "get", s.encode(gr));
+            ms.sendAsync(Address.from(end.endereco), "get", s.encode(gr));
     }
 
 
@@ -233,12 +233,12 @@ public class Stub {
     private void enviaMensagem(long key, RemoveRequest rr){
         KeysUniverse ku = new KeysUniverse(key, key);
 
-        String end = this.cache.get(ku).endereco;
+        SlaveIdentifier end = this.cache.get(ku);
 
         if(end == null)
             ms.sendAsync(masterAddress, "remove", s.encode(rr));
         else
-            ms.sendAsync(Address.from(end), "remove", s.encode(rr));
+            ms.sendAsync(Address.from(end.endereco), "remove", s.encode(rr));
     }
 
 
@@ -300,12 +300,12 @@ public class Stub {
     private void enviaMensagem(long key, PutRequest pr){
         KeysUniverse ku = new KeysUniverse(key, key);
 
-        String end = "localhost:12341";//this.cache.get(ku).endereco;
+        SlaveIdentifier end = this.cache.get(ku);
 
         if(end == null)
             ms.sendAsync(masterAddress, "put", s.encode(pr));
         else
-            ms.sendAsync(Address.from(end), "put", s.encode(pr));
+            ms.sendAsync(Address.from(end.endereco), "put", s.encode(pr));
     }
 
     public CompletableFuture<Boolean> put(long key, JSONObject value){
