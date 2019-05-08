@@ -44,10 +44,9 @@ public class  Master {
 
         ms.registerHandler("put",(a,m) -> {
             PutRequest pr = s.decode(m);
-
-            SlaveIdentifier slave = slaves.get(new KeysUniverse(pr.key,pr.key));
+            KeysUniverse ku = new KeysUniverse(pr.key, pr.key);
+            SlaveIdentifier slave = slaves.get(ku);
             ReplyMaster rm = new ReplyMaster(pr.id, slave.endereco,slave.keys, pr.key);
-
             ms.sendAsync(a,"putMaster",s.encode(rm));
 
         },ses);

@@ -39,6 +39,9 @@ public class KeysUniverse implements Comparable{
     public int compareTo(Object o) {
         KeysUniverse ku = (KeysUniverse) o;
 
+        if(this.min == this.max && this.min == ku.min)
+            return 0;
+
         if(ku.min >= this.max && ku.max >= this.max)
             return -1;
 

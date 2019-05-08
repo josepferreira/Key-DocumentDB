@@ -36,10 +36,9 @@ public class Slave {
     ScheduledExecutorService ses = Executors.newSingleThreadScheduledExecutor();
     Serializer s = SerializerProtocol.newSerializer();
     Options options;
-    RocksDB db;
     HashMap<String,Put> putRequests = new HashMap<>();
     HashSet<String> scanRequests = new HashSet<>();
-    HashMap<KeysUniverse,RocksDB> dbs = new HashMap<>();
+    TreeMap<KeysUniverse,RocksDB> dbs = new TreeMap<>();
 
     public Slave(String endereco) {
         RocksDB.loadLibrary();
@@ -55,44 +54,6 @@ public class Slave {
         System.out.println("VOu enviar uma mensagem para o master de start");
         ms.sendAsync(masterAddress,"start",s.encode(""));
 
-        /*switch (endereco) {
-
-            case "localhost:12341":
-                long aux = 50;
-                byte[] key1 = Longs.toByteArray(aux);
-                JSONObject json = new JSONObject();
-                json.put("ola1", 1);
-                try {
-                    db.put(key1, json.toString().getBytes());
-                } catch (RocksDBException e) {
-                    e.printStackTrace();
-
-                }
-            case "localhost:12342":
-                long aux2 = 150;
-                byte[] key2 = Longs.toByteArray(aux2);
-                JSONObject json2 = new JSONObject();
-                json2.put("ola2", 2);
-                try {
-                    db.put(key2, json2.toString().getBytes());
-                } catch (RocksDBException e) {
-                    e.printStackTrace();
-                }
-            case "localhost:12343":
-                long aux3 = 250;
-                byte[] key3 = Longs.toByteArray(aux3);
-                JSONObject json3 = new JSONObject();
-                json3.put("ol3", 3);
-                try {
-                    db.put(key3, json3.toString().getBytes());
-                } catch (RocksDBException e) {
-                    e.printStackTrace();
-                }
-
-
-
-        }*/
-
     }
 
     private void registaHandlers(){
@@ -103,7 +64,7 @@ public class Slave {
 
             //convém guardar os pedidos certo???
             Put p = putRequests.get(pr.id);
-            p.request
+
             if(p == null){
                 p = new Put(pr,new CompletableFuture<Boolean>());
                 putRequests.put(pr.id,p);
@@ -116,6 +77,8 @@ public class Slave {
                 ////se ainda n inseriu insere
                 byte[] key = Longs.toByteArray(pr.key);
                 try {
+                    KeysUniverse ku = new KeysUniverse(pr.key, pr.key);
+                    RocksDB db = dbs.get(ku);
                     db.put(key, pr.value.toString().getBytes());
                     p.cf.complete(true);
                 } catch (RocksDBException e) {
@@ -137,6 +100,7 @@ public class Slave {
             GetRequest gr = s.decode(m);
             byte[] keys = Longs.toByteArray(gr.key);
             byte[] value = null;
+            RocksDB db = dbs.get(new KeysUniverse(gr.key, gr.key));
 
             try {
                 value = db.get(keys);
@@ -219,6 +183,7 @@ public class Slave {
 
             RemoveRequest rr = s.decode(m);
             byte[] keys = Longs.toByteArray(rr.key);
+            RocksDB db = dbs.get(new KeysUniverse(rr.key, rr.key));
 
             try {
                 byte[] value = db.get(keys);
@@ -379,6 +344,7 @@ public class Slave {
     private ResultadoScan getScan(int nrMaximo, long ultimaChave, KeysUniverse ku) {
             System.out.println("----------------------------Novo pedido scan: " + ku + " ---------------------------");
             LinkedHashMap<Long,JSONObject> docs = new LinkedHashMap<>();
+            RocksDB db = dbs.get(ku);
             RocksIterator iterador = db.newIterator();
             int quantos = 0;
             long chave = -1;
@@ -426,6 +392,8 @@ public class Slave {
     private LinkedHashMap<Long,JSONObject> getScan(HashMap<Boolean,ArrayList<String>> p) {
 
         LinkedHashMap<Long,JSONObject> docs = new LinkedHashMap<>();
+        RocksDB db = null;
+        System.out.println("\t\t\t\t\tPRECISAAAAAAAAAAAAAAAAAAAAAAAAAMOS VER MUDAR ISTO!!! A BASE DE DADOS ESTA A NULL DE PREPOSITO!!!");
         RocksIterator iterador = db.newIterator();
         iterador.seekToFirst();
         while (iterador.isValid()) {
@@ -442,6 +410,8 @@ public class Slave {
     private LinkedHashMap<Long,JSONObject> getScan(Predicate<JSONObject> filtros) {
 
         LinkedHashMap<Long,JSONObject> docs = new LinkedHashMap<>();
+        System.out.println("\t\t\t\t\tPRECISAAAAAAAAAAAAAAAAAAAAAAAAAMOS VER MUDAR ISTO!!! A BASE DE DADOS ESTA A NULL DE PREPOSITO!!!");
+        RocksDB db = null;
         RocksIterator iterador = db.newIterator();
         iterador.seekToFirst();
         while (iterador.isValid()) {
@@ -461,7 +431,9 @@ public class Slave {
     private LinkedHashMap<Long,JSONObject> getScan(Predicate<JSONObject> filtros, HashMap<Boolean,ArrayList<String>> p) {
 
         LinkedHashMap<Long,JSONObject> docs = new LinkedHashMap<>();
+        RocksDB db = null;
         RocksIterator iterador = db.newIterator();
+        System.out.println("\t\t\t\t\tPRECISAAAAAAAAAAAAAAAAAAAAAAAAAMOS VER MUDAR ISTO!!! A BASE DE DADOS ESTA A NULL DE PREPOSITO!!!");
         iterador.seekToFirst();
         while (iterador.isValid()) {
             long k = Longs.fromByteArray(iterador.key());

@@ -115,6 +115,7 @@ public class Stub {
         },ses);
 
         ms.registerHandler("putMaster",(a,m) -> {
+            System.out.println("Recebi uma mensagtme do master!!");
             ReplyMaster rm = s.decode(m);
 
             System.out.println("O slave que contém a minha key é: " + rm.endereco);
@@ -299,13 +300,17 @@ public class Stub {
 
     private void enviaMensagem(long key, PutRequest pr){
         KeysUniverse ku = new KeysUniverse(key, key);
-
+        System.out.println("TOu no envia mensagem!!!!!");
         SlaveIdentifier end = this.cache.get(ku);
-
-        if(end == null)
+        System.out.println("O endereco é nulo? " + (end==null));
+        if(end == null) {
+            System.out.println("Ainda nao tenho na cache");
             ms.sendAsync(masterAddress, "put", s.encode(pr));
-        else
+        }
+        else {
+            System.out.println("Ja tenho na cache");
             ms.sendAsync(Address.from(end.endereco), "put", s.encode(pr));
+        }
     }
 
     public CompletableFuture<Boolean> put(long key, JSONObject value){
@@ -411,27 +416,35 @@ public class Stub {
 //                e.printStackTrace();
 //            }
 //        }
-//        JSONObject jo = new JSONObject();
-//        for(int i = 250; i < 275; i++){
-//            jo.put("obj",i);
-//            try {
-//                s.put(i,jo).get();
-//                System.out.println("Put feito: " + i);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            } catch (ExecutionException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//        System.out.println("Puts feitos");
-
-        ScanIterator si = s.scan();
+        JSONObject jo = new JSONObject();
+        for(int i = 250; i < 275; i++){
+            jo.put("obj",i);
+            try {
+                s.put(i,jo).get();
+                System.out.println("Put feito: " + i);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+        }
+        System.out.println("Puts feitos");
+        try {
+            System.out.println(s.get(269).get());
+            System.out.println(s.remove(268).get());
+            System.out.println(s.get(268).get());
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        /*ScanIterator si = s.scan();
 
         while(si.hasNext()){
 
             Map.Entry<Long, JSONObject> a = si.next();
             System.out.println(a);
-        }
+        }*/
 
     }
 
