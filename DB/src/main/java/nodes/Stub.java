@@ -338,7 +338,6 @@ public class Stub {
 
     public ScanIterator scan(){
         String requestID = UUID.randomUUID().toString();
-        System.out.println("Scan: " + requestID);
         ScanRequest sr = new ScanRequest(requestID,null,null,null,-1,-1);
         Scan s = new Scan(requestID,sr.filtros,sr.projecoes,10,ms);
         ScanIterator si = new ScanIterator(s);
@@ -416,35 +415,37 @@ public class Stub {
 //                e.printStackTrace();
 //            }
 //        }
-        JSONObject jo = new JSONObject();
-        for(int i = 250; i < 275; i++){
-            jo.put("obj",i);
-            try {
-                s.put(i,jo).get();
-                System.out.println("Put feito: " + i);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            }
-        }
-        System.out.println("Puts feitos");
-        try {
-            System.out.println(s.get(269).get());
-            System.out.println(s.remove(268).get());
-            System.out.println(s.get(268).get());
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-        /*ScanIterator si = s.scan();
+//        JSONObject jo = new JSONObject();
+//        for(int i = 250; i < 275; i++){
+//            jo.put("obj",i);
+//            try {
+//                s.put(i,jo).get();
+//                System.out.println("Put feito: " + i);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            } catch (ExecutionException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//        System.out.println("Puts feitos");
+//        try {
+//            System.out.println(s.get(250).get());
+//            System.out.println(s.remove(268).get());
+//            System.out.println(s.get(268).get());
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        } catch (ExecutionException e) {
+//            e.printStackTrace();
+//        }
+        ScanIterator si = s.scan();
 
         while(si.hasNext()){
 
             Map.Entry<Long, JSONObject> a = si.next();
             System.out.println(a);
-        }*/
+        }
+
+        System.out.println("Terminou o scan");
 
     }
 
