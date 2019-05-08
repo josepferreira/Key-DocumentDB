@@ -73,10 +73,11 @@ public class  Master {
         },ses);
 
         ms.registerHandler("scan", (o,m) -> {
-
+            System.out.println("Pedido scan");
             ScanReply sr = new ScanReply(s.decode(m), this.slaves);
-
+            System.out.println("Scan reply criado, enviar para: " + o);
             ms.sendAsync(o, "scanMaster", s.encode(sr));
+            System.out.println("Enviado");
         },ses);
 
         ms.registerHandler("start", (o,m) -> { //para já assumimos que só são feitos 3. depois ver como contornar este problema

@@ -24,6 +24,7 @@ public class ScanIterator implements Iterator{
                 return true;
             }
             catch(Exception e){
+                System.out.println(e);
                 return false;
             }
 

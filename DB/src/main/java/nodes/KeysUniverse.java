@@ -40,10 +40,10 @@ public class KeysUniverse implements Comparable{
         KeysUniverse ku = (KeysUniverse) o;
 
         if(ku.min >= this.max && ku.max >= this.max)
-            return 1;
+            return -1;
 
         if(ku.max <= this.min && ku.min <= this.min)
-            return -1;
+            return 1;
 
         return 0;
 

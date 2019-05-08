@@ -10,6 +10,7 @@ import org.json.JSONObject;
 
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.function.Predicate;
@@ -65,13 +66,13 @@ public class Stub {
         },ses);
 
         ms.registerHandler("putReply",(a,m) -> {
-            GetReply gr = s.decode(m);
+            PutReply pr = s.decode(m);
 
-            System.out.println("O valor é: " + gr.value.toString());
+            System.out.println("O valor é: " + pr.success);
 
             //TENS DE VER ISTO AQUI!!! SE É PARA MANDAR TRUE OU NÃO ... SÓ PUS ASSIM PARA NAO DAR ERRO
 
-            this.putRequests.get(gr.id).cf.complete(true);
+            this.putRequests.get(pr.id).cf.complete(pr.success);
 
         },ses);
 
@@ -131,7 +132,6 @@ public class Stub {
 
         ms.registerHandler("scanMaster", (o,m) -> {
             ScanReply sr = s.decode(m);
-
             ScanIterator sc = scanRequests.get(sr.id);
             this.cache = sr.slaves;
             sc.scan.registaCache(this.cache);
@@ -141,8 +141,8 @@ public class Stub {
         ms.registerHandler("scanReply", (o,m) -> {
 
             SlaveScanReply ssr = s.decode(m);
-
             ScanIterator sc = scanRequests.get(ssr.id);
+
 
             sc.scan.registaResposta(ssr);
         }, ses);
@@ -300,7 +300,7 @@ public class Stub {
     private void enviaMensagem(long key, PutRequest pr){
         KeysUniverse ku = new KeysUniverse(key, key);
 
-        String end = this.cache.get(ku).endereco;
+        String end = "localhost:12341";//this.cache.get(ku).endereco;
 
         if(end == null)
             ms.sendAsync(masterAddress, "put", s.encode(pr));
@@ -333,7 +333,7 @@ public class Stub {
 
     public ScanIterator scan(){
         String requestID = UUID.randomUUID().toString();
-
+        System.out.println("Scan: " + requestID);
         ScanRequest sr = new ScanRequest(requestID,null,null,null,-1,-1);
         Scan s = new Scan(requestID,sr.filtros,sr.projecoes,10,ms);
         ScanIterator si = new ScanIterator(s);
@@ -395,21 +395,42 @@ public class Stub {
         Stub s = new Stub(endereco);
 
         //s.get(10001);
-        s.get(150);
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        s.remove(150);
-        s.get(150);
+//        s.get(150);
+//        try {
+//            Thread.sleep(1000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//        s.remove(150);
+//        s.get(150);
+//
+//        while(true){
+//            try {
+//                Thread.sleep(1000000);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//        JSONObject jo = new JSONObject();
+//        for(int i = 250; i < 275; i++){
+//            jo.put("obj",i);
+//            try {
+//                s.put(i,jo).get();
+//                System.out.println("Put feito: " + i);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            } catch (ExecutionException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//        System.out.println("Puts feitos");
 
-        while(true){
-            try {
-                Thread.sleep(1000000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+        ScanIterator si = s.scan();
+
+        while(si.hasNext()){
+
+            Map.Entry<Long, JSONObject> a = si.next();
+            System.out.println(a);
         }
 
     }

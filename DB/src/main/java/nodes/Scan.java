@@ -45,15 +45,25 @@ public class Scan {
     }
 
     public CompletableFuture<Void> getMore() throws Exception{
+        System.out.println("GET MORE");
         cf = new CompletableFuture<>();
         if(!existemMais){
+            System.out.println("Lançando excepção!!!");
             throw new Exception("Não existem mais");
         }
         esperaCache.thenAccept(a ->{
             if(ultimoVisto == -1){
                 //n foi buscar nenhuma ainda
                 String endereco = cache.get(cache.firstKey()).endereco; //assumindo que existe em cache
+                System.out.println(cache.firstKey());
+                System.out.println("End: " + endereco);
                 ScanRequest sr = new ScanRequest(id,filtros,projecoes,cache.firstKey(),nrMaximo,-1);
+                try{
+                    s.encode(sr);
+                }
+                catch (Exception e){
+                    System.out.println(e);
+                }
                 ms.sendAsync(Address.from(endereco),"scan",s.encode(sr));
             }
             else{
@@ -74,6 +84,7 @@ public class Scan {
         int tamanho = ssr.docs.size();
         tamanhoAtual += tamanho;
         docs.putAll(ssr.docs);
+        System.out.println("Tamanho atual: " + tamanho);
         if(tamanhoAtual == nrMaximo){
             ultimoVisto = ssr.ultimaChave;
             ultimoUniverso = ssr.universe;
@@ -84,14 +95,17 @@ public class Scan {
         else{
             //pode pedir mais ao próximo
             KeysUniverse proximo = cache.higherKey(ultimoUniverso);
+            System.out.println("Proximo: " + proximo);
             if(proximo == null){
                 existemMais = false;
+                cf.complete(null);
             }
             else {
                 String endereco = cache.get(proximo).endereco; //assumindo que existe em cache
+                ultimoUniverso = proximo;
                 ScanRequest sr = new ScanRequest(id, filtros, projecoes, ultimoUniverso, nrMaximo - tamanhoAtual, -1);
                 ms.sendAsync(Address.from(endereco), "scan", s.encode(sr));
-                ultimoUniverso = proximo;
+                System.out.println("Atualizado: " + ultimoUniverso);
             }
         }
     }

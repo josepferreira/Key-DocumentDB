@@ -39,6 +39,7 @@ public class Slave {
     RocksDB db;
     HashMap<String,Put> putRequests = new HashMap<>();
     HashSet<String> scanRequests = new HashSet<>();
+    HashMap<KeysUniverse,RocksDB> dbs = new HashMap<>();
 
     public Slave(String endereco) {
         RocksDB.loadLibrary();
@@ -48,13 +49,6 @@ public class Slave {
 
         ms.start();
 
-        try {
-            this.options = new Options().setCreateIfMissing(true);
-            this.db = RocksDB.open(options, "./localdb/" + endereco.replaceAll(":", "") + "/");
-
-        } catch (RocksDBException e) {
-            System.out.println("Exceçãoooooooooooooooo: " + e.getMessage());
-        }
 
         this.registaHandlers();
 
@@ -316,7 +310,7 @@ public class Slave {
         },ses);
 
         ms.registerHandler("scan", (o,m) -> {
-
+            System.out.println("Recebi pedido de scan vindo de: " + o);
             ScanRequest sr = s.decode(m);
             scanRequests.add(sr.id); //ver depois o que acontece se já existe
             // e ver se n é melhor colocar o scan todo!!!
@@ -340,9 +334,7 @@ public class Slave {
                 }*/
 
             }
-
             SlaveScanReply ssr = new SlaveScanReply(docs.docs,sr.ku,sr.id,docs.ultimaChave);
-
             ms.sendAsync(o, "scanReply", s.encode(ssr));
 
         },ses);
@@ -350,9 +342,16 @@ public class Slave {
         ms.registerHandler("start", (o,m) -> {
             System.out.println("Recebi uma mensagem com a chave qe eu vou utilziar");
             KeysUniverse ku = s.decode(m);
-            System.out.println("Entre duas nadegas");
             minhasChaves.add(ku);
             System.out.println("Vamos ver as chaves: " + minhasChaves.toString());
+            try {
+                this.options = new Options().setCreateIfMissing(true);
+                RocksDB ndb = RocksDB.open(options, "./localdb/" + endereco.replaceAll(":", "") + "-" + ku.toString() + "/" );
+                dbs.put(ku,ndb);
+
+            } catch (RocksDBException e) {
+                System.out.println("Exceçãoooooooooooooooo: " + e.getMessage());
+            }
         }, ses);
     }
 
@@ -377,32 +376,48 @@ public class Slave {
 
     //scan para todos os objectos, sem projecções
     private ResultadoScan getScan(int nrMaximo, long ultimaChave, KeysUniverse ku) {
-
+            System.out.println("----------------------------Novo pedido scan: " + ku + " ---------------------------");
             LinkedHashMap<Long,JSONObject> docs = new LinkedHashMap<>();
             RocksIterator iterador = db.newIterator();
-            if(ultimaChave == -1){
-                ultimaChave = ku.min;
-            }
             int quantos = 0;
+            long chave = -1;
+            long anterior = -1;
+            if(ultimaChave == -1) {
+                ultimaChave = ku.min;
+                iterador.seek(Longs.toByteArray(ultimaChave));
+                chave = ultimaChave;
+            }
+            else{
+                iterador.seek(Longs.toByteArray(ultimaChave));
+                if(!iterador.isValid()){
+                    return null;
+                }
+                iterador.next();
+            }
 
-            iterador.seek(Longs.toByteArray(ultimaChave));
-            long chave = ultimaChave;
+
+
             while (iterador.isValid()) {
                 long k = Longs.fromByteArray(iterador.key());
-                if(k >= ku.max){
+                System.out.println("Key: " + k);
+                if(k <= anterior){
                     //n está neste universe
+                    System.out.println("Deu a volta");
                     break;
                 }
+                anterior = k;
                 chave = k;
                 String v = new String(iterador.value());
                 JSONObject json = new JSONObject(v);
                 docs.put(k,json);
                 quantos++;
                 if(quantos >= nrMaximo){
+                    System.out.println("Atingi o máximo");
                     break;
                 }
                 iterador.next();
             }
+            System.out.println("---------------FIM-----------------------");
             return new ResultadoScan(chave,docs);
     }
 
