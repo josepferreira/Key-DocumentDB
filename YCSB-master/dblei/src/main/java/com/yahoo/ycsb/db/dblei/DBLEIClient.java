@@ -17,22 +17,15 @@
 
 package com.yahoo.ycsb.db.dblei;
 
-import com.yahoo.ycsb.DB;
 import com.yahoo.ycsb.*;
-    import net.jcip.annotations.GuardedBy;
-    import org.slf4j.Logger;
-    import org.slf4j.LoggerFactory;
+import nodes.Stub;
 
     import java.io.*;
     import java.nio.ByteBuffer;
-    import java.nio.file.*;
     import java.util.*;
-    import java.util.concurrent.ConcurrentHashMap;
-    import java.util.concurrent.ConcurrentMap;
-    import java.util.concurrent.locks.Lock;
-    import java.util.concurrent.locks.ReentrantLock;
+import java.util.concurrent.ExecutionException;
 
-    import static java.nio.charset.StandardCharsets.UTF_8;
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 /**
  * RocksDB binding for <a href="http://rocksdb.org/">RocksDB</a>.
@@ -42,11 +35,9 @@ import com.yahoo.ycsb.*;
 
 
 
-public class DBLEIClient extends com.yahoo.ycsb.DB
-{
+public class DBLEIClient extends com.yahoo.ycsb.DB {
 
-
-
+  private Stub stub;
   private Map<String, ByteIterator> deserializeValues(final byte[] values, final Set<String> fields,
                                                       final Map<String, ByteIterator> result) {
     final ByteBuffer buf = ByteBuffer.allocate(4);
@@ -102,39 +93,56 @@ public class DBLEIClient extends com.yahoo.ycsb.DB
     }
   }
 
-  public void setProperties(Properties p) {
-    properties = p;
-
-  }
-
-  public Properties getProperties() {
-    return properties;
-  }
-
 
   public void init() throws DBException {
+    stub = new Stub("localhost:12348");
+    System.out.println("-------Init------");
   }
 
 
   public void cleanup() throws DBException {
+    try {
+      stub.ms.stop().get();
+      super.cleanup();
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    } catch (ExecutionException e) {
+      e.printStackTrace();
+    }
   }
 
 
-  public Status read(String table, String key, Set<String> fields, Map<String, ByteIterator> result);
+  public Status read(String table, String key, Set<String> fields, Map<String, ByteIterator> result){
+    System.out.println(key);
+    System.out.println(fields);
+    System.out.println(result);
+    System.out.println("FIM OPERACAO READ");
+    return Status.OK;
+  }
 
 
   public Status scan(String table, String startkey, int recordcount, Set<String> fields,
-                              Vector<HashMap<String, ByteIterator>> result);
+                              Vector<HashMap<String, ByteIterator>> result){
+    return Status.OK;
+  }
 
 
-  public Status update(String table, String key, Map<String, ByteIterator> values);
+  public Status update(String table, String key, Map<String, ByteIterator> values){
+    return Status.OK;
+  }
 
 
-  public Status insert(String table, String key, Map<String, ByteIterator> values);
+  public Status insert(String table, String key, Map<String, ByteIterator> values){
+    System.out.println(key);
+    System.out.println(values);
+    System.out.println("FIM OPERACAO INSERT");
+    return Status.OK;
+  }
 
 
-  public Status delete(String table, String key);
-
+  public Status delete(String table, String key) {
+    return Status.OK;
+  }
 
 
 }

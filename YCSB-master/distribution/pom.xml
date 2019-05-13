@@ -49,6 +49,11 @@ LICENSE file.
       <artifactId>rocksdb-binding</artifactId>
       <version>${project.version}</version>
     </dependency>
+    <dependency>
+      <groupId>com.yahoo.ycsb</groupId>
+      <artifactId>dblei-binding</artifactId>
+      <version>${project.version}</version>
+    </dependency>
     <!--
     <dependency>
       <groupId>com.yahoo.ycsb</groupId>

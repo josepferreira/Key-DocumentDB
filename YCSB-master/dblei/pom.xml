@@ -12,7 +12,10 @@
 
 
 
-    <artifactId>dblei</artifactId>
+
+  <artifactId>dblei-binding</artifactId>
+  <name>DBLEI</name>
+  <packaging>jar</packaging>
 
 
 
@@ -50,6 +53,12 @@
             <version>4.12</version>
             <scope>test</scope>
         </dependency>
+      <dependency>
+        <artifactId>bd-serverless</artifactId>
+        <groupId>lei</groupId>
+        <scope>system</scope>
+        <systemPath>/home/jose/Desktop/UM/4º_Ano/2º-Semestre/LEI/Key-DocumentDB/DB/target/bd-serverless-1.0-SNAPSHOT.jar</systemPath>
+      </dependency>
 
     </dependencies>
 

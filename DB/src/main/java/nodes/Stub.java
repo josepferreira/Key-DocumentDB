@@ -20,7 +20,7 @@ public class Stub {
 
     String endereco;
     private final Address masterAddress = Address.from("localhost:12340");
-    ManagedMessagingService ms;
+    public ManagedMessagingService ms;
     ScheduledExecutorService ses = Executors.newSingleThreadScheduledExecutor();
     Serializer s = SerializerProtocol.newSerializer();
     HashMap<String, Get> getRequests = new HashMap<>();
