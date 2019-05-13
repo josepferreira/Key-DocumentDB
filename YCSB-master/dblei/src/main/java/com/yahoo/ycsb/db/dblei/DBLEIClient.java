@@ -19,8 +19,9 @@ package com.yahoo.ycsb.db.dblei;
 
 import com.yahoo.ycsb.*;
 import nodes.Stub;
+import org.json.JSONObject;
 
-    import java.io.*;
+import java.io.*;
     import java.nio.ByteBuffer;
     import java.util.*;
 import java.util.concurrent.ExecutionException;
@@ -38,6 +39,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 public class DBLEIClient extends com.yahoo.ycsb.DB {
 
   private Stub stub;
+  private JSONObject jo = new JSONObject();
   private Map<String, ByteIterator> deserializeValues(final byte[] values, final Set<String> fields,
                                                       final Map<String, ByteIterator> result) {
     final ByteBuffer buf = ByteBuffer.allocate(4);
@@ -95,6 +97,7 @@ public class DBLEIClient extends com.yahoo.ycsb.DB {
 
 
   public void init() throws DBException {
+    jo.put("cenas", "ola");
     stub = new Stub("localhost:12348");
     System.out.println("-------Init------");
   }
@@ -113,11 +116,21 @@ public class DBLEIClient extends com.yahoo.ycsb.DB {
 
 
   public Status read(String table, String key, Set<String> fields, Map<String, ByteIterator> result){
-    System.out.println(key);
+    /*System.out.println(key);
     System.out.println(fields);
     System.out.println(result);
     System.out.println("FIM OPERACAO READ");
-    return Status.OK;
+    */
+    Long chave = Long.parseLong(key.split("user")[1].substring(0, 3)) - 100;
+    try {
+      JSONObject jos = stub.get(chave).get();
+      return Status.OK;
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    } catch (ExecutionException e) {
+      e.printStackTrace();
+    }
+    return Status.ERROR;
   }
 
 
@@ -128,15 +141,25 @@ public class DBLEIClient extends com.yahoo.ycsb.DB {
 
 
   public Status update(String table, String key, Map<String, ByteIterator> values){
-    return Status.OK;
+    Long chave = Long.parseLong(key.split("user")[1].substring(0, 3)) - 100;
+    jo.put("id", chave);
+    try {
+      stub.put(chave, jo).get();
+      return Status.OK;
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    } catch (ExecutionException e) {
+      e.printStackTrace();
+    }
+    return Status.ERROR;
   }
 
 
   public Status insert(String table, String key, Map<String, ByteIterator> values){
-    System.out.println(key);
+    /*System.out.println(key);
     System.out.println(values);
     System.out.println("FIM OPERACAO INSERT");
-    return Status.OK;
+    */return Status.OK;
   }
 
 

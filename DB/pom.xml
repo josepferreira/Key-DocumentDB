@@ -18,8 +18,7 @@
                 </configuration>
             </plugin>
         </plugins>
-    </build>
--->
+    </build>-->
     <dependencies>
         <dependency>
             <groupId>io.atomix</groupId>

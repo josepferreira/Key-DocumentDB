@@ -105,7 +105,7 @@ DATABASES = {
     "solr"         : "com.yahoo.ycsb.db.solr.SolrClient",
     "solr6"        : "com.yahoo.ycsb.db.solr6.SolrClient",
     "tarantool"    : "com.yahoo.ycsb.db.TarantoolClient",
-    "dblei"        : "com.yahoo.ycsb.db.DBLEIClient"
+    "dblei"        : "com.yahoo.ycsb.db.dblei.DBLEIClient"
 }
 
 OPTIONS = {
@@ -329,6 +329,10 @@ def main():
     ycsb_command = ([java] + args.jvm_args +
                     ["-cp", classpath,
                      main_classname, "-db", db_classname] + remaining)
+
+    print "CENAS"
+    print ycsb_command
+    print "FIM"
     if command:
         ycsb_command.append(command)
     print >> sys.stderr, " ".join(ycsb_command)

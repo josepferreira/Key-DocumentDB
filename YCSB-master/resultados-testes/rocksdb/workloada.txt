@@ -1,5 +1,5 @@
-[OVERALL], RunTime(ms), 184
-[OVERALL], Throughput(ops/sec), 5434.782608695652
+[OVERALL], RunTime(ms), 192
+[OVERALL], Throughput(ops/sec), 5208.333333333333
 [TOTAL_GCS_PS_Scavenge], Count, 0
 [TOTAL_GC_TIME_PS_Scavenge], Time(ms), 0
 [TOTAL_GC_TIME_%_PS_Scavenge], Time(%), 0.0
@@ -9,23 +9,26 @@
 [TOTAL_GCs], Count, 0
 [TOTAL_GC_TIME], Time(ms), 0
 [TOTAL_GC_TIME_%], Time(%), 0.0
-[READ], Operations, 500
-[READ], AverageLatency(us), 23.208
-[READ], MinLatency(us), 3
-[READ], MaxLatency(us), 1258
-[READ], 95thPercentileLatency(us), 50
-[READ], 99thPercentileLatency(us), 111
-[READ], Return=OK, 500
+[READ], Operations, 496
+[READ], AverageLatency(us), 21.338709677419356
+[READ], MinLatency(us), 4
+[READ], MaxLatency(us), 158
+[READ], 95thPercentileLatency(us), 75
+[READ], 99thPercentileLatency(us), 100
+[READ], Return=OK, 496
 [CLEANUP], Operations, 1
-[CLEANUP], AverageLatency(us), 1220.0
-[CLEANUP], MinLatency(us), 1220
-[CLEANUP], MaxLatency(us), 1220
-[CLEANUP], 95thPercentileLatency(us), 1220
-[CLEANUP], 99thPercentileLatency(us), 1220
-[UPDATE], Operations, 500
-[UPDATE], AverageLatency(us), 63.52
+[CLEANUP], AverageLatency(us), 1370.0
+[CLEANUP], MinLatency(us), 1370
+[CLEANUP], MaxLatency(us), 1370
+[CLEANUP], 95thPercentileLatency(us), 1370
+[CLEANUP], 99thPercentileLatency(us), 1370
+[UPDATE], Operations, 504
+[UPDATE], AverageLatency(us), 70.67261904761905
 [UPDATE], MinLatency(us), 24
-[UPDATE], MaxLatency(us), 1239
-[UPDATE], 95thPercentileLatency(us), 157
-[UPDATE], 99thPercentileLatency(us), 259
-[UPDATE], Return=OK, 500
+[UPDATE], MaxLatency(us), 1738
+[UPDATE], 95thPercentileLatency(us), 226
+[UPDATE], 99thPercentileLatency(us), 288
+[UPDATE], Return=OK, 504
+CENAS
+['/usr/lib/jvm/java-8-oracle/bin/java', '-cp', '/home/jose/Desktop/UM/4\xc2\xba_Ano/2\xc2\xba-Semestre/LEI/Key-DocumentDB/YCSB-master/rocksdb/conf:/home/jose/Desktop/UM/4\xc2\xba_Ano/2\xc2\xba-Semestre/LEI/Key-DocumentDB/YCSB-master/rocksdb/target/rocksdb-binding-0.16.0-SNAPSHOT.jar:/home/jose/.m2/repository/org/apache/htrace/htrace-core4/4.1.0-incubating/htrace-core4-4.1.0-incubating.jar:/home/jose/.m2/repository/org/slf4j/slf4j-api/1.7.25/slf4j-api-1.7.25.jar:/home/jose/.m2/repository/org/rocksdb/rocksdbjni/5.11.3/rocksdbjni-5.11.3.jar:/home/jose/.m2/repository/net/jcip/jcip-annotations/1.0/jcip-annotations-1.0.jar:/home/jose/Desktop/UM/4\xc2\xba_Ano/2\xc2\xba-Semestre/LEI/Key-DocumentDB/YCSB-master/core/target/core-0.16.0-SNAPSHOT.jar:/home/jose/.m2/repository/org/hdrhistogram/HdrHistogram/2.1.4/HdrHistogram-2.1.4.jar:/home/jose/.m2/repository/org/codehaus/jackson/jackson-mapper-asl/1.9.4/jackson-mapper-asl-1.9.4.jar:/home/jose/.m2/repository/org/codehaus/jackson/jackson-core-asl/1.9.4/jackson-core-asl-1.9.4.jar', 'com.yahoo.ycsb.Client', '-db', 'com.yahoo.ycsb.db.rocksdb.RocksDBClient', '-s', '-P', 'workloads/workloada', '-p', 'rocksdb.dir=./testes/ycsb-rocksdb-data']
+FIM
