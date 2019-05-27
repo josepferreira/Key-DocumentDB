@@ -57,7 +57,7 @@
         <artifactId>bd-serverless</artifactId>
         <groupId>lei</groupId>
         <scope>system</scope>
-        <systemPath>/home/jose/Desktop/UM/4º_Ano/2º-Semestre/LEI/Key-DocumentDB/DB/target/bd-serverless-1.0-SNAPSHOT.jar</systemPath>
+        <systemPath>/home/jose/Desktop/LEI/Key-DocumentDB/DB/target/bd-serverless-1.0-SNAPSHOT.jar</systemPath>
       </dependency>
 
     </dependencies>

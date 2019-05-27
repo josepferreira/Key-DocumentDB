@@ -123,10 +123,14 @@ public class Stub {
             Put p = putRequests.get(rm.id);
             if(p == null){
                 //Estranho, ver este caso
+                System.out.println("Put null");
             }
 
+            System.out.println("Por na cache");
 
             this.cache.put(rm.keys, new SlaveIdentifier(rm.endereco,rm.keys));
+
+            System.out.println("Enviar para o slave");
             ms.sendAsync(Address.from(rm.endereco), "put", s.encode(p.request));
 
         },ses);
@@ -415,19 +419,19 @@ public class Stub {
 //                e.printStackTrace();
 //            }
 //        }
-//        JSONObject jo = new JSONObject();
-//        for(int i = 250; i < 275; i++){
-//            jo.put("obj",i);
-//            try {
-//                s.put(i,jo).get();
-//                System.out.println("Put feito: " + i);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            } catch (ExecutionException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//        System.out.println("Puts feitos");
+        JSONObject jo = new JSONObject();
+        for(int i = 120; i < 125; i++){
+            jo.put("obj",i);
+            try {
+                s.put(i,jo).get();
+                System.out.println("Put feito: " + i);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+        }
+        System.out.println("Puts feitos");
 //        try {
 //            System.out.println(s.get(250).get());
 //            System.out.println(s.remove(268).get());

@@ -8,7 +8,7 @@ import java.util.Map;
 public class ScanIterator implements Iterator{
     public Scan scan;
 
-    private Iterator<Map.Entry<Long, JSONObject>> docs;
+    private Iterator<Map.Entry<Long, JSONObject>> docs = null;
 
     public ScanIterator(Scan scan) {
         this.scan = scan;
@@ -21,7 +21,7 @@ public class ScanIterator implements Iterator{
             try{
                 scan.getMore().get();
                 docs = scan.docs.entrySet().iterator();
-                return true;
+                return docs.hasNext();
             }
             catch(Exception e){
                 System.out.println(e);

@@ -37,7 +37,6 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 
 
 public class DBLEIClient extends com.yahoo.ycsb.DB {
-
   private Stub stub;
   private JSONObject jo = new JSONObject();
   private Map<String, ByteIterator> deserializeValues(final byte[] values, final Set<String> fields,
@@ -98,7 +97,9 @@ public class DBLEIClient extends com.yahoo.ycsb.DB {
 
   public void init() throws DBException {
     jo.put("cenas", "ola");
-    stub = new Stub("localhost:12348");
+    Random gerador = new Random();
+    int a = gerador.nextInt(10000) + 20000;
+    stub = new Stub("localhost:"+a);
     System.out.println("-------Init------");
   }
 
@@ -121,7 +122,8 @@ public class DBLEIClient extends com.yahoo.ycsb.DB {
     System.out.println(result);
     System.out.println("FIM OPERACAO READ");
     */
-    Long chave = Long.parseLong(key.split("user")[1].substring(0, 3)) - 100;
+    Long chave = Long.parseLong(key);
+//    Long chave = Long.parseLong(key.split("user")[1].substring(0, 3)) - 100;
     try {
       JSONObject jos = stub.get(chave).get();
       return Status.OK;
@@ -141,10 +143,14 @@ public class DBLEIClient extends com.yahoo.ycsb.DB {
 
 
   public Status update(String table, String key, Map<String, ByteIterator> values){
-    Long chave = Long.parseLong(key.split("user")[1].substring(0, 3)) - 100;
+    System.out.println("Chave: " + key);
+    Long chave = Long.parseLong(key);
+//    Long chave = Long.parseLong(key.split("user")[1].substring(0, 3)) - 100;
     jo.put("id", chave);
     try {
+      System.out.println("Enviar");
       stub.put(chave, jo).get();
+      System.out.println("Enviei");
       return Status.OK;
     } catch (InterruptedException e) {
       e.printStackTrace();

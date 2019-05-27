@@ -60,6 +60,7 @@ public class Slave {
 
         //handler para responder ao pedido put, efetuado pelo stub
         ms.registerHandler("put",(o,m) -> {
+            System.out.println("Recebi put");
             PutRequest pr = s.decode(m);
 
             //convém guardar os pedidos certo???
