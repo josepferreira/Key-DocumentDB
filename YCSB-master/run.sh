@@ -1,0 +1,1 @@
+./bin/ycsb run dblei -P $1

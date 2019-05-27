@@ -18,6 +18,7 @@
 package com.yahoo.ycsb.db.dblei;
 
 import com.yahoo.ycsb.*;
+import nodes.ScanIterator;
 import nodes.Stub;
 import org.json.JSONObject;
 
@@ -122,7 +123,7 @@ public class DBLEIClient extends com.yahoo.ycsb.DB {
     System.out.println(result);
     System.out.println("FIM OPERACAO READ");
     */
-    Long chave = Long.parseLong(key);
+    Long chave = Long.parseLong(key.substring(4, 7)) - 100;
 //    Long chave = Long.parseLong(key.split("user")[1].substring(0, 3)) - 100;
     try {
       JSONObject jos = stub.get(chave).get();
@@ -137,20 +138,29 @@ public class DBLEIClient extends com.yahoo.ycsb.DB {
 
 
   public Status scan(String table, String startkey, int recordcount, Set<String> fields,
-                              Vector<HashMap<String, ByteIterator>> result){
-    return Status.OK;
+                              Vector<HashMap<String, ByteIterator>> result) {
+    try {
+      ScanIterator si = stub.scan();
+
+      while (si.hasNext()) {
+        si.next();
+      }
+      return Status.OK;
+    }catch(Exception e){
+      System.out.println(e);
+    }
+    return Status.ERROR;
   }
 
 
   public Status update(String table, String key, Map<String, ByteIterator> values){
-    System.out.println("Chave: " + key);
-    Long chave = Long.parseLong(key);
-//    Long chave = Long.parseLong(key.split("user")[1].substring(0, 3)) - 100;
-    jo.put("id", chave);
+    Long chave = Long.parseLong(key.substring(4, 7)) - 100;
+    JSONObject job = new JSONObject();
+    for(Map.Entry<String, ByteIterator> v: values.entrySet()){
+      job.put(v.getKey(), new String(v.getValue().toArray()));
+    }
     try {
-      System.out.println("Enviar");
-      stub.put(chave, jo).get();
-      System.out.println("Enviei");
+      stub.put(chave, job).get();
       return Status.OK;
     } catch (InterruptedException e) {
       e.printStackTrace();
@@ -162,10 +172,19 @@ public class DBLEIClient extends com.yahoo.ycsb.DB {
 
 
   public Status insert(String table, String key, Map<String, ByteIterator> values){
-    /*System.out.println(key);
-    System.out.println(values);
-    System.out.println("FIM OPERACAO INSERT");
-    */return Status.OK;
+    Long chave = Long.parseLong(key.substring(4, 7)) - 100;
+    JSONObject job = new JSONObject();
+    for(Map.Entry<String, ByteIterator> v: values.entrySet()){
+      job.put(v.getKey(), new String(v.getValue().toArray()));
+    }
+    try {
+      stub.put(chave, job).get();
+    } catch (InterruptedException e) {
+      return Status.ERROR;
+    } catch (ExecutionException e) {
+      return Status.ERROR;
+    }
+    return Status.OK;
   }
 
 

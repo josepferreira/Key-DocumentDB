@@ -315,6 +315,7 @@ def main():
         project = "core" if (binding == "basic" or binding == "basicts") else binding + "-binding"
         db_dir = os.path.join(ycsb_home, db_location)
         # goes first so we can rely on side-effect of package
+        print project
         maven_says = get_classpath_from_maven(project)
         # TODO when we have a version property, skip the glob
         cp = find_jars(os.path.join(db_dir, "target"),
