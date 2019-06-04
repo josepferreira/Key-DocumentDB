@@ -7,7 +7,12 @@ import io.atomix.utils.net.Address;
 import io.atomix.utils.serializer.Serializer;
 import messages.*;
 import org.json.JSONObject;
+import spread.SpreadConnection;
+import spread.SpreadException;
+import spread.SpreadMessage;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -19,7 +24,7 @@ import java.util.stream.Collectors;
 public class Stub {
 
     String endereco;
-    private final Address masterAddress = Address.from("localhost:12340");
+    //private final Address masterAddress = Address.from("localhost:12340");
     public ManagedMessagingService ms;
     ScheduledExecutorService ses = Executors.newSingleThreadScheduledExecutor();
     Serializer s = SerializerProtocol.newSerializer();
@@ -29,11 +34,20 @@ public class Stub {
     HashMap<String, ScanIterator> scanRequests = new HashMap<>();
 
     private TreeMap<KeysUniverse,SlaveIdentifier> cache = new TreeMap<>();
+    SpreadConnection connection = new SpreadConnection();
 
     public Stub(String endereco){
         this.endereco = endereco;
-        this.ms = NettyMessagingService.builder().withAddress(Address.from(endereco)).build();
+        try {
+            System.out.println(endereco);
+            connection.connect(InetAddress.getByName("localhost"), 0, null, false, false);
+        } catch (SpreadException e) {
+            e.printStackTrace();
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
 
+        this.ms = NettyMessagingService.builder().withAddress(Address.from(endereco)).build();
         this.ms.start();
         registaHandlers();
     }
@@ -163,8 +177,19 @@ public class Stub {
 
         SlaveIdentifier end = this.cache.get(ku);
 
-        if(end == null)
-            ms.sendAsync(masterAddress, "get", s.encode(gr));
+        if(end == null) {
+            SpreadMessage sm = new SpreadMessage();
+            sm.setData(s.encode(gr));
+            sm.addGroup("master");
+            sm.setAgreed(); // ao defiirmos isto estamos a garantir ordem total, pelo q podemos ter varios stubs
+            sm.setReliable();
+            try {
+                connection.multicast(sm);
+            } catch (SpreadException e) {
+                e.printStackTrace();
+            }
+//            ms.sendAsync(masterAddress, "get", s.encode(gr));
+        }
         else
             ms.sendAsync(Address.from(end.endereco), "get", s.encode(gr));
     }
@@ -175,7 +200,7 @@ public class Stub {
         CompletableFuture<JSONObject> jsonCF = new CompletableFuture<>();
         String requestID = UUID.randomUUID().toString();
 
-        GetRequest gr = new GetRequest(requestID, key);
+        GetRequest gr = new GetRequest(requestID, key, this.endereco);
         Get g = new Get(gr, jsonCF);
         getRequests.put(requestID, g);
 
@@ -189,11 +214,12 @@ public class Stub {
         CompletableFuture<JSONObject> cf = new CompletableFuture<>();
         String requestID = UUID.randomUUID().toString();
 
-        GetRequest gr = new GetRequest(requestID, key, filtros);
+        GetRequest gr = new GetRequest(requestID, key, this.endereco, filtros);
         Get g = new Get(gr, cf, gr.filtros, gr.projecoes);
         getRequests.put(requestID, g);
 
-        ms.sendAsync(masterAddress,"get", this.s.encode(gr));
+        enviaMensagem(key, gr);
+        //ms.sendAsync(masterAddress,"get", this.s.encode(gr));
 
         return cf;
 
@@ -203,7 +229,7 @@ public class Stub {
         CompletableFuture<JSONObject> cf = new CompletableFuture<>();
         String requestID = UUID.randomUUID().toString();
 
-        GetRequest gr = new GetRequest(requestID, key, projecoes);
+        GetRequest gr = new GetRequest(requestID, key, this.endereco, projecoes);
         Get g = new Get(gr, cf, gr.filtros, gr.projecoes);
         getRequests.put(requestID, g);
 
@@ -216,7 +242,7 @@ public class Stub {
         CompletableFuture<JSONObject> cf = new CompletableFuture<>();
         String requestID = UUID.randomUUID().toString();
 
-        GetRequest gr = new GetRequest(requestID, key, filtros, projecoes);
+        GetRequest gr = new GetRequest(requestID, key, this.endereco, filtros, projecoes);
         Get g = new Get(gr, cf, gr.filtros, gr.projecoes);
         getRequests.put(requestID, g);
 
@@ -240,8 +266,19 @@ public class Stub {
 
         SlaveIdentifier end = this.cache.get(ku);
 
-        if(end == null)
-            ms.sendAsync(masterAddress, "remove", s.encode(rr));
+        if(end == null){
+            SpreadMessage sm = new SpreadMessage();
+            sm.setData(s.encode(rr));
+            sm.addGroup("master");
+            sm.setAgreed(); // ao defiirmos isto estamos a garantir ordem total, pelo q podemos ter varios stubs
+            sm.setReliable();
+            try {
+                connection.multicast(sm);
+            } catch (SpreadException e) {
+                e.printStackTrace();
+            }
+        }
+//            ms.sendAsync(masterAddress, "remove", s.encode(rr));
         else
             ms.sendAsync(Address.from(end.endereco), "remove", s.encode(rr));
     }
@@ -251,7 +288,7 @@ public class Stub {
         CompletableFuture<Boolean> jsonCF = new CompletableFuture<>();
         String requestID = UUID.randomUUID().toString();
 
-        RemoveRequest rr = new RemoveRequest(requestID, key);
+        RemoveRequest rr = new RemoveRequest(requestID, key, this.endereco);
         Remove r = new Remove(rr, jsonCF);
         removeRequests.put(requestID, r);
 
@@ -263,7 +300,7 @@ public class Stub {
         CompletableFuture<Boolean> cf = new CompletableFuture<>();
         String requestID = UUID.randomUUID().toString();
 
-        RemoveRequest rr = new RemoveRequest(requestID, key, (ArrayList<Predicate<JSONObject>>) filtros, null);
+        RemoveRequest rr = new RemoveRequest(requestID, key, this.endereco, (ArrayList<Predicate<JSONObject>>) filtros, null);
         Remove r = new Remove(rr, cf, rr.filtros, rr.projecoes);
         removeRequests.put(requestID, r);
 
@@ -276,7 +313,7 @@ public class Stub {
         CompletableFuture<Boolean> cf = new CompletableFuture<>();
         String requestID = UUID.randomUUID().toString();
 
-        RemoveRequest rr = new RemoveRequest(requestID, key, null, projecoes);
+        RemoveRequest rr = new RemoveRequest(requestID, key, this.endereco, null, projecoes);
         Remove r = new Remove(rr, cf, rr.filtros, rr.projecoes);
         removeRequests.put(requestID, r);
 
@@ -289,7 +326,7 @@ public class Stub {
         CompletableFuture<Boolean> cf = new CompletableFuture<>();
         String requestID = UUID.randomUUID().toString();
 
-        RemoveRequest rr = new RemoveRequest(requestID, key, filtros, projecoes);
+        RemoveRequest rr = new RemoveRequest(requestID, key, this.endereco, filtros, projecoes);
         Remove r = new Remove(rr, cf, rr.filtros, rr.projecoes);
         removeRequests.put(requestID, r);
 
@@ -308,8 +345,17 @@ public class Stub {
         SlaveIdentifier end = this.cache.get(ku);
         System.out.println("O endereco é nulo? " + (end==null));
         if(end == null) {
-            System.out.println("Ainda nao tenho na cache");
-            ms.sendAsync(masterAddress, "put", s.encode(pr));
+            SpreadMessage sm = new SpreadMessage();
+            sm.setData(s.encode(pr));
+            sm.addGroup("master");
+            sm.setAgreed(); // ao defiirmos isto estamos a garantir ordem total, pelo q podemos ter varios stubs
+            sm.setReliable();
+            try {
+                System.out.println("A enviar uma mensagem de multicast para o master!");
+                connection.multicast(sm);
+            } catch (SpreadException e) {
+                e.printStackTrace();
+            }
         }
         else {
             System.out.println("Ja tenho na cache");
@@ -321,7 +367,7 @@ public class Stub {
         CompletableFuture<Boolean> cf = new CompletableFuture<>();
         String requestID = UUID.randomUUID().toString();
 
-        PutRequest pr = new PutRequest(requestID,key,value);
+        PutRequest pr = new PutRequest(requestID, key, this.endereco, value);
         Put p = new Put(pr, cf);
         putRequests.put(requestID, p);
 
@@ -342,12 +388,21 @@ public class Stub {
 
     public ScanIterator scan(){
         String requestID = UUID.randomUUID().toString();
-        ScanRequest sr = new ScanRequest(requestID,null,null,null,-1,-1);
-        Scan s = new Scan(requestID,sr.filtros,sr.projecoes,10,ms);
+        ScanRequest sr = new ScanRequest(requestID, this.endereco,null,null,null,-1,-1);
+        Scan s = new Scan(requestID,this.endereco,sr.filtros,sr.projecoes,10,ms);
         ScanIterator si = new ScanIterator(s);
         scanRequests.put(requestID,si);
 
-        ms.sendAsync(masterAddress,"scan", this.s.encode(requestID));
+        SpreadMessage sm = new SpreadMessage();
+        sm.setData(this.s.encode(sr));
+        sm.addGroup("master");
+        sm.setAgreed(); // ao defiirmos isto estamos a garantir ordem total, pelo q podemos ter varios stubs
+        sm.setReliable();
+        try {
+            connection.multicast(sm);
+        } catch (SpreadException e) {
+            e.printStackTrace();
+        }
 
         return si;
     }
@@ -449,7 +504,7 @@ public class Stub {
             System.out.println(a);
         }
 
-        System.out.println("Terminou o scan");
+//        System.out.println("Terminou o scan");
 
     }
 

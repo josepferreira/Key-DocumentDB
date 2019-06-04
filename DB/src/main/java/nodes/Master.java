@@ -13,7 +13,10 @@ import io.atomix.cluster.messaging.impl.NettyMessagingService;
 import io.atomix.utils.net.Address;
 import io.atomix.utils.serializer.Serializer;
 import messages.*;
+import spread.*;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -29,15 +32,96 @@ public class  Master {
     ScheduledExecutorService ses = Executors.newSingleThreadScheduledExecutor();
     Serializer s = SerializerProtocol.newSerializer();
     private HashSet<String> start = new HashSet<>();
+    SpreadConnection connection = new SpreadConnection();
+
+
+    BasicMessageListener bml = new BasicMessageListener() {
+        @Override
+        public void messageReceived(SpreadMessage spreadMessage) {
+            byte[] msg = spreadMessage.getData();
+            Object o = s.decode(msg);
+            System.out.println("GROUP:" + spreadMessage.getSender());
+            if(o instanceof GetRequest){
+                GetRequest gr = (GetRequest) o;
+                KeysUniverse ku = new KeysUniverse(gr.key, gr.key);
+                SlaveIdentifier slaveI = slaves.get(ku);
+                ReplyMaster rm = new ReplyMaster(gr.id, slaveI.endereco, slaveI.keys, gr.key);
+                ms.sendAsync(Address.from(gr.endereco), "getMaster", s.encode(rm));
+            }
+            else if(o instanceof PutRequest){
+                PutRequest pr = (PutRequest) o;
+                KeysUniverse ku = new KeysUniverse(pr.key, pr.key);
+                SlaveIdentifier slave = slaves.get(ku);
+                ReplyMaster rm = new ReplyMaster(pr.id, slave.endereco,slave.keys, pr.key);
+                ms.sendAsync(Address.from(pr.endereco),"putMaster",s.encode(rm));
+            }
+            else if(o instanceof ScanRequest){
+                ScanRequest srq = (ScanRequest) o;
+                ScanReply sr = new ScanReply(srq.id, slaves);
+                ms.sendAsync(Address.from(srq.endereco), "scanMaster", s.encode(sr));
+                System.out.println("Enviado");
+            }
+            else if(o instanceof RemoveRequest){
+                RemoveRequest rr = (RemoveRequest) o;
+                KeysUniverse ku = new KeysUniverse(rr.key, rr.key);
+                SlaveIdentifier slaveI = slaves.get(ku);
+                ReplyMaster rm = new ReplyMaster(rr.id, slaveI.endereco, slaveI.keys, rr.key);
+
+                ms.sendAsync(Address.from(rr.endereco),"removeMaster", s.encode(rm));
+            }
+            else if(o instanceof StartRequest){
+                System.out.println("Recebi uma mensagem de start");
+                StartRequest sr = (StartRequest) o;
+                start.add(sr.endereco);
+
+                if(start.size() > 2){
+                    //enviar o conjunto das chaves
+                    Iterator<String> it = start.iterator();
+                    Address end = Address.from(it.next());
+                    long chunk = 50;
+                    for(int i=0; i < 9; i++){
+                        long inicial = i*50;
+                        long finall = (i+1)*50;
+
+                        if(i == 8) finall = Long.MAX_VALUE;
+                        KeysUniverse ku = new KeysUniverse(inicial,finall);
+                        slaves.put(ku,new SlaveIdentifier(end.toString(),ku));
+
+                        System.out.println("Vou mandar uma mensagem para o: " + end.toString());
+                        ms.sendAsync(end,"start",s.encode(ku));
+
+                        if((i+1) % 3 == 0 && it.hasNext()) end = Address.from(it.next());
+                    }
+                }
+            }
+            else{
+
+            }
+        }
+    };
 
     public Master(TreeMap<KeysUniverse, SlaveIdentifier> slaves, String endereco) {
         this.slaves = slaves;
         this.endereco = endereco;
+        try {
+            connection.connect(InetAddress.getByName("localhost"), 0, null, false, false);
+        } catch (SpreadException e) {
+            e.printStackTrace();
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+        SpreadGroup group = new SpreadGroup();
+        try {
+            group.join(connection, "master");
+        } catch (SpreadException e) {
+            e.printStackTrace();
+        }
         ms = NettyMessagingService.builder().withAddress(Address.from(endereco)).build();
 
         ms.start();
 
         this.registaHandlers();
+        connection.add(bml);
     }
 
     private void registaHandlers(){
@@ -124,7 +208,7 @@ public class  Master {
         //Para já está povoado hardecoded ...
 
         TreeMap<KeysUniverse,SlaveIdentifier> slaves = new TreeMap<>();
-        String endereco = "localhost:12340";
+        String endereco = "localhost:1233" + args[0];
 
         /*KeysUniverse ku1 = new KeysUniverse(0, 100);
         KeysUniverse ku2 = new KeysUniverse(100, 200);

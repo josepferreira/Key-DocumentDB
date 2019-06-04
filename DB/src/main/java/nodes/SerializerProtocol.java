@@ -23,7 +23,8 @@ public class SerializerProtocol {
                 ScanReply.class,
                 SlaveScanReply.class,
                 RemoveRequest.class,
-                RemoveReply.class
+                RemoveReply.class,
+                StartRequest.class
         ).build();
     }
 }

@@ -11,7 +11,12 @@ import org.rocksdb.RocksDB;
 import org.rocksdb.Options;
 import org.rocksdb.RocksDBException;
 import org.rocksdb.RocksIterator;
+import spread.SpreadConnection;
+import spread.SpreadException;
+import spread.SpreadMessage;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executors;
@@ -29,7 +34,7 @@ class ResultadoScan{
 }
 public class Slave {
 
-    private final Address masterAddress = Address.from("localhost:12340");
+    //private final Address masterAddress = Address.from("localhost:12340");
     public String endereco;
     public TreeSet<KeysUniverse> minhasChaves = new TreeSet<>();
     ManagedMessagingService ms;
@@ -39,11 +44,21 @@ public class Slave {
     HashMap<String,Put> putRequests = new HashMap<>();
     HashSet<String> scanRequests = new HashSet<>();
     TreeMap<KeysUniverse,RocksDB> dbs = new TreeMap<>();
+    SpreadConnection connection = new SpreadConnection();
 
     public Slave(String endereco) {
         RocksDB.loadLibrary();
 
         this.endereco = endereco;
+
+        try {
+            connection.connect(InetAddress.getByName("localhost"), 0, null, false, false);
+        } catch (SpreadException e) {
+            e.printStackTrace();
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+
         ms = NettyMessagingService.builder().withAddress(Address.from(endereco)).build();
 
         ms.start();
@@ -52,7 +67,18 @@ public class Slave {
         this.registaHandlers();
 
         System.out.println("VOu enviar uma mensagem para o master de start");
-        ms.sendAsync(masterAddress,"start",s.encode(""));
+        StartRequest sr = new StartRequest(this.endereco);
+        SpreadMessage sm = new SpreadMessage();
+        sm.setData(s.encode(sr));
+        sm.addGroup("master");
+        sm.setAgreed(); // ao defiirmos isto estamos a garantir ordem total, pelo q podemos ter varios stubs
+        sm.setReliable();
+        try {
+            connection.multicast(sm);
+        } catch (SpreadException e) {
+            e.printStackTrace();
+        }
+        /*ms.sendAsync(masterAddress,"start",s.encode(sr));*/
 
     }
 

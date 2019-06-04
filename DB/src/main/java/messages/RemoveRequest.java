@@ -11,15 +11,18 @@ public class RemoveRequest {
     public String id;
     public ArrayList<Predicate<JSONObject>> filtros = null;
     public ArrayList<String> projecoes = null;
+    public String endereco;
 
 
-    public RemoveRequest(String id, long key) {
+    public RemoveRequest(String id, long key, String endereco) {
         this.id = id; this.key = key;
+        this.endereco = endereco;
     }
 
-    public RemoveRequest(String id, long key, ArrayList<Predicate<JSONObject>> filtros, ArrayList<String> projecoes) {
+    public RemoveRequest(String id, long key, String endereco, ArrayList<Predicate<JSONObject>> filtros, ArrayList<String> projecoes) {
         this.key = key;
         this.id = id;
+        this.endereco = endereco;
         this.filtros = filtros;
         this.projecoes = projecoes;
     }
@@ -29,6 +32,7 @@ public class RemoveRequest {
         return "GetRequest{" +
                 "key=" + key +
                 ", id='" + id + '\'' +
+                ", endereco='" + endereco + '\'' +
                 '}';
     }
 }
