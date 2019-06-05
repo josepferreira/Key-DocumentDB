@@ -17,10 +17,7 @@ import spread.*;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.TreeMap;
+import java.util.*;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
@@ -88,7 +85,11 @@ public class  Master {
                         slaves.put(ku,new SlaveIdentifier(end.toString(),ku));
 
                         System.out.println("Vou mandar uma mensagem para o: " + end.toString());
-                        ms.sendAsync(end,"start",s.encode(ku));
+
+                        //Necessario acrescentar o i para diferenciar os ids dos chunks
+                        String replyID = sr.id + i;
+                        StartReply startrep = new StartReply(replyID, ku);
+                        ms.sendAsync(end,"start",s.encode(startrep));
 
                         if((i+1) % 3 == 0 && it.hasNext()) end = Address.from(it.next());
                     }
@@ -181,8 +182,11 @@ public class  Master {
                     slaves.put(ku,new SlaveIdentifier(end.toString(),ku));
 
                     System.out.println("Vou mandar uma mensagem para o: " + end.toString());
-                    ms.sendAsync(end,"start",s.encode(ku));
-
+                    System.out.println("PELO MS JA NAO VAI MANDAR MENSAGEM!!!!!!! DE START!!!!!");
+                    /*String replyID = UUID.randomUUID().toString();
+                    StartReply sr = new StartReply(replyID, ku);
+                    ms.sendAsync(end,"start",s.encode(sr));
+*/
 
                     if((i+1) % 3 == 0) end = Address.from(it.next());
                 }

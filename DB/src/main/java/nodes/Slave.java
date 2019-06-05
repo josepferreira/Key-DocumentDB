@@ -21,6 +21,8 @@ import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.Predicate;
 
 class ResultadoScan{
@@ -44,7 +46,11 @@ public class Slave {
     HashMap<String,Put> putRequests = new HashMap<>();
     HashSet<String> scanRequests = new HashSet<>();
     TreeMap<KeysUniverse,RocksDB> dbs = new TreeMap<>();
+
+    //Comunicacao multicast
     SpreadConnection connection = new SpreadConnection();
+    private HashSet<String> replys = new HashSet<>(); //Para tratar dos pedidos repetidos dos diferentes masters
+    ReentrantLock lockReplys = new ReentrantLock();
 
     public Slave(String endereco) {
         RocksDB.loadLibrary();
@@ -66,8 +72,10 @@ public class Slave {
 
         this.registaHandlers();
 
+        //Necessario criar o slave o random porque senao os masters vao criar todos um diferente ...
+        String idRequest = UUID.randomUUID().toString();
         System.out.println("VOu enviar uma mensagem para o master de start");
-        StartRequest sr = new StartRequest(this.endereco);
+        StartRequest sr = new StartRequest(idRequest, this.endereco);
         SpreadMessage sm = new SpreadMessage();
         sm.setData(s.encode(sr));
         sm.addGroup("master");
@@ -80,6 +88,61 @@ public class Slave {
         }
         /*ms.sendAsync(masterAddress,"start",s.encode(sr));*/
 
+    }
+
+    /**
+     * Serve para remover o estado das respostas, para evitar que cresça infinitamente
+     * @param id
+     */
+    private void removeReply(String id){
+        //VAMOS PRECISAR DE CONTROLO DE CONCORRENCIA MUITO SIMPLES!!!!
+        try {
+            lockReplys.lock();
+            replys.remove(id);
+        }finally {
+            lockReplys.unlock();
+        }
+    }
+
+    /**
+     * Necessário usar este runnable desta forma para conseguir passar um parametro
+     * @param id
+     * @return
+     */
+    private Runnable delete(final String id){
+        Runnable ret = new Runnable() {
+            @Override
+            public void run() {
+                removeReply(id);
+            }
+        };
+
+        return ret;
+    }
+
+    /**
+     * Verifica se já possui uma resposta repetida
+     * Caso não exista, adiciona ao hashset e cria o schedule
+     * @param id
+     * @return
+     */
+    private boolean eRepetido(String id){
+
+        try {
+
+            lockReplys.lock();
+
+            if (!this.replys.contains(id)) {
+                replys.add(id);
+                this.ses.schedule(delete(id), 60, TimeUnit.SECONDS);
+                return false;
+            }
+
+            return true;
+
+        }finally {
+            lockReplys.unlock();
+        }
     }
 
     private void registaHandlers(){
@@ -334,16 +397,26 @@ public class Slave {
 
         ms.registerHandler("start", (o,m) -> {
             System.out.println("Recebi uma mensagem com a chave qe eu vou utilziar");
-            KeysUniverse ku = s.decode(m);
-            minhasChaves.add(ku);
-            System.out.println("Vamos ver as chaves: " + minhasChaves.toString());
             try {
-                this.options = new Options().setCreateIfMissing(true);
-                RocksDB ndb = RocksDB.open(options, "./localdb/" + endereco.replaceAll(":", "") + "-" + ku.toString() + "/" );
-                dbs.put(ku,ndb);
+                StartReply sr = s.decode(m);
+                System.out.println("Passei o decode ...");
+                if (!eRepetido(sr.id)) {
 
-            } catch (RocksDBException e) {
-                System.out.println("Exceçãoooooooooooooooo: " + e.getMessage());
+                    KeysUniverse ku = sr.keys;
+                    minhasChaves.add(ku);
+                    System.out.println("Vamos ver as chaves: " + minhasChaves.toString());
+                    try {
+                        this.options = new Options().setCreateIfMissing(true);
+                        RocksDB ndb = RocksDB.open(options, "./localdb/" + endereco.replaceAll(":", "") + "-" + ku.toString() + "/");
+                        dbs.put(ku, ndb);
+
+                    } catch (RocksDBException e) {
+                        System.out.println("Exceçãoooooooooooooooo: " + e.getMessage());
+                    }
+
+                }
+            }catch (Exception e){
+                System.out.println(e.getMessage());
             }
         }, ses);
     }

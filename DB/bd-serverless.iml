@@ -22,6 +22,7 @@
     <orderEntry type="jdk" jdkName="1.8" jdkType="JavaSDK" />
     <orderEntry type="library" name="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER" level="application" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Maven: org:spread:4.4.0" level="project" />
     <orderEntry type="library" name="Maven: io.atomix:atomix-cluster:3.0.5" level="project" />
     <orderEntry type="library" name="Maven: io.netty:netty-transport:4.1.27.Final" level="project" />
     <orderEntry type="library" name="Maven: io.netty:netty-buffer:4.1.27.Final" level="project" />

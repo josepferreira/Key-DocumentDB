@@ -13,11 +13,10 @@ import spread.SpreadMessage;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.sql.Time;
 import java.util.*;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.*;
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -34,7 +33,11 @@ public class Stub {
     HashMap<String, ScanIterator> scanRequests = new HashMap<>();
 
     private TreeMap<KeysUniverse,SlaveIdentifier> cache = new TreeMap<>();
+
+    //Comunicação multicast
     SpreadConnection connection = new SpreadConnection();
+    private HashSet<String> replys = new HashSet<>(); //Para tratar dos pedidos repetidos dos diferentes masters
+    ReentrantLock lockReplys = new ReentrantLock();
 
     public Stub(String endereco){
         this.endereco = endereco;
@@ -50,6 +53,61 @@ public class Stub {
         this.ms = NettyMessagingService.builder().withAddress(Address.from(endereco)).build();
         this.ms.start();
         registaHandlers();
+    }
+
+    /**
+     * Serve para remover o estado das respostas, para evitar que cresça infinitamente
+     * @param id
+     */
+    private void removeReply(String id){
+        //VAMOS PRECISAR DE CONTROLO DE CONCORRENCIA MUITO SIMPLES!!!!
+        try {
+            lockReplys.lock();
+            replys.remove(id);
+        }finally {
+            lockReplys.unlock();
+        }
+    }
+
+    /**
+     * Necessário usar este runnable desta forma para conseguir passar um parametro
+     * @param id
+     * @return
+     */
+    private Runnable delete(final String id){
+        Runnable ret = new Runnable() {
+            @Override
+            public void run() {
+                removeReply(id);
+            }
+        };
+
+        return ret;
+    }
+
+    /**
+     * Verifica se já possui uma resposta repetida
+     * Caso não exista, adiciona ao hashset e cria o schedule
+     * @param id
+     * @return
+     */
+    private boolean eRepetido(String id){
+
+        try {
+
+            lockReplys.lock();
+
+            if (!this.replys.contains(id)) {
+                replys.add(id);
+                this.ses.schedule(delete(id), 60, TimeUnit.SECONDS);
+                return false;
+            }
+
+            return true;
+
+        }finally {
+            lockReplys.unlock();
+        }
     }
 
     private void registaHandlers(){
@@ -90,6 +148,15 @@ public class Stub {
 
         },ses);
 
+        ms.registerHandler("scanReply", (o,m) -> {
+
+            SlaveScanReply ssr = s.decode(m);
+            ScanIterator sc = scanRequests.get(ssr.id);
+
+
+            sc.scan.registaResposta(ssr);
+        }, ses);
+
 
         /**
          *
@@ -101,30 +168,37 @@ public class Stub {
         ms.registerHandler("getMaster",(a,m) -> {
             ReplyMaster rm = s.decode(m);
 
-            System.out.println("O slave que contém a minha key é: " + rm.endereco);
-            Get g = getRequests.get(rm.id);
+            if(!eRepetido(rm.id)) {
 
-            if(g == null){
-                System.out.println("Deu nulo no get ... Algo errado!");
+                System.out.println("O slave que contém a minha key é: " + rm.endereco);
+                Get g = getRequests.get(rm.id);
+
+                if (g == null) {
+                    System.out.println("Deu nulo no get ... Algo errado!");
+                }
+
+                this.cache.put(rm.keys, new SlaveIdentifier(rm.endereco, rm.keys));
+                ms.sendAsync(Address.from(rm.endereco), "get", s.encode(g.request));
+
             }
-
-            this.cache.put(rm.keys, new SlaveIdentifier(rm.endereco,rm.keys));
-            ms.sendAsync(Address.from(rm.endereco), "get", s.encode(g.request));
 
         },ses);
 
         ms.registerHandler("removeMaster",(a,m) -> {
             ReplyMaster rm = s.decode(m);
 
-            System.out.println("O slave que contém a minha key é: " + rm.endereco);
-            Remove r = removeRequests.get(rm.id);
+            if(!eRepetido(rm.id)) {
 
-            if(r == null){
-                System.out.println("Deu nulo no get ... Algo errado!");
+                System.out.println("O slave que contém a minha key é: " + rm.endereco);
+                Remove r = removeRequests.get(rm.id);
+
+                if (r == null) {
+                    System.out.println("Deu nulo no get ... Algo errado!");
+                }
+
+                this.cache.put(rm.keys, new SlaveIdentifier(rm.endereco, rm.keys));
+                ms.sendAsync(Address.from(rm.endereco), "remove", s.encode(r.request));
             }
-
-            this.cache.put(rm.keys, new SlaveIdentifier(rm.endereco,rm.keys));
-            ms.sendAsync(Address.from(rm.endereco), "remove", s.encode(r.request));
 
         },ses);
 
@@ -132,39 +206,37 @@ public class Stub {
             System.out.println("Recebi uma mensagtme do master!!");
             ReplyMaster rm = s.decode(m);
 
-            System.out.println("O slave que contém a minha key é: " + rm.endereco);
+            if(!eRepetido(rm.id)) {
 
-            Put p = putRequests.get(rm.id);
-            if(p == null){
-                //Estranho, ver este caso
-                System.out.println("Put null");
+                System.out.println("O slave que contém a minha key é: " + rm.endereco);
+
+                Put p = putRequests.get(rm.id);
+                if (p == null) {
+                    //Estranho, ver este caso
+                    System.out.println("Put null");
+                }
+
+                System.out.println("Por na cache");
+
+                this.cache.put(rm.keys, new SlaveIdentifier(rm.endereco, rm.keys));
+
+                System.out.println("Enviar para o slave");
+                ms.sendAsync(Address.from(rm.endereco), "put", s.encode(p.request));
             }
-
-            System.out.println("Por na cache");
-
-            this.cache.put(rm.keys, new SlaveIdentifier(rm.endereco,rm.keys));
-
-            System.out.println("Enviar para o slave");
-            ms.sendAsync(Address.from(rm.endereco), "put", s.encode(p.request));
 
         },ses);
 
         ms.registerHandler("scanMaster", (o,m) -> {
             ScanReply sr = s.decode(m);
-            ScanIterator sc = scanRequests.get(sr.id);
-            this.cache = sr.slaves;
-            sc.scan.registaCache(this.cache);
+
+            if(!eRepetido(sr.id)) {
+
+                ScanIterator sc = scanRequests.get(sr.id);
+                this.cache = sr.slaves;
+                sc.scan.registaCache(this.cache);
+            }
 
         },ses);
-
-        ms.registerHandler("scanReply", (o,m) -> {
-
-            SlaveScanReply ssr = s.decode(m);
-            ScanIterator sc = scanRequests.get(ssr.id);
-
-
-            sc.scan.registaResposta(ssr);
-        }, ses);
 
 
     }
