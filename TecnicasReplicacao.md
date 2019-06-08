@@ -15,3 +15,9 @@
     - para já é feito passando um argumento booleano
 
 ## Replicação Passiva - Slave
+
+- 1 grupo para cada conjunto de chaves (chunk)
+
+- o master indicas os id's
+
+- vamos ter problemas se por exemplo tivermos 3 e falharem 2 e depois recuperarem, pq vai ser só um que vai ficar responsavel por tudo
