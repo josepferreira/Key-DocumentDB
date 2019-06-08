@@ -31,6 +31,12 @@ public class  Master {
     private HashSet<String> start = new HashSet<>();
     SpreadConnection connection = new SpreadConnection();
 
+    private boolean estadoRecuperado;
+    private boolean descarta;
+
+    private ArrayList<Object> fila = new ArrayList<>();
+
+    private HashSet<String> pedidosEstado = new HashSet<>();
 
     BasicMessageListener bml = new BasicMessageListener() {
         @Override
@@ -38,72 +44,57 @@ public class  Master {
             byte[] msg = spreadMessage.getData();
             Object o = s.decode(msg);
             System.out.println("GROUP:" + spreadMessage.getSender());
-            if(o instanceof GetRequest){
-                GetRequest gr = (GetRequest) o;
-                KeysUniverse ku = new KeysUniverse(gr.key, gr.key);
-                SlaveIdentifier slaveI = slaves.get(ku);
-                ReplyMaster rm = new ReplyMaster(gr.id, slaveI.endereco, slaveI.keys, gr.key);
-                ms.sendAsync(Address.from(gr.endereco), "getMaster", s.encode(rm));
-            }
-            else if(o instanceof PutRequest){
-                PutRequest pr = (PutRequest) o;
-                KeysUniverse ku = new KeysUniverse(pr.key, pr.key);
-                SlaveIdentifier slave = slaves.get(ku);
-                ReplyMaster rm = new ReplyMaster(pr.id, slave.endereco,slave.keys, pr.key);
-                ms.sendAsync(Address.from(pr.endereco),"putMaster",s.encode(rm));
-            }
-            else if(o instanceof ScanRequest){
-                ScanRequest srq = (ScanRequest) o;
-                ScanReply sr = new ScanReply(srq.id, slaves);
-                ms.sendAsync(Address.from(srq.endereco), "scanMaster", s.encode(sr));
-                System.out.println("Enviado");
-            }
-            else if(o instanceof RemoveRequest){
-                RemoveRequest rr = (RemoveRequest) o;
-                KeysUniverse ku = new KeysUniverse(rr.key, rr.key);
-                SlaveIdentifier slaveI = slaves.get(ku);
-                ReplyMaster rm = new ReplyMaster(rr.id, slaveI.endereco, slaveI.keys, rr.key);
 
-                ms.sendAsync(Address.from(rr.endereco),"removeMaster", s.encode(rm));
-            }
-            else if(o instanceof StartRequest){
-                System.out.println("Recebi uma mensagem de start");
-                StartRequest sr = (StartRequest) o;
-                start.add(sr.endereco);
-
-                if(start.size() > 2){
-                    //enviar o conjunto das chaves
-                    Iterator<String> it = start.iterator();
-                    Address end = Address.from(it.next());
-                    long chunk = 50;
-                    for(int i=0; i < 9; i++){
-                        long inicial = i*50;
-                        long finall = (i+1)*50;
-
-                        if(i == 8) finall = Long.MAX_VALUE;
-                        KeysUniverse ku = new KeysUniverse(inicial,finall);
-                        slaves.put(ku,new SlaveIdentifier(end.toString(),ku));
-
-                        System.out.println("Vou mandar uma mensagem para o: " + end.toString());
-
-                        //Necessario acrescentar o i para diferenciar os ids dos chunks
-                        String replyID = sr.id + i;
-                        StartReply startrep = new StartReply(replyID, ku);
-                        ms.sendAsync(end,"start",s.encode(startrep));
-
-                        if((i+1) % 3 == 0 && it.hasNext()) end = Address.from(it.next());
-                    }
+            if(descarta){
+                if(o instanceof PedidoEstadoMaster){
+                    System.out.println("Recebi pedido master");
+                    descarta = false;
                 }
             }
             else{
-
+                if(!estadoRecuperado){
+                    if(o instanceof EstadoMaster){
+                        System.out.println("Recebi resposta pedido estado");
+                        //recupera estado
+                        EstadoMaster em = (EstadoMaster)o;
+                        if(!pedidosEstado.contains(em.id)){
+                            System.out.println("Vou alterar estado");
+                            pedidosEstado.add(em.id);
+                            slaves.putAll(em.slaves);
+                            start.addAll(em.start);
+                            estadoRecuperado = true;
+                            trataFila();
+                        }
+                    }
+                    else{
+                        fila.add(o);
+                    }
+                }
+                else{
+                    if(o instanceof PedidoEstadoMaster){
+                        System.out.println("Vou responder ao pedido de estado");
+                        EstadoMaster em = new EstadoMaster(((PedidoEstadoMaster)o).id,slaves,start);
+                        SpreadMessage sm = new SpreadMessage();
+                        sm.setData(s.encode(em));
+                        sm.addGroup(spreadMessage.getSender());
+                        sm.setReliable();
+                        try {
+                            connection.multicast(sm);
+                        } catch (SpreadException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    else
+                        trataMensagem(o);
+                }
             }
         }
     };
 
-    public Master(TreeMap<KeysUniverse, SlaveIdentifier> slaves, String endereco) {
-        this.slaves = slaves;
+    public Master(String endereco, boolean r) {
         this.endereco = endereco;
+        this.estadoRecuperado = r;
+        this.descarta = !r;
         try {
             connection.connect(InetAddress.getByName("localhost"), 0, null, false, false);
         } catch (SpreadException e) {
@@ -123,6 +114,94 @@ public class  Master {
 
         this.registaHandlers();
         connection.add(bml);
+
+        if(estadoRecuperado){
+            System.out.println("Não vou recuperar estado");
+        }
+        else{
+            System.out.println("Vou recuperar estado");
+
+            PedidoEstadoMaster pem = new PedidoEstadoMaster(UUID.randomUUID().toString());
+            SpreadMessage sm = new SpreadMessage();
+            sm.setData(s.encode(pem));
+            sm.addGroup("master");
+            sm.setReliable();
+            sm.setAgreed();
+            try {
+                connection.multicast(sm);
+            } catch (SpreadException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void trataMensagem(Object o){
+        if(o instanceof GetRequest){
+            GetRequest gr = (GetRequest) o;
+            KeysUniverse ku = new KeysUniverse(gr.key, gr.key);
+            SlaveIdentifier slaveI = slaves.get(ku);
+            ReplyMaster rm = new ReplyMaster(gr.id, slaveI.endereco, slaveI.keys, gr.key);
+            ms.sendAsync(Address.from(gr.endereco), "getMaster", s.encode(rm));
+        }
+        else if(o instanceof PutRequest){
+            PutRequest pr = (PutRequest) o;
+            KeysUniverse ku = new KeysUniverse(pr.key, pr.key);
+            SlaveIdentifier slave = slaves.get(ku);
+            ReplyMaster rm = new ReplyMaster(pr.id, slave.endereco,slave.keys, pr.key);
+            ms.sendAsync(Address.from(pr.endereco),"putMaster",s.encode(rm));
+        }
+        else if(o instanceof ScanRequest){
+            ScanRequest srq = (ScanRequest) o;
+            ScanReply sr = new ScanReply(srq.id, slaves);
+            ms.sendAsync(Address.from(srq.endereco), "scanMaster", s.encode(sr));
+            System.out.println("Enviado");
+        }
+        else if(o instanceof RemoveRequest){
+            RemoveRequest rr = (RemoveRequest) o;
+            KeysUniverse ku = new KeysUniverse(rr.key, rr.key);
+            SlaveIdentifier slaveI = slaves.get(ku);
+            ReplyMaster rm = new ReplyMaster(rr.id, slaveI.endereco, slaveI.keys, rr.key);
+
+            ms.sendAsync(Address.from(rr.endereco),"removeMaster", s.encode(rm));
+        }
+        else if(o instanceof StartRequest){
+            System.out.println("Recebi uma mensagem de start");
+            StartRequest sr = (StartRequest) o;
+            start.add(sr.endereco);
+
+            if(start.size() > 2){
+                //enviar o conjunto das chaves
+                Iterator<String> it = start.iterator();
+                Address end = Address.from(it.next());
+                long chunk = 50;
+                for(int i=0; i < 9; i++){
+                    long inicial = i*50;
+                    long finall = (i+1)*50;
+
+                    if(i == 8) finall = Long.MAX_VALUE;
+                    KeysUniverse ku = new KeysUniverse(inicial,finall);
+                    slaves.put(ku,new SlaveIdentifier(end.toString(),ku));
+
+                    System.out.println("Vou mandar uma mensagem para o: " + end.toString());
+
+                    //Necessario acrescentar o i para diferenciar os ids dos chunks
+                    String replyID = sr.id + i;
+                    StartReply startrep = new StartReply(replyID, ku);
+                    ms.sendAsync(end,"start",s.encode(startrep));
+
+                    if((i+1) % 3 == 0 && it.hasNext()) end = Address.from(it.next());
+                }
+            }
+        }
+        else{
+
+        }
+    }
+
+    private void trataFila(){
+        for(Object o: fila){
+            trataMensagem(o);
+        }
     }
 
     private void registaHandlers(){
@@ -211,7 +290,6 @@ public class  Master {
         // ******* Povoamento **********
         //Para já está povoado hardecoded ...
 
-        TreeMap<KeysUniverse,SlaveIdentifier> slaves = new TreeMap<>();
         String endereco = "localhost:1233" + args[0];
 
         /*KeysUniverse ku1 = new KeysUniverse(0, 100);
@@ -226,7 +304,8 @@ public class  Master {
         slaves.put(ku2, slave2);
         slaves.put(ku3, slave3);*/
 
-        Master m = new Master(slaves, endereco);
+        System.out.println(args.length);
+        Master m = new Master(endereco, args.length>1);
 
         //m.teste();
 
