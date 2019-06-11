@@ -27,7 +27,8 @@ public class SerializerProtocol {
                 StartRequest.class,
                 StartReply.class,
                 EstadoMaster.class,
-                PedidoEstadoMaster.class
+                PedidoEstadoMaster.class,
+                StartMessage.class
         ).build();
     }
 }

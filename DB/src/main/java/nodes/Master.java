@@ -23,6 +23,7 @@ import java.util.concurrent.ScheduledExecutorService;
 
 public class  Master {
 
+    public final int fatorReplicacao = 1;
     public TreeMap<KeysUniverse,SlaveIdentifier> slaves = new TreeMap<>();
     public String endereco;
     ManagedMessagingService ms;
@@ -166,30 +167,50 @@ public class  Master {
         }
         else if(o instanceof StartRequest){
             System.out.println("Recebi uma mensagem de start");
-            StartRequest sr = (StartRequest) o;
-            start.add(sr.endereco);
+            start.add(o.toString());
 
             if(start.size() > 2){
                 //enviar o conjunto das chaves
-                Iterator<String> it = start.iterator();
-                Address end = Address.from(it.next());
+                ArrayList<String> it = new ArrayList<>(start);
+                int atual = 0;
+                int size = it.size();
                 long chunk = 50;
+                Address end = Address.from(it.get(atual));
+                ArrayList<String> secundarios = new ArrayList<>();
+                for(int k = 0; k < fatorReplicacao; k++){
+                    int indice = (atual + k + 1) % size;
+                    secundarios.add(it.get(indice));
+                }
+
                 for(int i=0; i < 9; i++){
                     long inicial = i*50;
                     long finall = (i+1)*50;
 
                     if(i == 8) finall = Long.MAX_VALUE;
                     KeysUniverse ku = new KeysUniverse(inicial,finall);
-                    slaves.put(ku,new SlaveIdentifier(end.toString(),ku));
+                    slaves.put(ku,new SlaveIdentifier(end.toString(),ku,secundarios));
 
                     System.out.println("Vou mandar uma mensagem para o: " + end.toString());
+                    int idAtual = 0;
+                    StartMessage sm = new StartMessage(ku,idAtual);
+                    ms.sendAsync(end,"start",s.encode(sm));
 
-                    //Necessario acrescentar o i para diferenciar os ids dos chunks
-                    String replyID = sr.id + i;
-                    StartReply startrep = new StartReply(replyID, ku);
-                    ms.sendAsync(end,"start",s.encode(startrep));
+                    for(String sec: secundarios){
+                        sm.id = ++idAtual;
+                        ms.sendAsync(Address.from(sec),"start",s.encode(sm));
+                    }
 
-                    if((i+1) % 3 == 0 && it.hasNext()) end = Address.from(it.next());
+
+                    if((i+1) % 3 == 0){
+                        atual = atual++ % size;
+                        end = Address.from(it.get(atual));
+
+                        secundarios.clear();
+                        for(int k = 0; k < fatorReplicacao; k++){
+                            int indice = (atual + k + 1) % size;
+                            secundarios.add(it.get(indice));
+                        }
+                    }
                 }
             }
         }
