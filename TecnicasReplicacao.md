@@ -42,3 +42,13 @@
 - Em t2 falha o C e o A assume como primário
 
 - Em t3 volta o B. Como é que ele sabe quais as chaves que tem de assumir? E se nessas é primário ou secundário (o id)?
+
+### Técnicas a usar
+
+- Se o slave não contém identificador então manda mensagem ao master a dizer start pq é novo
+
+- Se o slave contém identificador manda ao master mensagem startEspecial a pedir as suas informações
+
+- Para conter vários grupos e identificadores diferentes em diferentes grupos vamos ter de ter tbm várias conexões. Um hashmap com isto!
+
+- Se um slave falhar o master deteta e manda lançar outro!

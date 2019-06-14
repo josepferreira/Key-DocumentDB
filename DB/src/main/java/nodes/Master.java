@@ -15,6 +15,7 @@ import io.atomix.utils.serializer.Serializer;
 import messages.*;
 import spread.*;
 
+import java.lang.reflect.Array;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.*;
@@ -23,21 +24,28 @@ import java.util.concurrent.ScheduledExecutorService;
 
 public class  Master {
 
-    public final int fatorReplicacao = 1;
-    public TreeMap<KeysUniverse,SlaveIdentifier> slaves = new TreeMap<>();
+    public final String idSlave = "slave";
+
     public String endereco;
     ManagedMessagingService ms;
     ScheduledExecutorService ses = Executors.newSingleThreadScheduledExecutor();
     Serializer s = SerializerProtocol.newSerializer();
-    private HashSet<String> start = new HashSet<>();
     SpreadConnection connection = new SpreadConnection();
+    SpreadConnection connectionGlobal = new SpreadConnection();
 
+    //estado partilhado
+    public final int fatorReplicacao = 1;
+    public int nSlaves = 0;
+    public TreeMap<KeysUniverse,SlaveIdentifier> slaves = new TreeMap<>();
+    private HashSet<String> start = new HashSet<>();
+    private HashMap<String, TreeSet<KeysUniverse>> keysSlaves = new HashMap<>();
+
+    private ArrayList<Object> fila = new ArrayList<>();
+    private HashSet<String> pedidosEstado = new HashSet<>();
     private boolean estadoRecuperado;
     private boolean descarta;
 
-    private ArrayList<Object> fila = new ArrayList<>();
 
-    private HashSet<String> pedidosEstado = new HashSet<>();
 
     BasicMessageListener bml = new BasicMessageListener() {
         @Override
@@ -92,20 +100,48 @@ public class  Master {
         }
     };
 
+    AdvancedMessageListener aml = new AdvancedMessageListener() {
+        @Override
+        public void regularMessageReceived(SpreadMessage spreadMessage) {
+            return;
+        }
+
+        @Override
+        public void membershipMessageReceived(SpreadMessage spreadMessage) {
+            System.out.println("recebi uma membership message");
+            if(spreadMessage.getMembershipInfo().isCausedByLeave() ||
+                    spreadMessage.getMembershipInfo().isCausedByDisconnect()){
+
+                String aux = spreadMessage.getMembershipInfo().getLeft().toString();
+
+                if(aux.startsWith(idSlave)){
+
+                    System.out.println("Este slave saiu, inicia outro com este identificador: " + aux);
+                }
+                else{
+                    System.out.println("Saiu um master! -> " + aux);
+                }
+            }
+        }
+    };
+
     public Master(String endereco, boolean r) {
         this.endereco = endereco;
         this.estadoRecuperado = r;
         this.descarta = !r;
         try {
             connection.connect(InetAddress.getByName("localhost"), 0, null, false, false);
+            connectionGlobal.connect(InetAddress.getByName("localhost"), 0, null, false, true);
         } catch (SpreadException e) {
             e.printStackTrace();
         } catch (UnknownHostException e) {
             e.printStackTrace();
         }
         SpreadGroup group = new SpreadGroup();
+        SpreadGroup groupGlobal = new SpreadGroup();
         try {
             group.join(connection, "master");
+            groupGlobal.join(connectionGlobal,"global");
         } catch (SpreadException e) {
             e.printStackTrace();
         }
@@ -115,6 +151,7 @@ public class  Master {
 
         this.registaHandlers();
         connection.add(bml);
+        connectionGlobal.add(aml);
 
         if(estadoRecuperado){
             System.out.println("Não vou recuperar estado");
@@ -169,6 +206,9 @@ public class  Master {
             System.out.println("Recebi uma mensagem de start");
             start.add(o.toString());
 
+            StartRequest sr = new StartRequest(idSlave+this.nSlaves++,null);
+            ms.sendAsync(Address.from(((StartRequest)o).id), "startFirst",s.encode(sr)); //envia o id ao slave que entrou!
+
             if(start.size() > 2){
                 //enviar o conjunto das chaves
                 ArrayList<String> it = new ArrayList<>(start);
@@ -176,10 +216,10 @@ public class  Master {
                 int size = it.size();
                 long chunk = 50;
                 Address end = Address.from(it.get(atual));
-                ArrayList<String> secundarios = new ArrayList<>();
+                HashMap<String,Integer> secundarios = new HashMap<>();
                 for(int k = 0; k < fatorReplicacao; k++){
                     int indice = (atual + k + 1) % size;
-                    secundarios.add(it.get(indice));
+                    secundarios.put((it.get(indice)),atual+k+1);
                 }
 
                 for(int i=0; i < 9; i++){
@@ -195,9 +235,9 @@ public class  Master {
                     StartMessage sm = new StartMessage(ku,idAtual);
                     ms.sendAsync(end,"start",s.encode(sm));
 
-                    for(String sec: secundarios){
-                        sm.id = ++idAtual;
-                        ms.sendAsync(Address.from(sec),"start",s.encode(sm));
+                    for(Map.Entry<String,Integer> sec: secundarios.entrySet()){
+                        sm.id = sec.getValue();
+                        ms.sendAsync(Address.from(sec.getKey()),"start",s.encode(sm));
                     }
 
 
@@ -208,11 +248,38 @@ public class  Master {
                         secundarios.clear();
                         for(int k = 0; k < fatorReplicacao; k++){
                             int indice = (atual + k + 1) % size;
-                            secundarios.add(it.get(indice));
+                            secundarios.put((it.get(indice)),atual+k+1);
                         }
                     }
                 }
             }
+        }
+        else if(o instanceof RestartRequest){
+            RestartRequest rr = (RestartRequest)o;
+            TreeSet<KeysUniverse> aux = this.keysSlaves.get(rr.id);
+            HashMap<String,Integer> grupos = new HashMap<>();
+
+            for(KeysUniverse ku: aux){
+                SlaveIdentifier si = slaves.get(ku);
+
+                if(ku != null){
+                    if(si.endereco.equals(rr.id)){
+                        grupos.put(ku.getGrupo(),0);
+                    }
+                    else{
+                        grupos.put(ku.getGrupo(),si.secundarios.get(rr.id));
+                    }
+                }
+                else{
+                    System.out.println("SlaveID null!!!");
+                }
+            }
+
+            RestartReply rp = new RestartReply(aux,grupos);
+            ms.sendAsync(Address.from(rr.endereco),"restart",s.encode(rp));
+
+
+
         }
         else{
 

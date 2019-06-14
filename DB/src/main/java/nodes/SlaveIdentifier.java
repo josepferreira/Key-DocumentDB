@@ -1,16 +1,17 @@
 package nodes;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Objects;
 
 //classe importante para se aceder diretamente ao endereco e ao conjunto de chaves do servidor especifico
 public class SlaveIdentifier {
     public String endereco;
     public KeysUniverse keys;
-    public ArrayList<String> secundarios;
+    public HashMap<String,Integer> secundarios;
     public int proximo;
 
-    public SlaveIdentifier(String endereco, KeysUniverse keys, ArrayList<String> secundarios) {
+    public SlaveIdentifier(String endereco, KeysUniverse keys, HashMap<String,Integer> secundarios) {
         this.endereco = endereco;
         this.keys = keys;
         this.secundarios = secundarios;
