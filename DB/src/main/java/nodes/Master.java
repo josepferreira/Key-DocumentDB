@@ -204,10 +204,10 @@ public class  Master {
         }
         else if(o instanceof StartRequest){
             System.out.println("Recebi uma mensagem de start");
-            start.add(o.toString());
-
+            start.add(idSlave+this.nSlaves);
             StartRequest sr = new StartRequest(idSlave+this.nSlaves++,null);
-            ms.sendAsync(Address.from(((StartRequest)o).id), "startFirst",s.encode(sr)); //envia o id ao slave que entrou!
+
+            ms.sendAsync(Address.from(((StartRequest)o).endereco), "startFirst",s.encode(sr)); //envia o id ao slave que entrou!
 
             if(start.size() > 2){
                 //enviar o conjunto das chaves
@@ -215,11 +215,11 @@ public class  Master {
                 int atual = 0;
                 int size = it.size();
                 long chunk = 50;
-                Address end = Address.from(it.get(atual));
+                String end = it.get(atual);
                 HashMap<String,Integer> secundarios = new HashMap<>();
                 for(int k = 0; k < fatorReplicacao; k++){
                     int indice = (atual + k + 1) % size;
-                    secundarios.put((it.get(indice)),atual+k+1);
+                    secundarios.put((it.get(indice)),k+1);
                 }
 
                 for(int i=0; i < 9; i++){
@@ -228,30 +228,49 @@ public class  Master {
 
                     if(i == 8) finall = Long.MAX_VALUE;
                     KeysUniverse ku = new KeysUniverse(inicial,finall);
-                    slaves.put(ku,new SlaveIdentifier(end.toString(),ku,secundarios));
+                    System.out.println("SI: " + secundarios);
+                    slaves.put(ku,new SlaveIdentifier(end,ku,secundarios));
 
-                    System.out.println("Vou mandar uma mensagem para o: " + end.toString());
+                    System.out.println("Vou mandar uma mensagem para o: " + end);
                     int idAtual = 0;
                     StartMessage sm = new StartMessage(ku,idAtual);
-                    ms.sendAsync(end,"start",s.encode(sm));
+                    //ms.sendAsync(end,"start",s.encode(sm));
 
                     for(Map.Entry<String,Integer> sec: secundarios.entrySet()){
                         sm.id = sec.getValue();
-                        ms.sendAsync(Address.from(sec.getKey()),"start",s.encode(sm));
+
+                        SpreadMessage smsg = new SpreadMessage();
+                        smsg.setData(s.encode(sm));
+                        smsg.addGroup(sec.getKey());
+                        smsg.setReliable();
+                        try {
+                            connection.multicast(smsg);
+                        } catch (SpreadException e) {
+                            e.printStackTrace();
+                        }
                     }
 
 
                     if((i+1) % 3 == 0){
-                        atual = atual++ % size;
-                        end = Address.from(it.get(atual));
+                        System.out.println(size);
+                        System.out.println(atual);
+                        atual = (atual+1) % size;
+                        System.out.println(atual);
+                        end = it.get(atual);
 
-                        secundarios.clear();
+                        secundarios = new HashMap<>();
                         for(int k = 0; k < fatorReplicacao; k++){
                             int indice = (atual + k + 1) % size;
-                            secundarios.put((it.get(indice)),atual+k+1);
+                            System.out.println(indice);
+                            secundarios.put((it.get(indice)),k+1);
                         }
+                        System.out.println(secundarios);
                     }
                 }
+            }
+
+            for(Map.Entry<KeysUniverse,SlaveIdentifier> me : this.slaves.entrySet()){
+                System.out.println(me);
             }
         }
         else if(o instanceof RestartRequest){

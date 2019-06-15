@@ -29,6 +29,8 @@ public class SlaveIdentifier {
         return "SlaveIdentifier{" +
                 "endereco='" + endereco + '\'' +
                 ", keys=" + keys +
+                ", secundarios=" + secundarios +
+                ", proximo=" + proximo +
                 '}';
     }
 

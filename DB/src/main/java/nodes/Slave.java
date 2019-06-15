@@ -13,6 +13,7 @@ import org.rocksdb.RocksDBException;
 import org.rocksdb.RocksIterator;
 import spread.SpreadConnection;
 import spread.SpreadException;
+import spread.SpreadGroup;
 import spread.SpreadMessage;
 
 import java.net.InetAddress;
@@ -417,6 +418,20 @@ public class Slave {
                 }
             }catch (Exception e){
                 System.out.println(e.getMessage());
+            }
+        }, ses);
+
+        ms.registerHandler("startFirst", (o,m) -> {
+            System.out.println("Recebi uma mensagem de start com id!");
+            SpreadConnection myconnection = new SpreadConnection();
+            Object obj = s.decode(m);
+            StartRequest sr = (StartRequest)obj;
+            try {
+                myconnection.connect(InetAddress.getByName("localhost"), 0, sr.id, false, false);
+            } catch (SpreadException e) {
+                e.printStackTrace();
+            } catch (UnknownHostException e) {
+                e.printStackTrace();
             }
         }, ses);
     }
