@@ -30,7 +30,9 @@ public class SerializerProtocol {
                 PedidoEstadoMaster.class,
                 StartMessage.class,
                 RestartReply.class,
-                RestartRequest.class
+                RestartRequest.class,
+                UpdateMessage.class,
+                ACKMessage.class
         ).build();
     }
 }

@@ -1,10 +1,7 @@
 package nodes;
 
-import spread.SpreadConnection;
 import spread.SpreadException;
-import spread.SpreadGroup;
 
-import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -13,30 +10,31 @@ public class Groups {
     public static Scanner s = new Scanner(System.in);
 
 
-    public HashMap<String,Conexao> grupos = new HashMap<>();
+    public HashMap<String, Grupo> grupos = new HashMap<>();
 
     public Groups(){}
 
     public void adicionaConexao(String id, String grupo) throws SpreadException, UnknownHostException {
-        Conexao c = new Conexao(id,grupo);
+        System.out.println("ATENCAO QUE O GRUPO ESTA NULO!!!");
+        Grupo c = null;// new Grupo(id,grupo);
         grupos.put(grupo,c);
     }
 
     public void desconecta(String grupo) throws SpreadException{
-        Conexao c = grupos.remove(grupo);
+        Grupo c = grupos.remove(grupo);
         if(c != null){
             c.desconectar();
         }
     }
 
     public void sair() throws SpreadException {
-        for(Conexao c: grupos.values()){
+        for(Grupo c: grupos.values()){
             c.desconectar();
         }
     }
 
     public String toString(){
-        for(Conexao c: grupos.values()){
+        for(Grupo c: grupos.values()){
             System.out.println(c);
         }
         return grupos.toString();
@@ -94,7 +92,8 @@ public class Groups {
                     System.out.println("Indique o id no grupo ao qual se quer juntar:");
                     String id = leString("Coloque um id válido!");
 
-                    g.adicionaConexao(id,grupo);
+                    g.
+                            adicionaConexao(id,grupo);
                     break;
                 case 1:
                     System.out.println("Indique o grupo ao qual se quer desconectar:");

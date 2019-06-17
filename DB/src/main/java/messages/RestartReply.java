@@ -3,15 +3,14 @@ package messages;
 import nodes.KeysUniverse;
 
 import java.util.HashMap;
+import java.util.TreeMap;
 import java.util.TreeSet;
 
 public class RestartReply {
 
-    TreeSet<KeysUniverse> keys;
-    HashMap<String,Integer> grupos;
+    public TreeMap<KeysUniverse, String> keys;
 
-    public RestartReply(TreeSet<KeysUniverse> keys, HashMap<String, Integer> grupos) {
+    public RestartReply(TreeMap<KeysUniverse, String> keys) {
         this.keys = keys;
-        this.grupos = grupos;
     }
 }

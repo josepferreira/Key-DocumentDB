@@ -37,16 +37,18 @@ public class Slave {
 
     //private final Address masterAddress = Address.from("localhost:12340");
     public String endereco;
+    public String id;
     public TreeSet<KeysUniverse> minhasChaves = new TreeSet<>();
     ManagedMessagingService ms;
     ScheduledExecutorService ses = Executors.newSingleThreadScheduledExecutor();
     Serializer s = SerializerProtocol.newSerializer();
-    Options options;
+
     HashMap<String,Put> putRequests = new HashMap<>();
     HashMap<String,Remove> removeRequests = new HashMap<>();
     HashSet<String> scanRequests = new HashSet<>();
-    TreeMap<KeysUniverse,RocksDB> dbs = new TreeMap<>();
-    public Groups grupos = new Groups();
+
+    TreeMap<KeysUniverse, Grupo> grupos = new TreeMap<>();
+    HashMap<String, HashSet<String>> acks = new HashMap<>();
 
     //Comunicacao multicast
     SpreadConnection connection = new SpreadConnection();
@@ -59,53 +61,49 @@ public class Slave {
         public void regularMessageReceived(SpreadMessage spreadMessage) {
             Object o = s.decode(spreadMessage.getData());
 
-            if(o instanceof UpdateMessage){
-                Conexao c = grupos.grupos.get(spreadMessage.getGroups()[0].toString());
-                if(c.primario.equals(c.id)){
-                    System.out.println("Sou o primario, n faço update!");
-                }
-                else {
-                    UpdateMessage um = (UpdateMessage) o;
+            if(o instanceof UpdateMessage) {
+                UpdateMessage um = (UpdateMessage) o;
+                KeysUniverse ku = new KeysUniverse(um.key, um.key);
+                Grupo g = grupos.get(ku);
 
-                    if (um.value != null) {
-                        Put p = putRequests.get(um.id);
-
-                        if (p == null) {
-                            p = new Put(um.pr, new CompletableFuture<Boolean>(), um.resposta);
-                            putRequests.put(um.id, p);
-
-                            p.cf.thenAccept(a -> {
-                                SpreadMessage sm = new SpreadMessage();
-                                sm.addGroup(spreadMessage.getSender());
-                                sm.setData(s.encode(new ACKMessage(um.id,true)));
-                                sm.setReliable();
-
-                                try {
-                                    connection.multicast(sm);
-                                } catch (SpreadException e) {
-                                    e.printStackTrace();
-                                }
-
-                            });
-
-                            ////se ainda n inseriu insere
-                            byte[] key = Longs.toByteArray(um.pr.key);
-                            try {
-                                KeysUniverse ku = new KeysUniverse(um.key, um.key);
-                                RocksDB db = dbs.get(ku);
-                                db.put(key, um.value.toString().getBytes());
-                                p.cf.complete(true);
-                            } catch (RocksDBException e) {
-                                p.cf.complete(false);
-                                e.printStackTrace();
-                                System.out.println("Erro ao realizar put na BD local! Estranho, foi num update vindo do primario!!!");
-                            }
-                        } else {
-                            //já aconteceu algo, ver pq recebeu novo pedido
-                        }
-
+                if (g == null) {
+                    System.out.println("Eu n sou do grupo como recebi update? ESTRANHO!");
+                } else {
+                    if (g.primario.equals(g.id)) {
+                        System.out.println("Sou o primario, n faço update!");
                     } else {
-                        System.out.println("REMOVE!!!");
+
+                        if (um.value != null) {
+                            Put p = putRequests.get(um.id);
+
+                            if (p == null) {
+                                p = new Put(um.pr, new CompletableFuture<Boolean>(), um.resposta);
+                                putRequests.put(um.id, p);
+
+                                p.cf.thenAccept(a -> {
+                                    SpreadMessage sm = new SpreadMessage();
+                                    sm.addGroup(spreadMessage.getSender());
+                                    sm.setData(s.encode(new ACKMessage(um.id, true)));
+                                    sm.setReliable();
+
+                                    try {
+                                        connection.multicast(sm);
+                                    } catch (SpreadException e) {
+                                        e.printStackTrace();
+                                    }
+
+                                });
+
+                                boolean resposta = g.updateState(um);
+                                p.cf.complete(resposta);
+                            } else {
+                                //já aconteceu algo, ver pq recebeu novo pedido
+                                System.out.println("Já tinha put, pq recebi novamente???");
+                            }
+
+                        } else {
+                            System.out.println("REMOVE!!! Tratar depois! TEMOS!");
+                        }
                     }
                 }
             }
@@ -124,19 +122,63 @@ public class Slave {
                 membros.add(sg.toString());
             }
 
-            grupos.grupos.get(grupo).atualiza(membros); //atualiza membros do grupo
-
+            for(Grupo g: grupos.values()){
+                if(g.grupo.equals(grupo)){
+                    g.atualiza(membros);
+                    break;
+                }
+            }
 
         }
     };
 
-    public Slave(String endereco) {
+    public BasicMessageListener bml = new BasicMessageListener() {
+        @Override
+        public void messageReceived(SpreadMessage spreadMessage) {
+            Object o = s.decode(spreadMessage.getData());
+
+            if(o instanceof ACKMessage){
+                ACKMessage ackMessage = (ACKMessage)o;
+
+                HashSet<String> aux = acks.get(ackMessage.id);
+
+                System.out.println("ACK, SENDER: " + spreadMessage.getSender().toString());
+
+                boolean rmv = aux.remove(spreadMessage.getSender().toString());
+
+                if(rmv && aux.isEmpty()){
+                    if(ackMessage.put){
+                        Put p = putRequests.get(ackMessage.id);
+
+                        if(p == null){
+                            System.out.println("Recebi um ack e n tenho o put! ESTRANHO");
+                        }
+                        else{
+                            p.cf.complete(p.resposta);
+                        }
+                    }
+                    else{
+                        //e remove
+                        System.out.println("Recebi ack remove, ver o q fazer!");
+                    }
+                }
+            }
+            else{
+                System.out.println("Recebi uma mensagem para o grupo privado que não é de ACK!");
+            }
+        }
+    };
+
+
+
+    public Slave(String endereco, String id) {
         RocksDB.loadLibrary();
 
         this.endereco = endereco;
+        this.id = id;
 
         try {
-            connection.connect(InetAddress.getByName("localhost"), 0, null, false, false);
+            connection.connect(InetAddress.getByName("localhost"), 0, id, false, false);
         } catch (SpreadException e) {
             e.printStackTrace();
         } catch (UnknownHostException e) {
@@ -151,11 +193,10 @@ public class Slave {
         this.registaHandlers();
 
         //Necessario criar o slave o random porque senao os masters vao criar todos um diferente ...
-        String idRequest = UUID.randomUUID().toString();
-        System.out.println("VOu enviar uma mensagem para o master de start");
-        StartRequest sr = new StartRequest(idRequest, this.endereco);
+        System.out.println("VOu enviar uma mensagem para o master de restart");
+        RestartRequest rr = new RestartRequest(this.id, this.endereco);
         SpreadMessage sm = new SpreadMessage();
-        sm.setData(s.encode(sr));
+        sm.setData(s.encode(rr));
         sm.addGroup("master");
         sm.setAgreed(); // ao defiirmos isto estamos a garantir ordem total, pelo q podemos ter varios stubs
         sm.setReliable();
@@ -242,18 +283,28 @@ public class Slave {
                     ms.sendAsync(o, "putReply", s.encode(pl));
                 });
 
-                ////se ainda n inseriu insere
-                byte[] key = Longs.toByteArray(pr.key);
-                try {
-                    KeysUniverse ku = new KeysUniverse(pr.key, pr.key);
-                    RocksDB db = dbs.get(ku);
-                    db.put(key, pr.value.toString().getBytes());
-                    p.cf.complete(true);
-                } catch (RocksDBException e) {
-                    p.cf.complete(false);
-                    e.printStackTrace();
-                    System.out.println("Erro ao realizar put na BD local!");
+                KeysUniverse ku = new KeysUniverse(pr.key, pr.key);
+                Grupo grupo = grupos.get(ku);
+
+                if(grupo == null){
+                    System.out.println("DAR MENSAGEM DE ERRO PORQUE NAO TRATAMOS DA CHAVE!!");
+                }else {
+                    boolean resultado = grupo.put(pr);
+                    p.setResposta(resultado);
+
+                    acks.put(pr.id, (HashSet<String>) grupo.secundarios.clone());
+                    SpreadMessage sm = new SpreadMessage();
+                    UpdateMessage um = new UpdateMessage(pr.key, pr.value, pr.id, resultado, pr);
+                    sm.setData(s.encode(um));
+                    sm.addGroup(grupo.grupo);
+                    sm.setReliable();
+                    try {
+                        connection.multicast(sm);
+                    } catch (SpreadException e) {
+                        e.printStackTrace();
+                    }
                 }
+
             }
             else{
                 //já aconteceu algo, ver pq recebeu novo pedido
@@ -266,195 +317,60 @@ public class Slave {
         ms.registerHandler("get",(a,m) -> {
 
             GetRequest gr = s.decode(m);
-            byte[] keys = Longs.toByteArray(gr.key);
-            byte[] value = null;
-            RocksDB db = dbs.get(new KeysUniverse(gr.key, gr.key));
+            KeysUniverse ku = new KeysUniverse(gr.key, gr.key);
+            Grupo g = grupos.get(ku);
 
-            try {
-                value = db.get(keys);
+            if(g == null){
+                System.out.println("DAR MENSAGEM DE ERRO PORQUE NAO TRATAMOS DA CHAVE!!");
+            }else {
 
-                if(value == null){
-                    GetReply grp = new GetReply(gr.id, gr.key, null);;
-                    ms.sendAsync(a, "getReply", s.encode(grp));
-                }else{
-                    if(gr.filtros == null && gr.projecoes == null){
-                        //Vai ser um get normal
-                        String ret = new String(value);
-                        JSONObject json = new JSONObject(ret);
-
-                        GetReply grp = new GetReply(gr.id, gr.key, json);
-                        ms.sendAsync(a, "getReply", s.encode(grp));
-
-                    }else{
-                        if(gr.projecoes != null && gr.filtros != null){
-                            //Vai ser um get com projeções e filtros
-                            String ret = new String(value);
-                            JSONObject json = new JSONObject(ret);
-
-                            Predicate<JSONObject> filtros = this.filtro(gr.filtros);
-                            if(filtros.test(json)){
-                                //Passou no filtro
-                                JSONObject jsonToReturn = this.aplicaProjecao(json, gr.projecoes);
-
-                                GetReply grp = new GetReply(gr.id, gr.key, jsonToReturn);
-                                ms.sendAsync(a, "getReply", s.encode(grp));
-                            }else{
-                                //não passou no filtro, vai um null
-                                GetReply grp = new GetReply(gr.id, gr.key, null);;
-                                ms.sendAsync(a, "getReply", s.encode(grp));
-                            }
-                        }else{
-                            if(gr.projecoes != null){
-                                String ret = new String(value);
-                                JSONObject json = new JSONObject(ret);
-
-                                JSONObject jsonToReturn = this.aplicaProjecao(json, gr.projecoes);
-
-                                GetReply grp = new GetReply(gr.id, gr.key, jsonToReturn);
-                                ms.sendAsync(a, "getReply", s.encode(grp));
-                            }else{
-                                //são gets apenas com filtros
-                                String ret = new String(value);
-                                JSONObject json = new JSONObject(ret);
-
-                                Predicate<JSONObject> filtros = this.filtro(gr.filtros);
-                                if(filtros.test(json)){
-                                    //Passou no filtro
-                                    GetReply grp = new GetReply(gr.id, gr.key, json);
-                                    ms.sendAsync(a, "getReply", s.encode(grp));
-                                }else{
-                                    //não passou no filtro, vai um null
-                                    GetReply grp = new GetReply(gr.id, gr.key, null);;
-                                    ms.sendAsync(a, "getReply", s.encode(grp));
-                                }
-                            }
-                        }
-                    }
-                }
-
-            } catch (RocksDBException e) {
-                e.printStackTrace();
-                GetReply grp = new GetReply(gr.id, gr.key, null);
+                JSONObject resultado = g.get(gr);
+                GetReply grp = new GetReply(gr.id, gr.key, resultado);
                 ms.sendAsync(a, "getReply", s.encode(grp));
-            } catch (Exception e) {
-                System.out.println("ERRO NA STRING: " + e.getMessage());
-                GetReply grp = new GetReply(gr.id, gr.key, null);
-                ms.sendAsync(a, "getReply", s.encode(grp));
+
             }
-
-
 
         },ses);
 
 
         ms.registerHandler("remove",(a,m) -> {
 
+            System.out.println("RECEBI UM PEDIDO DE REMOVE FALTA TRATAR DOS UPDATES DO REMOVE NA PASSIVA!!!");
+
             RemoveRequest rr = s.decode(m);
-            byte[] keys = Longs.toByteArray(rr.key);
-            RocksDB db = dbs.get(new KeysUniverse(rr.key, rr.key));
+            KeysUniverse ku = new KeysUniverse(rr.key, rr.key);
+            Grupo g = grupos.get(ku);
 
-            try {
-                byte[] value = db.get(keys);
+            if(g == null){
+                System.out.println("DAR MENSAGEM DE ERRO PORQUE NAO TRATAMOS DA CHAVE!!");
+            }else {
 
-                if(value == null){
-                    RemoveReply rrp = new RemoveReply(rr.id, false);
-                    ms.sendAsync(a, "removeReply", s.encode(rrp));
-                }else {
-
-                    if (rr.filtros == null && rr.projecoes == null) {
-                        //Vai ser um remove normal
-                        db.delete(keys);
-
-                        RemoveReply rrp = new RemoveReply(rr.id, true);
-                        ms.sendAsync(a, "removeReply", s.encode(rrp));
-
-                    } else {
-                        if (rr.projecoes != null && rr.filtros != null) {
-                            //Vai ser um get com projeções e filtros
-                            String ret = new String(value);
-                            JSONObject json = new JSONObject(ret);
-
-                            Predicate<JSONObject> filtros = this.filtro(rr.filtros);
-                            if (filtros.test(json)) {
-                                //Passou no filtro
-                                for(String s: rr.projecoes)
-                                    json.remove(s);
-
-                                db.put(value, json.toString().getBytes());
-
-                                RemoveReply rrp = new RemoveReply(rr.id, true);
-                                ms.sendAsync(a, "removeReply", s.encode(rrp));
-                            } else {
-                                //não passou no filtro, não pode eliminar
-                                RemoveReply rrp = new RemoveReply(rr.id, false);
-                                ms.sendAsync(a, "removeReply", s.encode(rrp));
-                            }
-                        } else {
-                            if (rr.projecoes != null) {
-                                String ret = new String(value);
-                                JSONObject json = new JSONObject(ret);
-
-                                for(String s: rr.projecoes)
-                                    json.remove(s);
-
-                                db.put(value, json.toString().getBytes());
-
-                                RemoveReply rrp = new RemoveReply(rr.id, true);
-                                ms.sendAsync(a, "removeReply", s.encode(rrp));
-                            } else {
-                                //são gets apenas com filtros
-                                String ret = new String(value);
-                                JSONObject json = new JSONObject(ret);
-
-                                Predicate<JSONObject> filtros = this.filtro(rr.filtros);
-                                if (filtros.test(json)) {
-                                    //Passou no filtro
-                                    db.delete(keys);
-
-                                    RemoveReply rrp = new RemoveReply(rr.id, true);
-                                    ms.sendAsync(a, "removeReply", s.encode(rrp));
-                                } else {
-                                    //não passou no filtro, logo não pode eliminar
-                                    RemoveReply rrp = new RemoveReply(rr.id, false);
-                                    ms.sendAsync(a, "removeReply", s.encode(rrp));
-                                }
-                            }
-                        }
-
-                        /*db.delete(keys);
-
-                        RemoveReply rrp = new RemoveReply(rr.id, true);
-                        ms.sendAsync(a, "removeReply", s.encode(rrp));*/
-
-                    }
-                }
-
-            } catch (RocksDBException e) {
-                e.printStackTrace();
-                System.out.println("DEU PROBLEMAS A ELIMINAR O VALOR ...");
-                RemoveReply rrp = new RemoveReply(rr.id, false);
+                boolean resultado = g.remove(rr);
+                RemoveReply rrp = new RemoveReply(rr.id, resultado);
                 ms.sendAsync(a, "removeReply", s.encode(rrp));
-            } catch (Exception e) {
-                System.out.println("ERRO NA STRING: " + e.getMessage());
-                RemoveReply rrp = new RemoveReply(rr.id, false);
-                ms.sendAsync(a, "removeReply", s.encode(rrp));
+
             }
-
 
         },ses);
 
         ms.registerHandler("scan", (o,m) -> {
             System.out.println("Recebi pedido de scan vindo de: " + o);
             ScanRequest sr = s.decode(m);
-            scanRequests.add(sr.id); //ver depois o que acontece se já existe
-            // e ver se n é melhor colocar o scan todo!!!
-            ResultadoScan docs = null; //n será muito eficiente, provavelmente por causa de andar sempre a mudar o map
 
-            //de alguma forma faz o scan à bd, ver a melhor forma
-            if(sr.filtros == null){
-                if(sr.projecoes == null){
-                    docs = getScan(sr.nrMaximo, sr.ultimaChave,sr.ku);
-                }
+            Grupo g = grupos.get(sr.ku);
+
+            if(g == null){
+                System.out.println("DAR MENSAGEM DE ERRO PORQUE NAO TRATAMOS DA CHAVE!!");
+            }else {
+                scanRequests.add(sr.id); //ver depois o que acontece se já existe
+                // e ver se n é melhor colocar o scan todo!!!
+                ResultadoScan docs = null; //n será muito eficiente, provavelmente por causa de andar sempre a mudar o map
+
+                //de alguma forma faz o scan à bd, ver a melhor forma
+                if (sr.filtros == null) {
+                    if (sr.projecoes == null) {
+                        docs = g.scan(sr);
+                    }
                 /*else{
                     docs = getScan(sr.projecoes);
                 }
@@ -467,13 +383,23 @@ public class Slave {
                     docs = getScan(filtro(sr.filtros),sr.projecoes);
                 }*/
 
+                }
+                SlaveScanReply ssr = new SlaveScanReply(docs.docs, sr.ku, sr.id, docs.ultimaChave);
+                ms.sendAsync(o, "scanReply", s.encode(ssr));
             }
-            SlaveScanReply ssr = new SlaveScanReply(docs.docs,sr.ku,sr.id,docs.ultimaChave);
-            ms.sendAsync(o, "scanReply", s.encode(ssr));
-
         },ses);
 
-        ms.registerHandler("start", (o,m) -> {
+        ms.registerHandler("restart", (o,m) -> {
+            RestartReply rr = s.decode(m);
+
+            this.minhasChaves = (TreeSet<KeysUniverse>) rr.keys.keySet();
+            for(Map.Entry<KeysUniverse, String> entry: rr.keys.entrySet()){
+                adicionaConexao(entry.getValue(), entry.getKey());
+            }
+
+        }, ses);
+
+        /*ms.registerHandler("start", (o,m) -> {
             System.out.println("Recebi uma mensagem com a chave qe eu vou utilziar");
             try {
                 StartReply sr = s.decode(m);
@@ -510,78 +436,33 @@ public class Slave {
             } catch (UnknownHostException e) {
                 e.printStackTrace();
             }
-        }, ses);
+        }, ses);*/
     }
 
-    private JSONObject aplicaProjecao(JSONObject o, HashMap<Boolean, ArrayList<String>> p){
-        ArrayList<String> f = p.get(false);
-        if(f != null){
-            for(String aux: f){
-                o.remove(aux);
-            }
+    public void adicionaConexao(String id, KeysUniverse grupo) {
+
+        try {
+            System.out.println("ATENCAO QUE O GRUPO ESTA NULO!!!");
+            Grupo c = new Grupo(id, grupo.getGrupo(), grupo, "./localdb/" + id + "/");
+            grupos.put(grupo,c);
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        } catch (SpreadException e) {
+            e.printStackTrace();
         }
-        ArrayList<String> t = p.get(true);
-        if(f != null){
-            JSONObject aux = o;
-            o = new JSONObject();
-            for(String a: f){
-                o.put(a,aux.get(a));
-            }
+    }
+
+
+    public void desconecta(KeysUniverse grupo) throws SpreadException{
+        Grupo c = grupos.remove(grupo);
+        if(c != null){
+            c.desconectar();
         }
-
-        return o;
     }
 
-    //scan para todos os objectos, sem projecções
-    private ResultadoScan getScan(int nrMaximo, long ultimaChave, KeysUniverse ku) {
-            System.out.println("----------------------------Novo pedido scan: " + ku + " ---------------------------");
-            LinkedHashMap<Long,JSONObject> docs = new LinkedHashMap<>();
-            RocksDB db = dbs.get(ku);
-            RocksIterator iterador = db.newIterator();
-            int quantos = 0;
-            long chave = -1;
-            long anterior = -1;
-            if(ultimaChave == -1) {
-                ultimaChave = ku.min;
-                iterador.seek(Longs.toByteArray(ultimaChave));
-                chave = ultimaChave;
-            }
-            else{
-                iterador.seek(Longs.toByteArray(ultimaChave));
-                if(!iterador.isValid()){
-                    return null;
-                }
-                iterador.next();
-            }
-
-
-
-            while (iterador.isValid()) {
-                long k = Longs.fromByteArray(iterador.key());
-                System.out.println("Key: " + k);
-                if(k <= anterior){
-                    //n está neste universe
-                    System.out.println("Deu a volta");
-                    break;
-                }
-                anterior = k;
-                chave = k;
-                String v = new String(iterador.value());
-                JSONObject json = new JSONObject(v);
-                docs.put(k,json);
-                quantos++;
-                if(quantos >= nrMaximo){
-                    System.out.println("Atingi o máximo");
-                    break;
-                }
-                iterador.next();
-            }
-            System.out.println("---------------FIM-----------------------");
-            return new ResultadoScan(chave,docs);
-    }
 
     //scan para todos os objectos, com projecções
-    private LinkedHashMap<Long,JSONObject> getScan(HashMap<Boolean,ArrayList<String>> p) {
+   /* private LinkedHashMap<Long,JSONObject> getScan(HashMap<Boolean,ArrayList<String>> p) {
 
         LinkedHashMap<Long,JSONObject> docs = new LinkedHashMap<>();
         RocksDB db = null;
@@ -597,7 +478,7 @@ public class Slave {
         }
         return docs;
     }
-
+*/
     //scan com filtros, sem projecções
     private LinkedHashMap<Long,JSONObject> getScan(Predicate<JSONObject> filtros) {
 
@@ -620,7 +501,7 @@ public class Slave {
     }
 
     //scan com filtros, com projecções
-    private LinkedHashMap<Long,JSONObject> getScan(Predicate<JSONObject> filtros, HashMap<Boolean,ArrayList<String>> p) {
+    /*private LinkedHashMap<Long,JSONObject> getScan(Predicate<JSONObject> filtros, HashMap<Boolean,ArrayList<String>> p) {
 
         LinkedHashMap<Long,JSONObject> docs = new LinkedHashMap<>();
         RocksDB db = null;
@@ -638,16 +519,8 @@ public class Slave {
             iterador.next();
         }
         return docs;
-    }
+    }*/
 
-    //função que cria o filtro a partir dos vários filtros
-    private Predicate<JSONObject> filtro(ArrayList<Predicate<JSONObject>> filters) {
-
-        Predicate<JSONObject> pred = filters.stream().reduce(Predicate::and).orElse(x -> true);
-        pred = pred.negate();
-
-        return pred;
-    }
 
 
     @Override
@@ -660,7 +533,7 @@ public class Slave {
     public static void main(String[] args) {
 
         //Para já o valor do args deve de ser 1 ou 2 ou 3
-        Slave s = new Slave("localhost:1234" + args[0]);
+        Slave s = new Slave("localhost:1234" + args[0],args[1]);
 
         while(true){
             try {

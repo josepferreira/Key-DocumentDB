@@ -149,7 +149,6 @@ public class  Master {
 
         ms.start();
 
-        this.registaHandlers();
         connection.add(bml);
         connectionGlobal.add(aml);
 
@@ -171,6 +170,8 @@ public class  Master {
                 e.printStackTrace();
             }
         }
+
+        iniciaSlaves(3,9);
     }
 
     public void trataMensagem(Object o){
@@ -276,17 +277,17 @@ public class  Master {
         else if(o instanceof RestartRequest){
             RestartRequest rr = (RestartRequest)o;
             TreeSet<KeysUniverse> aux = this.keysSlaves.get(rr.id);
-            HashMap<String,Integer> grupos = new HashMap<>();
+            TreeMap<KeysUniverse,String> grupos = new TreeMap<>();
 
             for(KeysUniverse ku: aux){
                 SlaveIdentifier si = slaves.get(ku);
 
                 if(si != null){
                     if(si.endereco.equals(rr.id)){
-                        grupos.put(ku.getGrupo(),0);
+                        grupos.put(ku,0+"");
                     }
                     else{
-                        grupos.put(ku.getGrupo(),si.secundarios.get(rr.id));
+                        grupos.put(ku,si.secundarios.get(rr.id)+"");
                     }
                 }
                 else{
@@ -294,7 +295,8 @@ public class  Master {
                 }
             }
 
-            RestartReply rp = new RestartReply(aux,grupos);
+
+            RestartReply rp = new RestartReply(grupos);
             ms.sendAsync(Address.from(rr.endereco),"restart",s.encode(rp));
 
 
@@ -311,86 +313,54 @@ public class  Master {
         }
     }
 
-    private void registaHandlers(){
+    private void iniciaSlaves(int n, int nConjuntos){
+        System.out.println("Iniciar slaves");
 
-        ms.registerHandler("put",(a,m) -> {
-            PutRequest pr = s.decode(m);
-            KeysUniverse ku = new KeysUniverse(pr.key, pr.key);
-            SlaveIdentifier slave = slaves.get(ku);
-            ReplyMaster rm = new ReplyMaster(pr.id, slave.endereco,slave.keys, pr.key);
-            ms.sendAsync(a,"putMaster",s.encode(rm));
+        for(int i = 0; i < n; i++){
+            System.out.println("Inicia um slave com o identificador: " + idSlave+this.nSlaves);
+            start.add(idSlave+this.nSlaves);
+            this.nSlaves++;
+        }
 
-        },ses);
 
-        ms.registerHandler("get",(a,m) -> {
-            GetRequest gr = s.decode(m);
-            KeysUniverse ku = new KeysUniverse(gr.key, gr.key);
-            SlaveIdentifier slaveI = slaves.get(ku);
-            ReplyMaster rm = new ReplyMaster(gr.id, slaveI.endereco, slaveI.keys, gr.key);
+        //enviar o conjunto das chaves
+        ArrayList<String> it = new ArrayList<>(start);
+        int atual = 0;
+        int size = it.size();
+        long chunk = 50;
+        String end = it.get(atual);
+        HashMap<String,Integer> secundarios = new HashMap<>();
+        for(int k = 0; k < fatorReplicacao; k++){
+            int indice = (atual + k + 1) % size;
+            secundarios.put((it.get(indice)),k+1);
+        }
 
-            ms.sendAsync(a,"getMaster", s.encode(rm));
+        for(int i=0; i < nConjuntos; i++) {
+            long inicial = i * chunk;
+            long finall = (i + 1) * chunk;
 
-        },ses);
+            if (i == (nConjuntos-1)) finall = Long.MAX_VALUE;
+            KeysUniverse ku = new KeysUniverse(inicial, finall);
+            slaves.put(ku, new SlaveIdentifier(end, ku, secundarios));
 
-        ms.registerHandler("remove",(a,m) -> {
-            RemoveRequest rr = s.decode(m);
-            KeysUniverse ku = new KeysUniverse(rr.key, rr.key);
-            SlaveIdentifier slaveI = slaves.get(ku);
-            ReplyMaster rm = new ReplyMaster(rr.id, slaveI.endereco, slaveI.keys, rr.key);
+            if ((i + 1) % n == 0) {
+                atual = (atual + 1) % size;
+                end = it.get(atual);
 
-            ms.sendAsync(a,"removeMaster", s.encode(rm));
-
-        },ses);
-
-        ms.registerHandler("scan", (o,m) -> {
-            System.out.println("Pedido scan");
-            ScanReply sr = new ScanReply(s.decode(m), this.slaves);
-            System.out.println("Scan reply criado, enviar para: " + o);
-            ms.sendAsync(o, "scanMaster", s.encode(sr));
-            System.out.println("Enviado");
-        },ses);
-
-        ms.registerHandler("start", (o,m) -> { //para já assumimos que só são feitos 3. depois ver como contornar este problema
-            System.out.println("Recebi uma mensagem de start");
-            start.add(o.toString());
-
-            if(start.size() > 2){
-                //enviar o conjunto das chaves
-                Iterator<String> it = start.iterator();
-                Address end = Address.from(it.next());
-                long chunk = 50;
-                for(int i=0; i < 9; i++){
-                    long inicial = i*50;
-                    long finall = (i+1)*50;
-
-                    if(i == 8) finall = Long.MAX_VALUE;
-                    KeysUniverse ku = new KeysUniverse(inicial,finall);
-                    slaves.put(ku,new SlaveIdentifier(end.toString(),ku));
-
-                    System.out.println("Vou mandar uma mensagem para o: " + end.toString());
-                    System.out.println("PELO MS JA NAO VAI MANDAR MENSAGEM!!!!!!! DE START!!!!!");
-                    /*String replyID = UUID.randomUUID().toString();
-                    StartReply sr = new StartReply(replyID, ku);
-                    ms.sendAsync(end,"start",s.encode(sr));
-*/
-
-                    if((i+1) % 3 == 0) end = Address.from(it.next());
+                secundarios = new HashMap<>();
+                for (int k = 0; k < fatorReplicacao; k++) {
+                    int indice = (atual + k + 1) % size;
+                    secundarios.put((it.get(indice)), k + 1);
                 }
             }
-        }, ses);
+        }
+
+        for(Map.Entry<KeysUniverse,SlaveIdentifier> me : this.slaves.entrySet()){
+            System.out.println(me);
+        }
+
     }
 
-    public void teste(){
-        long key = 50;
-        System.out.println("Olha o menino: " + key);
-        System.out.println("Vamos ver como está o slave: " + slaves.toString());
-        KeysUniverse ku = new KeysUniverse(key, key);
-        System.out.println("As ku são: " + ku.toString());
-        System.out.println("O hashcode é: " + ku.hashCode());
-        System.out.println("Vou so fazer um equals: " + ku.equals((new KeysUniverse(0,100))));
-        SlaveIdentifier slaveI = slaves.get((new KeysUniverse(0,100)));
-        System.out.println("Passei: " + slaveI);
-    }
 
     public static void main(String[] args){
 

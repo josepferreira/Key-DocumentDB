@@ -1,0 +1,360 @@
+package nodes;
+
+import com.google.common.primitives.Longs;
+import messages.*;
+import org.json.JSONObject;
+import org.rocksdb.Options;
+import org.rocksdb.RocksDB;
+import org.rocksdb.RocksDBException;
+import org.rocksdb.RocksIterator;
+import spread.*;
+
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.util.*;
+import java.util.concurrent.CompletableFuture;
+import java.util.function.Predicate;
+
+public class Grupo {
+
+    public SpreadConnection connection = new SpreadConnection();
+    public SpreadGroup group = new SpreadGroup();
+    public String id;
+    public String grupo;
+    public String primario;
+    public HashSet<String> secundarios = new HashSet<>();
+    public RocksDB rocksDB;
+    private Options options;
+    public KeysUniverse ku;
+
+    public Grupo(String id, String grupo, KeysUniverse ku, String rocksDBFolder) throws UnknownHostException, SpreadException {
+        this.ku = ku;
+        this.grupo = grupo;
+        this.id = this.grupo.substring(0,6) + id;
+
+        connection.connect(InetAddress.getByName("localhost"), 0, this.id, false, false);
+        group.join(connection,this.grupo);
+
+        this.options = new Options().setCreateIfMissing(true);
+        try {
+            rocksDB = RocksDB.open(options, rocksDBFolder + ku.getGrupo()/*"./localdb/" + id.replaceAll(":", "") + "-" + ku.toString() + "/"*/);
+        } catch (RocksDBException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void desconectar() throws SpreadException {
+        connection.disconnect();
+    }
+
+    public void atualiza(HashSet<String> membros){
+
+        primario = Collections.min(membros);
+        membros.remove(primario);
+        secundarios.clear();
+        secundarios.addAll(membros);
+
+    }
+
+    public void addAML(AdvancedMessageListener aml){
+        connection.add(aml);
+    }
+
+    @Override
+    public String toString() {
+        return "Grupo{" +
+                "id='" + id + '\'' +
+                ", grupo='" + grupo + '\'' +
+                '}';
+    }
+
+    private JSONObject aplicaProjecao(JSONObject o, HashMap<Boolean, ArrayList<String>> p){
+        ArrayList<String> f = p.get(false);
+        if(f != null){
+            for(String aux: f){
+                o.remove(aux);
+            }
+        }
+        ArrayList<String> t = p.get(true);
+        if(f != null){
+            JSONObject aux = o;
+            o = new JSONObject();
+            for(String a: f){
+                o.put(a,aux.get(a));
+            }
+        }
+
+        return o;
+    }
+
+    //função que cria o filtro a partir dos vários filtros
+    private Predicate<JSONObject> filtro(ArrayList<Predicate<JSONObject>> filters) {
+
+        Predicate<JSONObject> pred = filters.stream().reduce(Predicate::and).orElse(x -> true);
+        pred = pred.negate();
+
+        return pred;
+    }
+
+    //handler para responder ao pedido put, efetuado pelo stub
+    public boolean put(PutRequest pr){
+
+        ////se ainda n inseriu insere
+        byte[] key = Longs.toByteArray(pr.key);
+        try {
+            rocksDB.put(key, pr.value.toString().getBytes());
+            return true;
+        } catch (RocksDBException e) {
+            e.printStackTrace();
+            System.out.println("Erro ao realizar put na BD local!");
+        }
+
+        return false;
+
+    }
+
+
+    // **** Handler para responder a um getefetuado pelo stub
+    public JSONObject get(GetRequest gr){
+
+        byte[] keys = Longs.toByteArray(gr.key);
+        byte[] value = null;
+
+        try {
+            value = rocksDB.get(keys);
+
+            if(value == null){
+                return null;
+            }else{
+                if(gr.filtros == null && gr.projecoes == null){
+                    //Vai ser um get normal
+                    String ret = new String(value);
+                    JSONObject json = new JSONObject(ret);
+                    return json;
+
+                }else{
+                    if(gr.projecoes != null && gr.filtros != null){
+                        //Vai ser um get com projeções e filtros
+                        String ret = new String(value);
+                        JSONObject json = new JSONObject(ret);
+
+                        Predicate<JSONObject> filtros = this.filtro(gr.filtros);
+                        if(filtros.test(json)){
+                            //Passou no filtro
+                            JSONObject jsonToReturn = this.aplicaProjecao(json, gr.projecoes);
+
+                            return jsonToReturn;
+                        }else{
+                            //não passou no filtro, vai um null
+                            return null;
+                        }
+                    }else{
+                        if(gr.projecoes != null){
+                            String ret = new String(value);
+                            JSONObject json = new JSONObject(ret);
+
+                            JSONObject jsonToReturn = this.aplicaProjecao(json, gr.projecoes);
+
+                            return jsonToReturn;
+                        }else{
+                            //são gets apenas com filtros
+                            String ret = new String(value);
+                            JSONObject json = new JSONObject(ret);
+
+                            Predicate<JSONObject> filtros = this.filtro(gr.filtros);
+                            if(filtros.test(json)){
+                                //Passou no filtro
+                                return json;
+                            }else{
+                                //não passou no filtro, vai um null
+                                return null;
+                            }
+                        }
+                    }
+                }
+            }
+
+        } catch (RocksDBException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            System.out.println("ERRO NA STRING: " + e.getMessage());
+        }
+
+        return null;
+
+    }
+
+
+    public boolean remove(RemoveRequest rr){
+
+        byte[] keys = Longs.toByteArray(rr.key);
+
+        try {
+            byte[] value = rocksDB.get(keys);
+
+            if(value == null){
+                return false;
+            }else {
+
+                if (rr.filtros == null && rr.projecoes == null) {
+                    //Vai ser um remove normal
+                    rocksDB.delete(keys);
+
+                    return true;
+
+                } else {
+                    if (rr.projecoes != null && rr.filtros != null) {
+                        //Vai ser um get com projeções e filtros
+                        String ret = new String(value);
+                        JSONObject json = new JSONObject(ret);
+
+                        Predicate<JSONObject> filtros = this.filtro(rr.filtros);
+                        if (filtros.test(json)) {
+                            //Passou no filtro
+                            for(String s: rr.projecoes)
+                                json.remove(s);
+
+                            rocksDB.put(value, json.toString().getBytes());
+
+                            return true;
+                        } else {
+                            //não passou no filtro, não pode eliminar
+                            return false;
+                        }
+                    } else {
+                        if (rr.projecoes != null) {
+                            String ret = new String(value);
+                            JSONObject json = new JSONObject(ret);
+
+                            for(String s: rr.projecoes)
+                                json.remove(s);
+
+                            rocksDB.put(value, json.toString().getBytes());
+
+                            return true;
+                        } else {
+                            //são gets apenas com filtros
+                            String ret = new String(value);
+                            JSONObject json = new JSONObject(ret);
+
+                            Predicate<JSONObject> filtros = this.filtro(rr.filtros);
+                            if (filtros.test(json)) {
+                                //Passou no filtro
+                                rocksDB.delete(keys);
+
+                                return true;
+                            } else {
+                                //não passou no filtro, logo não pode eliminar
+                                return false;
+                            }
+                        }
+                    }
+
+                    /*db.delete(keys);
+
+                    RemoveReply rrp = new RemoveReply(rr.id, true);
+                    ms.sendAsync(a, "removeReply", s.encode(rrp));*/
+
+                }
+            }
+
+        } catch (RocksDBException e) {
+            e.printStackTrace();
+            System.out.println("DEU PROBLEMAS A ELIMINAR O VALOR ...");
+        } catch (Exception e) {
+            System.out.println("ERRO NA STRING: " + e.getMessage());
+        }
+
+        return false;
+
+    }
+
+    //scan para todos os objectos, sem projecções
+    private ResultadoScan getScan(int nrMaximo, long ultimaChave, KeysUniverse ku) {
+        System.out.println("----------------------------Novo pedido scan: " + ku + " ---------------------------");
+        LinkedHashMap<Long,JSONObject> docs = new LinkedHashMap<>();
+        RocksIterator iterador = rocksDB.newIterator();
+        int quantos = 0;
+        long chave = -1;
+        long anterior = -1;
+        if(ultimaChave == -1) {
+            ultimaChave = ku.min;
+            iterador.seek(Longs.toByteArray(ultimaChave));
+            chave = ultimaChave;
+        }
+        else{
+            iterador.seek(Longs.toByteArray(ultimaChave));
+            if(!iterador.isValid()){
+                return null;
+            }
+            iterador.next();
+        }
+
+
+
+        while (iterador.isValid()) {
+            long k = Longs.fromByteArray(iterador.key());
+            System.out.println("Key: " + k);
+            if(k <= anterior){
+                //n está neste universe
+                System.out.println("Deu a volta");
+                break;
+            }
+            anterior = k;
+            chave = k;
+            String v = new String(iterador.value());
+            JSONObject json = new JSONObject(v);
+            docs.put(k,json);
+            quantos++;
+            if(quantos >= nrMaximo){
+                System.out.println("Atingi o máximo");
+                break;
+            }
+            iterador.next();
+        }
+        System.out.println("---------------FIM-----------------------");
+        return new ResultadoScan(chave,docs);
+    }
+
+    public ResultadoScan scan(ScanRequest sr){
+        ResultadoScan docs = null; //n será muito eficiente, provavelmente por causa de andar sempre a mudar o map
+
+        //de alguma forma faz o scan à bd, ver a melhor forma
+        if(sr.filtros == null){
+            if(sr.projecoes == null){
+                docs = getScan(sr.nrMaximo, sr.ultimaChave,sr.ku);
+            }
+            /*else{
+                docs = getScan(sr.projecoes);
+            }
+        }
+        else{
+            if(sr.projecoes == null){
+                docs = getScan(filtro(sr.filtros));
+            }
+            else{
+                docs = getScan(filtro(sr.filtros),sr.projecoes);
+            }*/
+
+        }
+
+        return docs;
+
+    }
+
+    public boolean updateState(UpdateMessage um){
+
+        ////se ainda n inseriu insere
+        byte[] key = Longs.toByteArray(um.pr.key);
+        try {
+            rocksDB.put(key, um.value.toString().getBytes());
+            return true;
+        } catch (RocksDBException e) {
+            e.printStackTrace();
+            System.out.println("Erro ao realizar put na BD local! Estranho, foi num update vindo do primario!!!");
+        }
+        return false;
+
+    }
+}
