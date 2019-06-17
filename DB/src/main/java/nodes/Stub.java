@@ -149,6 +149,7 @@ public class Stub {
         this.cache.put(ku, null);
 
         enviaMensagem(key, o);
+        ses.schedule(timeoutJson(o.id, key, o), 10, TimeUnit.SECONDS);
     }
 
     private void reenviaMensagem(long key, PutRequest o){
@@ -160,6 +161,7 @@ public class Stub {
         this.cache.put(ku, null);
 
         enviaMensagem(key, o);
+        ses.schedule(timeoutJson(o.id, key, o), 10, TimeUnit.SECONDS);
     }
 
     private void reenviaMensagem(long key, RemoveRequest o){
@@ -171,6 +173,7 @@ public class Stub {
         this.cache.put(ku, null);
 
         enviaMensagem(key, o);
+        ses.schedule(timeoutJson(o.id, key, o), 10, TimeUnit.SECONDS);
     }
 
     private Runnable timeoutJson(String id, long key, Object o){
@@ -185,6 +188,7 @@ public class Stub {
                             reenviaMensagem(key, (GetRequest) o);
                         else {
                             System.out.println("TEMOS DE ACABAR COM O CF");
+                            getRequests.remove(id);
                             aux.cfj.complete(null);
                         }
 
@@ -198,6 +202,7 @@ public class Stub {
                                 reenviaMensagem(key, (PutRequest) o);
                             else {
                                 System.out.println("TEMOS DE ACABAR COM O CF");
+                                putRequests.remove(id);
                                 aux.cfb.complete(false);
                             }
                         }
@@ -211,6 +216,7 @@ public class Stub {
                                     reenviaMensagem(key, (RemoveRequest) o);
                                 else {
                                     System.out.println("TEMOS DE ACABAR COM O CF");
+                                    removeRequests.remove(id);
                                     aux.cfb.complete(false);
                                 }
                             }
