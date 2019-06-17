@@ -20,6 +20,31 @@ import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+class TratamentoTimeout{
+
+    //Só vai ser um destes 3!
+    public Get gets;
+    public Remove remove;
+    public Put put;
+
+    public int numeroTentativas = 0; //Se chegar a 3 por exemplo damos null ou false dependendo do CF
+
+    public TratamentoTimeout(Get gets, int numeroTentativas) {
+        this.gets = gets;
+        this.numeroTentativas = numeroTentativas;
+    }
+
+    public TratamentoTimeout(Remove remove, int numeroTentativas) {
+        this.remove = remove;
+        this.numeroTentativas = numeroTentativas;
+    }
+
+    public TratamentoTimeout(Put put, int numeroTentativas) {
+        this.put = put;
+        this.numeroTentativas = numeroTentativas;
+    }
+}
+
 public class Stub {
 
     String endereco;
@@ -38,6 +63,7 @@ public class Stub {
     SpreadConnection connection = new SpreadConnection();
     private HashSet<String> replys = new HashSet<>(); //Para tratar dos pedidos repetidos dos diferentes masters
     ReentrantLock lockReplys = new ReentrantLock();
+
 
     public Stub(String endereco){
         this.endereco = endereco;
@@ -108,6 +134,39 @@ public class Stub {
         }finally {
             lockReplys.unlock();
         }
+    }
+
+
+    private void reenviaMensagem(long key, Object o){
+
+        KeysUniverse ku = new KeysUniverse(key, key);
+        this.cache.put(ku, null);
+
+        if(o instanceof GetRequest){
+            enviaMensagem(key, (GetRequest) o);
+        }else{
+            if(o instanceof PutRequest){
+                enviaMensagem(key, (PutRequest) o);
+            }
+            else{
+                enviaMensagem(key, (RemoveRequest) o);
+            }
+        }
+    }
+
+    private Runnable timeoutJson(String id, long key, Object o){
+        Runnable ret = new Runnable() {
+            @Override
+            public void run() {
+                if(getRequests.containsKey(id)){
+                    System.out.println("Chegei a um timeout ... !");
+                    System.out.println("Para ja vou pedir ao master depois podemos voltar a fazer um novo pedido ao slave!");
+                    reenviaMensagem(key, o);
+                }
+            }
+        };
+
+        return ret;
     }
 
     private void registaHandlers(){
@@ -268,7 +327,7 @@ public class Stub {
 
 
 
-    public CompletableFuture<JSONObject> get(long key){
+    public JSONObject get(long key){
         CompletableFuture<JSONObject> jsonCF = new CompletableFuture<>();
         String requestID = UUID.randomUUID().toString();
 
@@ -278,11 +337,22 @@ public class Stub {
 
         enviaMensagem(key, gr);
 
-        return jsonCF;
+        JSONObject ret = null;
+        try {
+            //lançar ses para fazer o timeout
+            ses.schedule(timeoutJson(requestID, key, gr), 10, TimeUnit.SECONDS);
+            ret = jsonCF.get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        return ret;
     }
 
 
-    public CompletableFuture<JSONObject> get(long key, ArrayList<Predicate<JSONObject>> filtros){
+    public JSONObject get(long key, ArrayList<Predicate<JSONObject>> filtros){
         CompletableFuture<JSONObject> cf = new CompletableFuture<>();
         String requestID = UUID.randomUUID().toString();
 
@@ -293,11 +363,22 @@ public class Stub {
         enviaMensagem(key, gr);
         //ms.sendAsync(masterAddress,"get", this.s.encode(gr));
 
-        return cf;
+        JSONObject ret = null;
+        try {
+            //lançar ses para fazer o timeout
+            ses.schedule(timeoutJson(requestID, key, gr), 10, TimeUnit.SECONDS);
+            ret = cf.get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        return ret;
 
     }
 
-    public CompletableFuture<JSONObject> get(long key, HashMap<Boolean, ArrayList<String>> projecoes){
+    public JSONObject get(long key, HashMap<Boolean, ArrayList<String>> projecoes){
         CompletableFuture<JSONObject> cf = new CompletableFuture<>();
         String requestID = UUID.randomUUID().toString();
 
@@ -306,11 +387,22 @@ public class Stub {
         getRequests.put(requestID, g);
 
         enviaMensagem(key, gr);
-        return cf;
 
+        JSONObject ret = null;
+        try {
+            //lançar ses para fazer o timeout
+            ses.schedule(timeoutJson(requestID, key, gr), 10, TimeUnit.SECONDS);
+            ret = cf.get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        return ret;
     }
 
-    public CompletableFuture< JSONObject> get(long key, ArrayList<Predicate<JSONObject>> filtros, HashMap<Boolean, ArrayList<String>> projecoes){
+    public JSONObject get(long key, ArrayList<Predicate<JSONObject>> filtros, HashMap<Boolean, ArrayList<String>> projecoes){
         CompletableFuture<JSONObject> cf = new CompletableFuture<>();
         String requestID = UUID.randomUUID().toString();
 
@@ -319,7 +411,19 @@ public class Stub {
         getRequests.put(requestID, g);
 
         enviaMensagem(key, gr);
-        return cf;
+
+        JSONObject ret = null;
+        try {
+            //lançar ses para fazer o timeout
+            ses.schedule(timeoutJson(requestID, key, gr), 10, TimeUnit.SECONDS);
+            ret = cf.get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        return ret;
 
     }
 
@@ -356,7 +460,7 @@ public class Stub {
     }
 
 
-    public CompletableFuture<Boolean> remove(long key){
+    public Boolean remove(long key){
         CompletableFuture<Boolean> jsonCF = new CompletableFuture<>();
         String requestID = UUID.randomUUID().toString();
 
@@ -365,10 +469,22 @@ public class Stub {
         removeRequests.put(requestID, r);
 
         enviaMensagem(key, rr);
-        return jsonCF;
+
+        Boolean ret = null;
+        try {
+            //lançar ses para fazer o timeout
+            ses.schedule(timeoutJson(requestID, key, rr), 10, TimeUnit.SECONDS);
+            ret = jsonCF.get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        return ret;
     }
 
-    public CompletableFuture<Boolean> remove(long key, List<Predicate<JSONObject>> filtros){
+    public Boolean remove(long key, List<Predicate<JSONObject>> filtros){
         CompletableFuture<Boolean> cf = new CompletableFuture<>();
         String requestID = UUID.randomUUID().toString();
 
@@ -377,11 +493,23 @@ public class Stub {
         removeRequests.put(requestID, r);
 
         enviaMensagem(key, rr);
-        return cf;
+
+        Boolean ret = null;
+        try {
+            //lançar ses para fazer o timeout
+            ses.schedule(timeoutJson(requestID, key, rr), 10, TimeUnit.SECONDS);
+            ret = cf.get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        return ret;
 
     }
 
-    public CompletableFuture<Boolean>remove(long key, ArrayList<String> projecoes){
+    public Boolean remove(long key, ArrayList<String> projecoes){
         CompletableFuture<Boolean> cf = new CompletableFuture<>();
         String requestID = UUID.randomUUID().toString();
 
@@ -390,11 +518,23 @@ public class Stub {
         removeRequests.put(requestID, r);
 
         enviaMensagem(key, rr);
-        return cf;
+
+        Boolean ret = null;
+        try {
+            //lançar ses para fazer o timeout
+            ses.schedule(timeoutJson(requestID, key, rr), 10, TimeUnit.SECONDS);
+            ret = cf.get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        return ret;
 
     }
 
-    public CompletableFuture<Boolean> remove(long key, ArrayList<Predicate<JSONObject>> filtros, ArrayList<String> projecoes){
+    public Boolean remove(long key, ArrayList<Predicate<JSONObject>> filtros, ArrayList<String> projecoes){
         CompletableFuture<Boolean> cf = new CompletableFuture<>();
         String requestID = UUID.randomUUID().toString();
 
@@ -403,7 +543,19 @@ public class Stub {
         removeRequests.put(requestID, r);
 
         enviaMensagem(key, rr);
-        return cf;
+
+        Boolean ret = null;
+        try {
+            //lançar ses para fazer o timeout
+            ses.schedule(timeoutJson(requestID, key, rr), 10, TimeUnit.SECONDS);
+            ret = cf.get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        return ret;
 
     }
 
@@ -435,7 +587,7 @@ public class Stub {
         }
     }
 
-    public CompletableFuture<Boolean> put(long key, JSONObject value){
+    public Boolean put(long key, JSONObject value){
         CompletableFuture<Boolean> cf = new CompletableFuture<>();
         String requestID = UUID.randomUUID().toString();
 
@@ -445,7 +597,18 @@ public class Stub {
 
         enviaMensagem(key, pr);
 
-        return cf;
+        Boolean ret = null;
+        try {
+            //lançar ses para fazer o timeout
+            ses.schedule(timeoutJson(requestID, key, pr), 10, TimeUnit.SECONDS);
+            ret = cf.get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        return ret;
 
     }
 
@@ -549,14 +712,7 @@ public class Stub {
         JSONObject jo = new JSONObject();
         for(int i = 120; i < 125; i++){
             jo.put("obj",i);
-            try {
-                s.put(i,jo).get();
-                System.out.println("Put feito: " + i);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            }
+            System.out.println("Put feito: " + i);
         }
         System.out.println("Puts feitos");
 //        try {
