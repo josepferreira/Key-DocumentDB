@@ -13,6 +13,7 @@ import org.rocksdb.RocksDBException;
 import org.rocksdb.RocksIterator;
 import spread.*;
 
+import java.io.File;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.*;
@@ -189,6 +190,7 @@ public class Slave {
 
         ms.start();
 
+        criaPasta();
 
         this.registaHandlers();
 
@@ -261,6 +263,15 @@ public class Slave {
 
         }finally {
             lockReplys.unlock();
+        }
+    }
+
+    private void criaPasta(){
+        File directory = new File("localdb/"+this.id+"/");
+        if (! directory.exists()){
+            directory.mkdirs();
+            // If you require it to make the entire directory path including parents,
+            // use directory.mkdirs(); here instead.
         }
     }
 

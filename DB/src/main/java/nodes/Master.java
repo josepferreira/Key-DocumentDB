@@ -113,10 +113,28 @@ public class  Master {
                     spreadMessage.getMembershipInfo().isCausedByDisconnect()){
 
                 String aux = spreadMessage.getMembershipInfo().getLeft().toString();
+                System.out.println(spreadMessage.getMembershipInfo().getLeft());
 
                 if(aux.startsWith(idSlave)){
 
                     System.out.println("Este slave saiu, inicia outro com este identificador: " + aux);
+
+                    TreeSet<KeysUniverse> tk = keysSlaves.get(aux);
+                    if(tk != null){
+                        for(KeysUniverse ku: tk){
+                            SlaveIdentifier si = slaves.get(ku);
+
+                            if(si == null){
+                                System.out.println("Slave identifier é nulo no slave q saiu!");
+                            }
+                            else{
+                                si.sai(aux);
+                            }
+                        }
+                    }
+                    else {
+                        System.out.println("Saiu um slave mas n aparece nos registos!!!");
+                    }
                 }
                 else{
                     System.out.println("Saiu um master! -> " + aux);
@@ -283,6 +301,7 @@ public class  Master {
                 SlaveIdentifier si = slaves.get(ku);
 
                 if(si != null){
+                    si.entra(rr.id,rr.endereco);
                     if(si.endereco.equals(rr.id)){
                         grupos.put(ku,0+"");
                     }

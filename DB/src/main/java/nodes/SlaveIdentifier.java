@@ -1,20 +1,42 @@
 package nodes;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Objects;
+import java.util.*;
 
+class Secundario implements Comparable{
+    public String id;
+    public String endereco;
+    public boolean ativo;
+
+    public Secundario(String id, String endereco, boolean ativo) {
+        this.id = id;
+        this.endereco = endereco;
+        this.ativo = ativo;
+    }
+
+
+    @Override
+    public int compareTo(Object o) {
+        Secundario sc = (Secundario)o;
+        return id.compareTo(sc.id);
+    }
+}
 //classe importante para se aceder diretamente ao endereco e ao conjunto de chaves do servidor especifico
 public class SlaveIdentifier {
     public String endereco;
+    public String idPrimario;
+    public boolean ativo = false;
     public KeysUniverse keys;
-    public HashMap<String,Integer> secundarios;
+    public HashMap<String,Secundario> secundarios;
     public int proximo;
 
     public SlaveIdentifier(String endereco, KeysUniverse keys, HashMap<String,Integer> secundarios) {
         this.endereco = endereco;
         this.keys = keys;
-        this.secundarios = secundarios;
+
+        for(Map.Entry<String,Integer> k: secundarios.entrySet()){
+            Secundario sc = new Secundario(k.getValue()+"",null,false);
+            this.secundarios.put(k.getKey(),sc);
+        }
 
         proximo = secundarios.size() + 1;
     }
@@ -22,6 +44,52 @@ public class SlaveIdentifier {
     public SlaveIdentifier(String endereco, KeysUniverse keys) {
         this.endereco = endereco;
         this.keys = keys;
+    }
+
+    public void entra(String id, String end){
+        if(id.equals(endereco)){
+            ativo = true;
+        }
+        else{
+            Secundario sc = secundarios.get(id);
+            if(sc != null){
+                sc.ativo = true;
+                sc.endereco = end;
+            }
+            else {
+                System.out.println("O slave n aparece aqui!!!");
+            }
+        }
+    }
+
+    public void sai(String id){
+        if(id.equals(endereco)){
+            ativo = false;
+        }
+        else{
+            Secundario sc = secundarios.get(id);
+            if(sc != null){
+                sc.ativo = false;
+            }
+            else {
+                System.out.println("O slave n aparece aqui!!!");
+            }
+        }
+    }
+
+    public String primario(){
+        if(ativo){
+            return endereco;
+        }
+
+        Optional<Secundario> p = secundarios.values().stream().filter(a -> a.ativo).min(Secundario::compareTo);
+
+        if(p.isPresent()){
+            return p.get().endereco;
+        }
+
+        return null;
+
     }
 
     @Override
