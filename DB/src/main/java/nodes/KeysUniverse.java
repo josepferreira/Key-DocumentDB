@@ -35,7 +35,7 @@ public class KeysUniverse implements Comparable{
     }
 
     public String getGrupo(){
-        return "(" + min + "," + max + ")";
+        return  min + "," + max;
     }
 
 

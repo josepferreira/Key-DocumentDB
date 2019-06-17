@@ -11,10 +11,7 @@ import org.rocksdb.RocksDB;
 import org.rocksdb.Options;
 import org.rocksdb.RocksDBException;
 import org.rocksdb.RocksIterator;
-import spread.SpreadConnection;
-import spread.SpreadException;
-import spread.SpreadGroup;
-import spread.SpreadMessage;
+import spread.*;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -35,6 +32,7 @@ class ResultadoScan{
         this.docs = docs;
     }
 }
+
 public class Slave {
 
     //private final Address masterAddress = Address.from("localhost:12340");
@@ -45,13 +43,92 @@ public class Slave {
     Serializer s = SerializerProtocol.newSerializer();
     Options options;
     HashMap<String,Put> putRequests = new HashMap<>();
+    HashMap<String,Remove> removeRequests = new HashMap<>();
     HashSet<String> scanRequests = new HashSet<>();
     TreeMap<KeysUniverse,RocksDB> dbs = new TreeMap<>();
+    public Groups grupos = new Groups();
 
     //Comunicacao multicast
     SpreadConnection connection = new SpreadConnection();
     private HashSet<String> replys = new HashSet<>(); //Para tratar dos pedidos repetidos dos diferentes masters
     ReentrantLock lockReplys = new ReentrantLock();
+
+
+    public AdvancedMessageListener aml = new AdvancedMessageListener() {
+        @Override
+        public void regularMessageReceived(SpreadMessage spreadMessage) {
+            Object o = s.decode(spreadMessage.getData());
+
+            if(o instanceof UpdateMessage){
+                Conexao c = grupos.grupos.get(spreadMessage.getGroups()[0].toString());
+                if(c.primario.equals(c.id)){
+                    System.out.println("Sou o primario, n faço update!");
+                }
+                else {
+                    UpdateMessage um = (UpdateMessage) o;
+
+                    if (um.value != null) {
+                        Put p = putRequests.get(um.id);
+
+                        if (p == null) {
+                            p = new Put(um.pr, new CompletableFuture<Boolean>(), um.resposta);
+                            putRequests.put(um.id, p);
+
+                            p.cf.thenAccept(a -> {
+                                SpreadMessage sm = new SpreadMessage();
+                                sm.addGroup(spreadMessage.getSender());
+                                sm.setData(s.encode(new ACKMessage(um.id,true)));
+                                sm.setReliable();
+
+                                try {
+                                    connection.multicast(sm);
+                                } catch (SpreadException e) {
+                                    e.printStackTrace();
+                                }
+
+                            });
+
+                            ////se ainda n inseriu insere
+                            byte[] key = Longs.toByteArray(um.pr.key);
+                            try {
+                                KeysUniverse ku = new KeysUniverse(um.key, um.key);
+                                RocksDB db = dbs.get(ku);
+                                db.put(key, um.value.toString().getBytes());
+                                p.cf.complete(true);
+                            } catch (RocksDBException e) {
+                                p.cf.complete(false);
+                                e.printStackTrace();
+                                System.out.println("Erro ao realizar put na BD local! Estranho, foi num update vindo do primario!!!");
+                            }
+                        } else {
+                            //já aconteceu algo, ver pq recebeu novo pedido
+                        }
+
+                    } else {
+                        System.out.println("REMOVE!!!");
+                    }
+                }
+            }
+            else{
+                System.out.println("Recebi uma mensagem que não é de update! " + o.getClass());
+            }
+
+        }
+
+        @Override
+        public void membershipMessageReceived(SpreadMessage spreadMessage) {
+            String grupo = spreadMessage.getGroups()[0].toString();
+
+            HashSet<String> membros = new HashSet<>();
+            for(SpreadGroup sg : spreadMessage.getMembershipInfo().getMembers()){
+                membros.add(sg.toString());
+            }
+
+            grupos.grupos.get(grupo).atualiza(membros); //atualiza membros do grupo
+
+
+        }
+    };
 
     public Slave(String endereco) {
         RocksDB.loadLibrary();

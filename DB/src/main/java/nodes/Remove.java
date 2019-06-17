@@ -13,6 +13,7 @@ public class Remove {
     public CompletableFuture<Boolean> cf;
     public ArrayList<Predicate<JSONObject>> filtros;
     public ArrayList<String> projecoes;
+    public boolean resposta;
 
     public Remove(RemoveRequest request, CompletableFuture<Boolean> cf) {
         this.request = request;
@@ -24,5 +25,9 @@ public class Remove {
         this.cf = cf;
         this.filtros = filtros;
         this.projecoes = projecoes;
+    }
+
+    public void setResposta(boolean resposta) {
+        this.resposta = resposta;
     }
 }
