@@ -281,7 +281,7 @@ public class  Master {
             for(KeysUniverse ku: aux){
                 SlaveIdentifier si = slaves.get(ku);
 
-                if(ku != null){
+                if(si != null){
                     if(si.endereco.equals(rr.id)){
                         grupos.put(ku.getGrupo(),0);
                     }
