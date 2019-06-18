@@ -26,11 +26,11 @@ public class SlaveIdentifier {
     public String idPrimario;
     public boolean ativo = false;
     public KeysUniverse keys;
-    public HashMap<String,Secundario> secundarios;
+    public HashMap<String,Secundario> secundarios = new HashMap<>();
     public int proximo;
 
-    public SlaveIdentifier(String endereco, KeysUniverse keys, HashMap<String,Integer> secundarios) {
-        this.endereco = endereco;
+    public SlaveIdentifier(String id, KeysUniverse keys, HashMap<String,Integer> secundarios) {
+        this.idPrimario = id;
         this.keys = keys;
 
         for(Map.Entry<String,Integer> k: secundarios.entrySet()){
@@ -47,8 +47,9 @@ public class SlaveIdentifier {
     }
 
     public void entra(String id, String end){
-        if(id.equals(endereco)){
+        if(id.equals(idPrimario)){
             ativo = true;
+            endereco = end;
         }
         else{
             Secundario sc = secundarios.get(id);

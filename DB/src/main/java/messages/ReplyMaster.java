@@ -1,19 +1,18 @@
 package messages;
 
 import nodes.KeysUniverse;
+import nodes.SlaveIdentifier;
 
 import java.util.HashMap;
 
 public class ReplyMaster {
-    public String endereco;
-    public KeysUniverse keys;
+    public SlaveIdentifier slave;
     public String id;
     public long key;
 
-    public ReplyMaster(String id, String endereco, KeysUniverse keys, long key) {
+    public ReplyMaster(String id, SlaveIdentifier si, long key) {
         this.id = id;
-        this.endereco = endereco;
-        this.keys = keys;
+        this.slave = si;
         this.key = key;
     }
 }

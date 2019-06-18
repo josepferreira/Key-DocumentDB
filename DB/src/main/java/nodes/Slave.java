@@ -39,17 +39,16 @@ public class Slave {
     //private final Address masterAddress = Address.from("localhost:12340");
     public String endereco;
     public String id;
-    public TreeSet<KeysUniverse> minhasChaves = new TreeSet<>();
     ManagedMessagingService ms;
     ScheduledExecutorService ses = Executors.newSingleThreadScheduledExecutor();
     Serializer s = SerializerProtocol.newSerializer();
 
-    HashMap<String,Put> putRequests = new HashMap<>();
-    HashMap<String,Remove> removeRequests = new HashMap<>();
-    HashSet<String> scanRequests = new HashSet<>();
-
+    // Recuperar estado
+    public TreeSet<KeysUniverse> minhasChaves = new TreeSet<>();
     TreeMap<KeysUniverse, Grupo> grupos = new TreeMap<>();
-    HashMap<String, HashSet<String>> acks = new HashMap<>();
+
+
+    HashSet<String> scanRequests = new HashSet<>();
 
     //Comunicacao multicast
     SpreadConnection connection = new SpreadConnection();
@@ -75,16 +74,16 @@ public class Slave {
                     } else {
 
                         if (um.value != null) {
-                            Put p = putRequests.get(um.id);
+                            Put p = g.putRequests.get(um.id);
 
                             if (p == null) {
                                 p = new Put(um.pr, new CompletableFuture<Boolean>(), um.resposta);
-                                putRequests.put(um.id, p);
+                                g.putRequests.put(um.id, p);
 
                                 p.cf.thenAccept(a -> {
                                     SpreadMessage sm = new SpreadMessage();
                                     sm.addGroup(spreadMessage.getSender());
-                                    sm.setData(s.encode(new ACKMessage(um.id, true)));
+                                    sm.setData(s.encode(new ACKMessage(um.id, true,um.key)));
                                     sm.setReliable();
 
                                     try {
@@ -116,12 +115,14 @@ public class Slave {
 
         @Override
         public void membershipMessageReceived(SpreadMessage spreadMessage) {
-            String grupo = spreadMessage.getGroups()[0].toString();
-
+            System.out.println("MEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEMBERSHIP DFP");
+            String grupo = spreadMessage.getMembershipInfo().getGroup().toString();
+            System.out.println("\t\t\t\tRecebi uma membership message: " + grupo);
             HashSet<String> membros = new HashSet<>();
             for(SpreadGroup sg : spreadMessage.getMembershipInfo().getMembers()){
-                membros.add(sg.toString());
+                membros.add(sg.toString().split("#")[1]);
             }
+            System.out.println(membros);
 
             for(Grupo g: grupos.values()){
                 if(g.grupo.equals(grupo)){
@@ -138,29 +139,36 @@ public class Slave {
         public void messageReceived(SpreadMessage spreadMessage) {
             Object o = s.decode(spreadMessage.getData());
 
-            if(o instanceof ACKMessage){
-                ACKMessage ackMessage = (ACKMessage)o;
+            if(o instanceof ACKMessage) {
+                ACKMessage ackMessage = (ACKMessage) o;
 
-                HashSet<String> aux = acks.get(ackMessage.id);
+                KeysUniverse ku = new KeysUniverse(ackMessage.key, ackMessage.key);
+                Grupo grupo = grupos.get(ku);
+                if (grupo == null) {
+                    System.out.println("Recebi um ACK e n estou no grupo!!!");
+                }
+                else {
 
-                System.out.println("ACK, SENDER: " + spreadMessage.getSender().toString());
 
-                boolean rmv = aux.remove(spreadMessage.getSender().toString());
+                    HashSet<String> aux = grupo.acks.get(ackMessage.id);
 
-                if(rmv && aux.isEmpty()){
-                    if(ackMessage.put){
-                        Put p = putRequests.get(ackMessage.id);
+                    System.out.println("ACK, SENDER: " + spreadMessage.getSender().toString());
 
-                        if(p == null){
-                            System.out.println("Recebi um ack e n tenho o put! ESTRANHO");
+                    boolean rmv = aux.remove(spreadMessage.getSender().toString());
+
+                    if (rmv && aux.isEmpty()) {
+                        if (ackMessage.put) {
+                            Put p = grupo.putRequests.get(ackMessage.id);
+
+                            if (p == null) {
+                                System.out.println("Recebi um ack e n tenho o put! ESTRANHO");
+                            } else {
+                                p.cf.complete(p.resposta);
+                            }
+                        } else {
+                            //e remove
+                            System.out.println("Recebi ack remove, ver o q fazer!");
                         }
-                        else{
-                            p.cf.complete(p.resposta);
-                        }
-                    }
-                    else{
-                        //e remove
-                        System.out.println("Recebi ack remove, ver o q fazer!");
                     }
                 }
             }
@@ -180,6 +188,7 @@ public class Slave {
 
         try {
             connection.connect(InetAddress.getByName("localhost"), 0, id, false, false);
+            connection.add(bml);
         } catch (SpreadException e) {
             e.printStackTrace();
         } catch (UnknownHostException e) {
@@ -270,8 +279,6 @@ public class Slave {
         File directory = new File("localdb/"+this.id+"/");
         if (! directory.exists()){
             directory.mkdirs();
-            // If you require it to make the entire directory path including parents,
-            // use directory.mkdirs(); here instead.
         }
     }
 
@@ -281,46 +288,64 @@ public class Slave {
         ms.registerHandler("put",(o,m) -> {
             System.out.println("Recebi put");
             PutRequest pr = s.decode(m);
-
+            System.out.println("1");
             //convém guardar os pedidos certo???
-            Put p = putRequests.get(pr.id);
 
-            if(p == null){
-                p = new Put(pr,new CompletableFuture<Boolean>());
-                putRequests.put(pr.id,p);
+            KeysUniverse ku = new KeysUniverse(pr.key, pr.key);
+            System.out.println("2");
+            Grupo grupo = grupos.get(ku);
+            System.out.println("3");
+            if (grupo == null) {
+                System.out.println("DAR MENSAGEM DE ERRO PORQUE NAO TRATAMOS DA CHAVE!!");
+            }
+            else {
+                System.out.println("4");
+                Put p = grupo.putRequests.get(pr.id);
 
-                p.cf.thenAccept(a -> {
-                    PutReply pl = new PutReply(pr.id,a);
-                    ms.sendAsync(o, "putReply", s.encode(pl));
-                });
+                int i = 5;
+                System.out.println(i++);
+                if (p == null) {
+                    System.out.println(i++);
+                    p = new Put(pr, new CompletableFuture<Boolean>());
+                    System.out.println(i++);
+                    grupo.putRequests.put(pr.id, p);
+                    System.out.println(i++);
 
-                KeysUniverse ku = new KeysUniverse(pr.key, pr.key);
-                Grupo grupo = grupos.get(ku);
+                    p.cf.thenAccept(a -> {
+                        PutReply pl = new PutReply(pr.id, a);
+                        ms.sendAsync(o, "putReply", s.encode(pl));
+                    });
 
-                if(grupo == null){
-                    System.out.println("DAR MENSAGEM DE ERRO PORQUE NAO TRATAMOS DA CHAVE!!");
-                }else {
+
                     boolean resultado = grupo.put(pr);
+                    System.out.println(i++);
                     p.setResposta(resultado);
+                    System.out.println(i++);
 
-                    acks.put(pr.id, (HashSet<String>) grupo.secundarios.clone());
+                    grupo.acks.put(pr.id, (HashSet<String>) grupo.secundarios.clone());
+                    System.out.println(i++);
+                    System.out.println(i++);
                     SpreadMessage sm = new SpreadMessage();
+                    System.out.println(i++);
                     UpdateMessage um = new UpdateMessage(pr.key, pr.value, pr.id, resultado, pr);
+                    System.out.println(i++);
                     sm.setData(s.encode(um));
+                    System.out.println(i++);
                     sm.addGroup(grupo.grupo);
                     sm.setReliable();
                     try {
+                        System.out.println(i++);
                         connection.multicast(sm);
+                        System.out.println(i++);
                     } catch (SpreadException e) {
                         e.printStackTrace();
                     }
                 }
+                else{
+                    System.out.println("Pedido de put já se encontra tratado!");
+                }
 
             }
-            else{
-                //já aconteceu algo, ver pq recebeu novo pedido
-            }
-
         },ses);
 
 
@@ -401,13 +426,20 @@ public class Slave {
         },ses);
 
         ms.registerHandler("restart", (o,m) -> {
+            System.out.println("Recebi restart");
             RestartReply rr = s.decode(m);
-
-            this.minhasChaves = (TreeSet<KeysUniverse>) rr.keys.keySet();
+            this.minhasChaves = new TreeSet<>(rr.keys.keySet());
             for(Map.Entry<KeysUniverse, String> entry: rr.keys.entrySet()){
                 adicionaConexao(entry.getValue(), entry.getKey());
             }
 
+            System.out.println("\t\tVER INFOS");
+            System.out.println(this.minhasChaves);
+            for(Map.Entry<KeysUniverse,Grupo> as: grupos.entrySet()){
+                System.out.println(as);
+            }
+            System.out.println();
+            System.out.println();
         }, ses);
 
         /*ms.registerHandler("start", (o,m) -> {
@@ -453,9 +485,12 @@ public class Slave {
     public void adicionaConexao(String id, KeysUniverse grupo) {
 
         try {
-            System.out.println("ATENCAO QUE O GRUPO ESTA NULO!!!");
-            Grupo c = new Grupo(id, grupo.getGrupo(), grupo, "./localdb/" + id + "/");
+            Grupo c = new Grupo(id, grupo.getGrupo(), grupo, "./localdb/" + this.id + "/", aml);
+            //c.addAML(aml);
+            System.out.println("Criei grupo");
             grupos.put(grupo,c);
+            c.connecta(aml);
+            System.out.println("Adiconei grupo");
         } catch (UnknownHostException e) {
             e.printStackTrace();
         } catch (SpreadException e) {

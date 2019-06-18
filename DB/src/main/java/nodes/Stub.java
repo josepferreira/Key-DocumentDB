@@ -289,15 +289,15 @@ public class Stub {
 
             if(!eRepetido(rm.id)) {
 
-                System.out.println("O slave que contém a minha key é: " + rm.endereco);
+                System.out.println("O slave que contém a minha key é: " + rm.slave.primario());
                 Get g = getRequests.get(rm.id).gets;
 
                 if (g == null) {
                     System.out.println("Deu nulo no get ... Algo errado!");
                 }
 
-                this.cache.put(rm.keys, new SlaveIdentifier(rm.endereco, rm.keys));
-                ms.sendAsync(Address.from(rm.endereco), "get", s.encode(g.request));
+                this.cache.put(rm.slave.keys,rm.slave);
+                ms.sendAsync(Address.from(rm.slave.primario()), "get", s.encode(g.request));
 
             }
 
@@ -308,15 +308,15 @@ public class Stub {
 
             if(!eRepetido(rm.id)) {
 
-                System.out.println("O slave que contém a minha key é: " + rm.endereco);
+                System.out.println("O slave que contém a minha key é: " + rm.slave.primario());
                 Remove r = removeRequests.get(rm.id).remove;
 
                 if (r == null) {
                     System.out.println("Deu nulo no get ... Algo errado!");
                 }
 
-                this.cache.put(rm.keys, new SlaveIdentifier(rm.endereco, rm.keys));
-                ms.sendAsync(Address.from(rm.endereco), "remove", s.encode(r.request));
+                this.cache.put(rm.slave.keys,rm.slave);
+                ms.sendAsync(Address.from(rm.slave.primario()), "remove", s.encode(r.request));
             }
 
         },ses);
@@ -327,7 +327,7 @@ public class Stub {
 
             if(!eRepetido(rm.id)) {
 
-                System.out.println("O slave que contém a minha key é: " + rm.endereco);
+                System.out.println("O slave que contém a minha key é: " + rm.slave.primario());
 
                 Put p = putRequests.get(rm.id).put;
                 if (p == null) {
@@ -337,10 +337,10 @@ public class Stub {
 
                 System.out.println("Por na cache");
 
-                this.cache.put(rm.keys, new SlaveIdentifier(rm.endereco, rm.keys));
+                this.cache.put(rm.slave.keys,rm.slave);
 
                 System.out.println("Enviar para o slave");
-                ms.sendAsync(Address.from(rm.endereco), "put", s.encode(p.request));
+                ms.sendAsync(Address.from(rm.slave.primario()), "put", s.encode(p.request));
             }
 
         },ses);
@@ -772,7 +772,8 @@ public class Stub {
         JSONObject jo = new JSONObject();
         for(int i = 120; i < 125; i++){
             jo.put("obj",i);
-            System.out.println("Put feito: " + i);
+            boolean res =  s.put(i,jo);
+            System.out.println("Put feito: " + i + "! RES: " + res);
         }
         System.out.println("Puts feitos");
 //        try {

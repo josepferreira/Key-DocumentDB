@@ -71,6 +71,8 @@ public class  Master {
                             pedidosEstado.add(em.id);
                             slaves.putAll(em.slaves);
                             start.addAll(em.start);
+                            nSlaves = em.nSlaves;
+                            keysSlaves.putAll(em.keysSlaves);
                             estadoRecuperado = true;
                             trataFila();
                         }
@@ -82,7 +84,7 @@ public class  Master {
                 else{
                     if(o instanceof PedidoEstadoMaster){
                         System.out.println("Vou responder ao pedido de estado");
-                        EstadoMaster em = new EstadoMaster(((PedidoEstadoMaster)o).id,slaves,start);
+                        EstadoMaster em = new EstadoMaster(((PedidoEstadoMaster)o).id,nSlaves,slaves,start,keysSlaves);
                         SpreadMessage sm = new SpreadMessage();
                         sm.setData(s.encode(em));
                         sm.addGroup(spreadMessage.getSender());
@@ -197,14 +199,14 @@ public class  Master {
             GetRequest gr = (GetRequest) o;
             KeysUniverse ku = new KeysUniverse(gr.key, gr.key);
             SlaveIdentifier slaveI = slaves.get(ku);
-            ReplyMaster rm = new ReplyMaster(gr.id, slaveI.endereco, slaveI.keys, gr.key);
+            ReplyMaster rm = new ReplyMaster(gr.id, slaveI, gr.key);
             ms.sendAsync(Address.from(gr.endereco), "getMaster", s.encode(rm));
         }
         else if(o instanceof PutRequest){
             PutRequest pr = (PutRequest) o;
             KeysUniverse ku = new KeysUniverse(pr.key, pr.key);
             SlaveIdentifier slave = slaves.get(ku);
-            ReplyMaster rm = new ReplyMaster(pr.id, slave.endereco,slave.keys, pr.key);
+            ReplyMaster rm = new ReplyMaster(pr.id, slave, pr.key);
             ms.sendAsync(Address.from(pr.endereco),"putMaster",s.encode(rm));
         }
         else if(o instanceof ScanRequest){
@@ -217,7 +219,7 @@ public class  Master {
             RemoveRequest rr = (RemoveRequest) o;
             KeysUniverse ku = new KeysUniverse(rr.key, rr.key);
             SlaveIdentifier slaveI = slaves.get(ku);
-            ReplyMaster rm = new ReplyMaster(rr.id, slaveI.endereco, slaveI.keys, rr.key);
+            ReplyMaster rm = new ReplyMaster(rr.id, slaveI, rr.key);
 
             ms.sendAsync(Address.from(rr.endereco),"removeMaster", s.encode(rm));
         }
@@ -295,6 +297,9 @@ public class  Master {
         else if(o instanceof RestartRequest){
             RestartRequest rr = (RestartRequest)o;
             TreeSet<KeysUniverse> aux = this.keysSlaves.get(rr.id);
+            System.out.println("VER CHAVES!!!!");
+            System.out.println(this.keysSlaves);
+            System.out.println(rr.id);
             TreeMap<KeysUniverse,String> grupos = new TreeMap<>();
 
             for(KeysUniverse ku: aux){
@@ -302,11 +307,11 @@ public class  Master {
 
                 if(si != null){
                     si.entra(rr.id,rr.endereco);
-                    if(si.endereco.equals(rr.id)){
+                    if(si.idPrimario.equals(rr.id)){
                         grupos.put(ku,0+"");
                     }
                     else{
-                        grupos.put(ku,si.secundarios.get(rr.id)+"");
+                        grupos.put(ku,si.secundarios.get(rr.id).id+"");
                     }
                 }
                 else{
@@ -332,12 +337,18 @@ public class  Master {
         }
     }
 
+    private void adicionaChave(String id, KeysUniverse ku){
+        TreeSet<KeysUniverse> tk = keysSlaves.get(id);
+        tk.add(ku);
+    }
+
     private void iniciaSlaves(int n, int nConjuntos){
         System.out.println("Iniciar slaves");
 
         for(int i = 0; i < n; i++){
             System.out.println("Inicia um slave com o identificador: " + idSlave+this.nSlaves);
             start.add(idSlave+this.nSlaves);
+            keysSlaves.put(idSlave+this.nSlaves,new TreeSet<KeysUniverse>());
             this.nSlaves++;
         }
 
@@ -346,15 +357,22 @@ public class  Master {
         ArrayList<String> it = new ArrayList<>(start);
         int atual = 0;
         int size = it.size();
+        int primeiroSec = (atual+1) % size;
         long chunk = 50;
         String end = it.get(atual);
-        HashMap<String,Integer> secundarios = new HashMap<>();
-        for(int k = 0; k < fatorReplicacao; k++){
-            int indice = (atual + k + 1) % size;
-            secundarios.put((it.get(indice)),k+1);
-        }
+        HashMap<String,Integer> secundarios;
+
 
         for(int i=0; i < nConjuntos; i++) {
+            secundarios = new HashMap<>();
+            for(int k = 0; k < fatorReplicacao; k++){
+                int indice = (primeiroSec + k) % size;
+                if(indice == atual){
+                    System.out.println("Deu a volta e por o secundario igual ao primario, ver pq!");
+                }
+                secundarios.put((it.get(indice)),k+1);
+            }
+
             long inicial = i * chunk;
             long finall = (i + 1) * chunk;
 
@@ -362,14 +380,22 @@ public class  Master {
             KeysUniverse ku = new KeysUniverse(inicial, finall);
             slaves.put(ku, new SlaveIdentifier(end, ku, secundarios));
 
+            adicionaChave(end,ku);
+            for(String secA: secundarios.keySet()){
+                adicionaChave(secA,ku);
+            }
+
+
             if ((i + 1) % n == 0) {
                 atual = (atual + 1) % size;
                 end = it.get(atual);
+                primeiroSec = (atual+1) % size;
 
-                secundarios = new HashMap<>();
-                for (int k = 0; k < fatorReplicacao; k++) {
-                    int indice = (atual + k + 1) % size;
-                    secundarios.put((it.get(indice)), k + 1);
+            }
+            else{
+                primeiroSec = (primeiroSec+1) % size;
+                if(primeiroSec == atual){
+                    primeiroSec = (atual+1) % size;
                 }
             }
         }

@@ -26,18 +26,32 @@ public class Grupo {
     public RocksDB rocksDB;
     private Options options;
     public KeysUniverse ku;
+    public HashMap<String,Put> putRequests = new HashMap<>();
+    public HashMap<String,Remove> removeRequests = new HashMap<>();
+    public HashMap<String, HashSet<String>> acks = new HashMap<>();
 
-    public Grupo(String id, String grupo, KeysUniverse ku, String rocksDBFolder) throws UnknownHostException, SpreadException {
+
+    public Grupo(String id, String grupo, KeysUniverse ku, String rocksDBFolder, AdvancedMessageListener aml) throws UnknownHostException, SpreadException {
         this.ku = ku;
+        System.out.println("1");
         this.grupo = grupo;
-        this.id = this.grupo.substring(0,6) + id;
+        System.out.println("2: " + this.grupo);
+        if(this.grupo.length() > 6)
+            this.id = this.grupo.substring(0,6) + id;
+        else
+            this.id = this.grupo + id;
+        System.out.println("3: " + this.id);
 
-        connection.connect(InetAddress.getByName("localhost"), 0, this.id, false, false);
-        group.join(connection,this.grupo);
+        connection.connect(InetAddress.getByName("localhost"), 0, this.id, false, true);
+//        connection.add(aml);
+        System.out.println("4");
+
 
         this.options = new Options().setCreateIfMissing(true);
         try {
+            System.out.println("Criar rocks");
             rocksDB = RocksDB.open(options, rocksDBFolder + ku.getGrupo()/*"./localdb/" + id.replaceAll(":", "") + "-" + ku.toString() + "/"*/);
+            System.out.println("Rocks criado");
         } catch (RocksDBException e) {
             e.printStackTrace();
         }
@@ -55,17 +69,30 @@ public class Grupo {
         secundarios.clear();
         secundarios.addAll(membros);
 
+        System.out.println("Atualizou");
+        System.out.println(primario);
+        System.out.println(secundarios);
+
     }
 
-    public void addAML(AdvancedMessageListener aml){
+    public void connecta(AdvancedMessageListener aml) throws SpreadException {
         connection.add(aml);
+        System.out.println("GR: " + this.grupo);
+        group.join(connection,this.grupo);
+
     }
 
     @Override
     public String toString() {
         return "Grupo{" +
-                "id='" + id + '\'' +
+                ", id='" + id + '\'' +
                 ", grupo='" + grupo + '\'' +
+                ", primario='" + primario + '\'' +
+                ", secundarios=" + secundarios +
+                ", ku=" + ku +
+                ", putRequests=" + putRequests +
+                ", removeRequests=" + removeRequests +
+                ", acks=" + acks +
                 '}';
     }
 

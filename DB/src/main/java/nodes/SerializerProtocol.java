@@ -11,6 +11,8 @@ public class SerializerProtocol {
                 java.util.HashMap.class,
                 java.util.ArrayList.class,
                 java.util.LinkedHashMap.class,
+                java.util.TreeSet.class,
+                java.util.HashSet.class,
                 JSONObject.class,
                 KeysUniverse.class,
                 GetRequest.class,
@@ -32,7 +34,8 @@ public class SerializerProtocol {
                 RestartReply.class,
                 RestartRequest.class,
                 UpdateMessage.class,
-                ACKMessage.class
+                ACKMessage.class,
+                Secundario.class
         ).build();
     }
 }
