@@ -64,7 +64,7 @@ public class SlaveIdentifier {
     }
 
     public void sai(String id){
-        if(id.equals(endereco)){
+        if(id.equals(idPrimario)){
             ativo = false;
         }
         else{

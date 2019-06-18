@@ -66,12 +66,17 @@ public class Slave {
                 KeysUniverse ku = new KeysUniverse(um.key, um.key);
                 Grupo g = grupos.get(ku);
 
+
                 if (g == null) {
                     System.out.println("Eu n sou do grupo como recebi update? ESTRANHO!");
                 } else {
                     if (g.primario.equals(g.id)) {
                         System.out.println("Sou o primario, n faço update!");
                     } else {
+                        if(!g.estadoRecuperado){
+                            g.fila.add(o);
+                            return;
+                        }
 
                         if (um.value != null) {
                             Put p = g.putRequests.get(um.id);
@@ -87,7 +92,7 @@ public class Slave {
                                     sm.setReliable();
 
                                     try {
-                                        connection.multicast(sm);
+                                        g.connection.multicast(sm);
                                     } catch (SpreadException e) {
                                         e.printStackTrace();
                                     }
@@ -107,11 +112,49 @@ public class Slave {
                     }
                 }
             }
+            else if(o instanceof EstadoSlave){
+                System.out.println("Recebi mensagem com o estado!");
+                EstadoSlave es = (EstadoSlave)o;
+                long auxKey = es.valores.keySet().iterator().next();
+                System.out.println("Ver questao do iterator no recupera estado!");
+                KeysUniverse ku = new KeysUniverse(auxKey,auxKey);
+                Grupo g = grupos.get(ku);
+                if(g == null){
+                    System.out.println("Recupera estado num grupo null!!!");
+                }
+                else {
+
+                    g.recuperaEstado(es);
+                    if(es.last)
+                        trataFila(g);
+                }
+
+            }
+            else if(o instanceof PedidoEstado){
+                PedidoEstado pe = (PedidoEstado)o;
+
+                Grupo g = grupos.get(pe.ku);
+
+                if(g == null){
+                    System.out.println("Pedido de estado e grupo é null!!");
+                }
+                else{
+                    if(!g.estadoRecuperado){
+                        System.out.println("Pedido de estado sem estado recuperado, estranho!");
+                        g.fila.add(o);
+                    }
+                    else{
+
+                        g.pedidoEstado(pe,spreadMessage.getSender(),s);
+                    }
+                }
+            }
             else{
                 System.out.println("Recebi uma mensagem que não é de update! " + o.getClass());
             }
 
         }
+
 
         @Override
         public void membershipMessageReceived(SpreadMessage spreadMessage) {
@@ -127,6 +170,35 @@ public class Slave {
             for(Grupo g: grupos.values()){
                 if(g.grupo.equals(grupo)){
                     g.atualiza(membros);
+                    if(spreadMessage.getMembershipInfo().isCausedByJoin()){
+
+                        if(spreadMessage.getMembershipInfo().getJoined().toString().split("#")[1].equals(g.id)){
+                            //fui eu q me juntei
+                            membros.remove(g.id);
+                            if(!membros.isEmpty()){
+
+                                String exPrimario = Collections.min(membros); //o antigo primario
+                                String id = UUID.randomUUID().toString();
+                                PedidoEstado pe = new PedidoEstado(id);
+                                SpreadMessage sm = new SpreadMessage();
+                                sm.setData(s.encode(pe));
+                                sm.addGroup(exPrimario);
+                                sm.setReliable();
+
+                                try {
+                                    g.connection.multicast(sm);
+                                } catch (SpreadException e) {
+                                    e.printStackTrace();
+                                }
+
+                            }
+                            else{
+                                //so existo eu, estado recuperado
+                                g.estadoRecuperado = true;
+                                trataFila(g);
+                            }
+                        }
+                    }
                     break;
                 }
             }
@@ -152,9 +224,9 @@ public class Slave {
 
                     HashSet<String> aux = grupo.acks.get(ackMessage.id);
 
-                    System.out.println("ACK, SENDER: " + spreadMessage.getSender().toString());
+                    System.out.println("ACK, SENDER: " + spreadMessage.getSender().toString().split("#")[1]);
 
-                    boolean rmv = aux.remove(spreadMessage.getSender().toString());
+                    boolean rmv = aux.remove(spreadMessage.getSender().toString().split("#")[1]);
 
                     if (rmv && aux.isEmpty()) {
                         if (ackMessage.put) {
@@ -165,10 +237,14 @@ public class Slave {
                             } else {
                                 p.cf.complete(p.resposta);
                             }
-                        } else {
+                        }
+                        else {
                             //e remove
                             System.out.println("Recebi ack remove, ver o q fazer!");
                         }
+                    }
+                    else{
+                        System.out.println("REMOVED: " + aux);
                     }
                 }
             }
@@ -189,6 +265,8 @@ public class Slave {
         try {
             connection.connect(InetAddress.getByName("localhost"), 0, id, false, false);
             connection.add(bml);
+            SpreadGroup g = new SpreadGroup();
+            g.join(connection,"global");
         } catch (SpreadException e) {
             e.printStackTrace();
         } catch (UnknownHostException e) {
@@ -275,6 +353,14 @@ public class Slave {
         }
     }
 
+    private void trataFila(Grupo g) {
+        for(Object o : g.fila){
+            //tratar object como se fosse uma mensagem
+        }
+
+        g.fila.clear();
+    }
+
     private void criaPasta(){
         File directory = new File("localdb/"+this.id+"/");
         if (! directory.exists()){
@@ -299,6 +385,11 @@ public class Slave {
                 System.out.println("DAR MENSAGEM DE ERRO PORQUE NAO TRATAMOS DA CHAVE!!");
             }
             else {
+                if(!grupo.estadoRecuperado){
+                    grupo.fila.add(pr);
+                    return;
+                }
+
                 System.out.println("4");
                 Put p = grupo.putRequests.get(pr.id);
 
@@ -359,7 +450,10 @@ public class Slave {
             if(g == null){
                 System.out.println("DAR MENSAGEM DE ERRO PORQUE NAO TRATAMOS DA CHAVE!!");
             }else {
-
+                if(!g.estadoRecuperado){
+                    g.fila.add(gr);
+                    return;
+                }
                 JSONObject resultado = g.get(gr);
                 GetReply grp = new GetReply(gr.id, gr.key, resultado);
                 ms.sendAsync(a, "getReply", s.encode(grp));
@@ -381,6 +475,11 @@ public class Slave {
                 System.out.println("DAR MENSAGEM DE ERRO PORQUE NAO TRATAMOS DA CHAVE!!");
             }else {
 
+                if(!g.estadoRecuperado){
+                    g.fila.add(rr);
+                    return;
+                }
+
                 boolean resultado = g.remove(rr);
                 RemoveReply rrp = new RemoveReply(rr.id, resultado);
                 ms.sendAsync(a, "removeReply", s.encode(rrp));
@@ -398,6 +497,12 @@ public class Slave {
             if(g == null){
                 System.out.println("DAR MENSAGEM DE ERRO PORQUE NAO TRATAMOS DA CHAVE!!");
             }else {
+
+                if(!g.estadoRecuperado){
+                    g.fila.add(sr);
+                    return;
+                }
+
                 scanRequests.add(sr.id); //ver depois o que acontece se já existe
                 // e ver se n é melhor colocar o scan todo!!!
                 ResultadoScan docs = null; //n será muito eficiente, provavelmente por causa de andar sempre a mudar o map
@@ -491,6 +596,7 @@ public class Slave {
             grupos.put(grupo,c);
             c.connecta(aml);
             System.out.println("Adiconei grupo");
+
         } catch (UnknownHostException e) {
             e.printStackTrace();
         } catch (SpreadException e) {

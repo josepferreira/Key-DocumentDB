@@ -1,13 +1,5 @@
 package nodes;
 
-import com.fasterxml.jackson.core.JsonFactory;
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JavaType;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
-import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import io.atomix.cluster.messaging.*;
 import io.atomix.cluster.messaging.impl.NettyMessagingService;
 import io.atomix.utils.net.Address;
@@ -15,7 +7,6 @@ import io.atomix.utils.serializer.Serializer;
 import messages.*;
 import spread.*;
 
-import java.lang.reflect.Array;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.*;
@@ -55,7 +46,7 @@ public class  Master {
             System.out.println("GROUP:" + spreadMessage.getSender());
 
             if(descarta){
-                if(o instanceof PedidoEstadoMaster){
+                if(o instanceof PedidoEstado){
                     System.out.println("Recebi pedido master");
                     descarta = false;
                 }
@@ -82,9 +73,9 @@ public class  Master {
                     }
                 }
                 else{
-                    if(o instanceof PedidoEstadoMaster){
+                    if(o instanceof PedidoEstado){
                         System.out.println("Vou responder ao pedido de estado");
-                        EstadoMaster em = new EstadoMaster(((PedidoEstadoMaster)o).id,nSlaves,slaves,start,keysSlaves);
+                        EstadoMaster em = new EstadoMaster(((PedidoEstado)o).id,nSlaves,slaves,start,keysSlaves);
                         SpreadMessage sm = new SpreadMessage();
                         sm.setData(s.encode(em));
                         sm.addGroup(spreadMessage.getSender());
@@ -114,8 +105,7 @@ public class  Master {
             if(spreadMessage.getMembershipInfo().isCausedByLeave() ||
                     spreadMessage.getMembershipInfo().isCausedByDisconnect()){
 
-                String aux = spreadMessage.getMembershipInfo().getLeft().toString();
-                System.out.println(spreadMessage.getMembershipInfo().getLeft());
+                String aux = spreadMessage.getMembershipInfo().getLeft().toString().split("#")[1];
 
                 if(aux.startsWith(idSlave)){
 
@@ -139,7 +129,7 @@ public class  Master {
                     }
                 }
                 else{
-                    System.out.println("Saiu um master! -> " + aux);
+                    System.out.println("Saiu um master! ID: " + aux);
                 }
             }
         }
@@ -178,7 +168,7 @@ public class  Master {
         else{
             System.out.println("Vou recuperar estado");
 
-            PedidoEstadoMaster pem = new PedidoEstadoMaster(UUID.randomUUID().toString());
+            PedidoEstado pem = new PedidoEstado(UUID.randomUUID().toString());
             SpreadMessage sm = new SpreadMessage();
             sm.setData(s.encode(pem));
             sm.addGroup("master");

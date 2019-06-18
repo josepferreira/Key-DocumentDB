@@ -29,7 +29,7 @@ public class SerializerProtocol {
                 StartRequest.class,
                 StartReply.class,
                 EstadoMaster.class,
-                PedidoEstadoMaster.class,
+                PedidoEstado.class,
                 StartMessage.class,
                 RestartReply.class,
                 RestartRequest.class,

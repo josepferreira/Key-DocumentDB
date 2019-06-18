@@ -1,6 +1,8 @@
 package nodes;
 
 import com.google.common.primitives.Longs;
+import com.sun.xml.internal.ws.client.SenderException;
+import io.atomix.utils.serializer.Serializer;
 import messages.*;
 import org.json.JSONObject;
 import org.rocksdb.Options;
@@ -29,6 +31,9 @@ public class Grupo {
     public HashMap<String,Put> putRequests = new HashMap<>();
     public HashMap<String,Remove> removeRequests = new HashMap<>();
     public HashMap<String, HashSet<String>> acks = new HashMap<>();
+
+    public boolean estadoRecuperado = false;
+    public ArrayList<Object> fila = new ArrayList<>();
 
 
     public Grupo(String id, String grupo, KeysUniverse ku, String rocksDBFolder, AdvancedMessageListener aml) throws UnknownHostException, SpreadException {
@@ -383,5 +388,73 @@ public class Grupo {
         }
         return false;
 
+    }
+
+
+    private boolean put(Long k, JSONObject value){
+
+        ////se ainda n inseriu insere
+        byte[] key = Longs.toByteArray(k);
+        try {
+            rocksDB.put(key, value.toString().getBytes());
+            return true;
+        } catch (RocksDBException e) {
+            e.printStackTrace();
+            System.out.println("Erro ao realizar put na BD local!");
+        }
+
+        return false;
+
+    }
+
+    public void recuperaEstado(EstadoSlave es) {
+
+        if (es.putRequests != null) {
+            putRequests = es.putRequests;
+            acks = es.acks;
+            //falta remove requests
+        }
+
+        for(Map.Entry<Long,JSONObject> entry: es.valores.entrySet()){
+            put(entry.getKey(),entry.getValue());
+        }
+
+        if(es.last) estadoRecuperado = true;
+    }
+
+    public void pedidoEstado(PedidoEstado pe, SpreadGroup sender, Serializer s) {
+
+        long quantos = 0;
+        long max = 20;
+        HashMap<Long,JSONObject> map = new HashMap<>();
+        EstadoSlave es = new EstadoSlave(pe.id,putRequests,removeRequests,acks,map,false);
+
+        RocksIterator iterador = rocksDB.newIterator();
+
+        while(iterador.isValid()){
+            long k = Longs.fromByteArray(iterador.key());
+            String v = new String(iterador.value());
+            JSONObject json = new JSONObject(v);
+            map.put(k,json);
+            iterador.next();
+            quantos++;
+            if(quantos >= max){
+                es.last = iterador.isValid();
+                quantos = 0;
+
+                SpreadMessage sm = new SpreadMessage();
+                sm.setData(s.encode(es));
+                sm.setReliable();
+                sm.addGroup(sender);
+
+                try {
+                    connection.multicast(sm);
+                } catch (SpreadException e) {
+                    e.printStackTrace();
+                }
+
+                map.clear();
+            }
+        }
     }
 }
