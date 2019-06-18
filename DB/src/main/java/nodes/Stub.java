@@ -27,21 +27,24 @@ class TratamentoTimeout{
     public Remove remove;
     public Put put;
 
+    public CompletableFuture<JSONObject> cfj;
+    public CompletableFuture<Boolean> cfb;
+
     public int numeroTentativas = 0; //Se chegar a 3 por exemplo damos null ou false dependendo do CF
 
-    public TratamentoTimeout(Get gets, int numeroTentativas) {
+    public TratamentoTimeout(Get gets, CompletableFuture<JSONObject> cfj) {
         this.gets = gets;
-        this.numeroTentativas = numeroTentativas;
+        this.cfj = cfj;
     }
 
-    public TratamentoTimeout(Remove remove, int numeroTentativas) {
+    public TratamentoTimeout(Remove remove, CompletableFuture<Boolean> cfb) {
         this.remove = remove;
-        this.numeroTentativas = numeroTentativas;
+        this.cfb = cfb;
     }
 
-    public TratamentoTimeout(Put put, int numeroTentativas) {
+    public TratamentoTimeout(Put put, CompletableFuture<Boolean> cfb) {
         this.put = put;
-        this.numeroTentativas = numeroTentativas;
+        this.cfb = cfb;
     }
 }
 
@@ -52,9 +55,9 @@ public class Stub {
     public ManagedMessagingService ms;
     ScheduledExecutorService ses = Executors.newSingleThreadScheduledExecutor();
     Serializer s = SerializerProtocol.newSerializer();
-    HashMap<String, Get> getRequests = new HashMap<>();
-    HashMap<String, Remove> removeRequests = new HashMap<>();
-    HashMap<String, Put> putRequests = new HashMap<>();
+    HashMap<String, TratamentoTimeout> getRequests = new HashMap<>();
+    HashMap<String, TratamentoTimeout> removeRequests = new HashMap<>();
+    HashMap<String, TratamentoTimeout> putRequests = new HashMap<>();
     HashMap<String, ScanIterator> scanRequests = new HashMap<>();
 
     private TreeMap<KeysUniverse,SlaveIdentifier> cache = new TreeMap<>();
@@ -137,31 +140,88 @@ public class Stub {
     }
 
 
-    private void reenviaMensagem(long key, Object o){
+    private void reenviaMensagem(long key, GetRequest o){
+
+        System.out.println("Chegei a um timeout ... !");
+        System.out.println("Para ja vou pedir ao master depois podemos voltar a fazer um novo pedido ao slave!");
 
         KeysUniverse ku = new KeysUniverse(key, key);
         this.cache.put(ku, null);
 
-        if(o instanceof GetRequest){
-            enviaMensagem(key, (GetRequest) o);
-        }else{
-            if(o instanceof PutRequest){
-                enviaMensagem(key, (PutRequest) o);
-            }
-            else{
-                enviaMensagem(key, (RemoveRequest) o);
-            }
-        }
+        enviaMensagem(key, o);
+        ses.schedule(timeoutJson(o.id, key, o), 10, TimeUnit.SECONDS);
+    }
+
+    private void reenviaMensagem(long key, PutRequest o){
+
+        System.out.println("Chegei a um timeout ... !");
+        System.out.println("Para ja vou pedir ao master depois podemos voltar a fazer um novo pedido ao slave!");
+
+        KeysUniverse ku = new KeysUniverse(key, key);
+        this.cache.put(ku, null);
+
+        enviaMensagem(key, o);
+        ses.schedule(timeoutJson(o.id, key, o), 10, TimeUnit.SECONDS);
+    }
+
+    private void reenviaMensagem(long key, RemoveRequest o){
+
+        System.out.println("Chegei a um timeout ... !");
+        System.out.println("Para ja vou pedir ao master depois podemos voltar a fazer um novo pedido ao slave!");
+
+        KeysUniverse ku = new KeysUniverse(key, key);
+        this.cache.put(ku, null);
+
+        enviaMensagem(key, o);
+        ses.schedule(timeoutJson(o.id, key, o), 10, TimeUnit.SECONDS);
     }
 
     private Runnable timeoutJson(String id, long key, Object o){
         Runnable ret = new Runnable() {
             @Override
             public void run() {
-                if(getRequests.containsKey(id)){
-                    System.out.println("Chegei a um timeout ... !");
-                    System.out.println("Para ja vou pedir ao master depois podemos voltar a fazer um novo pedido ao slave!");
-                    reenviaMensagem(key, o);
+                if(o instanceof GetRequest){
+                    if(getRequests.containsKey(id)) {
+                        TratamentoTimeout aux = getRequests.get(id);
+                        aux.numeroTentativas++;
+                        if(aux.numeroTentativas != 3)
+                            reenviaMensagem(key, (GetRequest) o);
+                        else {
+                            System.out.println("TEMOS DE ACABAR COM O CF");
+                            getRequests.remove(id);
+                            aux.cfj.complete(null);
+                        }
+
+                    }
+                }else{
+                    if(o instanceof PutRequest){
+                        if(putRequests.containsKey(id)) {
+                            TratamentoTimeout aux = getRequests.get(id);
+                            aux.numeroTentativas++;
+                            if(aux.numeroTentativas != 3)
+                                reenviaMensagem(key, (PutRequest) o);
+                            else {
+                                System.out.println("TEMOS DE ACABAR COM O CF");
+                                putRequests.remove(id);
+                                aux.cfb.complete(false);
+                            }
+                        }
+                    }
+                    else{
+                        if(o instanceof RemoveRequest) {
+                            if (removeRequests.containsKey(id)) {
+                                TratamentoTimeout aux = getRequests.get(id);
+                                aux.numeroTentativas++;
+                                if(aux.numeroTentativas != 3)
+                                    reenviaMensagem(key, (RemoveRequest) o);
+                                else {
+                                    System.out.println("TEMOS DE ACABAR COM O CF");
+                                    removeRequests.remove(id);
+                                    aux.cfb.complete(false);
+                                }
+                            }
+                        }
+                    }
                 }
             }
         };
@@ -184,7 +244,7 @@ public class Stub {
                 System.out.println("O valor retornado é nulo");
             else
                 System.out.println("O valor é: " + gr.value.toString());
-            this.getRequests.get(gr.id).cf.complete(gr.value);
+            this.getRequests.get(gr.id).gets.cf.complete(gr.value);
 
         },ses);
 
@@ -192,7 +252,7 @@ public class Stub {
             RemoveReply rr = s.decode(m);
 
             System.out.println("O valor é: " + rr.sucess);
-            this.removeRequests.get(rr.id).cf.complete(rr.sucess);
+            this.removeRequests.get(rr.id).remove.cf.complete(rr.sucess);
 
         },ses);
 
@@ -203,7 +263,7 @@ public class Stub {
 
             //TENS DE VER ISTO AQUI!!! SE É PARA MANDAR TRUE OU NÃO ... SÓ PUS ASSIM PARA NAO DAR ERRO
 
-            this.putRequests.get(pr.id).cf.complete(pr.success);
+            this.putRequests.get(pr.id).put.cf.complete(pr.success);
 
         },ses);
 
@@ -230,7 +290,7 @@ public class Stub {
             if(!eRepetido(rm.id)) {
 
                 System.out.println("O slave que contém a minha key é: " + rm.endereco);
-                Get g = getRequests.get(rm.id);
+                Get g = getRequests.get(rm.id).gets;
 
                 if (g == null) {
                     System.out.println("Deu nulo no get ... Algo errado!");
@@ -249,7 +309,7 @@ public class Stub {
             if(!eRepetido(rm.id)) {
 
                 System.out.println("O slave que contém a minha key é: " + rm.endereco);
-                Remove r = removeRequests.get(rm.id);
+                Remove r = removeRequests.get(rm.id).remove;
 
                 if (r == null) {
                     System.out.println("Deu nulo no get ... Algo errado!");
@@ -269,7 +329,7 @@ public class Stub {
 
                 System.out.println("O slave que contém a minha key é: " + rm.endereco);
 
-                Put p = putRequests.get(rm.id);
+                Put p = putRequests.get(rm.id).put;
                 if (p == null) {
                     //Estranho, ver este caso
                     System.out.println("Put null");
@@ -333,7 +393,7 @@ public class Stub {
 
         GetRequest gr = new GetRequest(requestID, key, this.endereco);
         Get g = new Get(gr, jsonCF);
-        getRequests.put(requestID, g);
+        getRequests.put(requestID, new TratamentoTimeout(g, jsonCF));
 
         enviaMensagem(key, gr);
 
@@ -358,7 +418,7 @@ public class Stub {
 
         GetRequest gr = new GetRequest(requestID, key, this.endereco, filtros);
         Get g = new Get(gr, cf, gr.filtros, gr.projecoes);
-        getRequests.put(requestID, g);
+        getRequests.put(requestID, new TratamentoTimeout(g, cf));
 
         enviaMensagem(key, gr);
         //ms.sendAsync(masterAddress,"get", this.s.encode(gr));
@@ -384,7 +444,7 @@ public class Stub {
 
         GetRequest gr = new GetRequest(requestID, key, this.endereco, projecoes);
         Get g = new Get(gr, cf, gr.filtros, gr.projecoes);
-        getRequests.put(requestID, g);
+        getRequests.put(requestID, new TratamentoTimeout(g, cf));
 
         enviaMensagem(key, gr);
 
@@ -408,7 +468,7 @@ public class Stub {
 
         GetRequest gr = new GetRequest(requestID, key, this.endereco, filtros, projecoes);
         Get g = new Get(gr, cf, gr.filtros, gr.projecoes);
-        getRequests.put(requestID, g);
+        getRequests.put(requestID, new TratamentoTimeout(g, cf));
 
         enviaMensagem(key, gr);
 
@@ -466,7 +526,7 @@ public class Stub {
 
         RemoveRequest rr = new RemoveRequest(requestID, key, this.endereco);
         Remove r = new Remove(rr, jsonCF);
-        removeRequests.put(requestID, r);
+        removeRequests.put(requestID, new TratamentoTimeout(r, jsonCF));
 
         enviaMensagem(key, rr);
 
@@ -490,7 +550,7 @@ public class Stub {
 
         RemoveRequest rr = new RemoveRequest(requestID, key, this.endereco, (ArrayList<Predicate<JSONObject>>) filtros, null);
         Remove r = new Remove(rr, cf, rr.filtros, rr.projecoes);
-        removeRequests.put(requestID, r);
+        removeRequests.put(requestID, new TratamentoTimeout(r, cf));
 
         enviaMensagem(key, rr);
 
@@ -515,7 +575,7 @@ public class Stub {
 
         RemoveRequest rr = new RemoveRequest(requestID, key, this.endereco, null, projecoes);
         Remove r = new Remove(rr, cf, rr.filtros, rr.projecoes);
-        removeRequests.put(requestID, r);
+        removeRequests.put(requestID, new TratamentoTimeout(r, cf));
 
         enviaMensagem(key, rr);
 
@@ -540,7 +600,7 @@ public class Stub {
 
         RemoveRequest rr = new RemoveRequest(requestID, key, this.endereco, filtros, projecoes);
         Remove r = new Remove(rr, cf, rr.filtros, rr.projecoes);
-        removeRequests.put(requestID, r);
+        removeRequests.put(requestID, new TratamentoTimeout(r, cf));
 
         enviaMensagem(key, rr);
 
@@ -593,7 +653,7 @@ public class Stub {
 
         PutRequest pr = new PutRequest(requestID, key, this.endereco, value);
         Put p = new Put(pr, cf);
-        putRequests.put(requestID, p);
+        putRequests.put(requestID, new TratamentoTimeout(p, cf));
 
         enviaMensagem(key, pr);
 
