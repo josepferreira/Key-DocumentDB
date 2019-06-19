@@ -310,7 +310,7 @@ public class  Master {
             }
 
 
-            RestartReply rp = new RestartReply(grupos);
+            RestartReply rp = new RestartReply(rr.id ,grupos);
             ms.sendAsync(Address.from(rr.endereco),"restart",s.encode(rp));
 
 

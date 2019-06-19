@@ -676,18 +676,22 @@ public class Slave {
         ms.registerHandler("restart", (o,m) -> {
             System.out.println("Recebi restart");
             RestartReply rr = s.decode(m);
-            this.minhasChaves = new TreeSet<>(rr.keys.keySet());
-            for(Map.Entry<KeysUniverse, String> entry: rr.keys.entrySet()){
-                adicionaConexao(entry.getValue(), entry.getKey());
-            }
 
-            System.out.println("\t\tVER INFOS");
-            System.out.println(this.minhasChaves);
-            for(Map.Entry<KeysUniverse,Grupo> as: grupos.entrySet()){
-                System.out.println(as);
+            if(!eRepetido(rr.id)) {
+
+                this.minhasChaves = new TreeSet<>(rr.keys.keySet());
+                for (Map.Entry<KeysUniverse, String> entry : rr.keys.entrySet()) {
+                    adicionaConexao(entry.getValue(), entry.getKey());
+                }
+
+                System.out.println("\t\tVER INFOS");
+                System.out.println(this.minhasChaves);
+                for (Map.Entry<KeysUniverse, Grupo> as : grupos.entrySet()) {
+                    System.out.println(as);
+                }
+                System.out.println();
+                System.out.println();
             }
-            System.out.println();
-            System.out.println();
         }, ses);
 
         /*ms.registerHandler("start", (o,m) -> {
