@@ -392,10 +392,15 @@ public class Grupo {
     public boolean updateState(UpdateMessage um){
 
         ////se ainda n inseriu insere
-        byte[] key = Longs.toByteArray(um.pr.key);
+        byte[] key = Longs.toByteArray(um.key);
         try {
-            rocksDB.put(key, um.value.toString().getBytes());
-            return true;
+            if(um.value != null) {
+                rocksDB.put(key, um.value.toString().getBytes());
+                return true;
+            }else{
+                rocksDB.delete(key);
+                return true;
+            }
         } catch (RocksDBException e) {
             e.printStackTrace();
             System.out.println("Erro ao realizar put na BD local! Estranho, foi num update vindo do primario!!!");

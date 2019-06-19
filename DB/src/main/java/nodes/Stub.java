@@ -776,6 +776,8 @@ public class Stub {
             System.out.println("Put feito: " + i + "! RES: " + res);
         }
         System.out.println("Puts feitos");*/
+        System.out.println("Vou fazer remove");
+        System.out.println("remove feito: " + s.remove(121));
 //        try {
 //            System.out.println(s.get(250).get());
 //            System.out.println(s.remove(268).get());

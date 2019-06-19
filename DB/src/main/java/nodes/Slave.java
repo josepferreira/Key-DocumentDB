@@ -109,7 +109,40 @@ public class Slave {
                             }
 
                         } else {
-                            System.out.println("REMOVE!!! Tratar depois! TEMOS!");
+                            Remove r = g.removeRequests.get(um.id);
+
+                            if (r == null) {
+                                r = new Remove(um.rr, new CompletableFuture<Boolean>(), um.resposta);
+                                g.removeRequests.put(um.id, r);
+
+                                r.cf.thenAccept(a -> {
+                                    SpreadMessage sm = new SpreadMessage();
+                                    sm.addGroup(spreadMessage.getSender());
+                                    sm.setData(s.encode(new ACKMessage(um.id, false,um.key)));
+                                    sm.setReliable();
+
+                                    try {
+                                        g.connection.multicast(sm);
+                                    } catch (SpreadException e) {
+                                        e.printStackTrace();
+                                    }
+
+                                });
+
+                                boolean resposta = g.updateState(um);
+                                r.cf.complete(resposta);
+                            } else {
+                                //já aconteceu algo, ver pq recebeu novo pedido
+                                System.out.println("Já tinha remove, pq recebi novamente??? Porquê? Eu 'tô bem\n" +
+                                        "Tu também 'tá bem\n" +
+                                        "Todo mundo aqui 'tá bem\n" +
+                                        "J'suis avec mon mec 'tá tudo bem\n" +
+                                        "Eu 'tô bem\n" +
+                                        "Tu também 'tá bem\n" +
+                                        "Todo mundo aqui 'tá bem\n" +
+                                        "J'suis avec mon mec 'tá tudo bem\n" +
+                                        "É mafiosa, é mafiosa");
+                            }
                         }
                     }
                 }
@@ -248,11 +281,18 @@ public class Slave {
                             }
                         }
                         else {
-                            //e remove
-                            System.out.println("Recebi ack remove, ver o q fazer!");
+                            Remove r = grupo.removeRequests.get(ackMessage.id);
+
+                            if (r == null) {
+                                System.out.println("Recebi um ack e n tenho o put! ESTRANHO");
+                            } else {
+                                System.out.println("Lento y contento, cara al viento -> REMOVI !!!");
+                                r.cf.complete(r.resposta);
+                            }
                         }
                     }
                     else{
+
                         System.out.println("REMOVED: " + aux);
                     }
                 }
@@ -468,7 +508,33 @@ public class Slave {
                     }
                 }
                 else {
-                    System.out.println("REMOVE!!! Tratar depois! TEMOS!");
+                    Remove r = g.removeRequests.get(um.id);
+
+                    if (r == null) {
+                        r = new Remove(um.rr, new CompletableFuture<Boolean>(), um.resposta);
+                        g.removeRequests.put(um.id, r);
+
+                        r.cf.thenAccept(a -> {
+                            SpreadMessage sm = new SpreadMessage();
+                            sm.addGroup(ef.origem);
+                            sm.setData(s.encode(new ACKMessage(um.id, false, um.key)));
+                            sm.setReliable();
+
+                            try {
+                                g.connection.multicast(sm);
+                            } catch (SpreadException e) {
+                                e.printStackTrace();
+                            }
+
+                        });
+
+                        boolean resposta = g.updateState(um);
+                        r.cf.complete(resposta);
+                    }
+                    else {
+                        //já aconteceu algo, ver pq recebeu novo pedido
+                        System.out.println("Já tinha put, pq recebi novamente???");
+                    }
                 }
             }
             else if(ef.o instanceof GetRequest){
@@ -605,26 +671,65 @@ public class Slave {
         },ses);
 
 
-        ms.registerHandler("remove",(a,m) -> {
+        ms.registerHandler("remove",(o,m) -> {
 
             System.out.println("RECEBI UM PEDIDO DE REMOVE FALTA TRATAR DOS UPDATES DO REMOVE NA PASSIVA!!!");
 
             RemoveRequest rr = s.decode(m);
             KeysUniverse ku = new KeysUniverse(rr.key, rr.key);
-            Grupo g = grupos.get(ku);
+            Grupo grupo = grupos.get(ku);
 
-            if(g == null){
+            if(grupo == null){
                 System.out.println("DAR MENSAGEM DE ERRO PORQUE NAO TRATAMOS DA CHAVE!!");
             }else {
 
-                if(!g.estadoRecuperado){
-                    g.fila.add(new ElementoFila(rr,a.toString()));
+                if(!grupo.estadoRecuperado){
+                    grupo.fila.add(new ElementoFila(rr,o.toString()));
                     return;
                 }
 
-                boolean resultado = g.remove(rr);
-                RemoveReply rrp = new RemoveReply(rr.id, resultado);
-                ms.sendAsync(a, "removeReply", s.encode(rrp));
+                Remove r = grupo.removeRequests.get(rr.id);
+
+                if (r == null) {
+                    r = new Remove(rr, new CompletableFuture<Boolean>());
+                    grupo.removeRequests.put(rr.id, r);
+
+                    r.cf.thenAccept(a -> {
+                        RemoveReply rrp = new RemoveReply(rr.id, a);
+                        ms.sendAsync(o, "removeReply", s.encode(rrp));
+                    });
+
+                    boolean resultado = grupo.remove(rr);
+                    r.setResposta(resultado);
+
+                    System.out.println(grupo.secundarios);
+                    grupo.acks.put(rr.id, (HashSet<String>) grupo.secundarios.clone());
+                    SpreadMessage sm = new SpreadMessage();
+                    if(grupo.secundarios.isEmpty()){
+                        r.cf.complete(resultado);
+                    }
+                    else {
+                        System.out.println("AINDA TEMOS DE SABER COMO É QUE VAMOS FAZER QUANDO FOR MEIO UM UPDATE");
+                        UpdateMessage um = new UpdateMessage(rr.key, null, rr.id, resultado, rr);
+                        sm.setData(s.encode(um));
+                        sm.addGroup(grupo.grupo);
+                        sm.setReliable();
+                        try {
+                            connection.multicast(sm);
+                        } catch (SpreadException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+                else{
+                    System.out.println("Pedido de put já se encontra tratado!");
+                }
+
+
+
+
+
+
 
             }
 
@@ -693,45 +798,6 @@ public class Slave {
                 System.out.println();
             }
         }, ses);
-
-        /*ms.registerHandler("start", (o,m) -> {
-            System.out.println("Recebi uma mensagem com a chave qe eu vou utilziar");
-            try {
-                StartReply sr = s.decode(m);
-                System.out.println("Passei o decode ...");
-                if (!eRepetido(sr.id)) {
-
-                    KeysUniverse ku = sr.keys;
-                    minhasChaves.add(ku);
-                    System.out.println("Vamos ver as chaves: " + minhasChaves.toString());
-                    try {
-                        this.options = new Options().setCreateIfMissing(true);
-                        RocksDB ndb = RocksDB.open(options, "./localdb/" + endereco.replaceAll(":", "") + "-" + ku.toString() + "/");
-                        dbs.put(ku, ndb);
-
-                    } catch (RocksDBException e) {
-                        System.out.println("Exceçãoooooooooooooooo: " + e.getMessage());
-                    }
-
-                }
-            }catch (Exception e){
-                System.out.println(e.getMessage());
-            }
-        }, ses);
-
-        ms.registerHandler("startFirst", (o,m) -> {
-            System.out.println("Recebi uma mensagem de start com id!");
-            SpreadConnection myconnection = new SpreadConnection();
-            Object obj = s.decode(m);
-            StartRequest sr = (StartRequest)obj;
-            try {
-                myconnection.connect(InetAddress.getByName("localhost"), 0, sr.id, false, false);
-            } catch (SpreadException e) {
-                e.printStackTrace();
-            } catch (UnknownHostException e) {
-                e.printStackTrace();
-            }
-        }, ses);*/
     }
 
     public void adicionaConexao(String id, KeysUniverse grupo) {

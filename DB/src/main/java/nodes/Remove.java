@@ -20,11 +20,25 @@ public class Remove {
         this.cf = cf;
     }
 
+    public Remove(RemoveRequest request, CompletableFuture<Boolean> cf, boolean resposta) {
+        this.request = request;
+        this.cf = cf;
+        this.resposta = resposta;
+    }
+
     public Remove(RemoveRequest request, CompletableFuture<Boolean> cf, ArrayList<Predicate<JSONObject>> filtros, ArrayList<String> projecoes) {
         this.request = request;
         this.cf = cf;
         this.filtros = filtros;
         this.projecoes = projecoes;
+    }
+
+    public Remove(RemoveRequest request, CompletableFuture<Boolean> cf, ArrayList<Predicate<JSONObject>> filtros, ArrayList<String> projecoes, boolean resposta) {
+        this.request = request;
+        this.cf = cf;
+        this.filtros = filtros;
+        this.projecoes = projecoes;
+        this.resposta = resposta;
     }
 
     public void setResposta(boolean resposta) {
