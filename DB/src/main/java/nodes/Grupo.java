@@ -149,6 +149,16 @@ public class Grupo {
         return o;
     }
 
+    private boolean aplicaFiltro(Predicate<JSONObject> filtro, JSONObject jo){
+        try{
+            boolean res = filtro.test(jo);
+            return res;
+        }
+        catch (Exception e){
+            return false;
+        }
+    }
+
     //função que cria o filtro a partir dos vários filtros
     private Predicate<JSONObject> filtro(ArrayList<Predicate<JSONObject>> filters) {
 
