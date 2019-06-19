@@ -4,6 +4,8 @@ import io.atomix.utils.serializer.Serializer;
 import messages.*;
 import org.json.*;
 
+import java.util.concurrent.CompletableFuture;
+
 public class SerializerProtocol {
     public static Serializer newSerializer(){
         return Serializer.builder().withTypes(
@@ -35,7 +37,10 @@ public class SerializerProtocol {
                 RestartRequest.class,
                 UpdateMessage.class,
                 ACKMessage.class,
-                Secundario.class
+                Secundario.class,
+                EstadoSlave.class,
+                Put.class,
+                CompletableFuture.class
         ).build();
     }
 }

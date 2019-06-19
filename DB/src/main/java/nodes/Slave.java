@@ -59,7 +59,9 @@ public class Slave {
     public AdvancedMessageListener aml = new AdvancedMessageListener() {
         @Override
         public void regularMessageReceived(SpreadMessage spreadMessage) {
+            System.out.println("\t\t\t\tRecebi mensagem");
             Object o = s.decode(spreadMessage.getData());
+            System.out.println("\t\t\t\tRecebi mensagem: " + o.getClass());
 
             if(o instanceof UpdateMessage) {
                 UpdateMessage um = (UpdateMessage) o;
@@ -74,7 +76,7 @@ public class Slave {
                         System.out.println("Sou o primario, n faço update!");
                     } else {
                         if(!g.estadoRecuperado){
-                            g.fila.add(o);
+                            g.fila.add(new ElementoFila(o,spreadMessage.getSender().toString()));
                             return;
                         }
 
@@ -115,7 +117,7 @@ public class Slave {
             else if(o instanceof EstadoSlave){
                 System.out.println("Recebi mensagem com o estado!");
                 EstadoSlave es = (EstadoSlave)o;
-                long auxKey = es.valores.keySet().iterator().next();
+                long auxKey = es.key;
                 System.out.println("Ver questao do iterator no recupera estado!");
                 KeysUniverse ku = new KeysUniverse(auxKey,auxKey);
                 Grupo g = grupos.get(ku);
@@ -123,14 +125,17 @@ public class Slave {
                     System.out.println("Recupera estado num grupo null!!!");
                 }
                 else {
-
+                    System.out.println("Vou recuperar o estado para o " + ku);
+                    System.out.println("\t\t\t\t\t\tÉ o ultimo? " + es.last + "\n\n\n\n");
                     g.recuperaEstado(es);
+                    System.out.println("\n\n\n" + g + "\n\n\n");
                     if(es.last)
                         trataFila(g);
                 }
 
             }
             else if(o instanceof PedidoEstado){
+                System.out.println("Recebi pedido de estado");
                 PedidoEstado pe = (PedidoEstado)o;
 
                 Grupo g = grupos.get(pe.ku);
@@ -141,7 +146,7 @@ public class Slave {
                 else{
                     if(!g.estadoRecuperado){
                         System.out.println("Pedido de estado sem estado recuperado, estranho!");
-                        g.fila.add(o);
+                        g.fila.add(new ElementoFila(o,spreadMessage.getSender().toString()));
                     }
                     else{
 
@@ -167,26 +172,30 @@ public class Slave {
             }
             System.out.println(membros);
 
-            for(Grupo g: grupos.values()){
-                if(g.grupo.equals(grupo)){
-                    g.atualiza(membros);
+            for(Map.Entry<KeysUniverse,Grupo> g: grupos.entrySet()){
+                if(g.getValue().grupo.equals(grupo)){
+                    g.getValue().atualiza(membros);
                     if(spreadMessage.getMembershipInfo().isCausedByJoin()){
 
-                        if(spreadMessage.getMembershipInfo().getJoined().toString().split("#")[1].equals(g.id)){
+                        if(spreadMessage.getMembershipInfo().getJoined().toString().split("#")[1].equals(g.getValue().id)){
+                            System.out.println("Juntei-me!");
                             //fui eu q me juntei
-                            membros.remove(g.id);
+                            membros.remove(g.getValue().id);
                             if(!membros.isEmpty()){
+                                System.out.println("Enviar pedido de estado");
 
                                 String exPrimario = Collections.min(membros); //o antigo primario
                                 String id = UUID.randomUUID().toString();
-                                PedidoEstado pe = new PedidoEstado(id);
+                                PedidoEstado pe = new PedidoEstado(id,g.getKey());
                                 SpreadMessage sm = new SpreadMessage();
                                 sm.setData(s.encode(pe));
                                 sm.addGroup(exPrimario);
+                                System.out.println("VOu mandar um pedido de estado para o: " + exPrimario);
                                 sm.setReliable();
 
                                 try {
-                                    g.connection.multicast(sm);
+                                    g.getValue().connection.multicast(sm);
+                                    System.out.println("Enviei pedido de estado");
                                 } catch (SpreadException e) {
                                     e.printStackTrace();
                                 }
@@ -194,8 +203,8 @@ public class Slave {
                             }
                             else{
                                 //so existo eu, estado recuperado
-                                g.estadoRecuperado = true;
-                                trataFila(g);
+                                g.getValue().estadoRecuperado = true;
+                                trataFila(g.getValue());
                             }
                         }
                     }
@@ -354,11 +363,156 @@ public class Slave {
     }
 
     private void trataFila(Grupo g) {
-        for(Object o : g.fila){
+        if(g == null){
+            System.out.println("Grupo null ao recuperar fila!");
+            return;
+        }
+
+        for(ElementoFila o : g.fila){
             //tratar object como se fosse uma mensagem
+            trataMensagem(o,g);
         }
 
         g.fila.clear();
+    }
+
+    private void trataMensagem(ElementoFila ef, Grupo g) {
+
+        if(g.primario.equals(g.id)){
+            //sou o primario
+            if (ef.o instanceof PutRequest) {
+
+                System.out.println("Recebi put");
+                PutRequest pr = (PutRequest)ef.o;
+
+                Put p = g.putRequests.get(pr.id);
+
+                if (p == null) {
+                        p = new Put(pr, new CompletableFuture<Boolean>());
+                        g.putRequests.put(pr.id, p);
+
+                    p.cf.thenAccept(a -> {
+                        PutReply pl = new PutReply(pr.id, a);
+                        ms.sendAsync(Address.from(ef.origem), "putReply", s.encode(pl));
+                    });
+
+
+                    boolean resultado = g.put(pr);
+                    p.setResposta(resultado);
+
+                    g.acks.put(pr.id, (HashSet<String>) g.secundarios.clone());
+                        SpreadMessage sm = new SpreadMessage();
+                        UpdateMessage um = new UpdateMessage(pr.key, pr.value, pr.id, resultado, pr);
+                        sm.setData(s.encode(um));
+                        sm.addGroup(g.grupo);
+                    sm.setReliable();
+                    try {
+                                connection.multicast(sm);
+                            } catch (SpreadException e) {
+                        e.printStackTrace();
+                    }
+                }
+                else{
+                    System.out.println("Pedido de put já se encontra tratado!");
+                }
+
+            }
+            else if(ef.o instanceof RemoveRequest) {
+                System.out.println("Recuperar fila, temos de tratar o REMOVE!!!");
+            }
+            else if(ef.o instanceof GetRequest){
+                trataGet(ef,g);
+            }
+            else if(ef.o instanceof ScanRequest){
+                trataScan(ef,g);
+            }
+            else if(ef.o instanceof PedidoEstado){
+                g.pedidoEstado((PedidoEstado)ef.o,ef.origem,s);
+            }
+            else{
+                System.out.println("Sou primario e recebi: " + ef.o.getClass());
+            }
+        }
+        else{
+            //sou secundario
+            if(ef.o instanceof UpdateMessage) {
+                UpdateMessage um = (UpdateMessage) ef.o;
+
+                if (um.value != null) {
+                    Put p = g.putRequests.get(um.id);
+
+                    if (p == null) {
+                        p = new Put(um.pr, new CompletableFuture<Boolean>(), um.resposta);
+                        g.putRequests.put(um.id, p);
+
+                        p.cf.thenAccept(a -> {
+                            SpreadMessage sm = new SpreadMessage();
+                            sm.addGroup(ef.origem);
+                            sm.setData(s.encode(new ACKMessage(um.id, true,um.key)));
+                            sm.setReliable();
+
+                            try {
+                                g.connection.multicast(sm);
+                            } catch (SpreadException e) {
+                                e.printStackTrace();
+                            }
+
+                        });
+
+                        boolean resposta = g.updateState(um);
+                        p.cf.complete(resposta);
+                    }
+                    else {
+                        //já aconteceu algo, ver pq recebeu novo pedido
+                        System.out.println("Já tinha put, pq recebi novamente???");
+                    }
+                }
+                else {
+                    System.out.println("REMOVE!!! Tratar depois! TEMOS!");
+                }
+            }
+            else if(ef.o instanceof GetRequest){
+                trataGet(ef,g);
+            }
+            else if(ef.o instanceof ScanRequest){
+                trataScan(ef,g);
+            }
+            else{
+                System.out.println("Sou secundario e recebi: " + ef.o.getClass());
+            }
+        }
+    }
+
+    private void trataGet(ElementoFila ef, Grupo g){
+        GetRequest gr = (GetRequest)ef.o;
+        JSONObject resultado = g.get(gr);
+        GetReply grp = new GetReply(gr.id, gr.key, resultado);
+        ms.sendAsync(Address.from(ef.origem), "getReply", s.encode(grp));
+    }
+
+    private void trataScan(ElementoFila ef, Grupo g){
+        ResultadoScan docs = null; //n será muito eficiente, provavelmente por causa de andar sempre a mudar o map
+        ScanRequest sr = (ScanRequest) ef.o;
+        //de alguma forma faz o scan à bd, ver a melhor forma
+        if (sr.filtros == null) {
+            if (sr.projecoes == null) {
+                docs = g.scan(sr);
+            }
+                /*else{
+                    docs = getScan(sr.projecoes);
+                }
+            }
+            else{
+                if(sr.projecoes == null){
+                    docs = getScan(filtro(sr.filtros));
+                }
+                else{
+                    docs = getScan(filtro(sr.filtros),sr.projecoes);
+                }*/
+
+        }
+        SlaveScanReply ssr = new SlaveScanReply(docs.docs, sr.ku, sr.id, docs.ultimaChave);
+        ms.sendAsync(Address.from(ef.origem), "scanReply", s.encode(ssr));
     }
 
     private void criaPasta(){
@@ -374,33 +528,24 @@ public class Slave {
         ms.registerHandler("put",(o,m) -> {
             System.out.println("Recebi put");
             PutRequest pr = s.decode(m);
-            System.out.println("1");
             //convém guardar os pedidos certo???
 
             KeysUniverse ku = new KeysUniverse(pr.key, pr.key);
-            System.out.println("2");
             Grupo grupo = grupos.get(ku);
-            System.out.println("3");
             if (grupo == null) {
                 System.out.println("DAR MENSAGEM DE ERRO PORQUE NAO TRATAMOS DA CHAVE!!");
             }
             else {
                 if(!grupo.estadoRecuperado){
-                    grupo.fila.add(pr);
+                    grupo.fila.add(new ElementoFila(pr,o.toString()));
                     return;
                 }
 
-                System.out.println("4");
                 Put p = grupo.putRequests.get(pr.id);
 
-                int i = 5;
-                System.out.println(i++);
                 if (p == null) {
-                    System.out.println(i++);
-                    p = new Put(pr, new CompletableFuture<Boolean>());
-                    System.out.println(i++);
-                    grupo.putRequests.put(pr.id, p);
-                    System.out.println(i++);
+                        p = new Put(pr, new CompletableFuture<Boolean>());
+                        grupo.putRequests.put(pr.id, p);
 
                     p.cf.thenAccept(a -> {
                         PutReply pl = new PutReply(pr.id, a);
@@ -409,27 +554,24 @@ public class Slave {
 
 
                     boolean resultado = grupo.put(pr);
-                    System.out.println(i++);
-                    p.setResposta(resultado);
-                    System.out.println(i++);
+                        p.setResposta(resultado);
 
+                    System.out.println(grupo.secundarios);
                     grupo.acks.put(pr.id, (HashSet<String>) grupo.secundarios.clone());
-                    System.out.println(i++);
-                    System.out.println(i++);
-                    SpreadMessage sm = new SpreadMessage();
-                    System.out.println(i++);
-                    UpdateMessage um = new UpdateMessage(pr.key, pr.value, pr.id, resultado, pr);
-                    System.out.println(i++);
-                    sm.setData(s.encode(um));
-                    System.out.println(i++);
-                    sm.addGroup(grupo.grupo);
-                    sm.setReliable();
-                    try {
-                        System.out.println(i++);
-                        connection.multicast(sm);
-                        System.out.println(i++);
-                    } catch (SpreadException e) {
-                        e.printStackTrace();
+                            SpreadMessage sm = new SpreadMessage();
+                    if(grupo.secundarios.isEmpty()){
+                        p.cf.complete(resultado);
+                    }
+                    else {
+                        UpdateMessage um = new UpdateMessage(pr.key, pr.value, pr.id, resultado, pr);
+                        sm.setData(s.encode(um));
+                        sm.addGroup(grupo.grupo);
+                        sm.setReliable();
+                        try {
+                            connection.multicast(sm);
+                        } catch (SpreadException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
                 else{
@@ -451,7 +593,7 @@ public class Slave {
                 System.out.println("DAR MENSAGEM DE ERRO PORQUE NAO TRATAMOS DA CHAVE!!");
             }else {
                 if(!g.estadoRecuperado){
-                    g.fila.add(gr);
+                    g.fila.add(new ElementoFila(gr,a.toString()));
                     return;
                 }
                 JSONObject resultado = g.get(gr);
@@ -476,7 +618,7 @@ public class Slave {
             }else {
 
                 if(!g.estadoRecuperado){
-                    g.fila.add(rr);
+                    g.fila.add(new ElementoFila(rr,a.toString()));
                     return;
                 }
 
@@ -498,8 +640,9 @@ public class Slave {
                 System.out.println("DAR MENSAGEM DE ERRO PORQUE NAO TRATAMOS DA CHAVE!!");
             }else {
 
+                System.out.println("Estado recuperado: " + g.estadoRecuperado);
                 if(!g.estadoRecuperado){
-                    g.fila.add(sr);
+                    g.fila.add(new ElementoFila(sr,o.toString()));
                     return;
                 }
 

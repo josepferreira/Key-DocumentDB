@@ -643,7 +643,7 @@ public class Stub {
         }
         else {
             System.out.println("Ja tenho na cache");
-            ms.sendAsync(Address.from(end.endereco), "put", s.encode(pr));
+            ms.sendAsync(Address.from(end.primario()), "put", s.encode(pr));
         }
     }
 
@@ -769,13 +769,13 @@ public class Stub {
 //                e.printStackTrace();
 //            }
 //        }
-        JSONObject jo = new JSONObject();
+        /*JSONObject jo = new JSONObject();
         for(int i = 120; i < 125; i++){
             jo.put("obj",i);
             boolean res =  s.put(i,jo);
             System.out.println("Put feito: " + i + "! RES: " + res);
         }
-        System.out.println("Puts feitos");
+        System.out.println("Puts feitos");*/
 //        try {
 //            System.out.println(s.get(250).get());
 //            System.out.println(s.remove(268).get());
@@ -785,6 +785,7 @@ public class Stub {
 //        } catch (ExecutionException e) {
 //            e.printStackTrace();
 //        }
+        System.out.println("SCAN");
         ScanIterator si = s.scan();
 
         while(si.hasNext()){
@@ -793,7 +794,8 @@ public class Stub {
             System.out.println(a);
         }
 
-//        System.out.println("Terminou o scan");
+
+        System.out.println("Terminou o scan");
 
     }
 

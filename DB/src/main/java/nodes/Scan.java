@@ -54,7 +54,7 @@ public class Scan {
         esperaCache.thenAccept(a ->{
             if(ultimoVisto == -1){
                 //n foi buscar nenhuma ainda
-                String endereco = cache.get(cache.firstKey()).endereco; //assumindo que existe em cache
+                String endereco = cache.get(cache.firstKey()).primario(); //assumindo que existe em cache
                 ultimoUniverso = cache.firstKey(); //aatualiza o ultimo universo
                 ScanRequest sr = new ScanRequest(id,this.endereco,filtros,projecoes,cache.firstKey(),nrMaximo,-1);
                 try{
@@ -68,7 +68,7 @@ public class Scan {
             else{
                 //senao vai buscar a ultima ao universo atual
                 //n foi buscar nenhuma ainda
-                String endereco = cache.get(ultimoUniverso).endereco; //assumindo que existe em cache
+                String endereco = cache.get(ultimoUniverso).primario(); //assumindo que existe em cache
                 ScanRequest sr = new ScanRequest(id,this.endereco,filtros,projecoes,ultimoUniverso,nrMaximo,ultimoVisto);
                 docs = new LinkedHashMap<>();
                 tamanhoAtual = 0;
@@ -98,7 +98,7 @@ public class Scan {
                 cf.complete(null);
             }
             else {
-                String endereco = cache.get(proximo).endereco; //assumindo que existe em cache
+                String endereco = cache.get(proximo).primario(); //assumindo que existe em cache
                 ultimoUniverso = proximo;
                 ScanRequest sr = new ScanRequest(id, this.endereco, filtros, projecoes, ultimoUniverso, nrMaximo - tamanhoAtual, -1);
                 ms.sendAsync(Address.from(endereco), "scan", s.encode(sr));

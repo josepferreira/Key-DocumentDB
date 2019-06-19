@@ -17,6 +17,17 @@ import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Predicate;
 
+class ElementoFila{
+    Object o;
+    String origem;
+
+    public ElementoFila(Object o, String origem) {
+        this.o = o;
+        this.origem = origem;
+    }
+}
+
+
 public class Grupo {
 
     public SpreadConnection connection = new SpreadConnection();
@@ -33,7 +44,7 @@ public class Grupo {
     public HashMap<String, HashSet<String>> acks = new HashMap<>();
 
     public boolean estadoRecuperado = false;
-    public ArrayList<Object> fila = new ArrayList<>();
+    public ArrayList<ElementoFila> fila = new ArrayList<>();
 
 
     public Grupo(String id, String grupo, KeysUniverse ku, String rocksDBFolder, AdvancedMessageListener aml) throws UnknownHostException, SpreadException {
@@ -41,8 +52,8 @@ public class Grupo {
         System.out.println("1");
         this.grupo = grupo;
         System.out.println("2: " + this.grupo);
-        if(this.grupo.length() > 6)
-            this.id = this.grupo.substring(0,6) + id;
+        if(this.grupo.length() > 8)
+            this.id = this.grupo.substring(0,8) + id;
         else
             this.id = this.grupo + id;
         System.out.println("3: " + this.id);
@@ -84,6 +95,8 @@ public class Grupo {
         connection.add(aml);
         System.out.println("GR: " + this.grupo);
         group.join(connection,this.grupo);
+        SpreadGroup g = new SpreadGroup();
+        g.join(connection,this.id);
 
     }
 
@@ -98,6 +111,7 @@ public class Grupo {
                 ", putRequests=" + putRequests +
                 ", removeRequests=" + removeRequests +
                 ", acks=" + acks +
+                ", estadoRecuperado=" + estadoRecuperado +
                 '}';
     }
 
@@ -408,7 +422,8 @@ public class Grupo {
     }
 
     public void recuperaEstado(EstadoSlave es) {
-
+        System.out.println("VOU COMEÇAR A RECUPERAR O ESTADO: " + (es.putRequests == null));
+        System.out.println("\t\t\t\tVAMOS VER OS VALORES AGORA SEUS BOIS: " + es.valores);
         if (es.putRequests != null) {
             putRequests = es.putRequests;
             acks = es.acks;
@@ -419,19 +434,21 @@ public class Grupo {
             put(entry.getKey(),entry.getValue());
         }
 
-        if(es.last) estadoRecuperado = true;
+        estadoRecuperado = es.last;
     }
 
-    public void pedidoEstado(PedidoEstado pe, SpreadGroup sender, Serializer s) {
+    public void pedidoEstado(PedidoEstado pe, String sender, Serializer s) {
 
         long quantos = 0;
         long max = 20;
         HashMap<Long,JSONObject> map = new HashMap<>();
-        EstadoSlave es = new EstadoSlave(pe.id,putRequests,removeRequests,acks,map,false);
+        EstadoSlave es = new EstadoSlave(pe.id,putRequests,removeRequests,acks,map,false,ku.min);
 
         RocksIterator iterador = rocksDB.newIterator();
+        boolean enviei = false;
 
         while(iterador.isValid()){
+            enviei = false;
             long k = Longs.fromByteArray(iterador.key());
             String v = new String(iterador.value());
             JSONObject json = new JSONObject(v);
@@ -439,7 +456,9 @@ public class Grupo {
             iterador.next();
             quantos++;
             if(quantos >= max){
-                es.last = iterador.isValid();
+                enviei = true;
+                es.last = !iterador.isValid();
+                es.valores = map;
                 quantos = 0;
 
                 SpreadMessage sm = new SpreadMessage();
@@ -454,6 +473,83 @@ public class Grupo {
                 }
 
                 map.clear();
+            }
+        }
+
+        if(!enviei) {
+            es.last = !iterador.isValid();
+            SpreadMessage sm = new SpreadMessage();
+            es.valores = map;
+
+            System.out.println("Enviar valores: " + es.valores);
+            sm.setData(s.encode(es));
+            sm.setReliable();
+            sm.addGroup(sender);
+
+            try {
+                connection.multicast(sm);
+            } catch (SpreadException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void pedidoEstado(PedidoEstado pe, SpreadGroup sender, Serializer s) {
+
+        long quantos = 0;
+        long max = 20;
+        HashMap<Long,JSONObject> map = new HashMap<>();
+        EstadoSlave es = new EstadoSlave(pe.id,putRequests,removeRequests,acks,map,false,ku.min);
+
+        RocksIterator iterador = rocksDB.newIterator();
+        boolean enviei = false;
+        long ultimaChave = ku.min;
+        iterador.seek(Longs.toByteArray(ultimaChave));
+
+        while(iterador.isValid()){
+            enviei = false;
+            long k = Longs.fromByteArray(iterador.key());
+            String v = new String(iterador.value());
+            JSONObject json = new JSONObject(v);
+            map.put(k,json);
+            System.out.println("VAMOS VER OS VALORES INTERMEDIOS: " + map);
+            iterador.next();
+            quantos++;
+            if(quantos >= max){
+                enviei = true;
+                es.last = !iterador.isValid();
+                es.valores = map;
+                quantos = 0;
+
+                SpreadMessage sm = new SpreadMessage();
+                sm.setData(s.encode(es));
+                sm.setReliable();
+                sm.addGroup(sender);
+
+                try {
+                    connection.multicast(sm);
+                } catch (SpreadException e) {
+                    e.printStackTrace();
+                }
+
+                map.clear();
+            }
+        }
+
+        if(!enviei) {
+            es.last = !iterador.isValid();
+            SpreadMessage sm = new SpreadMessage();
+            es.valores = map;
+            System.out.println(ku);
+            System.out.println("Enviar valores: " + es.valores);
+            sm.setData(s.encode(es));
+            sm.setReliable();
+            sm.addGroup(sender);
+
+            try {
+                connection.multicast(sm);
+            } catch (SpreadException e) {
+                e.printStackTrace();
             }
         }
     }

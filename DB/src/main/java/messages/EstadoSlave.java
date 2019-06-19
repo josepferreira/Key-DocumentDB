@@ -16,18 +16,21 @@ public class EstadoSlave {
 
     public HashMap<Long, JSONObject> valores;
     public boolean last;
+    public long key;
 
-    public EstadoSlave(String id, HashMap<String, Put> putRequests, HashMap<String, Remove> removeRequests, HashMap<String, HashSet<String>> acks, HashMap<Long, JSONObject> valores, boolean last) {
+    public EstadoSlave(String id, HashMap<String, Put> putRequests, HashMap<String, Remove> removeRequests, HashMap<String, HashSet<String>> acks, HashMap<Long, JSONObject> valores, boolean last, long key) {
         this.id = id;
         this.putRequests = putRequests;
         this.removeRequests = removeRequests;
         this.acks = acks;
         this.valores = valores;
         this.last = last;
+        this.key = key;
     }
 
-    public EstadoSlave(HashMap<Long, JSONObject> valores, boolean last){
+    public EstadoSlave(HashMap<Long, JSONObject> valores, boolean last, long key){
         this.valores = valores;
         this.last = last;
+        this.key = key;
     }
 }
