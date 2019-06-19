@@ -17,9 +17,21 @@ import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Predicate;
 
+class RespostaRemove{
+    public boolean resposta;
+    public JSONObject jsonValue;
+    public long key;
+
+    public RespostaRemove(boolean resposta, JSONObject jsonValue, long key) {
+        this.resposta = resposta;
+        this.jsonValue = jsonValue;
+        this.key = key;
+    }
+}
+
 class ElementoFila{
-    Object o;
-    String origem;
+    public Object o;
+    public String origem;
 
     public ElementoFila(Object o, String origem) {
         this.o = o;
@@ -232,7 +244,7 @@ public class Grupo {
     }
 
 
-    public boolean remove(RemoveRequest rr){
+    public RespostaRemove remove(RemoveRequest rr){
 
         byte[] keys = Longs.toByteArray(rr.key);
 
@@ -240,14 +252,14 @@ public class Grupo {
             byte[] value = rocksDB.get(keys);
 
             if(value == null){
-                return false;
+                return (new RespostaRemove(false, null, rr.key));
             }else {
 
                 if (rr.filtros == null && rr.projecoes == null) {
                     //Vai ser um remove normal
                     rocksDB.delete(keys);
 
-                    return true;
+                    return (new RespostaRemove(true, null, rr.key));
 
                 } else {
                     if (rr.projecoes != null && rr.filtros != null) {
@@ -263,10 +275,10 @@ public class Grupo {
 
                             rocksDB.put(value, json.toString().getBytes());
 
-                            return true;
+                            return (new RespostaRemove(true, json, rr.key));
                         } else {
                             //não passou no filtro, não pode eliminar
-                            return false;
+                            return (new RespostaRemove(false, null, rr.key));
                         }
                     } else {
                         if (rr.projecoes != null) {
@@ -278,7 +290,7 @@ public class Grupo {
 
                             rocksDB.put(value, json.toString().getBytes());
 
-                            return true;
+                            return (new RespostaRemove(true, json, rr.key));
                         } else {
                             //são gets apenas com filtros
                             String ret = new String(value);
@@ -289,10 +301,10 @@ public class Grupo {
                                 //Passou no filtro
                                 rocksDB.delete(keys);
 
-                                return true;
+                                return (new RespostaRemove(true, null, rr.key));
                             } else {
                                 //não passou no filtro, logo não pode eliminar
-                                return false;
+                                return (new RespostaRemove(false, null, rr.key));
                             }
                         }
                     }
@@ -312,7 +324,7 @@ public class Grupo {
             System.out.println("ERRO NA STRING: " + e.getMessage());
         }
 
-        return false;
+        return (new RespostaRemove(false, null, rr.key));
 
     }
 

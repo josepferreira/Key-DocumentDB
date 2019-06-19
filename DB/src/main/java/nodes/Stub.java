@@ -769,13 +769,13 @@ public class Stub {
 //                e.printStackTrace();
 //            }
 //        }
-        /*JSONObject jo = new JSONObject();
+        JSONObject jo = new JSONObject();
         for(int i = 120; i < 125; i++){
             jo.put("obj",i);
             boolean res =  s.put(i,jo);
             System.out.println("Put feito: " + i + "! RES: " + res);
         }
-        System.out.println("Puts feitos");*/
+        System.out.println("Puts feitos");
         System.out.println("Vou fazer remove");
         System.out.println("remove feito: " + s.remove(121));
 //        try {

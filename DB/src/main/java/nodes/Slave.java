@@ -266,11 +266,19 @@ public class Slave {
 
                     HashSet<String> aux = grupo.acks.get(ackMessage.id);
 
+                    if(aux == null){
+                        System.out.println("RECEBI um ack que nao devia");
+                        return;
+                    }
+
                     System.out.println("ACK, SENDER: " + spreadMessage.getSender().toString().split("#")[1]);
 
                     boolean rmv = aux.remove(spreadMessage.getSender().toString().split("#")[1]);
 
                     if (rmv && aux.isEmpty()) {
+
+                        grupo.acks.remove(ackMessage.id);
+
                         if (ackMessage.put) {
                             Put p = grupo.putRequests.get(ackMessage.id);
 
@@ -620,12 +628,13 @@ public class Slave {
 
 
                     boolean resultado = grupo.put(pr);
-                        p.setResposta(resultado);
+                    p.setResposta(resultado);
 
                     System.out.println(grupo.secundarios);
                     grupo.acks.put(pr.id, (HashSet<String>) grupo.secundarios.clone());
-                            SpreadMessage sm = new SpreadMessage();
+                    SpreadMessage sm = new SpreadMessage();
                     if(grupo.secundarios.isEmpty()){
+                        grupo.acks.remove(pr.id);
                         p.cf.complete(resultado);
                     }
                     else {
@@ -699,18 +708,20 @@ public class Slave {
                         ms.sendAsync(o, "removeReply", s.encode(rrp));
                     });
 
-                    boolean resultado = grupo.remove(rr);
+                    RespostaRemove respostaRemove = grupo.remove(rr);
+                    boolean resultado = respostaRemove.resposta;
                     r.setResposta(resultado);
 
                     System.out.println(grupo.secundarios);
                     grupo.acks.put(rr.id, (HashSet<String>) grupo.secundarios.clone());
                     SpreadMessage sm = new SpreadMessage();
                     if(grupo.secundarios.isEmpty()){
+                        grupo.acks.remove(rr.id);
                         r.cf.complete(resultado);
                     }
                     else {
                         System.out.println("AINDA TEMOS DE SABER COMO É QUE VAMOS FAZER QUANDO FOR MEIO UM UPDATE");
-                        UpdateMessage um = new UpdateMessage(rr.key, null, rr.id, resultado, rr);
+                        UpdateMessage um = new UpdateMessage(rr.key, respostaRemove.jsonValue, rr.id, resultado, rr);
                         sm.setData(s.encode(um));
                         sm.addGroup(grupo.grupo);
                         sm.setReliable();
