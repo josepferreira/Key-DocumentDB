@@ -6,22 +6,23 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 
 public class EstadoSlave {
 
     public String id;
-    public HashMap<String, Put> putRequests = null;
-    public HashMap<String, Remove> removeRequests;
+    public LinkedHashMap<String, Object> requests = null;
+    //public LinkedHashMap<String, Remove> removeRequests;
     public HashMap<String, HashSet<String>> acks;
 
     public HashMap<Long, JSONObject> valores;
     public boolean last;
     public long key;
 
-    public EstadoSlave(String id, HashMap<String, Put> putRequests, HashMap<String, Remove> removeRequests, HashMap<String, HashSet<String>> acks, HashMap<Long, JSONObject> valores, boolean last, long key) {
+    public EstadoSlave(String id, LinkedHashMap<String, Object> requests, HashMap<String, HashSet<String>> acks, HashMap<Long, JSONObject> valores, boolean last, long key) {
         this.id = id;
-        this.putRequests = putRequests;
-        this.removeRequests = removeRequests;
+        this.requests = requests;
+        //this.removeRequests = removeRequests;
         this.acks = acks;
         this.valores = valores;
         this.last = last;

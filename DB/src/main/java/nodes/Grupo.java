@@ -51,12 +51,16 @@ public class Grupo {
     public RocksDB rocksDB;
     private Options options;
     public KeysUniverse ku;
-    public HashMap<String,Put> putRequests = new HashMap<>();
-    public HashMap<String,Remove> removeRequests = new HashMap<>();
+    public LinkedHashMap<String, Object> requests = new LinkedHashMap<>();
+    //public LinkedHashMap<String,Put> putRequests = new LinkedHashMap<>();
+    //public LinkedHashMap<String,Remove> removeRequests = new LinkedHashMap<>();
     public HashMap<String, HashSet<String>> acks = new HashMap<>();
 
     public boolean estadoRecuperado = false;
     public ArrayList<ElementoFila> fila = new ArrayList<>();
+    public String origemEstado;
+    public long lastKey;
+    public boolean estadoAMeio = false;
 
 
     public Grupo(String id, String grupo, KeysUniverse ku, String rocksDBFolder, AdvancedMessageListener aml) throws UnknownHostException, SpreadException {
@@ -120,8 +124,7 @@ public class Grupo {
                 ", primario='" + primario + '\'' +
                 ", secundarios=" + secundarios +
                 ", ku=" + ku +
-                ", putRequests=" + putRequests +
-                ", removeRequests=" + removeRequests +
+                ", requests=" + requests +
                 ", acks=" + acks +
                 ", estadoRecuperado=" + estadoRecuperado +
                 '}';
@@ -439,19 +442,22 @@ public class Grupo {
     }
 
     public void recuperaEstado(EstadoSlave es) {
-        System.out.println("VOU COMEÇAR A RECUPERAR O ESTADO: " + (es.putRequests == null));
+        System.out.println("VOU COMEÇAR A RECUPERAR O ESTADO: " + (es.requests == null));
         System.out.println("\t\t\t\tVAMOS VER OS VALORES AGORA SEUS BOIS: " + es.valores);
-        if (es.putRequests != null) {
-            putRequests = es.putRequests;
+
+        if (es.requests != null) {
+            requests = es.requests;
+            //removeRequests = es.removeRequests;
             acks = es.acks;
             //falta remove requests
         }
 
-        for(Map.Entry<Long,JSONObject> entry: es.valores.entrySet()){
-            put(entry.getKey(),entry.getValue());
+        for (Map.Entry<Long, JSONObject> entry : es.valores.entrySet()) {
+            put(entry.getKey(), entry.getValue());
         }
 
         estadoRecuperado = es.last;
+
     }
 
     public void pedidoEstado(PedidoEstado pe, String sender, Serializer s) {
@@ -459,7 +465,7 @@ public class Grupo {
         long quantos = 0;
         long max = 20;
         HashMap<Long,JSONObject> map = new HashMap<>();
-        EstadoSlave es = new EstadoSlave(pe.id,putRequests,removeRequests,acks,map,false,ku.min);
+        EstadoSlave es = new EstadoSlave(pe.id,requests, acks,map,false,ku.min);
 
         RocksIterator iterador = rocksDB.newIterator();
         boolean enviei = false;
@@ -516,7 +522,7 @@ public class Grupo {
         long quantos = 0;
         long max = 20;
         HashMap<Long,JSONObject> map = new HashMap<>();
-        EstadoSlave es = new EstadoSlave(pe.id,putRequests,removeRequests,acks,map,false,ku.min);
+        EstadoSlave es = new EstadoSlave(pe.id,requests,acks,map,false,ku.min);
 
         RocksIterator iterador = rocksDB.newIterator();
         boolean enviei = false;
