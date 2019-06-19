@@ -445,37 +445,81 @@ public class Grupo {
         System.out.println("VOU COMEÇAR A RECUPERAR O ESTADO: " + (es.requests == null));
         System.out.println("\t\t\t\tVAMOS VER OS VALORES AGORA SEUS BOIS: " + es.valores);
 
-        if (es.requests != null) {
-            requests = es.requests;
-            //removeRequests = es.removeRequests;
-            acks = es.acks;
-            //falta remove requests
+        if(!estadoAMeio) {
+            estadoAMeio = true;
+
+            if (es.requests != null) {
+                requests = es.requests;
+                //removeRequests = es.removeRequests;
+                acks = es.acks;
+                //falta remove requests
+            }
+
+        }else{
+
+            es.requests.keySet().removeIf(a -> requests.containsKey(a));
+
+            requests.putAll(es.requests);
+
+            for(Object o : es.requests.values()) {
+                long key;
+                if (o instanceof Remove) {
+                    key = ((Remove) o).request.key;
+                } else {
+                    key = ((Put) o).request.key;
+                }
+
+                if(key <= lastKey){
+                    if(o instanceof Remove){
+                        remove(((Remove)o).request);
+                    }
+                    else{
+                        put(((Put)o).request);
+                    }
+                }
+            }
         }
 
         for (Map.Entry<Long, JSONObject> entry : es.valores.entrySet()) {
             put(entry.getKey(), entry.getValue());
         }
 
+        if(es.valores.size() != 0)
+            lastKey = Collections.max(es.valores.keySet());
+
         estadoRecuperado = es.last;
 
     }
+
 
     public void pedidoEstado(PedidoEstado pe, String sender, Serializer s) {
 
         long quantos = 0;
         long max = 20;
         HashMap<Long,JSONObject> map = new HashMap<>();
-        EstadoSlave es = new EstadoSlave(pe.id,requests, acks,map,false,ku.min);
+        EstadoSlave es = new EstadoSlave(pe.id,requests,acks,map,false,ku.min);
 
         RocksIterator iterador = rocksDB.newIterator();
         boolean enviei = false;
-
+        long ultimaChave;
+        if(pe.estadoAMeio){
+            ultimaChave = pe.lastKey;
+            iterador.seek(Longs.toByteArray(ultimaChave));
+            if(iterador.isValid()){
+                iterador.next();
+            }
+        }
+        else {
+            ultimaChave = ku.min;
+            iterador.seek(Longs.toByteArray(ultimaChave));
+        }
         while(iterador.isValid()){
             enviei = false;
             long k = Longs.fromByteArray(iterador.key());
             String v = new String(iterador.value());
             JSONObject json = new JSONObject(v);
             map.put(k,json);
+            System.out.println("VAMOS VER OS VALORES INTERMEDIOS: " + map);
             iterador.next();
             quantos++;
             if(quantos >= max){
@@ -503,7 +547,7 @@ public class Grupo {
             es.last = !iterador.isValid();
             SpreadMessage sm = new SpreadMessage();
             es.valores = map;
-
+            System.out.println(ku);
             System.out.println("Enviar valores: " + es.valores);
             sm.setData(s.encode(es));
             sm.setReliable();
@@ -516,7 +560,6 @@ public class Grupo {
             }
         }
     }
-
     public void pedidoEstado(PedidoEstado pe, SpreadGroup sender, Serializer s) {
 
         long quantos = 0;
@@ -526,9 +569,18 @@ public class Grupo {
 
         RocksIterator iterador = rocksDB.newIterator();
         boolean enviei = false;
-        long ultimaChave = ku.min;
-        iterador.seek(Longs.toByteArray(ultimaChave));
-
+        long ultimaChave;
+        if(pe.estadoAMeio){
+            ultimaChave = pe.lastKey;
+            iterador.seek(Longs.toByteArray(ultimaChave));
+            if(iterador.isValid()){
+                iterador.next();
+            }
+        }
+        else {
+            ultimaChave = ku.min;
+            iterador.seek(Longs.toByteArray(ultimaChave));
+        }
         while(iterador.isValid()){
             enviei = false;
             long k = Longs.fromByteArray(iterador.key());

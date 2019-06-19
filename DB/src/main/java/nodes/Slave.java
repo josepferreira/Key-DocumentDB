@@ -235,12 +235,16 @@ public class Slave {
                             }
                         }
                     } else if (spreadMessage.getMembershipInfo().isCausedByDisconnect() || spreadMessage.getMembershipInfo().isCausedByLeave()) {
-                        if (spreadMessage.getMembershipInfo().getJoined().toString().split("#")[1].equals(g.origemEstado)) {
+                        if (spreadMessage.getMembershipInfo().getLeft().toString().split("#")[1].equals(g.origemEstado)) {
                             System.out.println("Quem me devia enviar estado falhou, pedir a outro!");
 
+                            if(g.estadoRecuperado){
+                                System.out.println("Estado já se encontra recuperado!");
+                                return;
+                            }
+                            System.out.println("Enviar pedido de estado");
                             membros.remove(g.id);
                             if (!membros.isEmpty()) {
-                                System.out.println("Enviar pedido de estado");
 
                                 String exPrimario = Collections.min(membros); //o antigo primario
                                 g.origemEstado = exPrimario;
@@ -508,7 +512,8 @@ public class Slave {
                 trataScan(ef,g);
             }
             else if(ef.o instanceof PedidoEstado){
-                g.pedidoEstado((PedidoEstado)ef.o,ef.origem,s);
+                PedidoEstado pe = (PedidoEstado)ef.o;
+                g.pedidoEstado(pe,ef.origem,s);
             }
             else{
                 System.out.println("Sou primario e recebi: " + ef.o.getClass());

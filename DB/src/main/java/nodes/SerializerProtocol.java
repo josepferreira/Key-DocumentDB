@@ -15,6 +15,7 @@ public class SerializerProtocol {
                 java.util.LinkedHashMap.class,
                 java.util.TreeSet.class,
                 java.util.HashSet.class,
+                Object.class,
                 JSONObject.class,
                 KeysUniverse.class,
                 GetRequest.class,
@@ -40,7 +41,8 @@ public class SerializerProtocol {
                 Secundario.class,
                 EstadoSlave.class,
                 Put.class,
-                CompletableFuture.class
+                CompletableFuture.class,
+                Remove.class
         ).build();
     }
 }
