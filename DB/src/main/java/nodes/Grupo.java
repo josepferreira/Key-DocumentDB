@@ -62,6 +62,10 @@ public class Grupo {
     public long lastKey;
     public boolean estadoAMeio = false;
 
+    //Para tratar da monitorização
+    public int escritas = 0;
+    public int leituras = 0;
+
 
     public Grupo(String id, String grupo, KeysUniverse ku, String rocksDBFolder, AdvancedMessageListener aml) throws UnknownHostException, SpreadException {
         this.ku = ku;

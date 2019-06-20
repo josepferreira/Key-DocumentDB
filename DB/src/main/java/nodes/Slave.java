@@ -1,6 +1,7 @@
 package nodes;
 
 import com.google.common.primitives.Longs;
+import com.sun.management.OperatingSystemMXBean;
 import io.atomix.cluster.messaging.ManagedMessagingService;
 import io.atomix.cluster.messaging.impl.NettyMessagingService;
 import io.atomix.utils.net.Address;
@@ -14,6 +15,7 @@ import org.rocksdb.RocksIterator;
 import spread.*;
 
 import java.io.File;
+import java.lang.management.ManagementFactory;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.*;
@@ -23,6 +25,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.Predicate;
+
 
 class ResultadoScan{
     public long ultimaChave;
@@ -55,6 +58,34 @@ public class Slave {
     private HashSet<String> replys = new HashSet<>(); //Para tratar dos pedidos repetidos dos diferentes masters
     ReentrantLock lockReplys = new ReentrantLock();
 
+
+    private Runnable percentagemUtilizacao = () -> {
+        OperatingSystemMXBean operatingSystemMXBean = (OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
+        double cpu = operatingSystemMXBean.getProcessCpuLoad();
+        System.out.println(cpu);
+        float memoria = (operatingSystemMXBean.getTotalPhysicalMemorySize()-operatingSystemMXBean.getFreePhysicalMemorySize()) / (1000*1000*1000);
+        System.out.println(memoria);
+
+        TreeMap<KeysUniverse, ParEscritaLeitura> operacoes = new TreeMap<>();
+        for(Map.Entry<KeysUniverse, Grupo> entry: this.grupos.entrySet()){
+            Grupo g = entry.getValue();
+            operacoes.put(entry.getKey(), new ParEscritaLeitura(g.escritas, g.leituras));
+            g.escritas = 0;
+            g.leituras = 0;
+        }
+
+        InfoMonitorizacao infoMonitorizacao = new InfoMonitorizacao(memoria, cpu, operacoes);
+        SpreadMessage sm = new SpreadMessage();
+        sm.setData(s.encode(infoMonitorizacao));
+        sm.addGroup("master");
+        sm.setAgreed(); // ao defiirmos isto estamos a garantir ordem total, pelo q podemos ter varios stubs
+        sm.setReliable();
+        try {
+            connection.multicast(sm);
+        } catch (SpreadException e) {
+            e.printStackTrace();
+        }
+    };
 
     public AdvancedMessageListener aml = new AdvancedMessageListener() {
         @Override

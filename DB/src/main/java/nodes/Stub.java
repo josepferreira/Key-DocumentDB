@@ -11,6 +11,7 @@ import spread.SpreadConnection;
 import spread.SpreadException;
 import spread.SpreadMessage;
 
+import java.lang.management.ManagementFactory;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.sql.Time;
@@ -19,6 +20,7 @@ import java.util.concurrent.*;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import com.sun.management.OperatingSystemMXBean;
 
 class TratamentoTimeout{
 
@@ -747,6 +749,14 @@ public class Stub {
     }*/
 
     public static void main(String[] args) {
+
+
+    OperatingSystemMXBean operatingSystemMXBean = (OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
+    System.out.println(operatingSystemMXBean.getProcessCpuLoad());
+    float memoria = (operatingSystemMXBean.getTotalPhysicalMemorySize()-operatingSystemMXBean.getFreePhysicalMemorySize()) / (1000*1000*1000);
+    System.out.println(memoria);
+
+
 
         String endereco = "localhost:12346";
 

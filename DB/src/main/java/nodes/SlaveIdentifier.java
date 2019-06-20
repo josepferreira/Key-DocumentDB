@@ -97,6 +97,7 @@ public class SlaveIdentifier {
     public String toString() {
         return "SlaveIdentifier{" +
                 "endereco='" + endereco + '\'' +
+                "idPrimario='" + idPrimario + '\'' +
                 ", keys=" + keys +
                 ", secundarios=" + secundarios +
                 ", proximo=" + proximo +

@@ -42,7 +42,8 @@ public class SerializerProtocol {
                 EstadoSlave.class,
                 Put.class,
                 CompletableFuture.class,
-                Remove.class
+                Remove.class,
+                InfoMonitorizacao.class
         ).build();
     }
 }

@@ -36,7 +36,11 @@ public class  Master {
     private boolean estadoRecuperado;
     private boolean descarta;
 
+    public int nSlavesMinimo = Config.nSlaves;
+    public int nConjuntos = Config.nConjuntos;
 
+    //Para a monitorizacao
+    public boolean balanceamentoCarga = false;
 
     BasicMessageListener bml = new BasicMessageListener() {
         @Override
@@ -181,7 +185,7 @@ public class  Master {
             }
         }
 
-        iniciaSlaves(3,9);
+        iniciaSlaves(nSlavesMinimo,nConjuntos);
     }
 
     public void trataMensagem(Object o){
@@ -316,8 +320,40 @@ public class  Master {
 
 
         }
-        else{
+        else if(o instanceof InfoMonitorizacao){
+            InfoMonitorizacao im = (InfoMonitorizacao) o;
 
+            if(!balanceamentoCarga){
+                System.out.println("Vou considerar a mensagem de balanceamento de carga");
+
+                if((im.cpu > Config.cpuMax ||
+                        im.memoria < Config.memMin)
+                 && nSlaves < nConjuntos){
+                    System.out.println("Tem demasiado cpu ou pouca memória por isso é necessário aumentar o número de slaves!");
+                }
+                else{
+                    int escritas = 0;
+                    int leituras = 0;
+                    for(ParEscritaLeitura pel: im.operacoes.values()){
+                        escritas += pel.escritas;
+                        leituras = pel.leituras;
+                    }
+
+                    double valor = ((0.3 * leituras) + (0.7 * escritas)) / Config.periodoTempo;
+
+                    if(valor < Config.valorMin && nSlaves > nSlavesMinimo){
+                        System.out.println("Pedidos estão subcarregados, diminuir conjunto de slaves!");
+                    }
+                }
+
+
+            }
+            else{
+                System.out.println("Recebi mensagem de monitorização mas esta a decorrer um balanceamento pelo que vai ser ignorada esta mensagem!");
+            }
+        }
+        else{
+            System.out.println("RECEBI ALGO QUE SUPOSTAMENTE EU NÃO DEVERIA DE RECEBER ... HACKERMAN :o " + o.getClass());
         }
     }
 
@@ -351,6 +387,7 @@ public class  Master {
         long chunk = 50;
         String end = it.get(atual);
         HashMap<String,Integer> secundarios;
+        int divisao = nConjuntos / n;
 
 
         for(int i=0; i < nConjuntos; i++) {
@@ -376,7 +413,7 @@ public class  Master {
             }
 
 
-            if ((i + 1) % n == 0) {
+            if ((i + 1) % divisao == 0) {
                 atual = (atual + 1) % size;
                 end = it.get(atual);
                 primeiroSec = (atual+1) % size;
