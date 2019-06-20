@@ -43,7 +43,8 @@ public class SerializerProtocol {
                 Put.class,
                 CompletableFuture.class,
                 Remove.class,
-                InfoMonitorizacao.class
+                InfoMonitorizacao.class,
+                ParEscritaLeitura.class
         ).build();
     }
 }

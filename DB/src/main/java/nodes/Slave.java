@@ -61,7 +61,7 @@ public class Slave {
 
     private Runnable percentagemUtilizacao = () -> {
         OperatingSystemMXBean operatingSystemMXBean = (OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
-        double cpu = operatingSystemMXBean.getProcessCpuLoad();
+        double cpu =  0.75f;//operatingSystemMXBean.getProcessCpuLoad();
         System.out.println(cpu);
         float memoria = (operatingSystemMXBean.getTotalPhysicalMemorySize()-operatingSystemMXBean.getFreePhysicalMemorySize()) / (1000*1000*1000);
         System.out.println(memoria);
@@ -74,18 +74,24 @@ public class Slave {
             g.leituras = 0;
         }
 
-        InfoMonitorizacao infoMonitorizacao = new InfoMonitorizacao(memoria, cpu, operacoes);
+        System.out.println("Enviar infoMonitorizacao");
+        InfoMonitorizacao infoMonitorizacao = new InfoMonitorizacao(memoria, cpu, operacoes,this.id);
         SpreadMessage sm = new SpreadMessage();
+        System.out.println("Encode");
         sm.setData(s.encode(infoMonitorizacao));
+        System.out.println("Passsou encode");
         sm.addGroup("master");
-        sm.setAgreed(); // ao defiirmos isto estamos a garantir ordem total, pelo q podemos ter varios stubs
+        sm.setAgreed(); // ao definirmos isto estamos a garantir ordem total, pelo q podemos ter varios stubs
         sm.setReliable();
         try {
+            System.out.println("Enviar");
             connection.multicast(sm);
+            System.out.println("Enviou!");
         } catch (SpreadException e) {
             e.printStackTrace();
         }
     };
+
 
     public AdvancedMessageListener aml = new AdvancedMessageListener() {
         @Override
@@ -419,6 +425,8 @@ public class Slave {
         } catch (SpreadException e) {
             e.printStackTrace();
         }
+
+        ses.schedule(this.percentagemUtilizacao,Config.periodoTempo,Config.unidade);
         /*ms.sendAsync(masterAddress,"start",s.encode(sr));*/
 
     }

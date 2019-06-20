@@ -93,6 +93,21 @@ public class SlaveIdentifier {
 
     }
 
+    public String primarioID(){
+        if(ativo){
+            return this.idPrimario;
+        }
+
+        Optional<Secundario> p = secundarios.values().stream().filter(a -> a.ativo).min(Secundario::compareTo);
+
+        if(p.isPresent()){
+            return p.get().id;
+        }
+
+        return null;
+
+    }
+
     @Override
     public String toString() {
         return "SlaveIdentifier{" +

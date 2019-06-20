@@ -10,5 +10,12 @@ public class ParEscritaLeitura {
         this.leituras = leituras;
     }
 
+    @Override
+    public String toString() {
+        return "ParEscritaLeitura{" +
+                "escritas=" + escritas +
+                ", leituras=" + leituras +
+                '}';
+    }
 }
 

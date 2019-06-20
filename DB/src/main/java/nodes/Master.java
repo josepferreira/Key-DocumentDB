@@ -13,6 +13,24 @@ import java.util.*;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
+class ParPrimarioSecundario{
+    public KeysUniverse primario;
+    public HashSet<KeysUniverse> secundarios;
+
+    public ParPrimarioSecundario(KeysUniverse primario, HashSet<KeysUniverse> secundarios) {
+        this.primario = primario;
+        this.secundarios = secundarios;
+    }
+
+    @Override
+    public String toString() {
+        return "ParPrimarioSecundario{" +
+                "primario=" + primario +
+                ", secundarios=" + secundarios +
+                '}';
+    }
+}
+
 public class  Master {
 
     public final String idSlave = "slave";
@@ -41,6 +59,7 @@ public class  Master {
 
     //Para a monitorizacao
     public boolean balanceamentoCarga = false;
+    public HashMap<String,InfoMonitorizacao> infoSlaves = new HashMap<>();
 
     BasicMessageListener bml = new BasicMessageListener() {
         @Override
@@ -321,7 +340,9 @@ public class  Master {
 
         }
         else if(o instanceof InfoMonitorizacao){
+
             InfoMonitorizacao im = (InfoMonitorizacao) o;
+            infoSlaves.put(im.id,im);
 
             if(!balanceamentoCarga){
                 System.out.println("Vou considerar a mensagem de balanceamento de carga");
@@ -330,6 +351,7 @@ public class  Master {
                         im.memoria < Config.memMin)
                  && nSlaves < nConjuntos){
                     System.out.println("Tem demasiado cpu ou pouca memória por isso é necessário aumentar o número de slaves!");
+                    aumentaSlaves(im.id);
                 }
                 else{
                     int escritas = 0;
@@ -361,6 +383,192 @@ public class  Master {
         for(Object o: fila){
             trataMensagem(o);
         }
+    }
+
+    private KeysUniverse maximaUtilizacao(InfoMonitorizacao im){
+        KeysUniverse ku = null;
+        double valor = Double.MIN_VALUE;
+
+        for(Map.Entry<KeysUniverse,ParEscritaLeitura> entry: im.operacoes.entrySet()){
+
+            double valorAux = ((0.3 * entry.getValue().leituras) + (0.7 * entry.getValue().escritas));
+            valorAux = valorAux / (double) Config.periodoTempo;
+
+            if(Double.compare(valor,valorAux) > 0){
+                ku = entry.getKey();
+                valor = valorAux;
+            }
+        }
+
+
+        return ku;
+    }
+
+    private KeysUniverse minimaUtilizacao(InfoMonitorizacao im, HashSet<KeysUniverse> pE, HashSet<KeysUniverse> sE){
+        KeysUniverse ku = null;
+        double valor = Double.MIN_VALUE;
+
+        for(Map.Entry<KeysUniverse,ParEscritaLeitura> entry: im.operacoes.entrySet()){
+            if( !( pE.contains(entry.getKey()) || sE.contains(entry.getKey()) ) ) {
+
+
+                double valorAux = ((0.3 * entry.getValue().leituras) + (0.7 * entry.getValue().escritas));
+                valorAux = valorAux / (double) Config.periodoTempo;
+
+                if(Double.compare(valor,valorAux) > 0){
+                    ku = entry.getKey();
+                    valor = valorAux;
+                }
+
+            }
+        }
+
+
+        return ku;
+    }
+
+    public ParPrimarioSecundario selecionaPar(String slave, KeysUniverse ku,
+                                              HashSet<KeysUniverse> primariosEscolhidos, HashSet<KeysUniverse> secundariosEscolhidos){
+        SlaveIdentifier si = slaves.get(ku);
+        HashSet<KeysUniverse> hs = new HashSet<KeysUniverse>();
+
+        int quantos = 0;
+        KeysUniverse primario = null;
+        if(si.primarioID().equals(slave)){
+            primario = ku;
+        }
+        else{
+            hs.add(ku);
+            quantos++;
+            for(KeysUniverse aux: this.keysSlaves.get(slave)){
+                if(!(primariosEscolhidos.contains(aux) || secundariosEscolhidos.contains(aux))){
+                    if(slaves.get(aux).primarioID().equals(slave)){
+                        //e primario
+                        primario = aux;
+                        break;
+                    }
+                }
+            }
+        }
+
+        for(int i = quantos; i < fatorReplicacao; i++){
+            for(KeysUniverse aux: this.keysSlaves.get(slave)){
+                if(!(primariosEscolhidos.contains(aux) || secundariosEscolhidos.contains(aux))){
+                    if(!slaves.get(aux).primarioID().equals(slave)){
+                        //e secundario
+                        hs.add(aux);
+                    }
+                }
+            }
+        }
+
+        ParPrimarioSecundario ps = new ParPrimarioSecundario(primario,hs);
+        return ps;
+    }
+
+
+    private void aumentaSlaves(String slave){
+        System.out.println("Inicio aumento");
+        int quantosConjuntos = nConjuntos / (++nSlaves);
+
+        InfoMonitorizacao im = infoSlaves.get(slave);
+        KeysUniverse ku = maximaUtilizacao(im);
+
+        HashSet<KeysUniverse> primariosEscolhidos = new HashSet<>();
+        HashSet<KeysUniverse> secundariosEscolhidos = new HashSet<KeysUniverse>();
+        ArrayList<ParPrimarioSecundario> pares = new ArrayList<>();
+        ParPrimarioSecundario ps = selecionaPar(slave,ku,primariosEscolhidos,secundariosEscolhidos);
+        pares.add(ps);
+        primariosEscolhidos.add(ps.primario);
+        secundariosEscolhidos.addAll(ps.secundarios);
+
+        int quantosMax = nConjuntos % nSlaves;
+        int maxSlave = quantosConjuntos;
+        if(quantosMax == 0 || (quantosMax == (nSlaves-1))){
+            quantosMax = nSlaves-1;
+            if(quantosMax == (nSlaves-1)){
+                maxSlave += 1;
+            }
+        }
+        else{
+            quantosMax = nSlaves - 1 - quantosMax;
+        }
+
+        ArrayList<String> slavesL = new ArrayList<>(keysSlaves.keySet());
+        HashMap<String,Integer> nPrimarios = new HashMap<>();
+
+        for(String sl: slavesL){
+            nPrimarios.put(sl,primarios(sl));
+        }
+
+        int nPA = nPrimarios.get(slave);
+        nPrimarios.put(slave,nPA-1);
+
+
+        int atual = slavesL.indexOf(slave);
+        int auxMax = 0;
+
+        if((nPA - 1) == maxSlave){
+            auxMax = 1;
+        }
+
+        while(primariosEscolhidos.size() < quantosConjuntos){
+
+            atual = (atual + 1) % slavesL.size();
+
+            String sl = slavesL.get(atual);
+            System.out.println("SLAVE: " + sl);
+
+            int aux = nPrimarios.get(sl);
+
+            int comparacao = maxSlave;
+            if(auxMax >= quantosMax){
+                comparacao = comparacao + 1;
+            }
+
+            if(aux > comparacao){
+                //ir buscar conjunto de chaves com menos carga
+                KeysUniverse novo = minimaUtilizacao(infoSlaves.get(sl),primariosEscolhidos,secundariosEscolhidos);
+                //ir buscar par
+                ParPrimarioSecundario novoPS = selecionaPar(sl,novo,primariosEscolhidos,secundariosEscolhidos);
+                pares.add(novoPS);
+                //adcionar ao primario
+                primariosEscolhidos.add(novoPS.primario);
+                //adicionar ao secundario
+                secundariosEscolhidos.addAll(novoPS.secundarios);
+                nPrimarios.put(sl,aux-1);
+                if((aux-1) == maxSlave){
+                    auxMax++;
+                }
+            }
+
+        }
+        System.out.println("Fim aumento!");
+        for(ParPrimarioSecundario par : pares){
+            System.out.println(par);
+        }
+
+        System.out.println();
+        for(Map.Entry<String,TreeSet<KeysUniverse>> ent: keysSlaves.entrySet()){
+            System.out.println(ent);
+        }
+
+    }
+
+    private Integer primarios(String sl) {
+
+        int i = 0;
+
+        for(KeysUniverse ku: keysSlaves.get(sl)){
+
+            SlaveIdentifier si = slaves.get(ku);
+
+            if(si.primarioID().equals(sl)){
+                i++;
+            }
+        }
+
+        return i;
     }
 
     private void adicionaChave(String id, KeysUniverse ku){

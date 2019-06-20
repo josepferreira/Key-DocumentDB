@@ -6,7 +6,7 @@ public class Config {
     public static int nSlaves = 3;
     public static int nConjuntos = 9;
 
-    public static long periodoTempo = 300; //periodo de tempo em segundos
+    public static long periodoTempo = 5; //periodo de tempo em segundos
     public static TimeUnit unidade = TimeUnit.SECONDS;
 
     //Percentagens Utilizacao
