@@ -1,7 +1,7 @@
 package nodes;
 
 import com.google.common.primitives.Longs;
-import com.sun.xml.internal.ws.client.SenderException;
+//import com.sun.xml.internal.ws.client.SenderException;
 import io.atomix.utils.serializer.Serializer;
 import messages.*;
 import org.json.JSONObject;
@@ -44,6 +44,7 @@ public class Grupo {
 
     public SpreadConnection connection = new SpreadConnection();
     public SpreadGroup group = new SpreadGroup();
+    public SpreadGroup myGroup = new SpreadGroup();
     public String id;
     public String grupo;
     public String primario;
@@ -67,6 +68,9 @@ public class Grupo {
     public int leituras = 0;
 
 
+    public AdvancedMessageListener aml;
+
+
     public Grupo(String id, String grupo, KeysUniverse ku, String rocksDBFolder, AdvancedMessageListener aml) throws UnknownHostException, SpreadException {
         this.ku = ku;
         System.out.println("1");
@@ -78,7 +82,6 @@ public class Grupo {
             this.id = this.grupo + id;
         System.out.println("3: " + this.id);
 
-        connection.connect(InetAddress.getByName("localhost"), 0, this.id, false, true);
 //        connection.add(aml);
         System.out.println("4");
 
@@ -112,11 +115,17 @@ public class Grupo {
     }
 
     public void connecta(AdvancedMessageListener aml) throws SpreadException {
+        System.out.println("Connectar a: " + this.ku);
+        try {
+            connection.connect(InetAddress.getByName("localhost"), 0, this.id, false, true);
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+        this.aml = aml;
         connection.add(aml);
         System.out.println("GR: " + this.grupo);
         group.join(connection,this.grupo);
-        SpreadGroup g = new SpreadGroup();
-        g.join(connection,this.id);
+        myGroup.join(connection,this.id);
 
     }
 
@@ -641,5 +650,29 @@ public class Grupo {
                 e.printStackTrace();
             }
         }
+    }
+
+    public void leaveGroup() {
+        System.out.println("Sair do grupo!" + ku);
+        try {
+            group.leave();
+        } catch (SpreadException e) {
+            e.printStackTrace();
+        }
+        try {
+            myGroup.leave();
+        } catch (SpreadException e) {
+            e.printStackTrace();
+        }
+        try {
+            System.out.println(connection.isConnected());
+            connection.remove(aml);
+            System.out.println("DISVCASHFDS");
+            connection.disconnect();
+        } catch (SpreadException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("Saí do grupo final");
     }
 }

@@ -58,10 +58,14 @@ public class Slave {
     private HashSet<String> replys = new HashSet<>(); //Para tratar dos pedidos repetidos dos diferentes masters
     ReentrantLock lockReplys = new ReentrantLock();
 
+    //Distribuicao
+    private HashSet<KeysUniverse> faltamJuntar = new HashSet<>();
+
 
     private Runnable percentagemUtilizacao = () -> {
         OperatingSystemMXBean operatingSystemMXBean = (OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
-        double cpu =  0.75f;//operatingSystemMXBean.getProcessCpuLoad();
+        double cpu =  operatingSystemMXBean.getProcessCpuLoad();
+//        double cpu =  0.75f;//operatingSystemMXBean.getProcessCpuLoad();
         System.out.println(cpu);
         float memoria = (operatingSystemMXBean.getTotalPhysicalMemorySize()-operatingSystemMXBean.getFreePhysicalMemorySize()) / (1000*1000*1000);
         System.out.println(memoria);
@@ -229,8 +233,14 @@ public class Slave {
             String grupo = spreadMessage.getMembershipInfo().getGroup().toString();
             System.out.println("\t\t\t\tRecebi uma membership message: " + grupo);
             HashSet<String> membros = new HashSet<>();
-            for (SpreadGroup sg : spreadMessage.getMembershipInfo().getMembers()) {
-                membros.add(sg.toString().split("#")[1]);
+            try{
+                for (SpreadGroup sg : spreadMessage.getMembershipInfo().getMembers()) {
+                    membros.add(sg.toString().split("#")[1]);
+                }
+            }
+            catch(Exception e){
+                System.out.println("Deu excepcao");
+                return ;
             }
             System.out.println(membros);
 
@@ -325,6 +335,7 @@ public class Slave {
     public BasicMessageListener bml = new BasicMessageListener() {
         @Override
         public void messageReceived(SpreadMessage spreadMessage) {
+            System.out.println("Recebi mensagem no grupo privado: " + id);
             Object o = s.decode(spreadMessage.getData());
 
             if(o instanceof ACKMessage) {
@@ -379,6 +390,92 @@ public class Slave {
                     }
                 }
             }
+            else if(o instanceof LeaveGroups){
+                System.out.println("RECEBI MENSAGEM PARA SAIR DO GRUPO");
+                LeaveGroups lg = (LeaveGroups)o;
+                HashSet<KeysUniverse> prim = new HashSet<>();
+
+                if(eRepetido(lg.id)){
+                    System.out.println("TOUUUUUUU A REPETIIIIIIR lg");
+                    return;
+                }
+
+                for(ParPrimarioSecundario pps: lg.pares){
+
+                    Grupo g = grupos.get(pps.primario);
+
+                    if(g != null){
+                        g.leaveGroup();
+                        grupos.remove(pps.primario);
+                        prim.add(pps.primario);
+                    }
+                    else{
+                        System.out.println("Grupo primario é null ao sair do grupo: " + pps.primario);
+                    }
+
+                    for(KeysUniverse ku : pps.secundarios){
+                        Grupo gA = grupos.get(ku);
+
+                        if(gA != null){
+                            gA.leaveGroup();
+                            grupos.remove(ku);
+                        }
+                        else{
+                            System.out.println("Grupo secundario é null ao sair do grupo: " + ku);
+                        }
+                    }
+                }
+
+                System.out.println("Saí dos grupos!");
+                LeaveGroupsReply lgr = new LeaveGroupsReply(prim,id);
+
+                SpreadMessage sm = new SpreadMessage();
+                System.out.println("DEIXAR GRUPO ENCODE");
+                sm.setData(s.encode(lgr));
+                System.out.println("DEPOIS ENCODE DEIXAR GRUPO");
+                sm.addGroup("master");
+                sm.setAgreed();
+                sm.setReliable();
+                try {
+                    System.out.println("Tentar enviar");
+                    connection.multicast(sm);
+                    System.out.println("Enviei");
+
+                } catch (SpreadException e) {
+                    e.printStackTrace();
+                }
+
+            }
+            else if(o instanceof JoinGroup){
+                System.out.println("Juntar aos grupos!");
+                JoinGroup jg =  (JoinGroup) o;
+
+                if(eRepetido(jg.id)){
+                    System.out.println("TOUUUUUUU A REPETIIIIIIR jg");
+                    return;
+                }
+
+                jg.chaves.retainAll(faltamJuntar);
+
+                for(KeysUniverse ku : jg.chaves){
+
+                    Grupo g = grupos.get(ku);
+                    System.out.println("Juntar ao grupo: " + ku);
+
+                    if(g == null){
+                        System.out.println("Grupo é null ao juntar!!!");
+                    }
+                    else{
+                        try {
+                            g.connecta(aml);
+                        } catch (SpreadException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+
+                faltamJuntar.removeAll(jg.chaves);
+            }
             else{
                 System.out.println("Recebi uma mensagem para o grupo privado que não é de ACK!");
             }
@@ -398,6 +495,8 @@ public class Slave {
             connection.add(bml);
             SpreadGroup g = new SpreadGroup();
             g.join(connection,"global");
+            SpreadGroup gr = new SpreadGroup();
+            gr.join(connection,id);
         } catch (SpreadException e) {
             e.printStackTrace();
         } catch (UnknownHostException e) {
@@ -426,7 +525,7 @@ public class Slave {
             e.printStackTrace();
         }
 
-        ses.schedule(this.percentagemUtilizacao,Config.periodoTempo,Config.unidade);
+        ses.scheduleWithFixedDelay(this.percentagemUtilizacao,Config.periodoTempo,Config.periodoTempo,Config.unidade);
         /*ms.sendAsync(masterAddress,"start",s.encode(sr));*/
 
     }
@@ -874,7 +973,20 @@ public class Slave {
 
                 this.minhasChaves = new TreeSet<>(rr.keys.keySet());
                 for (Map.Entry<KeysUniverse, String> entry : rr.keys.entrySet()) {
-                    adicionaConexao(entry.getValue(), entry.getKey());
+                    Boolean podeEntrar = rr.podeEntrar.get(entry.getKey());
+                    boolean podeE;
+                    if(podeEntrar == null){
+                        podeE = false;
+                    }
+                    else{
+                        podeE = podeEntrar;
+                    }
+                    System.out.println("MERDA PO ZE: " + entry.getKey() + " <- é que ninguem o percebe: " +
+                             podeE);
+                    adicionaConexao(entry.getValue(), entry.getKey(),podeE);
+                    if(!podeE){
+                        this.faltamJuntar.add(entry.getKey());
+                    }
                 }
 
                 System.out.println("\t\tVER INFOS");
@@ -888,14 +1000,16 @@ public class Slave {
         }, ses);
     }
 
-    public void adicionaConexao(String id, KeysUniverse grupo) {
+    public void adicionaConexao(String id, KeysUniverse grupo, boolean podeEntrar) {
 
         try {
             Grupo c = new Grupo(id, grupo.getGrupo(), grupo, "./localdb/" + this.id + "/", aml);
             //c.addAML(aml);
             System.out.println("Criei grupo");
             grupos.put(grupo,c);
-            c.connecta(aml);
+            if(podeEntrar){
+                c.connecta(aml);
+            }
             System.out.println("Adiconei grupo");
 
         } catch (UnknownHostException e) {

@@ -779,12 +779,12 @@ public class Stub {
 //                e.printStackTrace();
 //            }
 //        }
-        /*JSONObject jo = new JSONObject();
-        for(int i = 130; i < 140; i++){
+        JSONObject jo = new JSONObject();
+        for(int i = 330; i < 340; i++){
             jo.put("obj",i);
             boolean res =  s.put(i,jo);
             System.out.println("Put feito: " + i + "! RES: " + res);
-        }*/
+        }
         System.out.println("Puts feitos");
         System.out.println("Vou fazer remove");
         //System.out.println("remove feito: " + s.remove(121));

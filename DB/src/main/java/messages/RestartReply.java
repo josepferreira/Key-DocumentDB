@@ -9,9 +9,12 @@ import java.util.TreeSet;
 public class RestartReply {
 
     public TreeMap<KeysUniverse, String> keys;
+    public HashMap<KeysUniverse , Boolean> podeEntrar;
     public String id;
 
-    public RestartReply(String id, TreeMap<KeysUniverse, String> keys) {
-        this.id = id; this.keys = keys;
+    public RestartReply(TreeMap<KeysUniverse, String> keys, HashMap<KeysUniverse, Boolean> podeEntrar, String id) {
+        this.keys = keys;
+        this.podeEntrar = podeEntrar;
+        this.id = id;
     }
 }

@@ -44,7 +44,11 @@ public class SerializerProtocol {
                 CompletableFuture.class,
                 Remove.class,
                 InfoMonitorizacao.class,
-                ParEscritaLeitura.class
+                ParEscritaLeitura.class,
+                ParPrimarioSecundario.class,
+                LeaveGroups.class,
+                LeaveGroupsReply.class,
+                JoinGroup.class
         ).build();
     }
 }

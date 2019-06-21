@@ -131,4 +131,17 @@ public class SlaveIdentifier {
     public int hashCode() {
         return this.endereco.hashCode();
     }
+
+    public void addSecundario(String slave) {
+
+        System.out.println("Adiciona secundario: " + this.keys + "ID: " + slave);
+        Secundario s = new Secundario(this.proximo+"",null,false);
+        secundarios.put(slave,s);
+        this.proximo++;
+
+    }
+
+    public void removeSecundario(String idS) {
+        secundarios.remove(idS);
+    }
 }

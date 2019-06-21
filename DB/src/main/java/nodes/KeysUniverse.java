@@ -17,13 +17,15 @@ public class KeysUniverse implements Comparable{
         if (o == null || getClass() != o.getClass()) return false;
         KeysUniverse that = (KeysUniverse) o;
 
+        if(min == that.min && max == that.max) return true;
+
         return (min >= that.min) && (max < that.max) && (that.min <= that.max); //basta que esteja contido no intervalo,
         // para ser considerado igual. Importante para a procura no hashmap
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(min, max);
+        return Objects.hash(min);
     }
 
     @Override
@@ -37,6 +39,7 @@ public class KeysUniverse implements Comparable{
     public String getGrupo(){
         return  min + "," + max;
     }
+
 
 
     @Override
