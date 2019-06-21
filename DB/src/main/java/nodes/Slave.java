@@ -662,7 +662,7 @@ public class Slave {
             if(ef.o instanceof UpdateMessage) {
                 UpdateMessage um = (UpdateMessage) ef.o;
 
-                if (um.value != null) {
+                if (um.pr != null) {
                     Put p = (Put) g.requests.get(um.id);
 
                     if (p == null) {
@@ -714,11 +714,11 @@ public class Slave {
 
                         boolean resposta = g.updateState(um);
                         r.cf.complete(resposta);
-                    }
-                    else {
+                    } else {
                         //já aconteceu algo, ver pq recebeu novo pedido
                         System.out.println("Já tinha put, pq recebi novamente???");
                     }
+
                 }
             }
             else if(ef.o instanceof GetRequest){
@@ -943,10 +943,8 @@ public class Slave {
                 ResultadoScan docs = null; //n será muito eficiente, provavelmente por causa de andar sempre a mudar o map
 
                 //de alguma forma faz o scan à bd, ver a melhor forma
-                if (sr.filtros == null) {
-                    if (sr.projecoes == null) {
-                        docs = g.scan(sr);
-                    }
+
+                docs = g.scan(sr);
                 /*else{
                     docs = getScan(sr.projecoes);
                 }
@@ -959,7 +957,7 @@ public class Slave {
                     docs = getScan(filtro(sr.filtros),sr.projecoes);
                 }*/
 
-                }
+
                 SlaveScanReply ssr = new SlaveScanReply(docs.docs, sr.ku, sr.id, docs.ultimaChave);
                 ms.sendAsync(o, "scanReply", s.encode(ssr));
             }

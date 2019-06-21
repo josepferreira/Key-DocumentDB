@@ -704,6 +704,80 @@ public class Stub {
         return si;
     }
 
+    public ScanIterator scan(ArrayList<Predicate<JSONObject>> filtro){
+        String requestID = UUID.randomUUID().toString();
+        ScanRequest sr = new ScanRequest(requestID, this.endereco,filtro,null,null,-1,-1);
+        Scan s = new Scan(requestID,this.endereco,sr.filtros,sr.projecoes,10,ms);
+        ScanIterator si = new ScanIterator(s);
+        scanRequests.put(requestID,si);
+
+        SpreadMessage sm = new SpreadMessage();
+        sm.setData(this.s.encode(sr));
+        sm.addGroup("master");
+        sm.setAgreed(); // ao defiirmos isto estamos a garantir ordem total, pelo q podemos ter varios stubs
+        sm.setReliable();
+        try {
+            connection.multicast(sm);
+        } catch (SpreadException e) {
+            e.printStackTrace();
+        }
+
+        return si;
+    }
+
+    public ScanIterator scan(HashMap<Boolean, ArrayList<String>> projecoes){
+        String requestID = UUID.randomUUID().toString();
+        ScanRequest sr = new ScanRequest(requestID, this.endereco,null,projecoes,null,-1,-1);
+        Scan s = new Scan(requestID,this.endereco,sr.filtros,sr.projecoes,10,ms);
+        ScanIterator si = new ScanIterator(s);
+        scanRequests.put(requestID,si);
+
+        SpreadMessage sm = new SpreadMessage();
+        sm.setData(this.s.encode(sr));
+        sm.addGroup("master");
+        sm.setAgreed(); // ao defiirmos isto estamos a garantir ordem total, pelo q podemos ter varios stubs
+        sm.setReliable();
+        try {
+            connection.multicast(sm);
+        } catch (SpreadException e) {
+            e.printStackTrace();
+        }
+
+        return si;
+    }
+
+    public ScanIterator scan(ArrayList<Predicate<JSONObject>> filtro, HashMap<Boolean, ArrayList<String>> projecoes){
+        String requestID = UUID.randomUUID().toString();
+        ScanRequest sr = new ScanRequest(requestID, this.endereco,filtro,projecoes,null,-1,-1);
+        Scan s = new Scan(requestID,this.endereco,sr.filtros,sr.projecoes,10,ms);
+        ScanIterator si = new ScanIterator(s);
+        scanRequests.put(requestID,si);
+
+        SpreadMessage sm = new SpreadMessage();
+        sm.setData(this.s.encode(sr));
+        sm.addGroup("master");
+        sm.setAgreed(); // ao defiirmos isto estamos a garantir ordem total, pelo q podemos ter varios stubs
+        sm.setReliable();
+        try {
+            connection.multicast(sm);
+        } catch (SpreadException e) {
+            e.printStackTrace();
+        }
+
+        return si;
+    }
+
+    private Predicate<JSONObject> filtro(ArrayList<Predicate<JSONObject>> filters) {
+        if(filters == null){
+            return null;
+        }
+
+        Predicate<JSONObject> pred = filters.stream().reduce(Predicate::and).orElse(x -> true);
+        pred = pred.negate();
+
+        return pred;
+    }
+
     /*public CompletableFuture<ArrayList<CompletableFuture<LinkedHashMap<Long,JSONObject>>>> scan(ArrayList<Predicate<JSONObject>> filtros){
         CompletableFuture<Void> cf = new CompletableFuture<>();
         String requestID = UUID.randomUUID().toString();
@@ -780,8 +854,9 @@ public class Stub {
 //            }
 //        }
         JSONObject jo = new JSONObject();
-        for(int i = 330; i < 340; i++){
+        for(int i = 340; i < 342; i++){
             jo.put("obj",i);
+            jo.put("merda",i*i);
             boolean res =  s.put(i,jo);
             System.out.println("Put feito: " + i + "! RES: " + res);
         }
@@ -797,8 +872,16 @@ public class Stub {
 //        } catch (ExecutionException e) {
 //            e.printStackTrace();
 //        }
+
+        HashMap<Boolean,ArrayList<String>> proj = new HashMap<>();
+        ArrayList<String> q = new ArrayList<>();
+        q.add("merda");
+        proj.put(false,q);
+
+
+
         System.out.println("SCAN");
-        ScanIterator si = s.scan();
+        ScanIterator si = s.scan(proj);
 
         while(si.hasNext()){
 

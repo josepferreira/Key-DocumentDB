@@ -1025,9 +1025,9 @@ public class  Master {
 
         apresentaConfiguracao();
 
-        for(String slaveString: start){
+        /*for(String slaveString: start){
             criaDocker(slaveString);
-        }
+        }*/
 
     }
 

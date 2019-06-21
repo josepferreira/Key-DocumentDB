@@ -5,6 +5,7 @@ import messages.*;
 import org.json.*;
 
 import java.util.concurrent.CompletableFuture;
+import java.util.function.Predicate;
 
 public class SerializerProtocol {
     public static Serializer newSerializer(){
@@ -48,7 +49,8 @@ public class SerializerProtocol {
                 ParPrimarioSecundario.class,
                 LeaveGroups.class,
                 LeaveGroupsReply.class,
-                JoinGroup.class
+                JoinGroup.class,
+                Predicate.class
         ).build();
     }
 }

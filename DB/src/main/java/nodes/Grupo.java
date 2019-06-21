@@ -147,17 +147,28 @@ public class Grupo {
         ArrayList<String> f = p.get(false);
         if(f != null){
             for(String aux: f){
-                o.remove(aux);
+                try{
+                    o.remove(aux);
+                }
+                catch(Exception e){
+                    System.out.println("Excecao no retira do json");
+                }
             }
         }
         ArrayList<String> t = p.get(true);
-        if(f != null){
+        if(t != null){
             JSONObject aux = o;
             o = new JSONObject();
-            for(String a: f){
-                o.put(a,aux.get(a));
+            for(String a: t){
+                try{
+                    o.put(a,aux.get(a));
+                }
+                catch(Exception e){
+                    System.out.println("Excecao no poe no json");
+                }
             }
         }
+
 
         return o;
     }
@@ -174,6 +185,9 @@ public class Grupo {
 
     //função que cria o filtro a partir dos vários filtros
     private Predicate<JSONObject> filtro(ArrayList<Predicate<JSONObject>> filters) {
+        if(filters == null){
+            return null;
+        }
 
         Predicate<JSONObject> pred = filters.stream().reduce(Predicate::and).orElse(x -> true);
         pred = pred.negate();
@@ -355,7 +369,7 @@ public class Grupo {
     }
 
     //scan para todos os objectos, sem projecções
-    private ResultadoScan getScan(int nrMaximo, long ultimaChave, KeysUniverse ku) {
+    private ResultadoScan getScan(int nrMaximo, long ultimaChave, KeysUniverse ku, Predicate<JSONObject> filtros, HashMap<Boolean, ArrayList<String>> p) {
         System.out.println("----------------------------Novo pedido scan: " + ku + " ---------------------------");
         LinkedHashMap<Long,JSONObject> docs = new LinkedHashMap<>();
         RocksIterator iterador = rocksDB.newIterator();
@@ -389,11 +403,23 @@ public class Grupo {
             chave = k;
             String v = new String(iterador.value());
             JSONObject json = new JSONObject(v);
-            docs.put(k,json);
-            quantos++;
-            if(quantos >= nrMaximo){
-                System.out.println("Atingi o máximo");
-                break;
+            boolean poe = true;
+
+            if(filtros != null){
+                poe = aplicaFiltro(filtros,json);
+            }
+
+            if(p != null){
+                json = aplicaProjecao(json,p);
+            }
+
+            if(poe){
+                docs.put(k,json);
+                quantos++;
+                if(quantos >= nrMaximo){
+                    System.out.println("Atingi o máximo");
+                    break;
+                }
             }
             iterador.next();
         }
@@ -405,10 +431,8 @@ public class Grupo {
         ResultadoScan docs = null; //n será muito eficiente, provavelmente por causa de andar sempre a mudar o map
 
         //de alguma forma faz o scan à bd, ver a melhor forma
-        if(sr.filtros == null){
-            if(sr.projecoes == null){
-                docs = getScan(sr.nrMaximo, sr.ultimaChave,sr.ku);
-            }
+        System.out.println("SCAN SCAN");
+        docs = getScan(sr.nrMaximo, sr.ultimaChave,sr.ku,filtro(sr.filtros),sr.projecoes);
             /*else{
                 docs = getScan(sr.projecoes);
             }
@@ -421,7 +445,6 @@ public class Grupo {
                 docs = getScan(filtro(sr.filtros),sr.projecoes);
             }*/
 
-        }
 
         return docs;
 

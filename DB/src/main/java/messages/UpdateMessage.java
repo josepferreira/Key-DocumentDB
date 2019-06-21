@@ -16,6 +16,7 @@ public class UpdateMessage {
         this.id = id;
         this.resposta = resposta;
         this.pr = pr;
+        this.rr = null;
     }
 
     public UpdateMessage(Long key, JSONObject value, String id, boolean resposta, RemoveRequest rr) {
@@ -24,5 +25,6 @@ public class UpdateMessage {
         this.id = id;
         this.resposta = resposta;
         this.rr = rr;
+        this.pr = null;
     }
 }
