@@ -493,14 +493,13 @@ public class Slave {
 
 
 
-    public Slave(String endereco, String id) {
+    public Slave(String id) {
         RocksDB.loadLibrary();
 
-        this.endereco = endereco;
         this.id = id;
 
         try {
-            connection.connect(InetAddress.getByName("localhost"), 0, id, false, false);
+            connection.connect(InetAddress.getByName(Config.hostSpread), 0, id, false, false);
             connection.add(bml);
             SpreadGroup g = new SpreadGroup();
             g.join(connection,"global");
@@ -512,9 +511,21 @@ public class Slave {
             e.printStackTrace();
         }
 
-        ms = NettyMessagingService.builder().withAddress(Address.from(endereco)).build();
-
-        ms.start();
+        boolean started = false;
+        int porta = Config.portaInicial;
+        this.endereco = Config.hostAtomix + ":" + porta;
+        while(!started){
+            try{
+                ms = NettyMessagingService.builder().withAddress(Address.from(this.endereco)).build();
+                ms.start().get();
+                started = true;
+            }
+            catch(Exception e){
+                System.out.println("Porta em uso: " + porta);
+                porta++;
+                this.endereco = Config.hostAtomix + ":" + porta;
+            }
+        }
 
         criaPasta();
 
@@ -1170,7 +1181,7 @@ public class Slave {
     public static void main(String[] args) {
 
         //Para já o valor do args deve de ser 1 ou 2 ou 3
-        Slave s = new Slave("localhost:1234" + args[0],args[1]);
+        Slave s = new Slave(args[0]);
 
         while(true){
             try {

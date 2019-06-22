@@ -17,6 +17,12 @@ public class Config {
     public static float valorMin = 0.6f;
     public static float valorMax = 4;
 
+    public static int portaInicial = 12340;
+    public static String hostAtomix = "localhost";
+    public static String hostSpread = "localhost";
+
+    public static int fatorReplicacao = 1;
+
     public static void main(String[] args){
         HashMap<String,Boolean> a = new HashMap<>();
         Boolean podeEntrar = a.get("a");

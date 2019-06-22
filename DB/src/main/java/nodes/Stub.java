@@ -111,10 +111,9 @@ public class Stub {
     ReentrantLock lockReplys = new ReentrantLock();
 
 
-    public Stub(String endereco){
-        this.endereco = endereco;
+    public Stub(){
         try {
-            System.out.println(endereco);
+            System.out.println("Vou conectar ao spread");
             connection.connect(InetAddress.getByName("localhost"), 0, null, false, false);
         } catch (SpreadException e) {
             e.printStackTrace();
@@ -122,8 +121,21 @@ public class Stub {
             e.printStackTrace();
         }
 
-        this.ms = NettyMessagingService.builder().withAddress(Address.from(endereco)).build();
-        this.ms.start();
+        boolean started = false;
+        int porta = Config.portaInicial;
+        this.endereco = Config.hostAtomix + ":" + porta;
+        while(!started){
+            try{
+                ms = NettyMessagingService.builder().withAddress(Address.from(this.endereco)).build();
+                ms.start().get();
+                started = true;
+            }
+            catch(Exception e){
+                System.out.println("Porta em uso: " + porta);
+                porta++;
+                this.endereco = Config.hostAtomix + ":" + porta;
+            }
+        }
         registaHandlers();
     }
 
@@ -905,7 +917,7 @@ public class Stub {
 
         String endereco = "localhost:12346";
 
-        Stub s = new Stub(endereco);
+        Stub s = new Stub();
 
         //s.get(10001);
         System.out.println("Vou fazr get");

@@ -47,29 +47,30 @@ public class  Master {
     SpreadConnection connection = new SpreadConnection();
     SpreadConnection connectionGlobal = new SpreadConnection();
 
-    //estado partilhado
-    public final int fatorReplicacao = 1;
-    public int nSlaves = 0;
-    public TreeMap<KeysUniverse,SlaveIdentifier> slaves = new TreeMap<>();
-    private HashSet<String> start = new HashSet<>();
-    private HashMap<String, TreeSet<KeysUniverse>> keysSlaves = new HashMap<>();
-    private int ultimoID = 0;
+    public final int fatorReplicacao = Config.fatorReplicacao;
+
 
     private ArrayList<Object> fila = new ArrayList<>();
     private HashSet<String> pedidosEstado = new HashSet<>();
     private boolean estadoRecuperado;
     private boolean descarta;
-    private HashMap<String, String> dockers = new HashMap<>();
 
     public int nSlavesMinimo = Config.nSlaves;
     public int nConjuntos = Config.nConjuntos;
 
+    //estado partilhado
+    public int nSlaves = 0;
+    public TreeMap<KeysUniverse,SlaveIdentifier> slaves = new TreeMap<>();
+    private HashSet<String> start = new HashSet<>();
+    private HashMap<String, TreeSet<KeysUniverse>> keysSlaves = new HashMap<>();
+    private int ultimoID = 0;
+    private HashMap<String, String> dockers = new HashMap<>();
     //Para a monitorizacao
     public boolean balanceamentoCarga = false;
     public HashMap<String,InfoMonitorizacao> infoSlaves = new HashMap<>();
-
     public HashMap<String,HashSet<KeysUniverse>> esperaEntra = new HashMap<>();
     public HashMap<String,HashSet<KeysUniverse>> esperaSai = new HashMap<>();
+
 
     BasicMessageListener bml = new BasicMessageListener() {
         @Override
@@ -95,10 +96,16 @@ public class  Master {
                         if(!pedidosEstado.contains(em.id)){
                             System.out.println("Vou alterar estado");
                             pedidosEstado.add(em.id);
-                            slaves.putAll(em.slaves);
-                            start.addAll(em.start);
+                            start = em.start;
                             nSlaves = em.nSlaves;
-                            keysSlaves.putAll(em.keysSlaves);
+                            slaves = em.slaves;
+                            keysSlaves = em.keysSlaves;
+                            ultimoID = em.ultimoID;
+                            dockers = em.dockers;
+                            balanceamentoCarga = em.balanceamentoCarga;
+                            infoSlaves = em.infoSlaves;
+                            esperaEntra = em.esperaEntra;
+                            esperaSai = em.esperaSai;
                             estadoRecuperado = true;
                             trataFila();
                         }
@@ -110,7 +117,7 @@ public class  Master {
                 else{
                     if(o instanceof PedidoEstado){
                         System.out.println("Vou responder ao pedido de estado");
-                        EstadoMaster em = new EstadoMaster(((PedidoEstado)o).id,nSlaves,slaves,start,keysSlaves);
+                        EstadoMaster em = new EstadoMaster(((PedidoEstado)o).id, nSlaves, slaves, start, keysSlaves, ultimoID, dockers, balanceamentoCarga, infoSlaves, esperaEntra, esperaSai);
                         SpreadMessage sm = new SpreadMessage();
                         sm.setData(s.encode(em));
                         sm.addGroup(spreadMessage.getSender());
@@ -138,34 +145,36 @@ public class  Master {
         public void membershipMessageReceived(SpreadMessage spreadMessage) {
             System.out.println("recebi uma membership message");
             if(spreadMessage.getMembershipInfo().isCausedByLeave() ||
-                    spreadMessage.getMembershipInfo().isCausedByDisconnect()){
+                    spreadMessage.getMembershipInfo().isCausedByDisconnect()) {
 
                 String aux = spreadMessage.getMembershipInfo().getLeft().toString().split("#")[1];
 
-                if(aux.startsWith(idSlave)){
+                if (estadoRecuperado) {
 
-                    System.out.println("Este slave saiu, inicia outro com este identificador: " + aux);
+                    if (aux.startsWith(idSlave)) {
 
-                    TreeSet<KeysUniverse> tk = keysSlaves.get(aux);
-                    if(tk != null){
-                        for(KeysUniverse ku: tk){
-                            SlaveIdentifier si = slaves.get(ku);
+                        System.out.println("Este slave saiu, inicia outro com este identificador: " + aux);
 
-                            if(si == null){
-                                System.out.println("Slave identifier é nulo no slave q saiu!");
+                        TreeSet<KeysUniverse> tk = keysSlaves.get(aux);
+                        if (tk != null) {
+                            for (KeysUniverse ku : tk) {
+                                SlaveIdentifier si = slaves.get(ku);
+
+                                if (si == null) {
+                                    System.out.println("Slave identifier é nulo no slave q saiu!");
+                                } else {
+                                    si.sai(aux);
+                                }
                             }
-                            else{
-                                si.sai(aux);
-                            }
+                        } else {
+                            System.out.println("Saiu um slave mas n aparece nos registos!!!");
                         }
-                    }
-                    else {
-                        System.out.println("Saiu um slave mas n aparece nos registos!!!");
+                    } else {
+                        System.out.println("Saiu um master! ID: " + aux);
                     }
                 }
-                else{
-                    System.out.println("Saiu um master! ID: " + aux);
-                }
+            }else {
+                fila.add(spreadMessage);
             }
         }
     };
@@ -474,6 +483,37 @@ public class  Master {
 
 
 
+            }
+        }else if(o instanceof SpreadMessage) {
+            SpreadMessage spreadMessage = (SpreadMessage) o;
+
+            if (spreadMessage.getMembershipInfo().isCausedByLeave() ||
+                    spreadMessage.getMembershipInfo().isCausedByDisconnect()) {
+
+
+                String aux = spreadMessage.getMembershipInfo().getLeft().toString().split("#")[1];
+
+                if (aux.startsWith(idSlave)) {
+
+                    System.out.println("Este slave saiu, inicia outro com este identificador: " + aux);
+
+                    TreeSet<KeysUniverse> tk = keysSlaves.get(aux);
+                    if (tk != null) {
+                        for (KeysUniverse ku : tk) {
+                            SlaveIdentifier si = slaves.get(ku);
+
+                            if (si == null) {
+                                System.out.println("Slave identifier é nulo no slave q saiu!");
+                            } else {
+                                si.sai(aux);
+                            }
+                        }
+                    } else {
+                        System.out.println("Saiu um slave mas n aparece nos registos!!!");
+                    }
+                } else {
+                    System.out.println("Saiu um master! ID: " + aux);
+                }
             }
         }
         else{
@@ -1059,9 +1099,8 @@ public class  Master {
     private String executaShellCreateContainer(String nameContainer){
 
         String ret = null;
-        System.out.println("OLHA PARA MIM QUE EU SOU BOITO " + nameContainer.substring(this.idSlave.length()));
         try {
-            Process process = Runtime.getRuntime().exec("docker run -d --network host --name " + nameContainer + " lei/testeslave " + nameContainer.substring(this.idSlave.length()) + " " + nameContainer);//"docker", "run", "--network", "host", "--name", nameContainer, nameImage, "1", "2");
+            Process process = Runtime.getRuntime().exec("docker run -d --network host --name " + nameContainer + " lei/testeslave " + nameContainer);//"docker", "run", "--network", "host", "--name", nameContainer, nameImage, "1", "2");
             //Process process = processBuilder.start();
 
             StringBuilder output = new StringBuilder();
