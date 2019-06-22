@@ -21,7 +21,7 @@ public class Scan {
     ArrayList<Predicate<JSONObject>> filtros;
     HashMap<Boolean,ArrayList<String>> projecoes;
     int nrMaximo;
-    private TreeMap<KeysUniverse,SlaveIdentifier> cache;
+    private TreeMap<KeysUniverse,RoundRobin> cache;
     private Serializer s = SerializerProtocol.newSerializer();
     private int tamanhoAtual = 0;
     private CompletableFuture<Void> cf;
@@ -41,7 +41,7 @@ public class Scan {
         this.ms = ms;
     }
 
-    public void registaCache(TreeMap<KeysUniverse, SlaveIdentifier> cache){
+    public void registaCache(TreeMap<KeysUniverse, RoundRobin> cache){
         this.cache = cache;
         esperaCache.complete(null);
     }
@@ -54,7 +54,7 @@ public class Scan {
         esperaCache.thenAccept(a ->{
             if(ultimoVisto == -1){
                 //n foi buscar nenhuma ainda
-                String endereco = cache.get(cache.firstKey()).primario(); //assumindo que existe em cache
+                String endereco = cache.get(cache.firstKey()).si.primario(); //assumindo que existe em cache
                 ultimoUniverso = cache.firstKey(); //aatualiza o ultimo universo
                 ScanRequest sr = new ScanRequest(id,this.endereco,filtros,projecoes,cache.firstKey(),nrMaximo,-1);
                 try{
@@ -68,7 +68,7 @@ public class Scan {
             else{
                 //senao vai buscar a ultima ao universo atual
                 //n foi buscar nenhuma ainda
-                String endereco = cache.get(ultimoUniverso).primario(); //assumindo que existe em cache
+                String endereco = cache.get(ultimoUniverso).si.primario(); //assumindo que existe em cache
                 ScanRequest sr = new ScanRequest(id,this.endereco,filtros,projecoes,ultimoUniverso,nrMaximo,ultimoVisto);
                 docs = new LinkedHashMap<>();
                 tamanhoAtual = 0;
@@ -98,7 +98,7 @@ public class Scan {
                 cf.complete(null);
             }
             else {
-                String endereco = cache.get(proximo).primario(); //assumindo que existe em cache
+                String endereco = cache.get(proximo).si.primario(); //assumindo que existe em cache
                 ultimoUniverso = proximo;
                 ScanRequest sr = new ScanRequest(id, this.endereco, filtros, projecoes, ultimoUniverso, nrMaximo - tamanhoAtual, -1);
                 ms.sendAsync(Address.from(endereco), "scan", s.encode(sr));

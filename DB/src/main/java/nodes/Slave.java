@@ -637,11 +637,65 @@ public class Slave {
                 }
                 else{
                     System.out.println("Pedido de put já se encontra tratado!");
+                    p.cf.thenAccept(a -> {
+                        PutReply pl = new PutReply(pr.id, a);
+                        ms.sendAsync(Address.from(ef.origem), "putReply", s.encode(pl));
+                    });
                 }
 
             }
             else if(ef.o instanceof RemoveRequest) {
                 System.out.println("Recuperar fila, temos de tratar o REMOVE!!!");
+                RemoveRequest rr = (RemoveRequest) ef.o;
+                KeysUniverse ku = new KeysUniverse(rr.key, rr.key);
+                Grupo grupo = grupos.get(ku);
+
+                if (grupo == null) {
+                    System.out.println("DAR MENSAGEM DE ERRO PORQUE NAO TRATAMOS DA CHAVE!!");
+                } else {
+
+                    Remove r = (Remove) grupo.requests.get(rr.id);
+
+                    if (r == null) {
+                        r = new Remove(rr, new CompletableFuture<Boolean>());
+                        grupo.requests.put(rr.id, r);
+
+                        r.cf.thenAccept(a -> {
+                            RemoveReply rrp = new RemoveReply(rr.id, a);
+                            ms.sendAsync(Address.from(ef.origem), "removeReply", s.encode(rrp));
+                        });
+
+                        RespostaRemove respostaRemove = grupo.remove(rr);
+                        boolean resultado = respostaRemove.resposta;
+                        r.setResposta(resultado);
+
+                        System.out.println(grupo.secundarios);
+                        grupo.acks.put(rr.id, (HashSet<String>) grupo.secundarios.clone());
+                        SpreadMessage sm = new SpreadMessage();
+                        if (grupo.secundarios.isEmpty()) {
+                            grupo.acks.remove(rr.id);
+                            r.cf.complete(resultado);
+                        } else {
+                            System.out.println("AINDA TEMOS DE SABER COMO É QUE VAMOS FAZER QUANDO FOR MEIO UM UPDATE");
+                            UpdateMessage um = new UpdateMessage(rr.key, respostaRemove.jsonValue, rr.id, resultado, rr);
+                            sm.setData(s.encode(um));
+                            sm.addGroup(grupo.grupo);
+                            sm.setReliable();
+                            try {
+                                connection.multicast(sm);
+                            } catch (SpreadException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    } else {
+                        System.out.println("Pedido de remove já se encontra tratado!");
+
+                        r.cf.thenAccept(a -> {
+                            RemoveReply rrp = new RemoveReply(rr.id, a);
+                            ms.sendAsync(Address.from(ef.origem), "removeReply", s.encode(rrp));
+                        });
+                    }
+                }
             }
             else if(ef.o instanceof GetRequest){
                 trataGet(ef,g);
@@ -827,6 +881,10 @@ public class Slave {
                 }
                 else{
                     System.out.println("Pedido de put já se encontra tratado!");
+                    p.cf.thenAccept(a -> {
+                        PutReply pl = new PutReply(pr.id, a);
+                        ms.sendAsync(o, "putReply", s.encode(pl));
+                    });
                 }
 
             }
@@ -909,7 +967,12 @@ public class Slave {
                     }
                 }
                 else{
-                    System.out.println("Pedido de put já se encontra tratado!");
+                    System.out.println("Pedido de remove já se encontra tratado!");
+
+                    r.cf.thenAccept(a -> {
+                        RemoveReply rrp = new RemoveReply(rr.id, a);
+                        ms.sendAsync(o, "removeReply", s.encode(rrp));
+                    });
                 }
 
 
