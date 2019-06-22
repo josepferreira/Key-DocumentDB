@@ -14,6 +14,10 @@
     - pode acontecer a meio de uma recuperacao de estado
     - se tiver slaves a recuperar estado poe a mensagem de distribuicao em fila 
 
-- Verificar recuperacao de estado do master (n sei se do slave)
+- ~~Verificar recuperacao de estado do master (n sei se do slave)~~
+
+- Verificar se as mensagens q o slave recebe (tanto normais como de membership) nao interferem com a recuperacao de estado
+
+- **ORGANIZAR CODIGO E ELIMINAR SOUTS**
 
 - Chaves com strings **se der**

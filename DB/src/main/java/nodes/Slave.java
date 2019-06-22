@@ -46,8 +46,8 @@ public class Slave {
     ScheduledExecutorService ses = Executors.newSingleThreadScheduledExecutor();
     Serializer s = SerializerProtocol.newSerializer();
 
-    // Recuperar estado
     public TreeSet<KeysUniverse> minhasChaves = new TreeSet<>();
+    // Recuperar estado
     TreeMap<KeysUniverse, Grupo> grupos = new TreeMap<>();
 
 
