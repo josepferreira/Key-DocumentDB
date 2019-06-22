@@ -920,9 +920,9 @@ public class Stub {
         Stub s = new Stub();
 
         //s.get(10001);
-        System.out.println("Vou fazr get");
+        System.out.println("Vou fazer get");
         try {
-            s.get(150);
+            System.out.println("RES: " + s.get(341));
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -941,14 +941,18 @@ public class Stub {
 //                e.printStackTrace();
 //            }
 //        }
-//        JSONObject jo = new JSONObject();
-//        for(int i = 340; i < 342; i++){
-//            jo.put("obj",i);
-//            jo.put("merda",i*i);
-//            boolean res =  s.put(i,jo);
-//            System.out.println("Put feito: " + i + "! RES: " + res);
-//        }
-//        System.out.println("Puts feitos");
+        JSONObject jo = new JSONObject();
+        for(int i = 340; i < 342; i++){
+            jo.put("obj",i);
+            boolean res = false;
+            try {
+                res = s.put(i,jo);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            System.out.println("Put feito: " + i + "! RES: " + res);
+        }
+        System.out.println("Puts feitos");
 //        System.out.println("Vou fazer remove");
         //System.out.println("remove feito: " + s.remove(121));
 //        try {
@@ -968,14 +972,14 @@ public class Stub {
 //
 //
 //
-//        System.out.println("SCAN");
-//        ScanIterator si = s.scan(proj);
-//
-//        while(si.hasNext()){
-//
-//            Map.Entry<Long, JSONObject> a = si.next();
-//            System.out.println(a);
-//        }
+        System.out.println("SCAN");
+        ScanIterator si = s.scan();
+
+        while(si.hasNext()){
+
+            Map.Entry<Object, JSONObject> a = si.next();
+            System.out.println(a);
+        }
 
 
         System.out.println("Terminou o scan");

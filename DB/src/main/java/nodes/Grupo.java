@@ -379,12 +379,12 @@ public class Grupo {
         byte[] ultimaChave;
         if(ultimaChaveA == null) {
             ultimaChave = ku.min;
-            iterador.seek(Config.encode(ultimaChave));
+            iterador.seek(ultimaChave);
             chave = ultimaChave;
         }
         else{
             ultimaChave = Config.encode(ultimaChaveA);
-            iterador.seek(Config.encode(ultimaChave));
+            iterador.seek(ultimaChave);
             if(!iterador.isValid()){
                 return null;
             }
@@ -392,7 +392,7 @@ public class Grupo {
         }
 
 
-
+        System.out.println("Vou começar scan");
         while (iterador.isValid()) {
             byte[] k = iterador.key();
             System.out.println("Key: " + k);
@@ -425,6 +425,7 @@ public class Grupo {
                 }
             }
             iterador.next();
+            System.out.println("Next iter");
         }
         System.out.println("---------------FIM-----------------------");
         return new ResultadoScan(chave,docs);
@@ -547,21 +548,27 @@ public class Grupo {
         long quantos = 0;
         long max = 20;
         HashMap<Object,JSONObject> map = new HashMap<>();
-        EstadoSlave es = new EstadoSlave(pe.id,requests,acks,map,false,Config.decode(ku.min),null);
+        Object keyA = Config.decode(ku.min);
+        System.out.println("MIN PEDE ESTADO: " + keyA);
+        EstadoSlave es = new EstadoSlave(pe.id,requests,acks,map,false,keyA,null);
 
         RocksIterator iterador = rocksDB.newIterator();
         boolean enviei = false;
         Object ultimaChave;
         if(pe.estadoAMeio){
             ultimaChave = pe.lastKey;
-            iterador.seek(Config.encode(ultimaChave));
+            byte[] seek = Config.encode(ultimaChave);
+            if(seek != null) iterador.seek(seek);
+
             if(iterador.isValid()){
                 iterador.next();
             }
         }
         else {
             ultimaChave = ku.min;
-            iterador.seek(Config.encode(ultimaChave));
+            byte[] seek = Config.encode(ultimaChave);
+            if(seek != null) iterador.seek(seek);
+
         }
 
         byte[] k = null;
@@ -600,7 +607,7 @@ public class Grupo {
             es.last = !iterador.isValid();
             SpreadMessage sm = new SpreadMessage();
             es.valores = map;
-            es.lastKey = Config.decode(k);
+            es.lastKey = (k == null ? k : Config.decode(k));
 
             System.out.println(ku);
             System.out.println("Enviar valores: " + es.valores);
@@ -620,21 +627,27 @@ public class Grupo {
         long quantos = 0;
         long max = 20;
         HashMap<Object,JSONObject> map = new HashMap<>();
-        EstadoSlave es = new EstadoSlave(pe.id,requests,acks,map,false,Config.decode(ku.min),null);
+        Object keyA = Config.decode(ku.min);
+        System.out.println("MIN PEDE ESTADO: " + keyA);
+        EstadoSlave es = new EstadoSlave(pe.id,requests,acks,map,false,keyA,null);
 
         RocksIterator iterador = rocksDB.newIterator();
         boolean enviei = false;
         Object ultimaChave;
         if(pe.estadoAMeio){
             ultimaChave = pe.lastKey;
-            iterador.seek(Config.encode(ultimaChave));
+            byte[] seek = Config.encode(ultimaChave);
+            if(seek != null) iterador.seek(seek);
+
             if(iterador.isValid()){
                 iterador.next();
             }
         }
         else {
             ultimaChave = ku.min;
-            iterador.seek(Config.encode(ultimaChave));
+            byte[] seek = Config.encode(ultimaChave);
+            if(seek != null) iterador.seek(seek);
+
         }
 
         byte[] k = null;
@@ -673,7 +686,7 @@ public class Grupo {
             es.last = !iterador.isValid();
             SpreadMessage sm = new SpreadMessage();
             es.valores = map;
-            es.lastKey = Config.decode(k);
+            es.lastKey = (k == null ? k : Config.decode(k));
 
             System.out.println(ku);
             System.out.println("Enviar valores: " + es.valores);

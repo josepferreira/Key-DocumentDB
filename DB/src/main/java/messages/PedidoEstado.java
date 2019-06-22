@@ -11,6 +11,7 @@ public class PedidoEstado {
     public PedidoEstado(String id, KeysUniverse ku) {
         this.id = id;
         this.ku = ku;
+        lastKey = null;
     }
 
     public PedidoEstado(String id) {

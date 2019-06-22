@@ -25,35 +25,21 @@ public class Config {
 
     public static int fatorReplicacao = 1;
 
+
     public static int compareArray(byte[] a, byte[] b){
-        int i = 0;
-        System.out.println("Compare array");
-        System.out.println(Config.decode(a));
-        System.out.println(Config.decode(b));
-        for(; i < a.length && i < b.length; i++){
 
-            int aux = Byte.compare(a[i],b[i]);
-            if(aux != 0){
-                System.out.println("AUX: "+ aux);
-                System.out.println(a[i]);
-                System.out.println(b[i]);
-                System.out.println("FIM COMPAREA ARRAY");
-                return aux;
-            }
+        Object oA = decode(a);
+        Object oB = decode(b);
+
+        if(oA instanceof Long && oB instanceof Long){
+            Long lA = (Long)oA;
+            Long lB = (Long)oB;
+            return Longs.compare(lA,lB);
         }
 
-        if(a.length == b.length){
-            System.out.println("FIM COMPAREA ARRAY");
-            return 0;
-        }
-
-        if(i == a.length){
-            System.out.println("FIM COMPAREA ARRAY");
-            return -1;
-        }
-        System.out.println("FIM COMPAREA ARRAY");
-
-        return 1;
+        String lA = (String)oA;
+        String lB = (String)oB;
+        return lA.compareTo(lB);
 
     }
 
@@ -61,8 +47,16 @@ public class Config {
         if(key instanceof String){
             return ((String)key).getBytes();
         }
-        else if(key instanceof Long){
-            return Longs.toByteArray((Long)key);
+        else {
+            if(key instanceof Integer){
+                int aux = (Integer) key;
+                key = new Long(aux);
+            }
+
+            if(key instanceof Long ){
+                Long a = (Long)key;
+                return Longs.toByteArray(a);
+            }
         }
         return null;
     }
@@ -84,6 +78,7 @@ public class Config {
     public static void main(String[] args){
         long aux = 400;
         long aux2 = 300;
+
 
         int res = compareArray(Longs.toByteArray(aux),Longs.toByteArray(aux2));
 

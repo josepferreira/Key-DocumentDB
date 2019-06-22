@@ -28,7 +28,9 @@ public class EstadoSlave {
         this.valores = valores;
         this.last = last;
         this.key = key;
-        this.key = lastKey;
+        this.lastKey = lastKey;
+
+
     }
 
     public EstadoSlave(HashMap<Object, JSONObject> valores, boolean last, Object key, Object lastKey){

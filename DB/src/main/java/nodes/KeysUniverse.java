@@ -70,30 +70,20 @@ public class KeysUniverse implements Comparable{
 
     @Override
     public int compareTo(Object o) {
-        System.out.println("CompareTO");
         KeysUniverse ku = (KeysUniverse) o;
-        System.out.println("THIS: " + this.toString());
-        System.out.println("OTHER: " + ku.toString());
 
 //        if(this.min == this.max && this.min == ku.min)
-        System.out.println("C1: " + Config.compareArray(this.min,this.max));
-        System.out.println("C2: " + Config.compareArray(this.min,ku.min));
         if(Config.compareArray(this.min,this.max) == 0 && Config.compareArray(this.min,ku.min) == 0)
             return 0;
 
 //        if(ku.min >= this.max && ku.max >= this.max)
-        System.out.println("C3: " + Config.compareArray(ku.min,this.max));
-        System.out.println("C4: " + Config.compareArray(ku.max,this.max));
         if(Config.compareArray(ku.min,this.max) >= 0 && Config.compareArray(ku.max,this.max) >= 0)
             return -1;
 
 //        if(ku.max <= this.min && ku.min <= this.min)
-        System.out.println("C5: " + Config.compareArray(ku.max,this.min));
-        System.out.println("C6: " + Config.compareArray(ku.min,this.min));
         if(Config.compareArray(ku.max,this.min) <= 0 && Config.compareArray(ku.min,this.min) <= 0)
             return 1;
 
-        System.out.println("KU : IGAUIS");
         return 0;
 
         //return Long.compare(this.max,ku.max);
