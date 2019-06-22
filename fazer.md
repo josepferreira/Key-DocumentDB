@@ -2,9 +2,11 @@
 
 - Responder a dizer q n é a chave dele! VER MELHOR
 
+- ~~Responder quando recebe pedido e já o tem~~
+
 - Testes: JOSE
 
-- RoundRobin nos gets e scan
+- ~~RoundRobin nos gets e scan~~
 
 - Ver aquilo do ses quando existe mudanca de grupos (a parte dos pedidos e podem ir a 0)
 
