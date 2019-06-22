@@ -7,19 +7,19 @@ import java.util.HashMap;
 import java.util.function.Predicate;
 
 public class RemoveRequest {
-    public long key; //para já só uma key, depois pode ter várias
+    public Object key; //para já só uma key, depois pode ter várias
     public String id;
     public ArrayList<Predicate<JSONObject>> filtros = null;
     public ArrayList<String> projecoes = null;
     public String endereco;
 
 
-    public RemoveRequest(String id, long key, String endereco) {
+    public RemoveRequest(String id, Object key, String endereco) {
         this.id = id; this.key = key;
         this.endereco = endereco;
     }
 
-    public RemoveRequest(String id, long key, String endereco, ArrayList<Predicate<JSONObject>> filtros, ArrayList<String> projecoes) {
+    public RemoveRequest(String id, Object key, String endereco, ArrayList<Predicate<JSONObject>> filtros, ArrayList<String> projecoes) {
         this.key = key;
         this.id = id;
         this.endereco = endereco;

@@ -13,10 +13,10 @@ public class ScanRequest {
     public HashMap<Boolean,ArrayList<String>> projecoes;
     public KeysUniverse ku;
     public int nrMaximo;
-    public long ultimaChave;
+    public Object ultimaChave;
     public String endereco;
 
-    public ScanRequest(String id, String endereco, ArrayList<Predicate<JSONObject>> filtros, HashMap<Boolean, ArrayList<String>> projecoes, KeysUniverse ku, int nrMaximo, long ultimaChave) {
+    public ScanRequest(String id, String endereco, ArrayList<Predicate<JSONObject>> filtros, HashMap<Boolean, ArrayList<String>> projecoes, KeysUniverse ku, int nrMaximo, Object ultimaChave) {
         this.id = id;
         this.filtros = filtros;
         this.projecoes = projecoes;

@@ -6,7 +6,7 @@ public class PedidoEstado {
     public String id;
     public KeysUniverse ku;
     public boolean estadoAMeio = false;
-    public long lastKey;
+    public Object lastKey;
 
     public PedidoEstado(String id, KeysUniverse ku) {
         this.id = id;
@@ -17,7 +17,7 @@ public class PedidoEstado {
         this.id = id;
     }
 
-    public PedidoEstado(String id, KeysUniverse ku, long lastKey) {
+    public PedidoEstado(String id, KeysUniverse ku, Object lastKey) {
         this.id = id;
         this.ku = ku;
         this.lastKey = lastKey;

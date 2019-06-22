@@ -13,6 +13,14 @@ class Secundario implements Comparable{
         this.ativo = ativo;
     }
 
+    @Override
+    public String toString() {
+        return "Secundario{" +
+                "id='" + id + '\'' +
+                ", endereco='" + endereco + '\'' +
+                ", ativo=" + ativo +
+                '}';
+    }
 
     @Override
     public int compareTo(Object o) {

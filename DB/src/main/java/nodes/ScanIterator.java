@@ -8,7 +8,7 @@ import java.util.Map;
 public class ScanIterator implements Iterator{
     public Scan scan;
 
-    private Iterator<Map.Entry<Long, JSONObject>> docs = null;
+    private Iterator<Map.Entry<Object, JSONObject>> docs = null;
 
     public ScanIterator(Scan scan) {
         this.scan = scan;
@@ -33,7 +33,7 @@ public class ScanIterator implements Iterator{
     }
 
     @Override
-    public Map.Entry<Long,JSONObject> next() {
+    public Map.Entry<Object,JSONObject> next() {
         return docs.next();
     }
 }

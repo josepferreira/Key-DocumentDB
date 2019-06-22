@@ -15,11 +15,12 @@ public class EstadoSlave {
     //public LinkedHashMap<String, Remove> removeRequests;
     public HashMap<String, HashSet<String>> acks;
 
-    public HashMap<Long, JSONObject> valores;
+    public HashMap<Object, JSONObject> valores;
     public boolean last;
-    public long key;
+    public Object key;
+    public Object lastKey;
 
-    public EstadoSlave(String id, LinkedHashMap<String, Object> requests, HashMap<String, HashSet<String>> acks, HashMap<Long, JSONObject> valores, boolean last, long key) {
+    public EstadoSlave(String id, LinkedHashMap<String, Object> requests, HashMap<String, HashSet<String>> acks, HashMap<Object, JSONObject> valores, boolean last, Object key, Object lastKey) {
         this.id = id;
         this.requests = requests;
         //this.removeRequests = removeRequests;
@@ -27,11 +28,13 @@ public class EstadoSlave {
         this.valores = valores;
         this.last = last;
         this.key = key;
+        this.key = lastKey;
     }
 
-    public EstadoSlave(HashMap<Long, JSONObject> valores, boolean last, long key){
+    public EstadoSlave(HashMap<Object, JSONObject> valores, boolean last, Object key, Object lastKey){
         this.valores = valores;
         this.last = last;
         this.key = key;
+        this.lastKey = lastKey;
     }
 }

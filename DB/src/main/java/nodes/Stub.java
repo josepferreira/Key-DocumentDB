@@ -195,7 +195,7 @@ public class Stub {
     }
 
 
-    private void reenviaMensagem(long key, GetRequest o){
+    private void reenviaMensagem(Object key, GetRequest o){
 
         System.out.println("Chegei a um timeout ... !");
         System.out.println("Para ja vou pedir ao master depois podemos voltar a fazer um novo pedido ao slave!");
@@ -207,7 +207,7 @@ public class Stub {
         ses.schedule(timeoutJson(o.id, key, o), 10, TimeUnit.SECONDS);
     }
 
-    private void reenviaMensagem(long key, PutRequest o){
+    private void reenviaMensagem(Object key, PutRequest o){
 
         System.out.println("Chegei a um timeout ... !");
         System.out.println("Para ja vou pedir ao master depois podemos voltar a fazer um novo pedido ao slave!");
@@ -219,7 +219,7 @@ public class Stub {
         ses.schedule(timeoutJson(o.id, key, o), 10, TimeUnit.SECONDS);
     }
 
-    private void reenviaMensagem(long key, RemoveRequest o){
+    private void reenviaMensagem(Object key, RemoveRequest o){
 
         System.out.println("Chegei a um timeout ... !");
         System.out.println("Para ja vou pedir ao master depois podemos voltar a fazer um novo pedido ao slave!");
@@ -231,7 +231,7 @@ public class Stub {
         ses.schedule(timeoutJson(o.id, key, o), 10, TimeUnit.SECONDS);
     }
 
-    private Runnable timeoutJson(String id, long key, Object o){
+    private Runnable timeoutJson(String id, Object key, Object o){
         Runnable ret = new Runnable() {
             @Override
             public void run() {
@@ -422,7 +422,7 @@ public class Stub {
     // ****************** GET *******************************
 
 
-    private void enviaMensagem(long key, GetRequest gr){
+    private void enviaMensagem(Object key, GetRequest gr){
         KeysUniverse ku = new KeysUniverse(key, key);
 
         RoundRobin end = this.cache.get(ku);
@@ -446,7 +446,7 @@ public class Stub {
 
 
 
-    public JSONObject get(long key) throws Exception{
+    public JSONObject get(Object key) throws Exception{
         CompletableFuture<JSONObject> jsonCF = new CompletableFuture<>();
         String requestID = UUID.randomUUID().toString();
 
@@ -474,7 +474,7 @@ public class Stub {
     }
 
 
-    public JSONObject get(long key, ArrayList<Predicate<JSONObject>> filtros) throws Exception {
+    public JSONObject get(Object key, ArrayList<Predicate<JSONObject>> filtros) throws Exception {
         CompletableFuture<JSONObject> cf = new CompletableFuture<>();
         String requestID = UUID.randomUUID().toString();
 
@@ -503,7 +503,7 @@ public class Stub {
 
     }
 
-    public JSONObject get(long key, HashMap<Boolean, ArrayList<String>> projecoes) throws Exception {
+    public JSONObject get(Object key, HashMap<Boolean, ArrayList<String>> projecoes) throws Exception {
         CompletableFuture<JSONObject> cf = new CompletableFuture<>();
         String requestID = UUID.randomUUID().toString();
 
@@ -530,7 +530,7 @@ public class Stub {
         return ret;
     }
 
-    public JSONObject get(long key, ArrayList<Predicate<JSONObject>> filtros, HashMap<Boolean, ArrayList<String>> projecoes) throws Exception {
+    public JSONObject get(Object key, ArrayList<Predicate<JSONObject>> filtros, HashMap<Boolean, ArrayList<String>> projecoes) throws Exception {
         CompletableFuture<JSONObject> cf = new CompletableFuture<>();
         String requestID = UUID.randomUUID().toString();
 
@@ -568,7 +568,7 @@ public class Stub {
     // ************************ REMOVE *****************************
 
 
-    private void enviaMensagem(long key, RemoveRequest rr){
+    private void enviaMensagem(Object key, RemoveRequest rr){
         KeysUniverse ku = new KeysUniverse(key, key);
 
         RoundRobin end = this.cache.get(ku);
@@ -591,7 +591,7 @@ public class Stub {
     }
 
 
-    public Boolean remove(long key) throws Exception {
+    public Boolean remove(Object key) throws Exception {
         CompletableFuture<Boolean> jsonCF = new CompletableFuture<>();
         String requestID = UUID.randomUUID().toString();
 
@@ -618,7 +618,7 @@ public class Stub {
         return ret;
     }
 
-    public Boolean remove(long key, List<Predicate<JSONObject>> filtros) throws Exception {
+    public Boolean remove(Object key, List<Predicate<JSONObject>> filtros) throws Exception {
         CompletableFuture<Boolean> cf = new CompletableFuture<>();
         String requestID = UUID.randomUUID().toString();
 
@@ -646,7 +646,7 @@ public class Stub {
 
     }
 
-    public Boolean remove(long key, ArrayList<String> projecoes) throws Exception {
+    public Boolean remove(Object key, ArrayList<String> projecoes) throws Exception {
         CompletableFuture<Boolean> cf = new CompletableFuture<>();
         String requestID = UUID.randomUUID().toString();
 
@@ -674,7 +674,7 @@ public class Stub {
 
     }
 
-    public Boolean remove(long key, ArrayList<Predicate<JSONObject>> filtros, ArrayList<String> projecoes) throws Exception {
+    public Boolean remove(Object key, ArrayList<Predicate<JSONObject>> filtros, ArrayList<String> projecoes) throws Exception {
         CompletableFuture<Boolean> cf = new CompletableFuture<>();
         String requestID = UUID.randomUUID().toString();
 
@@ -705,7 +705,7 @@ public class Stub {
 
     // ************ PUT ****************
 
-    private void enviaMensagem(long key, PutRequest pr){
+    private void enviaMensagem(Object key, PutRequest pr){
         KeysUniverse ku = new KeysUniverse(key, key);
         System.out.println("TOu no envia mensagem!!!!!");
         RoundRobin end = this.cache.get(ku);
@@ -729,7 +729,7 @@ public class Stub {
         }
     }
 
-    public Boolean put(long key, JSONObject value) throws Exception {
+    public Boolean put(Object key, JSONObject value) throws Exception {
         CompletableFuture<Boolean> cf = new CompletableFuture<>();
         String requestID = UUID.randomUUID().toString();
 

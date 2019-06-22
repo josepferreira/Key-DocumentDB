@@ -3,14 +3,14 @@ package messages;
 import org.json.JSONObject;
 
 public class UpdateMessage {
-    public Long key;
+    public Object key;
     public JSONObject value;
     public String id;
     public boolean resposta;
     public PutRequest pr;
     public RemoveRequest rr;
 
-    public UpdateMessage(Long key, JSONObject value, String id, boolean resposta, PutRequest pr) {
+    public UpdateMessage(Object key, JSONObject value, String id, boolean resposta, PutRequest pr) {
         this.key = key;
         this.value = value;
         this.id = id;
@@ -19,7 +19,7 @@ public class UpdateMessage {
         this.rr = null;
     }
 
-    public UpdateMessage(Long key, JSONObject value, String id, boolean resposta, RemoveRequest rr) {
+    public UpdateMessage(Object key, JSONObject value, String id, boolean resposta, RemoveRequest rr) {
         this.key = key;
         this.value = value;
         this.id = id;

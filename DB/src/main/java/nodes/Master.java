@@ -331,7 +331,7 @@ public class  Master {
         else if(o instanceof RestartRequest){
             RestartRequest rr = (RestartRequest)o;
             TreeSet<KeysUniverse> aux = this.keysSlaves.get(rr.id);
-            System.out.println("VER CHAVES!!!!");
+            System.out.println("VER CHAVES!!!!: " + aux);
             System.out.println(this.keysSlaves);
             System.out.println(rr.id);
             TreeMap<KeysUniverse,String> grupos = new TreeMap<>();
@@ -359,6 +359,9 @@ public class  Master {
                     }
                     else{
                         System.out.println("Slave ID: " + si);
+                        System.out.println(rr.id);
+                        System.out.println("KU: " + ku);
+                        System.out.println(si.secundarios.get(rr.id));
                         grupos.put(ku,si.secundarios.get(rr.id).id+"");
                         podeEntrar.put(ku,true);
                     }
@@ -824,7 +827,7 @@ public class  Master {
         esperaEntra.put(slave,espera);
 
         //inicializar slave
-        criaDocker(slave);
+//        criaDocker(slave);
 
     }
 
@@ -995,7 +998,7 @@ public class  Master {
     }
 
     private void iniciaSlaves(int n, int nConjuntos){
-        System.out.println("Iniciar slaves");
+        System.out.println("Iniciar slaves: " + fatorReplicacao);
 
         for(int i = 0; i < n; i++){
             System.out.println("Inicia um slave com o identificador: " + idSlave+this.nSlaves);
@@ -1037,8 +1040,14 @@ public class  Master {
 
             if (i == (nConjuntos-1)) finall = Long.MAX_VALUE;
             KeysUniverse ku = new KeysUniverse(inicial, finall);
-            slaves.put(ku, new SlaveIdentifier(end, ku, secundarios));
+            System.out.println("NOVO KU: " + ku);
+//            System.out.println("SEC: " + secundarios);
+//            System.out.println("PRIM: " + end);
+            SlaveIdentifier si = new SlaveIdentifier(end, ku, secundarios);
+//            System.out.println("SI: " + si);
+            slaves.put(ku,si);
 
+            System.out.println("SLAVES: " + slaves.size());
             adicionaChave(end,ku);
             for(String secA: secundarios.keySet()){
                 adicionaChave(secA,ku);
@@ -1058,6 +1067,9 @@ public class  Master {
                 }
             }
         }
+        System.out.println();
+        System.out.println("TERMINADO: " + slaves.size());
+        System.out.println();
 
         for(Map.Entry<KeysUniverse,SlaveIdentifier> me : this.slaves.entrySet()){
             System.out.println(me);

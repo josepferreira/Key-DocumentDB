@@ -28,10 +28,10 @@ import java.util.function.Predicate;
 
 
 class ResultadoScan{
-    public long ultimaChave;
-    public LinkedHashMap<Long,JSONObject> docs;
+    public Object ultimaChave;
+    public LinkedHashMap<Object,JSONObject> docs;
 
-    public ResultadoScan(long ultimaChave, LinkedHashMap<Long, JSONObject> docs) {
+    public ResultadoScan(Object ultimaChave, LinkedHashMap<Object, JSONObject> docs) {
         this.ultimaChave = ultimaChave;
         this.docs = docs;
     }
@@ -191,7 +191,7 @@ public class Slave {
                 System.out.println("Recebi mensagem com o estado!");
 
                 EstadoSlave es = (EstadoSlave) o;
-                long auxKey = es.key;
+                Object auxKey = es.key;
                 System.out.println("Ver questao do iterator no recupera estado!");
                 KeysUniverse ku = new KeysUniverse(auxKey, auxKey);
                 Grupo g = grupos.get(ku);
@@ -1128,7 +1128,7 @@ public class Slave {
     }
 */
     //scan com filtros, sem projecções
-    private LinkedHashMap<Long,JSONObject> getScan(Predicate<JSONObject> filtros) {
+    /*private LinkedHashMap<Long,JSONObject> getScan(Predicate<JSONObject> filtros) {
 
         LinkedHashMap<Long,JSONObject> docs = new LinkedHashMap<>();
         System.out.println("\t\t\t\t\tPRECISAAAAAAAAAAAAAAAAAAAAAAAAAMOS VER MUDAR ISTO!!! A BASE DE DADOS ESTA A NULL DE PREPOSITO!!!");
@@ -1146,7 +1146,7 @@ public class Slave {
             iterador.next();
         }
         return docs;
-    }
+    }*/
 
     //scan com filtros, com projecções
     /*private LinkedHashMap<Long,JSONObject> getScan(Predicate<JSONObject> filtros, HashMap<Boolean,ArrayList<String>> p) {

@@ -20,9 +20,9 @@ import java.util.function.Predicate;
 class RespostaRemove{
     public boolean resposta;
     public JSONObject jsonValue;
-    public long key;
+    public Object key;
 
-    public RespostaRemove(boolean resposta, JSONObject jsonValue, long key) {
+    public RespostaRemove(boolean resposta, JSONObject jsonValue, Object key) {
         this.resposta = resposta;
         this.jsonValue = jsonValue;
         this.key = key;
@@ -60,7 +60,7 @@ public class Grupo {
     public boolean estadoRecuperado = false;
     public ArrayList<ElementoFila> fila = new ArrayList<>();
     public String origemEstado;
-    public long lastKey;
+    public Object lastKey;
     public boolean estadoAMeio = false;
 
     //Para tratar da monitorização
@@ -199,7 +199,7 @@ public class Grupo {
     public boolean put(PutRequest pr){
 
         ////se ainda n inseriu insere
-        byte[] key = Longs.toByteArray(pr.key);
+        byte[] key = Config.encode(pr.key);
         try {
             rocksDB.put(key, pr.value.toString().getBytes());
             return true;
@@ -216,7 +216,7 @@ public class Grupo {
     // **** Handler para responder a um getefetuado pelo stub
     public JSONObject get(GetRequest gr){
 
-        byte[] keys = Longs.toByteArray(gr.key);
+        byte[] keys = Config.encode(gr.key);
         byte[] value = null;
 
         try {
@@ -286,7 +286,7 @@ public class Grupo {
 
     public RespostaRemove remove(RemoveRequest rr){
 
-        byte[] keys = Longs.toByteArray(rr.key);
+        byte[] keys = Config.encode(rr.key);
 
         try {
             byte[] value = rocksDB.get(keys);
@@ -369,20 +369,22 @@ public class Grupo {
     }
 
     //scan para todos os objectos, sem projecções
-    private ResultadoScan getScan(int nrMaximo, long ultimaChave, KeysUniverse ku, Predicate<JSONObject> filtros, HashMap<Boolean, ArrayList<String>> p) {
+    private ResultadoScan getScan(int nrMaximo, Object ultimaChaveA, KeysUniverse ku, Predicate<JSONObject> filtros, HashMap<Boolean, ArrayList<String>> p) {
         System.out.println("----------------------------Novo pedido scan: " + ku + " ---------------------------");
-        LinkedHashMap<Long,JSONObject> docs = new LinkedHashMap<>();
+        LinkedHashMap<Object,JSONObject> docs = new LinkedHashMap<>();
         RocksIterator iterador = rocksDB.newIterator();
         int quantos = 0;
-        long chave = -1;
-        long anterior = -1;
-        if(ultimaChave == -1) {
+        byte[] chave = null;
+        byte[] anterior = null;
+        byte[] ultimaChave;
+        if(ultimaChaveA == null) {
             ultimaChave = ku.min;
-            iterador.seek(Longs.toByteArray(ultimaChave));
+            iterador.seek(Config.encode(ultimaChave));
             chave = ultimaChave;
         }
         else{
-            iterador.seek(Longs.toByteArray(ultimaChave));
+            ultimaChave = Config.encode(ultimaChaveA);
+            iterador.seek(Config.encode(ultimaChave));
             if(!iterador.isValid()){
                 return null;
             }
@@ -392,9 +394,10 @@ public class Grupo {
 
 
         while (iterador.isValid()) {
-            long k = Longs.fromByteArray(iterador.key());
+            byte[] k = iterador.key();
             System.out.println("Key: " + k);
-            if(k <= anterior){
+//            if(k <= anterior){
+            if(anterior != null && Config.compareArray(k,anterior) <= 0){
                 //n está neste universe
                 System.out.println("Deu a volta");
                 break;
@@ -414,7 +417,7 @@ public class Grupo {
             }
 
             if(poe){
-                docs.put(k,json);
+                docs.put(Config.decode(k),json);
                 quantos++;
                 if(quantos >= nrMaximo){
                     System.out.println("Atingi o máximo");
@@ -453,7 +456,7 @@ public class Grupo {
     public boolean updateState(UpdateMessage um){
 
         ////se ainda n inseriu insere
-        byte[] key = Longs.toByteArray(um.key);
+        byte[] key = Config.encode(um.key);
         try {
             if(um.value != null) {
                 rocksDB.put(key, um.value.toString().getBytes());
@@ -471,10 +474,10 @@ public class Grupo {
     }
 
 
-    private boolean put(Long k, JSONObject value){
+    private boolean put(Object k, JSONObject value){
 
         ////se ainda n inseriu insere
-        byte[] key = Longs.toByteArray(k);
+        byte[] key = Config.encode(k);
         try {
             rocksDB.put(key, value.toString().getBytes());
             return true;
@@ -508,14 +511,15 @@ public class Grupo {
             requests.putAll(es.requests);
 
             for(Object o : es.requests.values()) {
-                long key;
+                Object key;
                 if (o instanceof Remove) {
                     key = ((Remove) o).request.key;
                 } else {
                     key = ((Put) o).request.key;
                 }
 
-                if(key <= lastKey){
+//                if(key <= lastKey){
+                if(Config.compareArray(Config.encode(key), Config.encode(lastKey)) <= 0){
                     if(o instanceof Remove){
                         remove(((Remove)o).request);
                     }
@@ -526,12 +530,12 @@ public class Grupo {
             }
         }
 
-        for (Map.Entry<Long, JSONObject> entry : es.valores.entrySet()) {
+        for (Map.Entry<Object, JSONObject> entry : es.valores.entrySet()) {
             put(entry.getKey(), entry.getValue());
         }
 
         if(es.valores.size() != 0)
-            lastKey = Collections.max(es.valores.keySet());
+            lastKey = es.lastKey;
 
         estadoRecuperado = es.last;
 
@@ -542,29 +546,31 @@ public class Grupo {
 
         long quantos = 0;
         long max = 20;
-        HashMap<Long,JSONObject> map = new HashMap<>();
-        EstadoSlave es = new EstadoSlave(pe.id,requests,acks,map,false,ku.min);
+        HashMap<Object,JSONObject> map = new HashMap<>();
+        EstadoSlave es = new EstadoSlave(pe.id,requests,acks,map,false,Config.decode(ku.min),null);
 
         RocksIterator iterador = rocksDB.newIterator();
         boolean enviei = false;
-        long ultimaChave;
+        Object ultimaChave;
         if(pe.estadoAMeio){
             ultimaChave = pe.lastKey;
-            iterador.seek(Longs.toByteArray(ultimaChave));
+            iterador.seek(Config.encode(ultimaChave));
             if(iterador.isValid()){
                 iterador.next();
             }
         }
         else {
             ultimaChave = ku.min;
-            iterador.seek(Longs.toByteArray(ultimaChave));
+            iterador.seek(Config.encode(ultimaChave));
         }
+
+        byte[] k = null;
         while(iterador.isValid()){
             enviei = false;
-            long k = Longs.fromByteArray(iterador.key());
+            k = iterador.key();
             String v = new String(iterador.value());
             JSONObject json = new JSONObject(v);
-            map.put(k,json);
+            map.put(Config.decode(k),json);
             System.out.println("VAMOS VER OS VALORES INTERMEDIOS: " + map);
             iterador.next();
             quantos++;
@@ -573,6 +579,7 @@ public class Grupo {
                 es.last = !iterador.isValid();
                 es.valores = map;
                 quantos = 0;
+                es.lastKey = Config.decode(k);
 
                 SpreadMessage sm = new SpreadMessage();
                 sm.setData(s.encode(es));
@@ -593,6 +600,8 @@ public class Grupo {
             es.last = !iterador.isValid();
             SpreadMessage sm = new SpreadMessage();
             es.valores = map;
+            es.lastKey = Config.decode(k);
+
             System.out.println(ku);
             System.out.println("Enviar valores: " + es.valores);
             sm.setData(s.encode(es));
@@ -610,29 +619,31 @@ public class Grupo {
 
         long quantos = 0;
         long max = 20;
-        HashMap<Long,JSONObject> map = new HashMap<>();
-        EstadoSlave es = new EstadoSlave(pe.id,requests,acks,map,false,ku.min);
+        HashMap<Object,JSONObject> map = new HashMap<>();
+        EstadoSlave es = new EstadoSlave(pe.id,requests,acks,map,false,Config.decode(ku.min),null);
 
         RocksIterator iterador = rocksDB.newIterator();
         boolean enviei = false;
-        long ultimaChave;
+        Object ultimaChave;
         if(pe.estadoAMeio){
             ultimaChave = pe.lastKey;
-            iterador.seek(Longs.toByteArray(ultimaChave));
+            iterador.seek(Config.encode(ultimaChave));
             if(iterador.isValid()){
                 iterador.next();
             }
         }
         else {
             ultimaChave = ku.min;
-            iterador.seek(Longs.toByteArray(ultimaChave));
+            iterador.seek(Config.encode(ultimaChave));
         }
+
+        byte[] k = null;
         while(iterador.isValid()){
             enviei = false;
-            long k = Longs.fromByteArray(iterador.key());
+            k = iterador.key();
             String v = new String(iterador.value());
             JSONObject json = new JSONObject(v);
-            map.put(k,json);
+            map.put(Config.decode(k),json);
             System.out.println("VAMOS VER OS VALORES INTERMEDIOS: " + map);
             iterador.next();
             quantos++;
@@ -641,6 +652,7 @@ public class Grupo {
                 es.last = !iterador.isValid();
                 es.valores = map;
                 quantos = 0;
+                es.lastKey = Config.decode(k);
 
                 SpreadMessage sm = new SpreadMessage();
                 sm.setData(s.encode(es));
@@ -661,6 +673,8 @@ public class Grupo {
             es.last = !iterador.isValid();
             SpreadMessage sm = new SpreadMessage();
             es.valores = map;
+            es.lastKey = Config.decode(k);
+
             System.out.println(ku);
             System.out.println("Enviar valores: " + es.valores);
             sm.setData(s.encode(es));

@@ -5,9 +5,9 @@ import java.io.File;
 public class ACKMessage {
     public String id;
     public boolean put;
-    public long key;
+    public Object key;
 
-    public ACKMessage(String id, boolean put, long key) {
+    public ACKMessage(String id, boolean put, Object key) {
         this.id = id;
         this.put = put;
         this.key = key;
