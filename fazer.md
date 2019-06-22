@@ -8,7 +8,7 @@
 
 - ~~RoundRobin nos gets e scan~~
 
-- Ver aquilo do ses quando existe mudanca de grupos (a parte dos pedidos e podem ir a 0)
+- ~~Ver aquilo do ses quando existe mudanca de grupos (a parte dos pedidos e podem ir a 0)~~
 
 - Distibuição
     - pode acontecer a meio de uma recuperacao de estado

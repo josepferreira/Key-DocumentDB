@@ -61,6 +61,7 @@ public class Slave {
     //Distribuicao
     private HashSet<KeysUniverse> faltamJuntar = new HashSet<>();
 
+    private boolean possoLancar = true;
 
     private Runnable percentagemUtilizacao = () -> {
         OperatingSystemMXBean operatingSystemMXBean = (OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
@@ -93,6 +94,13 @@ public class Slave {
             System.out.println("Enviou!");
         } catch (SpreadException e) {
             e.printStackTrace();
+        }
+
+        if(possoLancar){
+            ses.schedule(this.percentagemUtilizacao,Config.periodoTempo,Config.unidade);
+        }
+        else{
+            possoLancar = true;
         }
     };
 
@@ -447,6 +455,7 @@ public class Slave {
 
             }
             else if(o instanceof JoinGroup){
+                possoLancar = false;
                 System.out.println("Juntar aos grupos!");
                 JoinGroup jg =  (JoinGroup) o;
 
@@ -525,7 +534,7 @@ public class Slave {
             e.printStackTrace();
         }
 
-        ses.scheduleWithFixedDelay(this.percentagemUtilizacao,Config.periodoTempo,Config.periodoTempo,Config.unidade);
+        ses.schedule(this.percentagemUtilizacao,Config.periodoTempo,Config.unidade);
         /*ms.sendAsync(masterAddress,"start",s.encode(sr));*/
 
     }
