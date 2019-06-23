@@ -1018,7 +1018,7 @@ public class  Master {
         HashMap<String,Integer> secundarios;
         int divisao = nConjuntos / n;
 
-
+        ArrayList<byte[]> divisoesConj = Config.conjuntosChave();
         for(int i=0; i < nConjuntos; i++) {
             secundarios = new HashMap<>();
             System.out.println("Novo");
@@ -1035,10 +1035,10 @@ public class  Master {
                 }
             }
 
-            long inicial = i * chunk;
-            long finall = (i + 1) * chunk;
+            byte[] inicial = divisoesConj.get(i);
+            byte[] finall = divisoesConj.get(i+1);
 
-            if (i == (nConjuntos-1)) finall = Long.MAX_VALUE;
+            if (i == (nConjuntos-1)) finall = divisoesConj.get(divisoesConj.size()-1);
             KeysUniverse ku = new KeysUniverse(inicial, finall);
             System.out.println("NOVO KU: " + ku);
 //            System.out.println("SEC: " + secundarios);

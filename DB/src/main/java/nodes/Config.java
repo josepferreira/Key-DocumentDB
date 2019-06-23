@@ -2,12 +2,14 @@ package nodes;
 
 import com.google.common.primitives.Longs;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
 public class Config {
     public static int nSlaves = 3;
     public static int nConjuntos = 9;
+    public static int chunk = 50;
 
     public static long periodoTempo = 15; //periodo de tempo em segundos
     public static TimeUnit unidade = TimeUnit.SECONDS;
@@ -24,6 +26,57 @@ public class Config {
     public static String hostSpread = "localhost";
 
     public static int fatorReplicacao = 1;
+
+    public static boolean eLong = true;
+
+
+    public static String[] daChave(){
+        char[] alphabet = "abcdefghijklmnopqrstuvwxyz".toCharArray();
+        String[] res = new String[alphabet.length];
+        int i = 0;
+        for(char c: alphabet){
+            String a = String.valueOf(c);
+            res[i++] = a;
+        }
+        return res;
+    }
+
+    public static ArrayList<byte[]> conjuntosChave(){
+        System.out.println("Conjuntos de chave");
+        if(eLong){
+            ArrayList<byte[]> res = new ArrayList<>();
+            for(int i = 0; i  < nConjuntos; i++){
+                long atual = i * chunk;
+                res.add(Longs.toByteArray(atual));
+            }
+            res.add(Longs.toByteArray(Long.MAX_VALUE));
+            return res;
+        }
+        else{
+            String last = String.valueOf('{');
+            String[] aux = daChave();
+            if(nConjuntos > aux.length){
+                nConjuntos = aux.length;
+            }
+
+
+            int step = aux.length / nConjuntos;
+            if(aux.length % nConjuntos != 0){
+                step++;
+            }
+            int atual = 0;
+            ArrayList<byte[]> res = new ArrayList<>();
+            for(int i = 0; i < nConjuntos; i++){
+                atual =  i * step;
+                if(atual >= aux.length){
+                    atual = aux.length-1;
+                }
+                res.add(aux[atual].getBytes());
+            }
+            res.add(last.getBytes());
+            return res;
+        }
+    }
 
 
     public static int compareArray(byte[] a, byte[] b){
