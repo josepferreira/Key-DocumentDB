@@ -75,26 +75,21 @@ public class  Master {
     BasicMessageListener bml = new BasicMessageListener() {
         @Override
         public void messageReceived(SpreadMessage spreadMessage) {
-            System.out.println("Recebi mensagem!");
             byte[] msg = spreadMessage.getData();
             Object o = s.decode(msg);
-            System.out.println("GROUP:" + spreadMessage.getSender());
-            System.out.println(o.getClass());
 
             if(descarta){
                 if(o instanceof PedidoEstado){
-                    System.out.println("Recebi pedido master");
                     descarta = false;
+
                 }
             }
             else{
                 if(!estadoRecuperado){
                     if(o instanceof EstadoMaster){
-                        System.out.println("Recebi resposta pedido estado");
                         //recupera estado
                         EstadoMaster em = (EstadoMaster)o;
                         if(!pedidosEstado.contains(em.id)){
-                            System.out.println("Vou alterar estado");
                             pedidosEstado.add(em.id);
                             start = em.start;
                             nSlaves = em.nSlaves;
@@ -116,7 +111,6 @@ public class  Master {
                 }
                 else{
                     if(o instanceof PedidoEstado){
-                        System.out.println("Vou responder ao pedido de estado");
                         EstadoMaster em = new EstadoMaster(((PedidoEstado)o).id, nSlaves, slaves, start, keysSlaves, ultimoID, dockers, balanceamentoCarga, infoSlaves, esperaEntra, esperaSai);
                         SpreadMessage sm = new SpreadMessage();
                         sm.setData(s.encode(em));
@@ -143,7 +137,6 @@ public class  Master {
 
         @Override
         public void membershipMessageReceived(SpreadMessage spreadMessage) {
-            System.out.println("recebi uma membership message");
             if(spreadMessage.getMembershipInfo().isCausedByLeave() ||
                     spreadMessage.getMembershipInfo().isCausedByDisconnect()) {
 
@@ -153,7 +146,6 @@ public class  Master {
 
                     if (aux.startsWith(idSlave)) {
 
-                        System.out.println("Este slave saiu, inicia outro com este identificador: " + aux);
 
                         TreeSet<KeysUniverse> tk = keysSlaves.get(aux);
                         if (tk != null) {
@@ -207,10 +199,9 @@ public class  Master {
         connectionGlobal.add(aml);
 
         if(estadoRecuperado){
-            System.out.println("Não vou recuperar estado");
+//            System.out.println("Não vou recuperar estado");
         }
         else{
-            System.out.println("Vou recuperar estado");
 
             PedidoEstado pem = new PedidoEstado(UUID.randomUUID().toString());
             SpreadMessage sm = new SpreadMessage();
@@ -247,7 +238,6 @@ public class  Master {
             ScanRequest srq = (ScanRequest) o;
             ScanReply sr = new ScanReply(srq.id, slaves);
             ms.sendAsync(Address.from(srq.endereco), "scanMaster", s.encode(sr));
-            System.out.println("Enviado");
         }
         else if(o instanceof RemoveRequest){
             RemoveRequest rr = (RemoveRequest) o;
@@ -258,7 +248,6 @@ public class  Master {
             ms.sendAsync(Address.from(rr.endereco),"removeMaster", s.encode(rm));
         }
         else if(o instanceof StartRequest){
-            System.out.println("Recebi uma mensagem de start");
             start.add(idSlave+this.nSlaves);
             StartRequest sr = new StartRequest(idSlave+this.nSlaves++,null);
 
@@ -283,10 +272,8 @@ public class  Master {
 
                     if(i == 8) finall = Long.MAX_VALUE;
                     KeysUniverse ku = new KeysUniverse(inicial,finall);
-                    System.out.println("SI: " + secundarios);
                     slaves.put(ku,new SlaveIdentifier(end,ku,secundarios));
 
-                    System.out.println("Vou mandar uma mensagem para o: " + end);
                     int idAtual = 0;
                     StartMessage sm = new StartMessage(ku,idAtual);
                     //ms.sendAsync(end,"start",s.encode(sm));
@@ -307,33 +294,25 @@ public class  Master {
 
 
                     if((i+1) % 3 == 0){
-                        System.out.println(size);
-                        System.out.println(atual);
                         atual = (atual+1) % size;
-                        System.out.println(atual);
                         end = it.get(atual);
 
                         secundarios = new HashMap<>();
                         for(int k = 0; k < fatorReplicacao; k++){
                             int indice = (atual + k + 1) % size;
-                            System.out.println(indice);
                             secundarios.put((it.get(indice)),k+1);
                         }
-                        System.out.println(secundarios);
                     }
                 }
             }
-
+/*
             for(Map.Entry<KeysUniverse,SlaveIdentifier> me : this.slaves.entrySet()){
                 System.out.println(me);
-            }
+            }*/
         }
         else if(o instanceof RestartRequest){
             RestartRequest rr = (RestartRequest)o;
             TreeSet<KeysUniverse> aux = this.keysSlaves.get(rr.id);
-            System.out.println("VER CHAVES!!!!: " + aux);
-            System.out.println(this.keysSlaves);
-            System.out.println(rr.id);
             TreeMap<KeysUniverse,String> grupos = new TreeMap<>();
             HashMap<KeysUniverse,Boolean> podeEntrar = new HashMap<>();
 
@@ -346,28 +325,20 @@ public class  Master {
                         grupos.put(ku,0+"");
                         boolean pode = true;
                         if(balanceamentoCarga){
-                            System.out.println("EM balanceamento");
                             HashSet<KeysUniverse> univ = esperaEntra.get(rr.id);
-                            System.out.println(univ);
-                            System.out.println(ku);
                             if(univ != null && univ.contains(ku)){
                                 pode = false;
                             }
                         }
-                        System.out.println("Primario: " + pode);
                         podeEntrar.put(ku,pode);
                     }
                     else{
-                        System.out.println("Slave ID: " + si);
-                        System.out.println(rr.id);
-                        System.out.println("KU: " + ku);
-                        System.out.println(si.secundarios.get(rr.id));
                         grupos.put(ku,si.secundarios.get(rr.id).id+"");
                         podeEntrar.put(ku,true);
                     }
                 }
                 else{
-                    System.out.println("SlaveID null!!!");
+//                    System.out.println("SlaveID null!!!");
                 }
             }
 
@@ -384,7 +355,6 @@ public class  Master {
             infoSlaves.put(im.id,im);
 
             if(!balanceamentoCarga){
-                System.out.println("Vou considerar a mensagem de balanceamento de carga");
 
                 if((im.cpu > Config.cpuMax ||
                         im.memoria < Config.memMin)
@@ -415,9 +385,7 @@ public class  Master {
             }
         }
         else if(o instanceof LeaveGroupsReply){
-            System.out.println("Recebi leave groups reply: ");
             LeaveGroupsReply lgr = (LeaveGroupsReply)o;
-            System.out.println(lgr.primarios);
 
             HashSet<KeysUniverse> espera = this.esperaSai.get(lgr.id);
             if(espera == null){
@@ -428,11 +396,7 @@ public class  Master {
                 HashMap<String,HashSet<KeysUniverse>> enviaJoin = new HashMap<>();
                 for(KeysUniverse ku: lgr.primarios){
                     for(Map.Entry<String,HashSet<KeysUniverse>> entry: esperaEntra.entrySet()){
-                        System.out.println("Espera: " + entry.getKey());
-                        System.out.println("PRIM: " + ku);
-                        System.out.println(entry.getValue());
                         if(entry.getValue().contains(ku)){
-                            System.out.println("LKU: " + ku);
                             HashSet<KeysUniverse> aux = enviaJoin.get(entry.getKey());
                             if(aux == null){
                                 aux = new HashSet<>();
@@ -452,19 +416,15 @@ public class  Master {
                         System.out.println("Era null!!!");
                     }
                     else{
-                        System.out.println("PARA REMOVER: " + entry.getValue());
-                        System.out.println(aux);
                         aux.removeAll(entry.getValue());
                         if(aux.isEmpty()){
                             esperaEntra.remove(entry.getKey());
                         }
                         else{
-                            System.out.println("Alterado: " + aux);
                             esperaEntra.put(entry.getKey(),aux);
                         }
                     }
 
-                    System.out.println("Enviar join para: " + entry.getValue());
 
                     SpreadMessage sm = new SpreadMessage();
                     sm.setData(s.encode(jg));
@@ -479,7 +439,6 @@ public class  Master {
                 }
 
                 if(esperaEntra.isEmpty()){
-                    System.out.println("Acabou balanceamento!");
                     esperaSai.clear();
                     balanceamentoCarga = false;
                 }
@@ -498,7 +457,6 @@ public class  Master {
 
                 if (aux.startsWith(idSlave)) {
 
-                    System.out.println("Este slave saiu, inicia outro com este identificador: " + aux);
 
                     TreeSet<KeysUniverse> tk = keysSlaves.get(aux);
                     if (tk != null) {
@@ -506,6 +464,7 @@ public class  Master {
                             SlaveIdentifier si = slaves.get(ku);
 
                             if (si == null) {
+
                                 System.out.println("Slave identifier é nulo no slave q saiu!");
                             } else {
                                 si.sai(aux);
@@ -673,7 +632,6 @@ public class  Master {
     }
 
     private void diminuiSlaves(String slave){
-        System.out.println("INICIO DIMINUICAO");
         nSlaves--;
 
         int quantosConjuntos = primarios(slave);
@@ -719,8 +677,6 @@ public class  Master {
             }
             else{
                 //escolher primarios e secundarios
-                System.out.println("Escolher primário e secundários");
-                System.out.println(slA);
 
                 ParPrimarioSecundario pps = escolheParRemove(slave,slA);
 
@@ -742,16 +698,11 @@ public class  Master {
             }
         }
 
-        System.out.println("FIM DIMINUICAO");
-        for(Map.Entry<String,ArrayList<ParPrimarioSecundario>> entry : pares.entrySet()){
-            System.out.println(entry);
-        }
     }
 
     private void atualizaEstadoSaem(HashMap<String,ArrayList<ParPrimarioSecundario>> saem){
 
         for(Map.Entry<String,ArrayList<ParPrimarioSecundario>> entry : saem.entrySet()){
-            System.out.println("SAIR OUTRO!");
             String idS = entry.getKey();
             ArrayList<ParPrimarioSecundario> pares = entry.getValue();
             HashSet<KeysUniverse> espera = new HashSet<>();
@@ -775,7 +726,6 @@ public class  Master {
 
             esperaSai.put(idS,espera);
 
-            System.out.println("Enviar mensagem sair a: " + idS);
 
             String idM = ""+ultimoID++;
             LeaveGroups lg = new LeaveGroups(pares,idM);
@@ -796,7 +746,6 @@ public class  Master {
 
     private void atualizaEstadoEntra(ArrayList<ParPrimarioSecundario> pares, String slave){
 
-        System.out.println("Inicia um slave com o identificador: " + slave);
         start.add(slave);
         TreeSet<KeysUniverse> keys = new TreeSet<KeysUniverse>();
 
@@ -812,8 +761,6 @@ public class  Master {
             si.idPrimario = slave;
             si.endereco = null;
             si.ativo = false;
-            System.out.println("Adiciona primario: " + par.primario);
-            System.out.println(si.idPrimario);
 
             for(KeysUniverse aux: par.secundarios){
                 SlaveIdentifier novoSI = slaves.get(aux);
@@ -832,8 +779,6 @@ public class  Master {
     }
 
     private void aumentaSlaves(String slave){
-        System.out.println("Inicio aumento");
-        System.out.println(slave);
         int quantosConjuntos = nConjuntos / (++nSlaves);
 
         InfoMonitorizacao im = infoSlaves.get(slave);
@@ -882,15 +827,12 @@ public class  Master {
             auxMax = 1;
         }
 
-        System.out.println(primariosEscolhidos);
-        System.out.println(secundariosEscolhidos);
 
         while(primariosEscolhidos.size() < quantosConjuntos){
 
             atual = (atual + 1) % slavesL.size();
 
             String sl = slavesL.get(atual);
-            System.out.println("SLAVE: " + sl);
 
             int aux = nPrimarios.get(sl);
 
@@ -902,7 +844,6 @@ public class  Master {
             if(aux > comparacao){
                 //ir buscar conjunto de chaves com menos carga
                 KeysUniverse novo = minimaUtilizacao(infoSlaves.get(sl),primariosEscolhidos,secundariosEscolhidos);
-                System.out.println(novo);
                 //ir buscar par
                 ParPrimarioSecundario novoPS = selecionaPar(sl,novo,primariosEscolhidos,secundariosEscolhidos);
                 pares.add(novoPS);
@@ -925,7 +866,7 @@ public class  Master {
             }
 
         }
-        System.out.println("Fim aumento!");
+        /*System.out.println("Fim aumento!");
         for(ParPrimarioSecundario par : pares){
             System.out.println(par);
         }
@@ -933,7 +874,7 @@ public class  Master {
         System.out.println();
         for(Map.Entry<String,TreeSet<KeysUniverse>> ent: keysSlaves.entrySet()){
             System.out.println(ent);
-        }
+        }*/
 
         apresentaConfiguracao();
 
@@ -965,14 +906,14 @@ public class  Master {
             }
         }
 
-        for(String sl : primarios.keySet()){
-
-            System.out.println("Slave: " + sl);
-            System.out.println("Primário: " + primarios.get(sl));
-            System.out.println("Secundário: " + secundarios.get(sl));
-
-            System.out.println("----");
-        }
+//        for(String sl : primarios.keySet()){
+//
+//            System.out.println("Slave: " + sl);
+//            System.out.println("Primário: " + primarios.get(sl));
+//            System.out.println("Secundário: " + secundarios.get(sl));
+//
+//            System.out.println("----");
+//        }
 
     }
 
@@ -1021,13 +962,9 @@ public class  Master {
         ArrayList<byte[]> divisoesConj = Config.conjuntosChave();
         for(int i=0; i < nConjuntos; i++) {
             secundarios = new HashMap<>();
-            System.out.println("Novo");
-            System.out.println("Atual: " + atual);
             for(int k = 0, tentativas = 0; tentativas < fatorReplicacao; k++, tentativas++){
                 int indice = (primeiroSec + k) % size;
-                System.out.println("Indice: " + indice);
                 if(indice == atual){
-                    System.out.println("Deu a volta e por o secundario igual ao primario, ver pq!");
                     tentativas--;
                 }
                 else{
@@ -1040,14 +977,9 @@ public class  Master {
 
             if (i == (nConjuntos-1)) finall = divisoesConj.get(divisoesConj.size()-1);
             KeysUniverse ku = new KeysUniverse(inicial, finall);
-            System.out.println("NOVO KU: " + ku);
-//            System.out.println("SEC: " + secundarios);
-//            System.out.println("PRIM: " + end);
             SlaveIdentifier si = new SlaveIdentifier(end, ku, secundarios);
-//            System.out.println("SI: " + si);
             slaves.put(ku,si);
 
-            System.out.println("SLAVES: " + slaves.size());
             adicionaChave(end,ku);
             for(String secA: secundarios.keySet()){
                 adicionaChave(secA,ku);
@@ -1067,13 +999,7 @@ public class  Master {
                 }
             }
         }
-        System.out.println();
-        System.out.println("TERMINADO: " + slaves.size());
-        System.out.println();
 
-        for(Map.Entry<KeysUniverse,SlaveIdentifier> me : this.slaves.entrySet()){
-            System.out.println(me);
-        }
 
         apresentaConfiguracao();
 
@@ -1087,7 +1013,7 @@ public class  Master {
         String idContainer = this.dockers.remove(nameContainer);
 
         if(idContainer == null)
-            System.out.println("UI algo aqui esta mal :o");
+            System.out.println("container null");
         else{
             try {
                 this.dockerClient.stopContainer(idContainer, 0);
@@ -1127,12 +1053,9 @@ public class  Master {
 
             int exitVal = process.waitFor();
             if (exitVal == 0) {
-                System.out.println("Success!");
-                System.out.println(output);
                 return output.toString();
                 //System.exit(0);
             } else {
-                System.out.println("ABNORMAL: " + process.getErrorStream());
                 List<Container> a = dockerClient.listContainers();
                 String idContainer = null;
                 for(Container c: a){
@@ -1168,7 +1091,6 @@ public class  Master {
         // Run a shell command2
         String idContainer = null;
         while(idContainer == null){
-            System.out.println("VOU CRIAR UM PDF DE UM CONTAINER");
             idContainer = executaShellCreateContainer(nameContainer);
         }
 
@@ -1194,7 +1116,6 @@ public class  Master {
         slaves.put(ku2, slave2);
         slaves.put(ku3, slave3);*/
 
-        System.out.println(args.length);
         Master m = new Master(endereco, args.length>1);
 
         //m.teste();

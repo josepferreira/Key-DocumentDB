@@ -7,7 +7,8 @@ import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
 public class Config {
-    public static int nSlaves = 3;
+    public static int fatorReplicacao = 1;
+    public static int nSlaves = (3 < (Config.fatorReplicacao+1) ? (Config.fatorReplicacao+1) : 3);
     public static int nConjuntos = 9;
     public static int chunk = 50;
 
@@ -25,7 +26,6 @@ public class Config {
     public static String hostAtomix = "localhost";
     public static String hostSpread = "localhost";
 
-    public static int fatorReplicacao = 1;
 
     public static boolean eLong = true;
 

@@ -66,7 +66,7 @@ public class SlaveIdentifier {
                 sc.endereco = end;
             }
             else {
-                System.out.println("O slave n aparece aqui!!!");
+//                System.out.println("O slave n aparece aqui!!!");
             }
         }
     }
@@ -81,7 +81,7 @@ public class SlaveIdentifier {
                 sc.ativo = false;
             }
             else {
-                System.out.println("O slave n aparece aqui!!!");
+//                System.out.println("O slave n aparece aqui!!!");
             }
         }
     }
@@ -142,7 +142,6 @@ public class SlaveIdentifier {
 
     public void addSecundario(String slave) {
 
-        System.out.println("Adiciona secundario: " + this.keys + "ID: " + slave);
         Secundario s = new Secundario(this.proximo+"",null,false);
         secundarios.put(slave,s);
         this.proximo++;

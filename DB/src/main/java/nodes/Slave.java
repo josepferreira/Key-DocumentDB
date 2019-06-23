@@ -67,9 +67,7 @@ public class Slave {
         OperatingSystemMXBean operatingSystemMXBean = (OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
         double cpu =  operatingSystemMXBean.getProcessCpuLoad();
 //        double cpu =  0.75f;//operatingSystemMXBean.getProcessCpuLoad();
-        System.out.println(cpu);
         float memoria = (operatingSystemMXBean.getTotalPhysicalMemorySize()-operatingSystemMXBean.getFreePhysicalMemorySize()) / (1000*1000*1000);
-        System.out.println(memoria);
 
         TreeMap<KeysUniverse, ParEscritaLeitura> operacoes = new TreeMap<>();
         for(Map.Entry<KeysUniverse, Grupo> entry: this.grupos.entrySet()){
@@ -79,19 +77,14 @@ public class Slave {
             g.leituras = 0;
         }
 
-        System.out.println("Enviar infoMonitorizacao");
         InfoMonitorizacao infoMonitorizacao = new InfoMonitorizacao(memoria, cpu, operacoes,this.id);
         SpreadMessage sm = new SpreadMessage();
-        System.out.println("Encode");
         sm.setData(s.encode(infoMonitorizacao));
-        System.out.println("Passsou encode");
         sm.addGroup("master");
         sm.setAgreed(); // ao definirmos isto estamos a garantir ordem total, pelo q podemos ter varios stubs
         sm.setReliable();
         try {
-            System.out.println("Enviar");
             connection.multicast(sm);
-            System.out.println("Enviou!");
         } catch (SpreadException e) {
             e.printStackTrace();
         }
@@ -108,9 +101,7 @@ public class Slave {
     public AdvancedMessageListener aml = new AdvancedMessageListener() {
         @Override
         public void regularMessageReceived(SpreadMessage spreadMessage) {
-            System.out.println("\t\t\t\tRecebi mensagem");
             Object o = s.decode(spreadMessage.getData());
-            System.out.println("\t\t\t\tRecebi mensagem: " + o.getClass());
 
             if (o instanceof UpdateMessage) {
                 UpdateMessage um = (UpdateMessage) o;
@@ -122,7 +113,7 @@ public class Slave {
                     System.out.println("Eu n sou do grupo como recebi update? ESTRANHO!");
                 } else {
                     if (g.primario.equals(g.id)) {
-                        System.out.println("Sou o primario, n faço update!");
+//                        System.out.println("Sou o primario, n faço update!");
                     } else {
                         if (!g.estadoRecuperado) {
                             g.fila.add(new ElementoFila(o, spreadMessage.getSender().toString()));
@@ -188,11 +179,9 @@ public class Slave {
                     }
                 }
             } else if (o instanceof EstadoSlave) {
-                System.out.println("Recebi mensagem com o estado!");
 
                 EstadoSlave es = (EstadoSlave) o;
                 Object auxKey = es.key;
-                System.out.println("Ver questao do iterator no recupera estado!");
                 KeysUniverse ku = new KeysUniverse(auxKey, auxKey);
                 Grupo g = grupos.get(ku);
                 if (g == null) {
@@ -203,16 +192,12 @@ public class Slave {
                         return;
                     }
 
-                    System.out.println("Vou recuperar o estado para o " + ku);
-                    System.out.println("\t\t\t\t\t\tÉ o ultimo? " + es.last + "\n\n\n\n");
                     g.recuperaEstado(es);
-                    System.out.println("\n\n\n" + g + "\n\n\n");
                     if (es.last)
                         trataFila(g);
                 }
 
             } else if (o instanceof PedidoEstado) {
-                System.out.println("Recebi pedido de estado");
                 PedidoEstado pe = (PedidoEstado) o;
 
                 Grupo g = grupos.get(pe.ku);
@@ -237,9 +222,7 @@ public class Slave {
 
         @Override
         public void membershipMessageReceived(SpreadMessage spreadMessage) {
-            System.out.println("MEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEMBERSHIP DFP");
             String grupo = spreadMessage.getMembershipInfo().getGroup().toString();
-            System.out.println("\t\t\t\tRecebi uma membership message: " + grupo);
             HashSet<String> membros = new HashSet<>();
             try{
                 for (SpreadGroup sg : spreadMessage.getMembershipInfo().getMembers()) {
@@ -250,7 +233,6 @@ public class Slave {
                 System.out.println("Deu excepcao");
                 return ;
             }
-            System.out.println(membros);
 
             for (Map.Entry<KeysUniverse, Grupo> entry : grupos.entrySet()) {
                 Grupo g = entry.getValue();
@@ -260,11 +242,9 @@ public class Slave {
                     if (spreadMessage.getMembershipInfo().isCausedByJoin()) {
 
                         if (spreadMessage.getMembershipInfo().getJoined().toString().split("#")[1].equals(g.id)) {
-                            System.out.println("Juntei-me!");
                             //fui eu q me juntei
                             membros.remove(g.id);
                             if (!membros.isEmpty()) {
-                                System.out.println("Enviar pedido de estado");
 
                                 String exPrimario = Collections.min(membros); //o antigo primario
                                 g.origemEstado = exPrimario;
@@ -273,12 +253,10 @@ public class Slave {
                                 SpreadMessage sm = new SpreadMessage();
                                 sm.setData(s.encode(pe));
                                 sm.addGroup(exPrimario);
-                                System.out.println("VOu mandar um pedido de estado para o: " + exPrimario);
                                 sm.setReliable();
 
                                 try {
                                     g.connection.multicast(sm);
-                                    System.out.println("Enviei pedido de estado");
                                 } catch (SpreadException e) {
                                     e.printStackTrace();
                                 }
@@ -297,7 +275,6 @@ public class Slave {
                                 System.out.println("Estado já se encontra recuperado!");
                                 return;
                             }
-                            System.out.println("Enviar pedido de estado");
                             membros.remove(g.id);
                             if (!membros.isEmpty()) {
 
@@ -313,12 +290,10 @@ public class Slave {
                                 SpreadMessage sm = new SpreadMessage();
                                 sm.setData(s.encode(pe));
                                 sm.addGroup(exPrimario);
-                                System.out.println("VOu mandar um pedido de estado para o: " + exPrimario);
                                 sm.setReliable();
 
                                 try {
                                     g.connection.multicast(sm);
-                                    System.out.println("Enviei pedido de estado");
                                 } catch (SpreadException e) {
                                     e.printStackTrace();
                                 }
@@ -343,7 +318,6 @@ public class Slave {
     public BasicMessageListener bml = new BasicMessageListener() {
         @Override
         public void messageReceived(SpreadMessage spreadMessage) {
-            System.out.println("Recebi mensagem no grupo privado: " + id);
             Object o = s.decode(spreadMessage.getData());
 
             if(o instanceof ACKMessage) {
@@ -364,8 +338,6 @@ public class Slave {
                         return;
                     }
 
-                    System.out.println("ACK, SENDER: " + spreadMessage.getSender().toString().split("#")[1]);
-
                     boolean rmv = aux.remove(spreadMessage.getSender().toString().split("#")[1]);
 
                     if (rmv && aux.isEmpty()) {
@@ -385,26 +357,22 @@ public class Slave {
                             Remove r = (Remove) grupo.requests.get(ackMessage.id);
 
                             if (r == null) {
-                                System.out.println("Recebi um ack e n tenho o put! ESTRANHO");
+                                System.out.println("Recebi um ack e n tenho o remove! ESTRANHO");
                             } else {
-                                System.out.println("Lento y contento, cara al viento -> REMOVI !!!");
                                 r.cf.complete(r.resposta);
                             }
                         }
                     }
                     else{
 
-                        System.out.println("REMOVED: " + aux);
                     }
                 }
             }
             else if(o instanceof LeaveGroups){
-                System.out.println("RECEBI MENSAGEM PARA SAIR DO GRUPO");
                 LeaveGroups lg = (LeaveGroups)o;
                 HashSet<KeysUniverse> prim = new HashSet<>();
 
                 if(eRepetido(lg.id)){
-                    System.out.println("TOUUUUUUU A REPETIIIIIIR lg");
                     return;
                 }
 
@@ -434,20 +402,15 @@ public class Slave {
                     }
                 }
 
-                System.out.println("Saí dos grupos!");
                 LeaveGroupsReply lgr = new LeaveGroupsReply(prim,id);
 
                 SpreadMessage sm = new SpreadMessage();
-                System.out.println("DEIXAR GRUPO ENCODE");
                 sm.setData(s.encode(lgr));
-                System.out.println("DEPOIS ENCODE DEIXAR GRUPO");
                 sm.addGroup("master");
                 sm.setAgreed();
                 sm.setReliable();
                 try {
-                    System.out.println("Tentar enviar");
                     connection.multicast(sm);
-                    System.out.println("Enviei");
 
                 } catch (SpreadException e) {
                     e.printStackTrace();
@@ -456,11 +419,9 @@ public class Slave {
             }
             else if(o instanceof JoinGroup){
                 possoLancar = false;
-                System.out.println("Juntar aos grupos!");
                 JoinGroup jg =  (JoinGroup) o;
 
                 if(eRepetido(jg.id)){
-                    System.out.println("TOUUUUUUU A REPETIIIIIIR jg");
                     return;
                 }
 
@@ -469,7 +430,6 @@ public class Slave {
                 for(KeysUniverse ku : jg.chaves){
 
                     Grupo g = grupos.get(ku);
-                    System.out.println("Juntar ao grupo: " + ku);
 
                     if(g == null){
                         System.out.println("Grupo é null ao juntar!!!");
@@ -625,7 +585,6 @@ public class Slave {
             //sou o primario
             if (ef.o instanceof PutRequest) {
 
-                System.out.println("Recebi put");
                 PutRequest pr = (PutRequest)ef.o;
 
                 Put p = (Put) g.requests.get(pr.id);
@@ -656,7 +615,7 @@ public class Slave {
                     }
                 }
                 else{
-                    System.out.println("Pedido de put já se encontra tratado!");
+//                    System.out.println("Pedido de put já se encontra tratado!");
                     p.cf.thenAccept(a -> {
                         PutReply pl = new PutReply(pr.id, a);
                         ms.sendAsync(Address.from(ef.origem), "putReply", s.encode(pl));
@@ -665,7 +624,6 @@ public class Slave {
 
             }
             else if(ef.o instanceof RemoveRequest) {
-                System.out.println("Recuperar fila, temos de tratar o REMOVE!!!");
                 RemoveRequest rr = (RemoveRequest) ef.o;
                 KeysUniverse ku = new KeysUniverse(rr.key, rr.key);
                 Grupo grupo = grupos.get(ku);
@@ -689,14 +647,13 @@ public class Slave {
                         boolean resultado = respostaRemove.resposta;
                         r.setResposta(resultado);
 
-                        System.out.println(grupo.secundarios);
+//                        System.out.println(grupo.secundarios);
                         grupo.acks.put(rr.id, (HashSet<String>) grupo.secundarios.clone());
                         SpreadMessage sm = new SpreadMessage();
                         if (grupo.secundarios.isEmpty()) {
                             grupo.acks.remove(rr.id);
                             r.cf.complete(resultado);
                         } else {
-                            System.out.println("AINDA TEMOS DE SABER COMO É QUE VAMOS FAZER QUANDO FOR MEIO UM UPDATE");
                             UpdateMessage um = new UpdateMessage(rr.key, respostaRemove.jsonValue, rr.id, resultado, rr);
                             sm.setData(s.encode(um));
                             sm.addGroup(grupo.grupo);
@@ -708,7 +665,7 @@ public class Slave {
                             }
                         }
                     } else {
-                        System.out.println("Pedido de remove já se encontra tratado!");
+//                        System.out.println("Pedido de remove já se encontra tratado!");
 
                         r.cf.thenAccept(a -> {
                             RemoveReply rrp = new RemoveReply(rr.id, a);
@@ -762,7 +719,7 @@ public class Slave {
                     }
                     else {
                         //já aconteceu algo, ver pq recebeu novo pedido
-                        System.out.println("Já tinha put, pq recebi novamente???");
+//                        System.out.println("Já tinha put, pq recebi novamente???");
                     }
                 }
                 else {
@@ -790,7 +747,7 @@ public class Slave {
                         r.cf.complete(resposta);
                     } else {
                         //já aconteceu algo, ver pq recebeu novo pedido
-                        System.out.println("Já tinha put, pq recebi novamente???");
+//                        System.out.println("Já tinha put, pq recebi novamente???");
                     }
 
                 }
@@ -850,7 +807,6 @@ public class Slave {
 
         //handler para responder ao pedido put, efetuado pelo stub
         ms.registerHandler("put",(o,m) -> {
-            System.out.println("Recebi put");
             PutRequest pr = s.decode(m);
             //convém guardar os pedidos certo???
 
@@ -880,7 +836,7 @@ public class Slave {
                     boolean resultado = grupo.put(pr);
                     p.setResposta(resultado);
 
-                    System.out.println(grupo.secundarios);
+//                    System.out.println(grupo.secundarios);
                     grupo.acks.put(pr.id, (HashSet<String>) grupo.secundarios.clone());
                     SpreadMessage sm = new SpreadMessage();
                     if(grupo.secundarios.isEmpty()){
@@ -900,7 +856,7 @@ public class Slave {
                     }
                 }
                 else{
-                    System.out.println("Pedido de put já se encontra tratado!");
+//                    System.out.println("Pedido de put já se encontra tratado!");
                     p.cf.thenAccept(a -> {
                         PutReply pl = new PutReply(pr.id, a);
                         ms.sendAsync(o, "putReply", s.encode(pl));
@@ -936,7 +892,6 @@ public class Slave {
 
         ms.registerHandler("remove",(o,m) -> {
 
-            System.out.println("RECEBI UM PEDIDO DE REMOVE FALTA TRATAR DOS UPDATES DO REMOVE NA PASSIVA!!!");
 
             RemoveRequest rr = s.decode(m);
             KeysUniverse ku = new KeysUniverse(rr.key, rr.key);
@@ -966,7 +921,6 @@ public class Slave {
                     boolean resultado = respostaRemove.resposta;
                     r.setResposta(resultado);
 
-                    System.out.println(grupo.secundarios);
                     grupo.acks.put(rr.id, (HashSet<String>) grupo.secundarios.clone());
                     SpreadMessage sm = new SpreadMessage();
                     if(grupo.secundarios.isEmpty()){
@@ -974,7 +928,6 @@ public class Slave {
                         r.cf.complete(resultado);
                     }
                     else {
-                        System.out.println("AINDA TEMOS DE SABER COMO É QUE VAMOS FAZER QUANDO FOR MEIO UM UPDATE");
                         UpdateMessage um = new UpdateMessage(rr.key, respostaRemove.jsonValue, rr.id, resultado, rr);
                         sm.setData(s.encode(um));
                         sm.addGroup(grupo.grupo);
@@ -987,7 +940,7 @@ public class Slave {
                     }
                 }
                 else{
-                    System.out.println("Pedido de remove já se encontra tratado!");
+//                    System.out.println("Pedido de remove já se encontra tratado!");
 
                     r.cf.thenAccept(a -> {
                         RemoveReply rrp = new RemoveReply(rr.id, a);
@@ -1006,7 +959,6 @@ public class Slave {
         },ses);
 
         ms.registerHandler("scan", (o,m) -> {
-            System.out.println("Recebi pedido de scan vindo de: " + o);
             ScanRequest sr = s.decode(m);
 
             Grupo g = grupos.get(sr.ku);
@@ -1015,7 +967,6 @@ public class Slave {
                 System.out.println("DAR MENSAGEM DE ERRO PORQUE NAO TRATAMOS DA CHAVE!!");
             }else {
 
-                System.out.println("Estado recuperado: " + g.estadoRecuperado);
                 if(!g.estadoRecuperado){
                     g.fila.add(new ElementoFila(sr,o.toString()));
                     return;
@@ -1062,21 +1013,15 @@ public class Slave {
                     else{
                         podeE = podeEntrar;
                     }
-                    System.out.println("MERDA PO ZE: " + entry.getKey() + " <- é que ninguem o percebe: " +
-                             podeE);
                     adicionaConexao(entry.getValue(), entry.getKey(),podeE);
                     if(!podeE){
                         this.faltamJuntar.add(entry.getKey());
                     }
                 }
 
-                System.out.println("\t\tVER INFOS");
-                System.out.println(this.minhasChaves);
-                for (Map.Entry<KeysUniverse, Grupo> as : grupos.entrySet()) {
+                /*for (Map.Entry<KeysUniverse, Grupo> as : grupos.entrySet()) {
                     System.out.println(as);
-                }
-                System.out.println();
-                System.out.println();
+                }*/
             }
         }, ses);
     }
@@ -1086,12 +1031,10 @@ public class Slave {
         try {
             Grupo c = new Grupo(id, grupo.getGrupo(), grupo, "./localdb/" + this.id + "/", aml);
             //c.addAML(aml);
-            System.out.println("Criei grupo");
             grupos.put(grupo,c);
             if(podeEntrar){
                 c.connecta(aml);
             }
-            System.out.println("Adiconei grupo");
 
         } catch (UnknownHostException e) {
             e.printStackTrace();

@@ -23,15 +23,12 @@ public class KeysUniverse implements Comparable{
 
     @Override
     public boolean equals(Object o) {
-        System.out.println("EQUALS");
         if (this == o) return true;
 
-        if (o == null || getClass() != o.getClass()) return false;
         KeysUniverse that = (KeysUniverse) o;
 
         if(Arrays.equals(min,that.min) && Arrays.equals(max,that.max)) return true;
 
-        System.out.println("N SAO MM IGAUAIS");
         return (Config.compareArray(min,that.min) >= 0) && (Config.compareArray(max,that.max) < 0) && (Config.compareArray(min,that.max) <= 0); //basta que esteja contido no intervalo,
         // para ser considerado igual. Importante para a procura no hashmap
     }
@@ -57,7 +54,6 @@ public class KeysUniverse implements Comparable{
             return minA + "," + maxA;
         }
         catch(Exception e){
-            System.out.println("N era long");
         }
         String minA = new String(min);
 

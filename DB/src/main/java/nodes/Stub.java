@@ -198,7 +198,6 @@ public class Stub {
     private void reenviaMensagem(Object key, GetRequest o){
 
         System.out.println("Chegei a um timeout ... !");
-        System.out.println("Para ja vou pedir ao master depois podemos voltar a fazer um novo pedido ao slave!");
 
         KeysUniverse ku = new KeysUniverse(key, key);
         this.cache.put(ku, null);
@@ -210,7 +209,6 @@ public class Stub {
     private void reenviaMensagem(Object key, PutRequest o){
 
         System.out.println("Chegei a um timeout ... !");
-        System.out.println("Para ja vou pedir ao master depois podemos voltar a fazer um novo pedido ao slave!");
 
         KeysUniverse ku = new KeysUniverse(key, key);
         this.cache.put(ku, null);
@@ -222,7 +220,6 @@ public class Stub {
     private void reenviaMensagem(Object key, RemoveRequest o){
 
         System.out.println("Chegei a um timeout ... !");
-        System.out.println("Para ja vou pedir ao master depois podemos voltar a fazer um novo pedido ao slave!");
 
         KeysUniverse ku = new KeysUniverse(key, key);
         this.cache.put(ku, null);
@@ -242,7 +239,6 @@ public class Stub {
                         if(aux.numeroTentativas != 3)
                             reenviaMensagem(key, (GetRequest) o);
                         else {
-                            System.out.println("TEMOS DE ACABAR COM O CF");
                             getRequests.remove(id);
                             aux.cfj.completeExceptionally(new Exception("Erro, limite de 3 tentativas de timeout!"));
                         }
@@ -256,7 +252,6 @@ public class Stub {
                             if(aux.numeroTentativas != 3)
                                 reenviaMensagem(key, (PutRequest) o);
                             else {
-                                System.out.println("TEMOS DE ACABAR COM O CF");
                                 putRequests.remove(id);
                                 aux.cfb.completeExceptionally(new Exception("Erro, limite de 3 tentativas de timeout!"));
                             }
@@ -270,7 +265,6 @@ public class Stub {
                                 if(aux.numeroTentativas != 3)
                                     reenviaMensagem(key, (RemoveRequest) o);
                                 else {
-                                    System.out.println("TEMOS DE ACABAR COM O CF");
                                     removeRequests.remove(id);
                                     aux.cfb.completeExceptionally(new Exception("Erro, limite de 3 tentativas de timeout!"));
 
@@ -296,30 +290,33 @@ public class Stub {
         ms.registerHandler("getReply",(a,m) -> {
             GetReply gr = s.decode(m);
 
-            if(gr.value == null)
-                System.out.println("O valor retornado é nulo");
-            else
-                System.out.println("O valor é: " + gr.value.toString());
+//            if(gr.value == null)
+//                System.out.println("O valor retornado é nulo");
+//            else
+//                System.out.println("O valor é: " + gr.value.toString());
             this.getRequests.get(gr.id).gets.cf.complete(gr.value);
+            this.getRequests.remove(gr.id);
 
         },ses);
 
         ms.registerHandler("removeReply",(a,m) -> {
             RemoveReply rr = s.decode(m);
 
-            System.out.println("O valor é: " + rr.sucess);
+//            System.out.println("O valor é: " + rr.sucess);
             this.removeRequests.get(rr.id).remove.cf.complete(rr.sucess);
+            this.removeRequests.remove(rr.id);
 
         },ses);
 
         ms.registerHandler("putReply",(a,m) -> {
             PutReply pr = s.decode(m);
 
-            System.out.println("O valor é: " + pr.success);
+//            System.out.println("O valor é: " + pr.success);
 
             //TENS DE VER ISTO AQUI!!! SE É PARA MANDAR TRUE OU NÃO ... SÓ PUS ASSIM PARA NAO DAR ERRO
 
             this.putRequests.get(pr.id).put.cf.complete(pr.success);
+            this.putRequests.remove(pr.id);
 
         },ses);
 
@@ -345,11 +342,11 @@ public class Stub {
 
             if(!eRepetido(rm.id)) {
 
-                System.out.println("O slave que contém a minha key é: " + rm.slave.primario());
+//                System.out.println("O slave que contém a minha key é: " + rm.slave.primario());
                 Get g = getRequests.get(rm.id).gets;
 
                 if (g == null) {
-                    System.out.println("Deu nulo no get ... Algo errado!");
+//                    System.out.println("Deu nulo no get ... Algo errado!");
                 }
 
                 this.cache.put(rm.slave.keys,new RoundRobin(rm.slave));
@@ -364,11 +361,11 @@ public class Stub {
 
             if(!eRepetido(rm.id)) {
 
-                System.out.println("O slave que contém a minha key é: " + rm.slave.primario());
+//                System.out.println("O slave que contém a minha key é: " + rm.slave.primario());
                 Remove r = removeRequests.get(rm.id).remove;
 
                 if (r == null) {
-                    System.out.println("Deu nulo no get ... Algo errado!");
+//                    System.out.println("Deu nulo no get ... Algo errado!");
                 }
 
                 this.cache.put(rm.slave.keys,new RoundRobin(rm.slave));
@@ -378,24 +375,22 @@ public class Stub {
         },ses);
 
         ms.registerHandler("putMaster",(a,m) -> {
-            System.out.println("Recebi uma mensagtme do master!!");
             ReplyMaster rm = s.decode(m);
 
             if(!eRepetido(rm.id)) {
 
-                System.out.println("O slave que contém a minha key é: " + rm.slave.primario());
 
                 Put p = putRequests.get(rm.id).put;
                 if (p == null) {
                     //Estranho, ver este caso
-                    System.out.println("Put null");
+//                    System.out.println("Put null");
                 }
 
-                System.out.println("Por na cache");
+//                System.out.println("Por na cache");
 
                 this.cache.put(rm.slave.keys,new RoundRobin(rm.slave));
 
-                System.out.println("Enviar para o slave");
+//                System.out.println("Enviar para o slave");
                 ms.sendAsync(Address.from(rm.slave.primario()), "put", s.encode(p.request));
             }
 
@@ -464,7 +459,7 @@ public class Stub {
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
-            System.out.println(("ERRO TIMEOUT"));
+//            System.out.println(("ERRO TIMEOUT"));
 //            e.printStackTrace();
             throw new Exception(e.getMessage());
         }
@@ -493,7 +488,7 @@ public class Stub {
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
-            System.out.println(("ERRO TIMEOUT"));
+//            System.out.println(("ERRO TIMEOUT"));
 //            e.printStackTrace();
             throw new Exception(e.getMessage());
         }
@@ -521,7 +516,7 @@ public class Stub {
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
-            System.out.println(("ERRO TIMEOUT"));
+//            System.out.println(("ERRO TIMEOUT"));
 //            e.printStackTrace();
             throw new Exception(e.getMessage());
         }
@@ -548,7 +543,7 @@ public class Stub {
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
-            System.out.println(("ERRO TIMEOUT"));
+//            System.out.println(("ERRO TIMEOUT"));
 //            e.printStackTrace();
             throw new Exception(e.getMessage());
         }
@@ -609,7 +604,7 @@ public class Stub {
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
-            System.out.println(("ERRO TIMEOUT"));
+//            System.out.println(("ERRO TIMEOUT"));
 //            e.printStackTrace();
             throw new Exception(e.getMessage());
         }
@@ -636,7 +631,7 @@ public class Stub {
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
-            System.out.println(("ERRO TIMEOUT"));
+//            System.out.println(("ERRO TIMEOUT"));
 //            e.printStackTrace();
             throw new Exception(e.getMessage());
         }
@@ -664,7 +659,7 @@ public class Stub {
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
-            System.out.println(("ERRO TIMEOUT"));
+//            System.out.println(("ERRO TIMEOUT"));
 //            e.printStackTrace();
             throw new Exception(e.getMessage());
         }
@@ -692,7 +687,6 @@ public class Stub {
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
-            System.out.println(("ERRO TIMEOUT"));
 //            e.printStackTrace();
             throw new Exception(e.getMessage());
         }
@@ -707,9 +701,7 @@ public class Stub {
 
     private void enviaMensagem(Object key, PutRequest pr){
         KeysUniverse ku = new KeysUniverse(key, key);
-        System.out.println("TOu no envia mensagem!!!!!");
         RoundRobin end = this.cache.get(ku);
-        System.out.println("O endereco é nulo? " + (end==null));
         if(end == null) {
             SpreadMessage sm = new SpreadMessage();
             sm.setData(s.encode(pr));
@@ -717,14 +709,12 @@ public class Stub {
             sm.setAgreed(); // ao defiirmos isto estamos a garantir ordem total, pelo q podemos ter varios stubs
             sm.setReliable();
             try {
-                System.out.println("A enviar uma mensagem de multicast para o master!");
                 connection.multicast(sm);
             } catch (SpreadException e) {
                 e.printStackTrace();
             }
         }
         else {
-            System.out.println("Ja tenho na cache");
             ms.sendAsync(Address.from(end.si.primario()), "put", s.encode(pr));
         }
     }
@@ -747,7 +737,6 @@ public class Stub {
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
-            System.out.println(("ERRO TIMEOUT"));
 //            e.printStackTrace();
             throw new Exception(e.getMessage());
         }
@@ -907,25 +896,17 @@ public class Stub {
 
     public static void main(String[] args) {
 
-
-    OperatingSystemMXBean operatingSystemMXBean = (OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
-    System.out.println(operatingSystemMXBean.getProcessCpuLoad());
-    float memoria = (operatingSystemMXBean.getTotalPhysicalMemorySize()-operatingSystemMXBean.getFreePhysicalMemorySize()) / (1000*1000*1000);
-    System.out.println(memoria);
-
-
-
         String endereco = "localhost:12346";
 
         Stub s = new Stub();
 
         //s.get(10001);
-        System.out.println("Vou fazer get");
-        try {
-            System.out.println("RES: " + s.get(341));
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+//        System.out.println("Vou fazer get");
+//        try {
+//            System.out.println("RES: " + s.get(341));
+//        } catch (Exception e) {
+//            System.out.println(e.getMessage());
+//        }
 //        try {
 //            Thread.sleep(1000);
 //        } catch (InterruptedException e) {
@@ -941,19 +922,19 @@ public class Stub {
 //                e.printStackTrace();
 //            }
 //        }
-        JSONObject jo = new JSONObject();
-        for(int i = 340; i < 342; i++){
-            jo.put("obj",i);
-            boolean res = false;
-            try {
-                res = s.put(i,jo);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            System.out.println("Put feito: " + i + "! RES: " + res);
-        }
-        System.out.println("Puts feitos");
-//        System.out.println("Vou fazer remove");
+//        JSONObject jo = new JSONObject();
+//        for(int i = 340; i < 342; i++){
+//            jo.put("obj",i);
+//            boolean res = false;
+//            try {
+//                res = s.put(i,jo);
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//            System.out.println("Put feito: " + i + "! RES: " + res);
+//        }
+//        System.out.println("Puts feitos");
+////        System.out.println("Vou fazer remove");
         //System.out.println("remove feito: " + s.remove(121));
 //        try {
 //            System.out.println(s.get(250).get());
@@ -972,17 +953,21 @@ public class Stub {
 //
 //
 //
-        System.out.println("SCAN");
-        ScanIterator si = s.scan();
+        for(int i = 0; i < 300; i++) {
 
-        while(si.hasNext()){
 
-            Map.Entry<Object, JSONObject> a = si.next();
-            System.out.println(a);
+            System.out.println("SCAN: " + i);
+            ScanIterator si = s.scan();
+
+            while (si.hasNext()) {
+
+                Map.Entry<Object, JSONObject> a = si.next();
+                System.out.println(a);
+            }
+
+
+            System.out.println("Terminou o scan");
         }
-
-
-        System.out.println("Terminou o scan");
 
     }
 

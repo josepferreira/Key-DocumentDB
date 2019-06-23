@@ -43,7 +43,7 @@ public class Scan {
     }
 
     public void registaCache(TreeMap<KeysUniverse, RoundRobin> cache){
-        this.cache = cache;
+        this.cache = new TreeMap<>(cache);
         esperaCache.complete(null);
     }
 

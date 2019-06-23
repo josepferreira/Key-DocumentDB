@@ -73,24 +73,18 @@ public class Grupo {
 
     public Grupo(String id, String grupo, KeysUniverse ku, String rocksDBFolder, AdvancedMessageListener aml) throws UnknownHostException, SpreadException {
         this.ku = ku;
-        System.out.println("1");
         this.grupo = grupo;
-        System.out.println("2: " + this.grupo);
         if(this.grupo.length() > 8)
             this.id = this.grupo.substring(0,8) + id;
         else
             this.id = this.grupo + id;
-        System.out.println("3: " + this.id);
 
 //        connection.add(aml);
-        System.out.println("4");
 
 
         this.options = new Options().setCreateIfMissing(true);
         try {
-            System.out.println("Criar rocks");
             rocksDB = RocksDB.open(options, rocksDBFolder + ku.getGrupo()/*"./localdb/" + id.replaceAll(":", "") + "-" + ku.toString() + "/"*/);
-            System.out.println("Rocks criado");
         } catch (RocksDBException e) {
             e.printStackTrace();
         }
@@ -108,14 +102,10 @@ public class Grupo {
         secundarios.clear();
         secundarios.addAll(membros);
 
-        System.out.println("Atualizou");
-        System.out.println(primario);
-        System.out.println(secundarios);
 
     }
 
     public void connecta(AdvancedMessageListener aml) throws SpreadException {
-        System.out.println("Connectar a: " + this.ku);
         try {
             connection.connect(InetAddress.getByName("localhost"), 0, this.id, false, true);
         } catch (UnknownHostException e) {
@@ -123,7 +113,6 @@ public class Grupo {
         }
         this.aml = aml;
         connection.add(aml);
-        System.out.println("GR: " + this.grupo);
         group.join(connection,this.grupo);
         myGroup.join(connection,this.id);
 
@@ -370,7 +359,6 @@ public class Grupo {
 
     //scan para todos os objectos, sem projecções
     private ResultadoScan getScan(int nrMaximo, Object ultimaChaveA, KeysUniverse ku, Predicate<JSONObject> filtros, HashMap<Boolean, ArrayList<String>> p) {
-        System.out.println("----------------------------Novo pedido scan: " + ku + " ---------------------------");
         LinkedHashMap<Object,JSONObject> docs = new LinkedHashMap<>();
         RocksIterator iterador = rocksDB.newIterator();
         int quantos = 0;
@@ -384,6 +372,7 @@ public class Grupo {
         }
         else{
             ultimaChave = Config.encode(ultimaChaveA);
+            chave = ultimaChave;
             iterador.seek(ultimaChave);
             if(!iterador.isValid()){
                 return null;
@@ -392,14 +381,11 @@ public class Grupo {
         }
 
 
-        System.out.println("Vou começar scan");
         while (iterador.isValid()) {
             byte[] k = iterador.key();
-            System.out.println("Key: " + k);
 //            if(k <= anterior){
             if(anterior != null && Config.compareArray(k,anterior) <= 0){
                 //n está neste universe
-                System.out.println("Deu a volta");
                 break;
             }
             anterior = k;
@@ -420,22 +406,18 @@ public class Grupo {
                 docs.put(Config.decode(k),json);
                 quantos++;
                 if(quantos >= nrMaximo){
-                    System.out.println("Atingi o máximo");
                     break;
                 }
             }
             iterador.next();
-            System.out.println("Next iter");
         }
-        System.out.println("---------------FIM-----------------------");
-        return new ResultadoScan(chave,docs);
+        return new ResultadoScan(Config.decode(chave),docs);
     }
 
     public ResultadoScan scan(ScanRequest sr){
         ResultadoScan docs = null; //n será muito eficiente, provavelmente por causa de andar sempre a mudar o map
 
         //de alguma forma faz o scan à bd, ver a melhor forma
-        System.out.println("SCAN SCAN");
         docs = getScan(sr.nrMaximo, sr.ultimaChave,sr.ku,filtro(sr.filtros),sr.projecoes);
             /*else{
                 docs = getScan(sr.projecoes);
@@ -492,8 +474,6 @@ public class Grupo {
     }
 
     public void recuperaEstado(EstadoSlave es) {
-        System.out.println("VOU COMEÇAR A RECUPERAR O ESTADO: " + (es.requests == null));
-        System.out.println("\t\t\t\tVAMOS VER OS VALORES AGORA SEUS BOIS: " + es.valores);
 
         if(!estadoAMeio) {
             estadoAMeio = true;
@@ -549,7 +529,6 @@ public class Grupo {
         long max = 20;
         HashMap<Object,JSONObject> map = new HashMap<>();
         Object keyA = Config.decode(ku.min);
-        System.out.println("MIN PEDE ESTADO: " + keyA);
         EstadoSlave es = new EstadoSlave(pe.id,requests,acks,map,false,keyA,null);
 
         RocksIterator iterador = rocksDB.newIterator();
@@ -578,7 +557,6 @@ public class Grupo {
             String v = new String(iterador.value());
             JSONObject json = new JSONObject(v);
             map.put(Config.decode(k),json);
-            System.out.println("VAMOS VER OS VALORES INTERMEDIOS: " + map);
             iterador.next();
             quantos++;
             if(quantos >= max){
@@ -609,8 +587,6 @@ public class Grupo {
             es.valores = map;
             es.lastKey = (k == null ? k : Config.decode(k));
 
-            System.out.println(ku);
-            System.out.println("Enviar valores: " + es.valores);
             sm.setData(s.encode(es));
             sm.setReliable();
             sm.addGroup(sender);
@@ -628,7 +604,6 @@ public class Grupo {
         long max = 20;
         HashMap<Object,JSONObject> map = new HashMap<>();
         Object keyA = Config.decode(ku.min);
-        System.out.println("MIN PEDE ESTADO: " + keyA);
         EstadoSlave es = new EstadoSlave(pe.id,requests,acks,map,false,keyA,null);
 
         RocksIterator iterador = rocksDB.newIterator();
@@ -657,7 +632,6 @@ public class Grupo {
             String v = new String(iterador.value());
             JSONObject json = new JSONObject(v);
             map.put(Config.decode(k),json);
-            System.out.println("VAMOS VER OS VALORES INTERMEDIOS: " + map);
             iterador.next();
             quantos++;
             if(quantos >= max){
@@ -688,8 +662,6 @@ public class Grupo {
             es.valores = map;
             es.lastKey = (k == null ? k : Config.decode(k));
 
-            System.out.println(ku);
-            System.out.println("Enviar valores: " + es.valores);
             sm.setData(s.encode(es));
             sm.setReliable();
             sm.addGroup(sender);
@@ -703,7 +675,6 @@ public class Grupo {
     }
 
     public void leaveGroup() {
-        System.out.println("Sair do grupo!" + ku);
         try {
             group.leave();
         } catch (SpreadException e) {
@@ -715,14 +686,11 @@ public class Grupo {
             e.printStackTrace();
         }
         try {
-            System.out.println(connection.isConnected());
             connection.remove(aml);
-            System.out.println("DISVCASHFDS");
             connection.disconnect();
         } catch (SpreadException e) {
             e.printStackTrace();
         }
 
-        System.out.println("Saí do grupo final");
     }
 }
