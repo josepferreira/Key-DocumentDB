@@ -1,5 +1,13 @@
 package nodes;
 
+import Configuration.Config;
+import Configuration.KeysUniverse;
+import Configuration.SerializerProtocol;
+import Global.StartMessage;
+import Global.StartRequest;
+import Support.ParEscritaLeitura;
+import Support.ParPrimarioSecundario;
+import Support.Secundario;
 import com.spotify.docker.client.DefaultDockerClient;
 import com.spotify.docker.client.DockerClient;
 import com.spotify.docker.client.exceptions.DockerCertificateException;
@@ -9,7 +17,13 @@ import io.atomix.cluster.messaging.*;
 import io.atomix.cluster.messaging.impl.NettyMessagingService;
 import io.atomix.utils.net.Address;
 import io.atomix.utils.serializer.Serializer;
-import messages.*;
+import messages.Flexibility.InfoMonitorizacao;
+import messages.Flexibility.JoinGroup;
+import messages.Flexibility.LeaveGroups;
+import messages.Flexibility.LeaveGroupsReply;
+import messages.Operation.*;
+import messages.Replication.EstadoMaster;
+import messages.Replication.PedidoEstado;
 import spread.*;
 
 import java.io.BufferedReader;
@@ -67,7 +81,7 @@ public class  Master {
     private HashMap<String, String> dockers = new HashMap<>();
     //Para a monitorizacao
     public boolean balanceamentoCarga = false;
-    public HashMap<String,InfoMonitorizacao> infoSlaves = new HashMap<>();
+    public HashMap<String, InfoMonitorizacao> infoSlaves = new HashMap<>();
     public HashMap<String,HashSet<KeysUniverse>> esperaEntra = new HashMap<>();
     public HashMap<String,HashSet<KeysUniverse>> esperaSai = new HashMap<>();
 
@@ -158,6 +172,9 @@ public class  Master {
                                     si.sai(aux);
                                 }
                             }
+                            eliminaContainer(aux);
+                            criaDocker(aux);
+
                         } else {
                             System.out.println("Saiu um slave mas n aparece nos registos!!!");
                         }
@@ -774,7 +791,7 @@ public class  Master {
         esperaEntra.put(slave,espera);
 
         //inicializar slave
-//        criaDocker(slave);
+        criaDocker(slave);
 
     }
 
@@ -896,7 +913,7 @@ public class  Master {
             aux.add(entry.getKey());
             primarios.put(si.idPrimario,aux);
 
-            for(Map.Entry<String,Secundario> sec: si.secundarios.entrySet()){
+            for(Map.Entry<String, Secundario> sec: si.secundarios.entrySet()){
                 ArrayList<KeysUniverse> aux2 = secundarios.get(sec.getKey());
                 if(aux2 == null){
                     aux2 = new ArrayList<>();
@@ -1003,9 +1020,9 @@ public class  Master {
 
         apresentaConfiguracao();
 
-        /*for(String slaveString: start){
+        for(String slaveString: start){
             criaDocker(slaveString);
-        }*/
+        }
 
     }
 

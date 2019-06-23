@@ -1,40 +1,17 @@
 package nodes;
 
+import Configuration.KeysUniverse;
+import Support.Secundario;
+
 import java.util.*;
 
-class Secundario implements Comparable{
-    public String id;
-    public String endereco;
-    public boolean ativo;
-
-    public Secundario(String id, String endereco, boolean ativo) {
-        this.id = id;
-        this.endereco = endereco;
-        this.ativo = ativo;
-    }
-
-    @Override
-    public String toString() {
-        return "Secundario{" +
-                "id='" + id + '\'' +
-                ", endereco='" + endereco + '\'' +
-                ", ativo=" + ativo +
-                '}';
-    }
-
-    @Override
-    public int compareTo(Object o) {
-        Secundario sc = (Secundario)o;
-        return id.compareTo(sc.id);
-    }
-}
 //classe importante para se aceder diretamente ao endereco e ao conjunto de chaves do servidor especifico
 public class SlaveIdentifier {
     public String endereco;
     public String idPrimario;
     public boolean ativo = false;
     public KeysUniverse keys;
-    public HashMap<String,Secundario> secundarios = new HashMap<>();
+    public HashMap<String, Secundario> secundarios = new HashMap<>();
     public int proximo;
 
     public SlaveIdentifier(String id, KeysUniverse keys, HashMap<String,Integer> secundarios) {

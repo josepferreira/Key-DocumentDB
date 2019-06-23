@@ -1,9 +1,18 @@
 package nodes;
 
-import com.google.common.primitives.Longs;
+import Configuration.Config;
+import Configuration.KeysUniverse;
+import Operations.Put;
 //import com.sun.xml.internal.ws.client.SenderException;
+import Operations.Remove;
 import io.atomix.utils.serializer.Serializer;
-import messages.*;
+import messages.Operation.GetRequest;
+import messages.Operation.PutRequest;
+import messages.Operation.RemoveRequest;
+import messages.Operation.ScanRequest;
+import messages.Replication.EstadoSlave;
+import messages.Replication.PedidoEstado;
+import messages.Replication.UpdateMessage;
 import org.json.JSONObject;
 import org.rocksdb.Options;
 import org.rocksdb.RocksDB;
@@ -14,7 +23,6 @@ import spread.*;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.*;
-import java.util.concurrent.CompletableFuture;
 import java.util.function.Predicate;
 
 class RespostaRemove{

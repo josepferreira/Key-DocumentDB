@@ -1,67 +1,26 @@
 package nodes;
 
-import com.google.common.primitives.Longs;
+import Configuration.Config;
+import Configuration.KeysUniverse;
+import Configuration.SerializerProtocol;
+import Operations.*;
+import Support.RoundRobin;
 import io.atomix.cluster.messaging.ManagedMessagingService;
 import io.atomix.cluster.messaging.impl.NettyMessagingService;
 import io.atomix.utils.net.Address;
 import io.atomix.utils.serializer.Serializer;
-import messages.*;
+import messages.Operation.*;
 import org.json.JSONObject;
 import spread.SpreadConnection;
 import spread.SpreadException;
 import spread.SpreadMessage;
 
-import java.lang.management.ManagementFactory;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.sql.Time;
 import java.util.*;
 import java.util.concurrent.*;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
-import com.sun.management.OperatingSystemMXBean;
-
-class RoundRobin{
-    public SlaveIdentifier si;
-    public int atual;
-    public int ativos;
-
-    public RoundRobin(SlaveIdentifier si) {
-        this.si = si;
-        this.atual = 0;
-        ativos = 0;
-        if(this.si.ativo){
-            ativos++;
-        }
-        for(Secundario s: this.si.secundarios.values()){
-            if(s.ativo){
-                ativos++;
-            }
-        }
-    }
-
-    public String proximo(){
-        if(atual == 0){
-            atual = (atual+1) % ativos;
-            return si.primario();
-        }
-        else{
-            int quantos = 0;
-
-            for(Secundario s: this.si.secundarios.values()){
-                if(s.ativo){
-                    quantos++;
-                    if(quantos == atual){
-                        atual = (atual+1) % ativos;
-                        return s.endereco;
-                    }
-                }
-            }
-        }
-        return si.primario();
-    }
-}
 
 class TratamentoTimeout{
 
@@ -103,7 +62,7 @@ public class Stub {
     HashMap<String, TratamentoTimeout> putRequests = new HashMap<>();
     HashMap<String, ScanIterator> scanRequests = new HashMap<>();
 
-    private TreeMap<KeysUniverse,RoundRobin> cache = new TreeMap<>();
+    private TreeMap<KeysUniverse, RoundRobin> cache = new TreeMap<>();
 
     //Comunicação multicast
     SpreadConnection connection = new SpreadConnection();
@@ -922,17 +881,17 @@ public class Stub {
 //                e.printStackTrace();
 //            }
 //        }
-//        JSONObject jo = new JSONObject();
-//        for(int i = 340; i < 342; i++){
-//            jo.put("obj",i);
-//            boolean res = false;
-//            try {
-//                res = s.put(i,jo);
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//            System.out.println("Put feito: " + i + "! RES: " + res);
-//        }
+        JSONObject jo = new JSONObject();
+        for(int i = 320; i < 342; i++){
+            jo.put("obj",i);
+            boolean res = false;
+            try {
+                res = s.put(i,jo);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            System.out.println("Put feito: " + i + "! RES: " + res);
+        }
 //        System.out.println("Puts feitos");
 ////        System.out.println("Vou fazer remove");
         //System.out.println("remove feito: " + s.remove(121));
@@ -953,10 +912,8 @@ public class Stub {
 //
 //
 //
-        for(int i = 0; i < 300; i++) {
 
-
-            System.out.println("SCAN: " + i);
+            System.out.println("SCAN:");
             ScanIterator si = s.scan();
 
             while (si.hasNext()) {
@@ -967,7 +924,7 @@ public class Stub {
 
 
             System.out.println("Terminou o scan");
-        }
+
 
     }
 

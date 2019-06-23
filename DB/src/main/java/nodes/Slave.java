@@ -1,17 +1,28 @@
 package nodes;
 
-import com.google.common.primitives.Longs;
+import Configuration.Config;
+import Configuration.KeysUniverse;
+import Configuration.SerializerProtocol;
+import Operations.Put;
+import Operations.Remove;
+import Support.ParEscritaLeitura;
+import Support.ParPrimarioSecundario;
 import com.sun.management.OperatingSystemMXBean;
 import io.atomix.cluster.messaging.ManagedMessagingService;
 import io.atomix.cluster.messaging.impl.NettyMessagingService;
 import io.atomix.utils.net.Address;
 import io.atomix.utils.serializer.Serializer;
-import messages.*;
+import messages.Flexibility.InfoMonitorizacao;
+import messages.Flexibility.JoinGroup;
+import messages.Flexibility.LeaveGroups;
+import messages.Flexibility.LeaveGroupsReply;
+import messages.Operation.*;
+import messages.Replication.ACKMessage;
+import messages.Replication.EstadoSlave;
+import messages.Replication.PedidoEstado;
+import messages.Replication.UpdateMessage;
 import org.json.JSONObject;
 import org.rocksdb.RocksDB;
-import org.rocksdb.Options;
-import org.rocksdb.RocksDBException;
-import org.rocksdb.RocksIterator;
 import spread.*;
 
 import java.io.File;
@@ -24,7 +35,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReentrantLock;
-import java.util.function.Predicate;
 
 
 class ResultadoScan{
@@ -90,7 +100,7 @@ public class Slave {
         }
 
         if(possoLancar){
-            ses.schedule(this.percentagemUtilizacao,Config.periodoTempo,Config.unidade);
+            ses.schedule(this.percentagemUtilizacao, Config.periodoTempo,Config.unidade);
         }
         else{
             possoLancar = true;
