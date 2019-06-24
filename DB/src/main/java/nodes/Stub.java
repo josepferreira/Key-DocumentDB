@@ -81,7 +81,7 @@ public class Stub {
         }
 
         boolean started = false;
-        int porta = Config.portaInicial;
+        int porta = Config.getPorta();
         this.endereco = Config.hostAtomix + ":" + porta;
         while(!started){
             try{
@@ -162,7 +162,7 @@ public class Stub {
         this.cache.put(ku, null);
 
         enviaMensagem(key, o);
-        ses.schedule(timeoutJson(o.id, key, o), 10, TimeUnit.SECONDS);
+        ses.schedule(timeoutJson(o.id, key, o), 15, TimeUnit.SECONDS);
     }
 
     private void reenviaMensagem(Object key, PutRequest o){
@@ -173,7 +173,7 @@ public class Stub {
         this.cache.put(ku, null);
 
         enviaMensagem(key, o);
-        ses.schedule(timeoutJson(o.id, key, o), 10, TimeUnit.SECONDS);
+        ses.schedule(timeoutJson(o.id, key, o), 15, TimeUnit.SECONDS);
     }
 
     private void reenviaMensagem(Object key, RemoveRequest o){
@@ -184,7 +184,7 @@ public class Stub {
         this.cache.put(ku, null);
 
         enviaMensagem(key, o);
-        ses.schedule(timeoutJson(o.id, key, o), 10, TimeUnit.SECONDS);
+        ses.schedule(timeoutJson(o.id, key, o), 15, TimeUnit.SECONDS);
     }
 
     private Runnable timeoutJson(String id, Object key, Object o){
@@ -413,7 +413,7 @@ public class Stub {
         JSONObject ret = null;
         try {
             //lançar ses para fazer o timeout
-            ses.schedule(timeoutJson(requestID, key, gr), 10, TimeUnit.SECONDS);
+            ses.schedule(timeoutJson(requestID, key, gr), 15, TimeUnit.SECONDS);
             ret = jsonCF.get();
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -442,7 +442,7 @@ public class Stub {
         JSONObject ret = null;
         try {
             //lançar ses para fazer o timeout
-            ses.schedule(timeoutJson(requestID, key, gr), 10, TimeUnit.SECONDS);
+            ses.schedule(timeoutJson(requestID, key, gr), 15, TimeUnit.SECONDS);
             ret = cf.get();
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -470,7 +470,7 @@ public class Stub {
         JSONObject ret = null;
         try {
             //lançar ses para fazer o timeout
-            ses.schedule(timeoutJson(requestID, key, gr), 10, TimeUnit.SECONDS);
+            ses.schedule(timeoutJson(requestID, key, gr), 15, TimeUnit.SECONDS);
             ret = cf.get();
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -497,7 +497,7 @@ public class Stub {
         JSONObject ret = null;
         try {
             //lançar ses para fazer o timeout
-            ses.schedule(timeoutJson(requestID, key, gr), 10, TimeUnit.SECONDS);
+            ses.schedule(timeoutJson(requestID, key, gr), 15, TimeUnit.SECONDS);
             ret = cf.get();
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -558,7 +558,7 @@ public class Stub {
         Boolean ret = null;
         try {
             //lançar ses para fazer o timeout
-            ses.schedule(timeoutJson(requestID, key, rr), 10, TimeUnit.SECONDS);
+            ses.schedule(timeoutJson(requestID, key, rr), 15, TimeUnit.SECONDS);
             ret = jsonCF.get();
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -585,7 +585,7 @@ public class Stub {
         Boolean ret = null;
         try {
             //lançar ses para fazer o timeout
-            ses.schedule(timeoutJson(requestID, key, rr), 10, TimeUnit.SECONDS);
+            ses.schedule(timeoutJson(requestID, key, rr), 15, TimeUnit.SECONDS);
             ret = cf.get();
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -613,7 +613,7 @@ public class Stub {
         Boolean ret = null;
         try {
             //lançar ses para fazer o timeout
-            ses.schedule(timeoutJson(requestID, key, rr), 10, TimeUnit.SECONDS);
+            ses.schedule(timeoutJson(requestID, key, rr), 15, TimeUnit.SECONDS);
             ret = cf.get();
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -641,7 +641,7 @@ public class Stub {
         Boolean ret = null;
         try {
             //lançar ses para fazer o timeout
-            ses.schedule(timeoutJson(requestID, key, rr), 10, TimeUnit.SECONDS);
+            ses.schedule(timeoutJson(requestID, key, rr), 15, TimeUnit.SECONDS);
             ret = cf.get();
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -691,7 +691,7 @@ public class Stub {
         Boolean ret = null;
         try {
             //lançar ses para fazer o timeout
-            ses.schedule(timeoutJson(requestID, key, pr), 10, TimeUnit.SECONDS);
+            ses.schedule(timeoutJson(requestID, key, pr), 15, TimeUnit.SECONDS);
             ret = cf.get();
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -808,6 +808,7 @@ public class Stub {
 
         return pred;
     }
+    
 
     /*public CompletableFuture<ArrayList<CompletableFuture<LinkedHashMap<Long,JSONObject>>>> scan(ArrayList<Predicate<JSONObject>> filtros){
         CompletableFuture<Void> cf = new CompletableFuture<>();
@@ -855,35 +856,22 @@ public class Stub {
 
     public static void main(String[] args) {
 
-        String endereco = "localhost:12346";
+
+        if(args.length == 0){
+            System.out.println("Coloque um argumento!");
+            return;
+        }
 
         Stub s = new Stub();
 
-        //s.get(10001);
-//        System.out.println("Vou fazer get");
-//        try {
-//            System.out.println("RES: " + s.get(341));
-//        } catch (Exception e) {
-//            System.out.println(e.getMessage());
-//        }
-//        try {
-//            Thread.sleep(1000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//        s.remove(150);
-//        s.get(150);
-//
-//        while(true){
-//            try {
-//                Thread.sleep(1000000);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-//        }
-        JSONObject jo = new JSONObject();
-        for(int i = 320; i < 342; i++){
+        System.out.println("\n\n");
+        System.out.println("Stub criado");
+
+        if(args[0].equals("0")){
+            int i = 45;
+            JSONObject jo = new JSONObject();
             jo.put("obj",i);
+            jo.put("campo", "json");
             boolean res = false;
             try {
                 res = s.put(i,jo);
@@ -891,27 +879,32 @@ public class Stub {
                 e.printStackTrace();
             }
             System.out.println("Put feito: " + i + "! RES: " + res);
-        }
-//        System.out.println("Puts feitos");
-////        System.out.println("Vou fazer remove");
-        //System.out.println("remove feito: " + s.remove(121));
-//        try {
-//            System.out.println(s.get(250).get());
-//            System.out.println(s.remove(268).get());
-//            System.out.println(s.get(268).get());
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        } catch (ExecutionException e) {
-//            e.printStackTrace();
-//        }
 
-//        HashMap<Boolean,ArrayList<String>> proj = new HashMap<>();
-//        ArrayList<String> q = new ArrayList<>();
-//        q.add("merda");
-//        proj.put(false,q);
-//
-//
-//
+            try {
+                System.out.println("GET " + i + ": " + s.get(i));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            try {
+                System.out.println("GET " + (i+1) + ": " + s.get(i+1));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+        else if(args[0].equals("1")){
+
+            JSONObject jo = new JSONObject();
+            for(int i = 320; i < 342; i++){
+                jo.put("obj",i);
+                boolean res = false;
+                try {
+                    res = s.put(i,jo);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                System.out.println("Put feito: " + i + "! RES: " + res);
+            }
 
             System.out.println("SCAN:");
             ScanIterator si = s.scan();
@@ -925,6 +918,72 @@ public class Stub {
 
             System.out.println("Terminou o scan");
 
+
+        }
+        else if(args[0].equals("2")){
+
+            int i = 135;
+            JSONObject jo = new JSONObject();
+            jo.put("obj",i);
+            jo.put("campo", "json");
+            boolean res = false;
+            try {
+                res = s.put(i,jo);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            System.out.println("Put feito: " + i + "! RES: " + res);
+
+            try {
+                System.out.println("GET " +  i + ": " + s.get(i));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            try {
+                HashMap<Boolean,ArrayList<String>> proj = new HashMap<>();
+                ArrayList<String> m = new ArrayList<>();
+                m.add("obj");
+                proj.put(true,m);
+                System.out.println("GET com projecao " + i + ": " + s.get(i,proj));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        else {
+            int i = 60;
+            JSONObject jo = new JSONObject();
+            jo.put("obj",i);
+            jo.put("campo", "json");
+            boolean res = false;
+            try {
+                res = s.put(i,jo);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            System.out.println("Put feito: " + i + "! RES: " + res);
+
+            try {
+                System.out.println("GET " +  i + ": " + s.get(i));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            try {
+                boolean aux = s.remove(i);
+                System.out.println("Remove feito: " + aux);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            try {
+                System.out.println("GET " +  i + ": " + s.get(i));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+
+        System.out.println("Terminaram as operações!");
 
     }
 

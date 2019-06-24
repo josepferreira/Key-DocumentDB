@@ -3,6 +3,7 @@ package Configuration;
 import com.google.common.primitives.Longs;
 
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 public class Config {
@@ -11,7 +12,7 @@ public class Config {
     public static int nConjuntos = 9;
     public static int chunk = 50;
 
-    public static long periodoTempo = 15; //periodo de tempo em segundos
+    public static long periodoTempo = 45; //periodo de tempo em segundos
     public static TimeUnit unidade = TimeUnit.SECONDS;
 
     //Percentagens Utilizacao
@@ -21,13 +22,19 @@ public class Config {
     public static float valorMin = 0.6f;
     public static float valorMax = 4;
 
-    public static int portaInicial = 12340;
+    public static int portaInicial = 20000;
+    public static int rangePortas = 20000;
     public static String hostAtomix = "localhost";
     public static String hostSpread = "localhost";
 
 
     public static boolean eLong = true;
 
+    public static int getPorta(){
+        Random r = new Random();
+
+        return r.nextInt(Config.rangePortas) + Config.portaInicial;
+    }
 
     public static String[] daChave(){
         char[] alphabet = "abcdefghijklmnopqrstuvwxyz".toCharArray();

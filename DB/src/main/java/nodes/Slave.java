@@ -73,11 +73,19 @@ public class Slave {
 
     private boolean possoLancar = true;
 
+    private boolean primeiro = true;
+
     private Runnable percentagemUtilizacao = () -> {
         OperatingSystemMXBean operatingSystemMXBean = (OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
         double cpu =  operatingSystemMXBean.getProcessCpuLoad();
 //        double cpu =  0.75f;//operatingSystemMXBean.getProcessCpuLoad();
         float memoria = (operatingSystemMXBean.getTotalPhysicalMemorySize()-operatingSystemMXBean.getFreePhysicalMemorySize()) / (1000*1000*1000);
+
+        if(primeiro && this.id.equals("slave2")){
+            cpu = 0.75f;
+        }
+
+        primeiro = false;
 
         TreeMap<KeysUniverse, ParEscritaLeitura> operacoes = new TreeMap<>();
         for(Map.Entry<KeysUniverse, Grupo> entry: this.grupos.entrySet()){
@@ -1134,6 +1142,11 @@ public class Slave {
     public static void main(String[] args) {
 
         //Para já o valor do args deve de ser 1 ou 2 ou 3
+        if(args.length == 0){
+            System.out.println("Coloque um argumento!");
+            return;
+        }
+
         Slave s = new Slave(args[0]);
 
         while(true){

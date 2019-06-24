@@ -391,7 +391,7 @@ public class  Master {
                     double valor = ((0.3 * leituras) + (0.7 * escritas)) / Config.periodoTempo;
 
                     if(valor < Config.valorMin && nSlaves > nSlavesMinimo){
-                        System.out.println("Pedidos estão subcarregados, diminuir conjunto de slaves!");
+//                        System.out.println("Pedidos estão subcarregados, diminuir conjunto de slaves!");
                     }
                 }
 
@@ -409,6 +409,8 @@ public class  Master {
                 System.out.println("Deu null nos q esperam ao receber resposta de leave!");
             }
             else{
+//                System.out.println("LEAVE GRUSP: " + lgr.id);
+//                System.out.println("LEAVE GRUSP: " + lgr.primarios);
                 espera.removeAll(lgr.primarios);
                 HashMap<String,HashSet<KeysUniverse>> enviaJoin = new HashMap<>();
                 for(KeysUniverse ku: lgr.primarios){
@@ -433,6 +435,7 @@ public class  Master {
                         System.out.println("Era null!!!");
                     }
                     else{
+//                        System.out.println("Vou remover");
                         aux.removeAll(entry.getValue());
                         if(aux.isEmpty()){
                             esperaEntra.remove(entry.getKey());
@@ -455,7 +458,9 @@ public class  Master {
 
                 }
 
+//                System.out.println("Espera entra: " + esperaEntra);
                 if(esperaEntra.isEmpty()){
+//                    System.out.println("Pode acabar a monitorização");
                     esperaSai.clear();
                     balanceamentoCarga = false;
                 }
@@ -523,6 +528,15 @@ public class  Master {
 
 
         return ku;
+    }
+
+    public void inicializaInfoMonitorizacao(String slave){
+        TreeSet<KeysUniverse> aux = keysSlaves.get(slave);
+        TreeMap<KeysUniverse,ParEscritaLeitura> map = new TreeMap<>();
+        for(KeysUniverse k : aux){
+            map.put(k,new ParEscritaLeitura(0,0));
+        }
+        this.infoSlaves.put(slave,new InfoMonitorizacao(0,0,map,slave));
     }
 
     private KeysUniverse minimaUtilizacao(InfoMonitorizacao im, HashSet<KeysUniverse> pE, HashSet<KeysUniverse> sE){
@@ -883,21 +897,21 @@ public class  Master {
             }
 
         }
-        /*System.out.println("Fim aumento!");
-        for(ParPrimarioSecundario par : pares){
-            System.out.println(par);
-        }
+        System.out.println("Fim aumento!");
+//        for(ParPrimarioSecundario par : pares){
+//            System.out.println(par);
+//        }
 
-        System.out.println();
-        for(Map.Entry<String,TreeSet<KeysUniverse>> ent: keysSlaves.entrySet()){
-            System.out.println(ent);
-        }*/
 
-        apresentaConfiguracao();
 
         atualizaEstadoSaem(saem);
-        atualizaEstadoEntra(pares,this.idSlave+nSlaves);
+        atualizaEstadoEntra(pares,this.idSlave+(nSlaves-1));
 
+//        System.out.println();
+//        for(Map.Entry<String,TreeSet<KeysUniverse>> ent: keysSlaves.entrySet()){
+//            System.out.println(ent);
+//        }
+        apresentaConfiguracao();
     }
 
     private void apresentaConfiguracao(){
@@ -923,14 +937,14 @@ public class  Master {
             }
         }
 
-//        for(String sl : primarios.keySet()){
-//
-//            System.out.println("Slave: " + sl);
-//            System.out.println("Primário: " + primarios.get(sl));
-//            System.out.println("Secundário: " + secundarios.get(sl));
-//
-//            System.out.println("----");
-//        }
+        for(String sl : primarios.keySet()){
+
+            System.out.println("Slave: " + sl);
+            System.out.println("Primário: " + primarios.get(sl));
+            System.out.println("Secundário: " + secundarios.get(sl));
+
+            System.out.println("----");
+        }
 
     }
 
@@ -1024,6 +1038,7 @@ public class  Master {
             criaDocker(slaveString);
         }
 
+
     }
 
     private void eliminaContainer(String nameContainer){
@@ -1112,61 +1127,19 @@ public class  Master {
         }
 
         this.dockers.put(nameContainer, idContainer);
+        inicializaInfoMonitorizacao(nameContainer);
     }
 
     public static void main(String[] args) throws DockerCertificateException {
 
-        // ******* Povoamento **********
-        //Para já está povoado hardecoded ...
+        if(args.length == 0){
+            System.out.println("Coloque um argumento!");
+            return;
+        }
 
         String endereco = "localhost:1233" + args[0];
 
-        /*KeysUniverse ku1 = new KeysUniverse(0, 100);
-        KeysUniverse ku2 = new KeysUniverse(100, 200);
-        KeysUniverse ku3 = new KeysUniverse(200, 300);
-
-        SlaveIdentifier slave1 = new SlaveIdentifier("localhost:12341", ku1);
-        SlaveIdentifier slave2 = new SlaveIdentifier("localhost:12342", ku2);
-        SlaveIdentifier slave3 = new SlaveIdentifier("localhost:12343", ku3);
-
-        slaves.put(ku1, slave1);
-        slaves.put(ku2, slave2);
-        slaves.put(ku3, slave3);*/
-
         Master m = new Master(endereco, args.length>1);
-
-        //m.teste();
-
-
-
-        /*while(true){
-            try {
-                Thread.sleep(10000000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }*/
-
-        /*String jsonString = "{'ola': 'mania', 'meu': mania}";
-        ObjectMapper objectMapper = new ObjectMapper();
-
-        SimpleFilterProvider filterProvider = new SimpleFilterProvider();
-        filterProvider.addFilter("empFilter",
-                SimpleBeanPropertyFilter.filterOutAllExcept("\"v1\""));
-
-
-
-        objectMapper.setFilterProvider(filterProvider);
-        try {
-            JsonNode actualObj = objectMapper.readTree("{\"k1\":\"v1\"}");
-            String s = objectMapper.writeValueAsString(actualObj);
-            System.out.println(s);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }*/
-
-
-
 
     }
 }

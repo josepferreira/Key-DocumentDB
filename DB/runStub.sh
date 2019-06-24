@@ -1,0 +1,1 @@
+java -cp target/bd-serverless-1.0-SNAPSHOT.jar nodes.Stub $*

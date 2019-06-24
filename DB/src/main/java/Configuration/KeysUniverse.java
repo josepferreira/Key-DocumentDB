@@ -26,7 +26,9 @@ public class KeysUniverse implements Comparable{
 
         KeysUniverse that = (KeysUniverse) o;
 
+
         if(Arrays.equals(min,that.min) && Arrays.equals(max,that.max)) return true;
+
 
         return (Config.compareArray(min,that.min) >= 0) && (Config.compareArray(max,that.max) < 0) && (Config.compareArray(min,that.max) <= 0); //basta que esteja contido no intervalo,
         // para ser considerado igual. Importante para a procura no hashmap
@@ -34,7 +36,7 @@ public class KeysUniverse implements Comparable{
 
     @Override
     public int hashCode() {
-        return Objects.hash(min);
+        return Objects.hash(Config.decode(min));
     }
 
     @Override
