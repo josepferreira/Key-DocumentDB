@@ -752,7 +752,8 @@ public class  Master {
                 si.ativo = false;
 
                 for(KeysUniverse aux: par.secundarios){
-                    si.removeSecundario(idS);
+                    SlaveIdentifier siA = slaves.get(aux);
+                    siA.removeSecundario(idS);
                 }
                 //adicionar espera pelo primario
                 espera.add(par.primario);
