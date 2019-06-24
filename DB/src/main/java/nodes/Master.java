@@ -373,7 +373,10 @@ public class  Master {
 
             if(!balanceamentoCarga){
 
-                if((im.cpu > Config.cpuMax ||
+                if(primarios(im.id) < 2){
+                    System.out.println("N pode diminuir, visto que só tem 1 primário!");
+                }
+                else if((im.cpu > Config.cpuMax ||
                         im.memoria < Config.memMin)
                  && nSlaves < nConjuntos){
                     System.out.println("Tem demasiado cpu ou pouca memória por isso é necessário aumentar o número de slaves!");
