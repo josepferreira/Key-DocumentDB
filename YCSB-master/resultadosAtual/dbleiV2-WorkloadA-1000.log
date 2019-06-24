@@ -1,0 +1,2530 @@
+[WARN]  Running against a source checkout. In order to get our runtime dependencies we'll have to invoke Maven. Depending on the state of your system, this may take ~30-45 seconds
+[DEBUG]  Running 'mvn -pl com.yahoo.ycsb:dblei-binding -am package -DskipTests dependency:build-classpath -DincludeScope=compile -Dmdep.outputFilterFile=true'
+java -cp /home/jose/Desktop/LEI/Graficos/Key-DocumentDBv1/YCSB-master/dblei/conf:/home/jose/Desktop/LEI/Graficos/Key-DocumentDBv1/YCSB-master/dblei/target/dblei-binding-0.16.0-SNAPSHOT.jar:/home/jose/.m2/repository/org/apache/htrace/htrace-core4/4.1.0-incubating/htrace-core4-4.1.0-incubating.jar:/home/jose/.m2/repository/org/slf4j/slf4j-api/1.7.25/slf4j-api-1.7.25.jar:/home/jose/.m2/repository/org/rocksdb/rocksdbjni/5.11.3/rocksdbjni-5.11.3.jar:/home/jose/.m2/repository/net/jcip/jcip-annotations/1.0/jcip-annotations-1.0.jar:/home/jose/Desktop/LEI/Graficos/Key-DocumentDBv1/YCSB-master/core/target/core-0.16.0-SNAPSHOT.jar:/home/jose/.m2/repository/org/hdrhistogram/HdrHistogram/2.1.4/HdrHistogram-2.1.4.jar:/home/jose/Desktop/LEI/Graficos/Key-DocumentDBv2/DB/target/bd-serverless-1.0-SNAPSHOT.jar:/home/jose/.m2/repository/org/codehaus/jackson/jackson-mapper-asl/1.9.4/jackson-mapper-asl-1.9.4.jar:/home/jose/.m2/repository/org/codehaus/jackson/jackson-core-asl/1.9.4/jackson-core-asl-1.9.4.jar com.yahoo.ycsb.Client -db com.yahoo.ycsb.db.dblei.DBLEIClient -P workloads/workloada -p operationcount=1000 -s -t
+Command line: -db com.yahoo.ycsb.db.dblei.DBLEIClient -P workloads/workloada -p operationcount=1000 -s -t
+YCSB Client 0.16.0-SNAPSHOT
+
+Loading workload...
+Starting test.
+2019-06-22 20:39:03:198 0 sec: 0 operations; est completion in 0 second 
+localhost:28499
+[Thread-3] WARN io.atomix.cluster.messaging.impl.NettyMessagingService - Disabling TLS for intra-cluster messaging; Could not load cluster key store: ../config/atomix.jks (No such file or directory)
+[netty-messaging-event-epoll-server-0] INFO io.atomix.cluster.messaging.impl.NettyMessagingService - localhost/127.0.0.1 accepting incoming connections on port 28499
+[Thread-3] INFO io.atomix.cluster.messaging.impl.NettyMessagingService - Started
+DBWrapper: report latency for each error is false and specific error codes to track for latency are: []
+O slave que contém a minha key é: localhost:12342
+O valor é: {"field7":"=Es*9~(_i66<\/>8$R1:H39Ko1+j*Qc.Z%-*v9U)8C!:Ke37v5/p:$`*,44>t,G?=Ok) *4)*&C/ V'&Zq>\".6H{+H}>)`\"'072.("}
+TOu no envia mensagem!!!!!
+O endereco é nulo? true
+A enviar uma mensagem de multicast para o master!
+Recebi uma mensagtme do master!!
+O slave que contém a minha key é: localhost:12342
+Por na cache
+Enviar para o slave
+Recebi uma mensagtme do master!!
+Recebi uma mensagtme do master!!
+O valor é: true
+O valor é: {"field0":"&\"4 8:>R}/K=7(f'Ri1!r+Xk$D=96j/O=<Ji>Ww+*d5Om2,b._!)Yo6Ka\",r\"::42v&?*1Xi!&2%)01#\"9^g)G}\"O- />1:\"!Dm?"}
+O valor é: {"field9":")X)<\\i/H}#3>$'$87`3Q! J{;\\o+Sq?]%=*l:Ye#-l->n6R!2%r>P/,0b+Ou8Wi#&<<@%<4(6$|:(&,O}'Bs\"5`\"3t\";2!Vu<+(("}
+O slave que contém a minha key é: localhost:12341
+O valor é: {"field3":"$2`>Bm2#69,$)#r?+\"7&~&\"d'X!,N=2-04A}#Y7=Di%H#<Ro2%.$]9-#4 Sw!Is\"Au:B+5#8 $`25<;1*!? 8G)1;2.@{&Dk#7.9"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? true
+A enviar uma mensagem de multicast para o master!
+Recebi uma mensagtme do master!!
+O slave que contém a minha key é: localhost:12343
+Por na cache
+Enviar para o slave
+Recebi uma mensagtme do master!!
+Recebi uma mensagtme do master!!
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? true
+A enviar uma mensagem de multicast para o master!
+Recebi uma mensagtme do master!!
+O slave que contém a minha key é: localhost:12343
+Por na cache
+Enviar para o slave
+Recebi uma mensagtme do master!!
+Recebi uma mensagtme do master!!
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field9":"*1l>T; )24_w+E9%6f Hg>B7;L?,5v;R11:r0Fs'W/$n&>, Fu25~!_+48\"\"%()*v59><O{:<p7<<99t\"\"l$A-8U);585@10>>)"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? true
+A enviar uma mensagem de multicast para o master!
+Recebi uma mensagtme do master!!
+O slave que contém a minha key é: localhost:12343
+Por na cache
+Enviar para o slave
+Recebi uma mensagtme do master!!
+Recebi uma mensagtme do master!!
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field1":"+2`;(,>T10\"j(6.0(\"3Mm3Y)\",n7X'(Fm//v9Y\"Zw4/(-&v Au+M3.@)<R%-Vq7\"<6Vk.5,'^; &330$Xy-!2$@3Y!%S+)Gw;"}
+O valor é: {"field4":"/H;8/4\"W=9[u1%z:*:1'>--v\"O+%6r.&:!B'!R7)Fg>F!1[-8!f/Q70-25Pg68j7W5,$`&\\c!Do:Z)0?&8X)*Zg&?z-Q}6]),>~:"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? true
+A enviar uma mensagem de multicast para o master!
+Recebi uma mensagtme do master!!
+O slave que contém a minha key é: localhost:12342
+Por na cache
+Enviar para o slave
+Recebi uma mensagtme do master!!
+Recebi uma mensagtme do master!!
+O valor é: true
+O slave que contém a minha key é: localhost:12341
+O valor é: {"field3":"4,.0@a*]#%Z=<S:)8)0z6U9<Gk;^e(0p&Sw+Tm&*f72p>Uc)D+0 h%Qm#>f57p2-* Jo*243R)%B)<Lw>Ym<B}#N\":d#>,/P#8"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? true
+A enviar uma mensagem de multicast para o master!
+Recebi uma mensagtme do master!!
+O slave que contém a minha key é: localhost:12341
+Por na cache
+Enviar para o slave
+Recebi uma mensagtme do master!!
+Recebi uma mensagtme do master!!
+O valor é: true
+O valor é: {"field4":">Wy/R5,\"0%E1)Ty3O),t'9f,V3(Zo,4t*16 Uu'_k;#819,%^q:Es%Oe?)l%9b70d7^5=U}.6l&Po4^s'Xm2V39G#*,>9Je8+*9"}
+O valor é: {"field7":"&<x>(07^u* v2<:4@1<!r6>:!)*0#6#Ng+)n6Vs;#t/V-(.2:[}68~<#<4&:*0$49>7\\5)Pk)H-5T-)D1<M)1@9=184Wk*%89<$0"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field6":"?-t3\"*4<n#-(%^79N1(W-5]m$L=<[g-Pe>9f<\\902v;/ 4)\"*6j#/(.We+5b+1v&#06[i/Cq90<<Pi.&l;,|/]3-:6<Z+$.h/Gu&"}
+O valor é: {"field3":"!_2Ro7@-!6(+Qa7G9(Ja;Rm'-8)'2#3&0)0>!81Qw5#|>E!6E1<9*%>45Hk,Mi3&d/Ya39|5+`>_m3H#4O?#Pk#3>>,f/ :4Y'5"}
+O valor é: {"field9":"*1l>T; )24_w+E9%6f Hg>B7;L?,5v;R11:r0Fs'W/$n&>, Fu25~!_+48\"\"%()*v59><O{:<p7<<99t\"\"l$A-8U);585@10>>)"}
+O valor é: {"field3":"=?l?&h##d7Do),t&Fu&K) \\q0Xq3@e+)p.5v +2%8r-Py.3,?H;,[{8$85Uw9(*4 z#7x;[e$<*5L)!?l//\"85t:<l17\"=2 =;l2"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field9":"(.4-;d?K31*:&0\"=-x'Pe7+,)7<8U;*1z2Cw!Xq;S'1X'-V-:%. / 6/6)X1(@o/4<!685=039> S+*2z+ v<Vu7+l=V%9Gw\"T1-"}
+O valor é: {"field0":"5$d#Be$3>%]g'?r:#($Gu3+$+Z= P%?>6<-2-K=%2<#X)4-j P+)Yo?^i3Xo#&n6>(.^/=]% Iy*3`!Os;Om R; @q&\">1*~17\"("}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field4":"(3>$6`,Zo#\"$%S}/&h ?x6Ty=5.!K=)&0)_##5r?1~(M:/n# r76 ,Oe''v8]{'J-':0=G)*4h'Ua V5$?84@o:L/,E3 *n(_i*"}
+O valor é: {"field1":"<Kg6V!<=t3 ~7G'?z3Ha'@s4Sk6\\i=Se#Es Kw#\"8!0f.\\o,+\"()t6Uy7B):7: 6r5@m\"(6.!p3>:*Zu.^5*%b2!09'v:*` .d>"}
+O valor é: {"field1":":7f3@- .,4!$<I'5Iw(:j6?l>L;%\".(K7,Y76T5-.b#\\e:Xg-.b.T95-n#Qw#-$9C)Ay6A9(Nu/*n,#8)\\9$N9=N?#?20Q;:Rg/"}
+O valor é: {"field1":".X1)0&0Jg3?2%R/,A90De7\\+/3|;A;%)l*1&8>2,F/'Us*:j)0:<Z'4Yc.T)3\\a>/(,'8!J?88h6?f,*6=3f=Ee\"V{.J59Q+:H+0"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field1":",%(<.4'A!1Q%(-(!+` $n3.61M'$+$ 2z/C{\"K;(/d$Y?=F?\"8 %_y$?p.)2:;z77l,Ii3F'?_15 x?) 4Wi,Lm.N/(Fe.4&*?(="}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field5":"4/n3Ye=$p+Ww9R%-F=3O554,,F/<Y#= j&K68d+:24<.8Ma(Ik'A!($*1\\g<:~7Ps-(f&W/5=b'3v7:$4_?/%$<F{24`:De&'.9"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field7":"2Sm'>f 0d+6h8Uw:&z>R'!Y)+)x;-r*1 (+h,P',?f,F?%Ug9Vm'66 .l>00<=\",!h.;>5?::! 4#2 1(,W%9289G7\"- -4p/]{3"}
+O valor é: {"field0":"1Gw6>v65h28z\"T{+_g:Cm? r<_;!3d18|&<l&-~/Uu,I3-[m4&&0Cs4R/9/n&Bk.-l#;x++b%%~:5>4=`+1z&1|3.t-Y!5Iq4 j3"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field1":".X1)0&0Jg3?2%R/,A90De7\\+/3|;A;%)l*1&8>2,F/'Us*:j)0:<Z'4Yc.T)3\\a>/(,'8!J?88h6?f,*6=3f=Ee\"V{.J59Q+:H+0"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field4":"(3>$6`,Zo#\"$%S}/&h ?x6Ty=5.!K=)&0)_##5r?1~(M:/n# r76 ,Oe''v8]{'J-':0=G)*4h'Ua V5$?84@o:L/,E3 *n(_i*"}
+O valor é: {"field3":",=b6S/$C%,R#2?01E31>$$Ka.\"20#r!-\"0Z+8O2<`>B)!Q# A+=Iu<O747x/:j62b=Ke&7*1U919j8Me/<,-^y+Oy=S;,.p.:$="}
+O valor é: {"field1":"\",*$7$2Lo;I=2(*4L!=3|6Y?$\\q60p8969X3\"H3(%87!$!4x/Sw\"Q;)$v3*h7=b&2p).~7!2:@a;<<<Me.A7(Zi+H+,Vq#%:![k#"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field2":" K?9A+36((F=3Yq+1<$86 Tk* 0,<p5My38v1N{:Ei?305Iy1%l\"7d>Q}\" (1N}/% 9]{/Sa Oq6+:8Li/2&4Us+B}<J3!Cq4Zc3"}
+O valor é: {"field3":"/6h/Z9>9p';v Ay6N7$$();( ^q*6<+*|+T%.=b;).;R+8*|,6n#1t;;t6Ya2.x?!r!Qm>B%0Q1(*j)<(9::5\" 5C7*(x+U9/(\"0"}
+O valor é: {"field6":"+Kk63*/0,( r4%& !v4^/0_y7Xy\"5<)&<8T)>Jq+$:#Ci?R1,Y31Jo?-\"94> _\"'*<Um29<4Fi\"L1)^;=R3$Q),T9(#\"45(?<4!"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field9":"%S+,6`;Ou>Y= Tw.Ai!_=03>'Io.3l*!&$C%<V%=Ai:\"21]k'(f;>$ V+=#2>Nu.5~&Q+-=$:[+,58=+8!Ue5&d'%..]g?@q?4(-"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field1":",%(<.4'A!1Q%(-(!+` $n3.61M'$+$ 2z/C{\"K;(/d$Y?=F?\"8 %_y$?p.)2:;z77l,Ii3F'?_15 x?) 4Wi,Lm.N/(Fe.4&*?(="}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field0":"<6&!?f!O3-V3/28(9<3M# \\q8Ho>^5.S?\"p=:$,D9,\"t.Yu:!b/?(/_o71z:)682(*L#(Ww!B'!/v2M10+6!+*%&,3$f&&~3Zy\""}
+O valor é: {"field6":"0=2(?2!,p>0x\"J95)v?Q34V#'=v3G-*D-%T'%S;)9b:H/!(<\"3t#H=4=l:%v=1p&36)\">9N)1]'$8p&S3,=$(664Os1:<$8j89$="}
+O valor é: {"field5":"%0:9$\"'G{2*44%, 0>!-*8<:'Hc:W ,p*.\".7x&&d:Su7>80C7%@e#]i?<b5E%1D=.Oi6B'\"5.5Z}(#81Q/=T?!\\'>C}>My$+l'"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field0":"/L30^m?Ca*&./\"`#Au?$8-<*,(44*p31&0[/!^3 T}9(.09<#\\k&8r(Da'4\" [q>58 /<(#h:6h;4&*D#17,9Di2_)\":~'E?$Sm\""}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field6":"!O!9Ke3Y=0Qa1*p\"^#':6$_s<!p*=l88~\"Gg93`:?p7%r;)n+880]e7Tc.H70C' Uk-F'=,z'9:,!x*B1,>*5;*8Yy)Wo:,z=_m2"}
+O valor é: {"field1":"=Oq/_w)Yg&047^u*/|1N/  v:+~>8x<+v?[w$Ia.M32N-$.t=^/):l4Nu/@u(O?=D{::*5$,0A5%^i+U7,F1?1(9^3$Ne\"[#3%>-"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field3":"+F/,\\o*):)/l5R#(C!;Z%5]a*W6W144<=5b(!:828>B/<^;*R+$Mo%<6$7$2So*Zk<@}7B}!&v\"J139p?!,$-*(E%6Bm\"2(/#$)"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field2":"&^g2*\"/M{#Mg'>6-Jm)Hc/!<8[')'4* b&=r1'p+Co7,*1F}9]=-P{+N2!b&F58\"4?Yu+=,8I=!K+3'r\"9f04~#/2>\\?58j +.!"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field1":".X1)0&0Jg3?2%R/,A90De7\\+/3|;A;%)l*1&8>2,F/'Us*:j)0:<Z'4Yc.T)3\\a>/(,'8!J?88h6?f,*6=3f=Ee\"V{.J59Q+:H+0"}
+O valor é: {"field9":"=J)-Hg9*~*5z0_k&L{!G58Ja?])0\\9%$*);n8( $?*-D9(::\"L;1I}6Ui'% 4(,%Rw)<>1O#'Js+)\" @a2[o>K-!$,3*x\"@=8>v7"}
+O valor é: {"field4":";*j2\\g9]w2Ke%Ii7I=?4*5Ug).*1^;?Ms.!p:R5$0n,Qe*V51I-=&2&)x7B%%Hg3&2,$x7?t<Ze*+d*=|2W}+Zq'G{!]' 6l-Mm;"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field7":"1M/<!>&P7!5v,M7(96:'85Zk6%f&M &h;Cq?2:(!`)Na3T/,7&42&0Pc2$(<Vo+,:0Ne;*n5>(=? ;Ri6F}8Aw/[?/Hi?Am5Ye7"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field7":"+#~*^{&0n.T+)[c&*l2'f.R)>*v3F/8[m+?f;4~2Rc#(0$>p\"'<5Km6*4 G{%=h/Lk<Zo>1:\"=z7J+*7p;P;<=x&4p2I?)T'&Nm>"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field5":"9)\"1?$1)&-_&%8(Zw$#|3R}1(d/Q->[u*K--W}3[g1H9-O7'^14)x!V;41f!=f+Hu<Ko&Z-'\"n6Y/;0l;5n#7003`/?$$F).5~7"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field1":"33:42()=p6Zw%B/-]}: >!9h)!p+Z'1#\"-Ni*\"h+Kk>1v:Rq&#( Xc0M-!Jw;N!$@+4G1 E!-Z-%M)1G{:Ve9(r+'n$<2$8$:Da?"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field4":"!\\+)Jq/C#H?:6v/>$;7n.28'04%-d7;~+Y5#Yi6)0+^+,X3;Bq>F53W3 D;5^#%Vc%O1 5d4 $9\"h0&n/-f'Rs*/t?^};<<9(|/"}
+O valor é: {"field4":"#:&5L9=Lq7:\"9)4$->.\\- ,p;$t+^/:%\"=),6/:(1d$B391>!32,<h0Bq2B39!(0'~<Yi:+r*,.8Pe9Kc\")j [c*]7\"Z5-#8 %n\""}
+O valor é: {"field7":"8:&<Y31\"\"!;b>C958x'0b.Ag<=0)Iu9M{/U14:\"<- '3x#0\">Lm:Gy\"#v6B=\"9`6'~3&,!_o?Ds:8,%Dc3Yi $r.@u0%b?&t8;\"9"}
+O valor é: {"field3":"4,.0@a*]#%Z=<S:)8)0z6U9<Gk;^e(0p&Sw+Tm&*f72p>Uc)D+0 h%Qm#>f57p2-* Jo*243R)%B)<Lw>Ym<B}#N\":d#>,/P#8"}
+O valor é: {"field0":"\"B?9.t:,<,Fg1->(Bu5\"6(I'4J%4]q2L.4f9Ge&E=)*p.S'7Ce+;d-I9,Y;)$`*U-\"Uy:^c/32$Im6?f>&p=Hu.Zm=Ya\"G?/? ,"}
+O valor é: {"field7":")(l+4$'M%(Tm9^+=Os;$28%d-3l63 %Kg#):-R{#R87v2?6&>2(_e,;x\"^%<Q'$Dm.\"`.[%3&`;Wq*X%0H;$Vs/Ma7?(57:'@m2"}
+O valor é: {"field9":"=J)-Hg9*~*5z0_k&L{!G58Ja?])0\\9%$*);n8( $?*-D9(::\"L;1I}6Ui'% 4(,%Rw)<>1O#'Js+)\" @a2[o>K-!$,3*x\"@=8>v7"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field4":"2+$8[5%L7)<:7=r.!t&6`?<(2-61<p33n;8p4 8,<.>Yo'4z=7z+0j(P+-B'<H'!/|9<d6Ky'(.-Q?!\"6 ).29v'&04N'$Fi3)$)"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field6":"3U7Pm=]};A'2U/8H+:Gs:=n$5\"=4`\">|7[i?94)U-(Nk\",x0E7,%d?0x'L#14j/Q{)X?=144 >!*:!Dc\"K59P}7*j\"W!==29R+0"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field4":";*j2\\g9]w2Ke%Ii7I=?4*5Ug).*1^;?Ms.!p:R5$0n,Qe*V51I-=&2&)x7B%%Hg3&2,$x7?t<Ze*+d*=|2W}+Zq'G{!]' 6l-Mm;"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field1":"$Es2J1:Ji67b4[i6'd+)|&Qe<0:-7l)@5,%:0!l':*$0f*3.+W34!\":),%-:6W}#?8?Uu*[1/-z#-,*Y-<@a5Iw>\\98#t#6|<%>,"}
+O valor é: {"field7":"&.(,L##\\-=B5/%<=\\)=[u7B=?Qg.5`=\\!1\\5/-\"9Pi&Ba6#z=P-1]+9Cc/^,9:9Y';Jw/=(?@m\"]%%J9!I3(V{6Bg3+p'6&=I?!"}
+O valor é: {"field1":".X1)0&0Jg3?2%R/,A90De7\\+/3|;A;%)l*1&8>2,F/'Us*:j)0:<Z'4Yc.T)3\\a>/(,'8!J?88h6?f,*6=3f=Ee\"V{.J59Q+:H+0"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field5":"5=v3Ny9Ck&?$5Tw>?$%W.%2!M?%&03Z}.I;8Ms/*p 6j/N?4, ,3v,[}3_k _c+R52Qw*9j8'r\"V5#<d;5p,$x+P95M/=J58Hy'"}
+O valor é: {"field9":";Ty;%<4Km/5l,Fc6L0^;<Hk2Gc;B71?>9?l9Xy'Sq9#,8:&$Ja'E!'Im;?v2%>(:|+'899(74*5P%2Y?-/*5S-!\"p7E/95|7<r>"}
+O valor é: {"field4":"2+$8[5%L7)<:7=r.!t&6`?<(2-61<p33n;8p4 8,<.>Yo'4z=7z+0j(P+-B'<H'!/|9<d6Ky'(.-Q?!\"6 ).29v'&04N'$Fi3)$)"}
+O valor é: {"field4":";*j2\\g9]w2Ke%Ii7I=?4*5Ug).*1^;?Ms.!p:R5$0n,Qe*V51I-=&2&)x7B%%Hg3&2,$x7?t<Ze*+d*=|2W}+Zq'G{!]' 6l-Mm;"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field4":"=R};9v*2.<'f3\\#=Zi!Gq;=|)9&$Xq>L9<0n;V!4Qm)A7,4j?A'<\"97v2Y5?'2)1x*+013b,T1$\\c&R3-9>=#p/,p2L)5&&5: 5"}
+O valor é: {"field5":"6K%!'t6Ka+(`2@i'Mm6>r#Xq Yq& n>S1%Ag D7$\\#=9f\"?\"7Qy7Dw 8x'$x+:2<2t%6`?;.*$$8C!0=6=2v,*~:*~*+p7 ,'Ru\""}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field4":",\",0J9<*p?I;=U)<-f:D? #`>Ic.?0);p/C%;*p& `#90(\\w$P!0).0]/,I}8%8(Ua<L30[5Ua'3n,/ %Sg$^w+.<%Va?^o\":t2"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field0":"6We7Vc=1>9Je:Wg?P#:8>!1(93,<%<4F;=/|#=t:I$4x&Mk9Ik?3& ]c2><)J)%7 #Dc?(j7T'4Qk*+&1367N7<Oy\"&x.8n1Qi3"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field7":"%Xq3=8$Yg&O19B}:66\" <%B/&Zs7((;_s/Ek>P-1N/> f\"M1(^?G-#Em7Zu81n;Du3M;06$$3h2[g(@/=5l(8t>/h5!|\"\"r=.: "}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field0":"\"#~/F'93n?&,+.45I1*,l#7h&Rq7)>7:4)&l-P%%)z8P;=K{41&='z:N555p<:~.Lw=049A?)^?%A3$K-1< %$, *t8,8%@# '|3"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field8":"%My20p4349 >=U}?Ce5Ns\"Ni:( 5<x=Q;-,8;R!)\",$)842r$L'$Ms$Am?A5/A;,0j\"X'=-b3G/=Nk.O# 5~?2r?<n(D=<4l'4$5"}
+O valor é: {"field5":"0,`\")z(1v>\"b!U!%[#:Y!-O=0@g3)b9Y}6&,._g/#n-S)<^7$Vk;G%2$f/[+8O}\":n7Hi3/z16f/\"$$W7$P{'Mo\"\"d3**-R7;J71"}
+O valor é: {"field2":",R5-Xg09 !!l<,l\"V3! l;E3 =~374894-8n\"2&!+\"'V+0`>C5-G'=-0-;6!E}6\":+\\;1O5:=|:$26Y9%%z5He+Qq,=x7((:M%,"}
+O valor é: {"field6":"7&< Za%'<4>0\":*!]#:081[q?6d/P9+J=!K!8-h.!2!Ao?3<4My.^q?Q/<3.6*x>?:#V%=6| D!5M{646<Kc6N7=9p&O};6\"-J79"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field6":" Q-0C7<&84Z)6B9=A'(Ew+\\}-G5,+0?=0!S;9681'85W7=A=^}*:49,& Ia:Cs#Gi.Z# \\2=(4Jk50&8Y59 j?,\"''n+_'9#`/"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field7":"61t+Sa+W1 <n&9t/]%0Ko?^i>Zi;:\")/6!_5=Te?Qo!Du7#h9R-9V1+_'(/x!36,8\"3Xs.!<:F{*Te %0-O%?0<1 p(@+5?,6E1!"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field5":"0=< J'6U# #|1O{>T%6G}6< 1F;=@)6Q7%6z7Z#)Pu6Sm;)* !$(Re%Q}::t3@y7'z'Gi#Iu1)>8_i9Vc;P=-\":0V3??(15$%3&0"}
+O valor é: {"field7":"1M/<!>&P7!5v,M7(96:'85Zk6%f&M &h;Cq?2:(!`)Na3T/,7&42&0Pc2$(<Vo+,:0Ne;*n5>(=? ;Ri6F}8Aw/[?/Hi?Am5Ye7"}
+O valor é: {"field9":"4A+<*h.1h/6d9=05M%9H;4Ui,'b6?6<!>1%v&=,<F3*C7,1>*N7 Hg7#2('>6H{&$>=!:8Nm6\\e: f.Os70.8((($2+La2M3/;|;"}
+O valor é: {"field0":"!76)R#!I7)5~\"#(!M1?6 0\"`,Pe7L}=30(=*1X;([3*Vc:4v<9t.T72(t79>/Ou/ &>A#$:d16f3W!<Ke2(`*+6(.p,\"21O)$7$="}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field3":"2=r+5>&!v2\",(<*0Xi <j>1j/<j*0:\"Ia+50/>b'#~3$|#-6-/<=$29?8=-(<\/<$P9*$x#-2/<h;[k=H?)Z'=_3<C/.!j/X1%P95"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field0":"6We7Vc=1>9Je:Wg?P#:8>!1(93,<%<4F;=/|#=t:I$4x&Mk9Ik?3& ]c2><)J)%7 #Dc?(j7T'4Qk*+&1367N7<Oy\"&x.8n1Qi3"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field3":"(Vw+R#;,:%5z( 6,4f#1(8W?;?z6\\'1Bw3Mk2Kc/'j'[u.H} Zo'>r -.82h8Aa\"0z3I)!)\"4Jy#0\"=>z*5>%Li&K?\"!>4]w5Cm;"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field6":"._#%,z!2`> :*02);p>H;$?n*7v:Zo;Pm:Wc#D1$]e&5~;Z!'Lo.Eu.S'%3t<<f;0>?]y\"N5<^e:H9 44,8h!H%=[a(P=-P%4,4"}
+O valor é: {"field4":";Za7^g\"_?7z5>t'9z\"82 ^9;K:Ac&Q749j&/09Z9'H?Mk$]'$<$5_e?/\"',2,O%?Oc*P?<K{;(49 `6\"<2%$,^m2V78Pg>F2"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field0":">L#5?*(*,9Dk9;p2U',   &28I=8Ac:]a2I'\"U91$(6Z?!K/*,4((&\"V}\"X5%Qs;;v:0b#Me+(p6/z>Y{'B?<D-, 6*Nu6Qe;/h&"}
+O valor é: {"field1":"9;* Um6<n/%r70~>(.8,*-5>--j'L33Aq&Pq2Vi;!b<Ba+\\33;(4[98-|?$d1Ka#+0%[-<:&-L5%\\==Sg'Te<$f7O199&1Js/*l."}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field7":"8:&<Y31\"\"!;b>C958x'0b.Ag<=0)Iu9M{/U14:\"<- '3x#0\">Lm:Gy\"#v6B=\"9`6'~3&,!_o?Ds:8,%Dc3Yi $r.@u0%b?&t8;\"9"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field2":"=$:!Q{.'f.'~'Xq3Xe*7~+Fs(T;)V{?-29Kk*\"0%Y}&D- .v*@?!@7)7~3J! 2~&'>4Oo'Os/[s>+x*<.0=~/B384h>1h\"?p\"6\"8"}
+O valor é: {"field5":">Y7 209Im: |)G}\"Jy)Yc\";r:;*<T5160 O?50.$404+2<.((A=1+b,?\"<Ze ?.1#$67\"5=8'\\397*<H/4X=4,9Kc=Iy.1v-N7!"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field1":"9;* Um6<n/%r70~>(.8,*-5>--j'L33Aq&Pq2Vi;!b<Ba+\\33;(4[98-|?$d1Ka#+0%[-<:&-L5%\\==Sg'Te<$f7O199&1Js/*l."}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field1":":7f3@- .,4!$<I'5Iw(:j6?l>L;%\".(K7,Y76T5-.b#\\e:Xg-.b.T95-n#Qw#-$9C)Ay6A9(Nu/*n,#8)\\9$N9=N?#?20Q;:Rg/"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field5":"9!44Gu*-$,/.;+ %;|!<z\"M9>Wi62.%;.8%h [a#9$(1~&62>*t24l<R94>j%^}61$\"Jy;A/0#80Ds<8p']'032(Um?Dc/Fi+8t6"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field5":"=/:=_y:S=$*\"5)09M?<]1,D%+U#!-*##r&20(Q99]c7?v+- !-*8_391:=\\q)*:)\\%9U%<.d'%`#<t.3&<$r=D;55z8O71*24W/ "}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field7":"4Y{'$<0%(4D?-=$!C{),& >h(^%-]='[31[?&@{2P)&Dc\",h; *%K11@%)+d2A{*P3/465'p%Kq6O%.T31?*!=*96.?)p>)~#<t/"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field3":"7Ve+G-/;4!_+#;h>0v32>4Vs<Ay3Oa<Ba2S/;Ca26t'<p?Sa6S+$'8-*~'F} >v?*<)W9)$8/?&$\\9?N55T7,X+->h/=v6.b\"4p?"}
+O valor é: {"field6":"*Ro&&4<M7,$n8Ba76$>.&%$<9?j?^?/)25[%)*80Iq$6*=)<\/(*-W'#^9<G)1W{:B&Vg\"T?/Ce\"^a;Q?(0n+905M%,4.=Vm $69"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field4":"%+r2=2>J1 ]%1R?)J'&:h+3.!%v7S!)^?5L%;4&12|:(v:9v/N/ T5>Mi?+.44 (>t:C-9',;(|*Z)'8~7.b/K/0C)$2t:-l=&l:"}
+O valor é: {"field4":";*j2\\g9]w2Ke%Ii7I=?4*5Ug).*1^;?Ms.!p:R5$0n,Qe*V51I-=&2&)x7B%%Hg3&2,$x7?t<Ze*+d*=|2W}+Zq'G{!]' 6l-Mm;"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field0":"&\"4 8:>R}/K=7(f'Ri1!r+Xk$D=96j/O=<Ji>Ww+*d5Om2,b._!)Yo6Ka\",r\"::42v&?*1Xi!&2%)01#\"9^g)G}\"O- />1:\"!Dm?"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field4":"(3>$6`,Zo#\"$%S}/&h ?x6Ty=5.!K=)&0)_##5r?1~(M:/n# r76 ,Oe''v8]{'J-':0=G)*4h'Ua V5$?84@o:L/,E3 *n(_i*"}
+O valor é: {"field6":"$]s\"?<28( H991:0N#+?2<:2/$j?)<1*n*9p4+,);86Tm23|+#$(-00-4%#z/.|\"Ou!=&($h3L+!54!Ha:*n)B3-D?9Yw+[!.Q? "}
+O valor é: {"field8":"/Yy#@g)F5 ,n*)8)P%>2t'@52+|? 2%;*$^u&^7(]m'B%9A{!/n7Ci%I?%B#>P{3C3.3b&1`(Es6@!#-&=Fy<%h*M3?S{?9f\";.-"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field8":"(\\w;Tu!<v*W;4>.53*12t/-&,.x7F)>@!,;(4M588n\"':9Va ^w.:j%D11<~ 8&4F7-Hw*+<:),0X11:d#R39S{;H}12&0Ko>605"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field0":"6We7Vc=1>9Je:Wg?P#:8>!1(93,<%<4F;=/|#=t:I$4x&Mk9Ik?3& ]c2><)J)%7 #Dc?(j7T'4Qk*+&1367N7<Oy\"&x.8n1Qi3"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field1":">T1%6*(=x?Q5*8j29d&=d;Lk'968X1)B{2W52Z3 \"n:#b'%~$K;<>h#3$4Ao%[w.Xe;Pk*$.: (,C?='n&^s*Qi2Ho 6h+,:=Ai'"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field4":" +|:T9=Q90?`;B+)8>>Sy7/\"):69<l=%0(E%9Wa*$06Ci7**$4t\"4|(Xw'6(#Q)8B9%,0)<8)-b\"<0-%|3Dw [m#R{&7\"9#x&'f."}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field3":"=#&,\"d8\\e7Z-!Z+=;~-J?($l>!f6]5>' 4!f< b&X9*Jm+4>=8l3]a3E#(De=]992$78d2?n64|>9:3/49I/!$x+La0\"0 U386 4"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field5":">Y7 209Im: |)G}\"Jy)Yc\";r:;*<T5160 O?50.$404+2<.((A=1+b,?\"<Ze ?.1#$67\"5=8'\\397*<H/4X=4,9Kc=Iy.1v-N7!"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field1":"0P}2Zo7@c#W=6%b2U55Tw+2\"*A?(4h\"5z>6r&9*)D}5J;,D+;8, .63]s.Dm(T)!L}=#x358'+*00(:?&0B5-90 (l+Y7 :.>:`*"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field4":"%+r2=2>J1 ]%1R?)J'&:h+3.!%v7S!)^?5L%;4&12|:(v:9v/N/ T5>Mi?+.44 (>t:C-9',;(|*Z)'8~7.b/K/0C)$2t:-l=&l:"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field6":"!%f>Lg31x\"Vw&L-!(*!_o\"\"r3):(Uy3*|288!=0)1\"2)p2Lc\"]19U=?%>%Ta,C#9@)=%j;+:9)`?2r&S1=Rs4Hm29b36*$/8) :1"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field0":"$]o:P5%/j7L?#,>8.$7.`3E%5H; ?0\"Zw#<>702$[%+$ 8Wg:R1<Fq,B%=?v71f>4l(V!0 b:.((]#*-p;<6-_{'Ng%?:<#r:!z\""}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field9":"4A+<*h.1h/6d9=05M%9H;4Ui,'b6?6<!>1%v&=,<F3*C7,1>*N7 Hg7#2('>6H{&$>=!:8Nm6\\e: f.Os70.8((($2+La2M3/;|;"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field9":"4+~*Ne.Z+=-,75(8<\"73 =<28W3,-86.t:-*\"58%C#9_9(#0(#v3^75;t:?(596=J9&H3).0'% 0Ku#%p'@)7 j*$ :Nw&[?0Eg/"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field9":"2=&-P5?(r+V79:0-?d. 08:v*T35Zw2(x#@{$:~6>z0Hu;F96=&)%b6<`+_9+8:<3p>[3!Gw\"L;!B+&K;0(4(=~& *93p6\"t#2t2"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field3":"=?l?&h##d7Do),t&Fu&K) \\q0Xq3@e+)p.5v +2%8r-Py.3,?H;,[{8$85Uw9(*4 z#7x;[e$<*5L)!?l//\"85t:<l17\"=2 =;l2"}
+O valor é: {"field3":"(Vw+R#;,:%5z( 6,4f#1(8W?;?z6\\'1Bw3Mk2Kc/'j'[u.H} Zo'>r -.82h8Aa\"0z3I)!)\"4Jy#0\"=>z*5>%Li&K?\"!>4]w5Cm;"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field0":"$]o:P5%/j7L?#,>8.$7.`3E%5H; ?0\"Zw#<>702$[%+$ 8Wg:R1<Fq,B%=?v71f>4l(V!0 b:.((]#*-p;<6-_{'Ng%?:<#r:!z\""}
+O valor é: {"field3":",Q-,Oy&48!P Y}*-j39x+)(+ 4=My&Xu?;t/Eu>2x\"- !>0,Pm;Gc31\"91l+#n/%*4-x;Jk=$4<P#39<()|>7z?_9('*,Oe&X58"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field1":"(Bo:Q9.*j3S9>$21($'!&-Ho=[m.0f,E=-J=*3000`5)`2>~$/88!(=Rm+;`9Y5-,x4-d+A}% (=4>+;,<;,1,.-8&![98X1D-4"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field3":"?P)0R7\"Tk/K1 K?=%f*)$<N{<Xo/+*7Ww6>n<%z/\\g./()-8.12 T}-\\c?,j,\\k*2(%.v>F53W78N;'X#--~/O}*Ns6Li.Tm'9&1"}
+O valor é: {"field3":":T9$Se+Je/Z- $j/&~/02,&>*\\38!|1+b'+,+&j6Vc-(h\"1* C!<Xk-(j&M%$3 8#h>@;80(<Be&C=5_+$7` Y#4>**_;(N36=p?"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field4":".P#-I;5Hu3-|'K{&Ta&5l:]53Ay21&!+p*5r;Bg2G-6K+=>,:!`>#,\"8`#K?*Nc:B59M'(Kk.[g?>*6Ky/4.0?z7^i.%p>-.56,$"}
+O valor é: {"field8":"/Yy#@g)F5 ,n*)8)P%>2t'@52+|? 2%;*$^u&^7(]m'B%9A{!/n7Ci%I?%B#>P{3C3.3b&1`(Es6@!#-&=Fy<%h*M3?S{?9f\";.-"}
+O valor é: {"field5":"4=85Is#C5=_a+1*<;v8\"<=;z9B999f-Pi;%(-3&(3..<v;N)9<x'8j7A!8Ec>J;9M7*S};*\"*Li2M%#U79]u>8\"=4\")\"|'Zu*&j>"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field8":"/Yy#@g)F5 ,n*)8)P%>2t'@52+|? 2%;*$^u&^7(]m'B%9A{!/n7Ci%I?%B#>P{3C3.3b&1`(Es6@!#-&=Fy<%h*M3?S{?9f\";.-"}
+O valor é: {"field0":"(Ka\")>?  00**4h*@?.M{#Pg!/0 1.0!&1,0(Ss&\"|1?:<#6(=n3Q1+Ym\"_9<Vc;]+Py2Dk\"Z1$A-1^- <<3.<)@w)'>9P'#C+("}
+O valor é: {"field2":"&=(8%x%O'<)*(&25:`8_y:E-<L/8^?'*d/1051x6Og(\"t;'x>-:$=03$\"586(@o#Zy>\"*01>7Ig3\\3:E) 7.1$|35t1>h;$:, <,"}
+O valor é: {"field7":"3#j*^y(!0=Zy(8,4Tg/!. [s4Lq&Hi(U7 #x2/,4Aa5%b6G!?8l30f:9l\"Ge2[1%P}#2<4*~5:(8-$3H%4P=))~'Lg!@a.7&*S1%"}
+O valor é: {"field6":"<;4$%h2N{:B!;]k>&\"<Oo;)f=\"2<No/2l'%h\"[5<Ty6!8(Z%:Q/<$v/[=,Mu6:,$;>3[u;L3=\" 5Gs0=r#V58?z#Q}?7<<!t.!n\""}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field4":"$0j.U+&V%%+b%+>8@;<Ue'X;=&<5\"b(L{'M7$0,0^c9Jo6Fe6\\3$[}?_q>M 9h.^g5%r>Wi5@%9W7;9,<:`#%l26:>]'=Ig,D59"}
+O valor é: {"field5":"0*.5#t&7&=+n)_3(6<.+b\"!h75j'<j>7t74v=S#<^5<'x72x0%89'0;]u/.f4Gg'7:9$.%,2.C#,K-<9~/+f7N+-O}. `612;^+-"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field8":"0Is&H/J;4Em=T}'* 3V5-\\%)6$!0|2Sk6?>%%`/J+8O'994'Z;<I;<3t6/r8$`+@}\"N=1Xc/0,%Gk.]#$&4;C%,N7$@%-4(35h>"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field8":"20p&Xq31b\"/p:!d\"$$:Nm2_y8@-9\"|4]i&O}7*v*W55Q?!:j#Vu:S{5N{782+14%A?2Oc'W0.z+R)9O3!Mw ;>!\"6;Kq\"\\=,W')"}
+O valor é: {"field0":"$]o:P5%/j7L?#,>8.$7.`3E%5H; ?0\"Zw#<>702$[%+$ 8Wg:R1<Fq,B%=?v71f>4l(V!0 b:.((]#*-p;<6-_{'Ng%?:<#r:!z\""}
+O valor é: {"field5":"=16$N5+$21Y!4;f\")t,161;j854!>2=>&1<(?-z>N}3E)=]k>Q}.Sm1Yc*Lo.T'0X79S3-A=(V=5>d+Y9)P3 8`'0&%A}7<r>60-"}
+O valor é: {"field7":"(*2-Xu\"V34@u!%|:\\/\"+~&@}0M?$S-(0<S'?7d;5,7>><.r7Mq6 ~-6r7S#580%Ze37>0Ug68n;\"|<+n?Io7Qm*5|7#< R5<T;4"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field1":"82<9/\"!<.8=n?66%+\"'Fk'Jo$Wi.Mm.]a&Sw-Vm3]m))6=Os;%( Y38]9-?v0=>!?p%4n.(v-M)0%:6+f;:<>C;(;43D15B+>^+8"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field6":"<;4$%h2N{:B!;]k>&\"<Oo;)f=\"2<No/2l'%h\"[5<Ty6!8(Z%:Q/<$v/[=,Mu6:,$;>3[u;L3=\" 5Gs0=r#V58?z#Q}?7<<!t.!n\""}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field5":"4O==T1.3$,0h/_s++d03$%Z}:060/~*2d#B=3P956`%\"d6! *P=4Lg$$41&8(:6,924%&)Q/5X7)-d7I38/&%'f+@%=_q\"\\y.U7"}
+O valor é: {"field6":"1 x'P1+0x+[=\"]#5@g\"Oa:(~.Ly6B+3P/9V?$]m.Rm&=:1Eo+9f?&*:M1<Kq-Ie\"\"\"-=v3L?+;2%E5>Z)%?j:Uo;D}4U!0&`#%t?"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field9":"&,f3E35[?$3~!&$5T+(($47v6H=4<2\"C58;h5$*!@1 **,Tq,]1-(|,Z/! d-1l&U? #,9$h/0v'8|7J10S?<)r3_'6]}&4,06b'"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field2":",Vg#E?8>696(&F;0Yu0%`#,b4Bm?;4/)$)#80[s?O)<2\"13r3]{.Q5+-,!P'/^!$2t8[o3Q'.#69I73W51Bo<%f7Gg%B?9<b9*`2"}
+O valor é: {"field3":"/N)-=4?[i&=\"1Zg;Q/0#|',,2\\i?\\17,45Y))Y14Ig4P74)j/?:,C5/($(?`30j:96?Pc*-v4Pm3Lo?H;9J{;Ic?Ky1A11Lm(3t;"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field8":"-8f:I3)E{\".z>4t#Wy8@/0;z\"-h#:`5Qo75~>:x2P9&N}\"5h\"O=,P!5^) M-&,h3[y4@!0]}\"40-J-9#*1B9<D154z :f:%4/R)1"}
+O valor é: {"field0":"\"(z2Uq3?(0  /\\'8Gg'4|#P=1^34My-3b./&,;p';4/0<<9x$=8<4(9!h6)*/.4%6<( j*=2!H3= n)Im*]3/Y#1A!1^#%4(-+x3"}
+O valor é: {"field3":"!E%<C'8U5(+x9(v+4<\"1:1-42<<-F-$\\m6Z=6?*1[q-308\"<-Q9$Xe9G1$7.?Z/8.&&8t.Oe8Gu/2b2\\w&1(8=2552(J'9A;!Ca\""}
+O valor é: {"field9":".\\u21<\"$|#D#'Aa./ !?>84p!M75<h73j;3v4Hy.Te('x*.,6[!%O7+G:?d = !.`$Q3 Vw<%x&'r$Lk>_+,4h#::(&`&8p&D3("}
+O valor é: {"field5":"/Uu.K'>F1%?*#6p&X)0]9=>0+B-80(6)>-?f990<0>$Q1=Tc(<f&%`%&\"5&6&M14M'/E18I{6Ts..n*6(!&~64`;Ly(#l/B!$]c3"}
+O valor é: {"field9":"3;z>;v#4,(Ue9@5,G14Re+$`+9~*;~ B!1Ak-F/-7r6We+Uu&0\"$%z?109\\',Ho;W#+Bg'>:1?.-]3'?$)Cw%!84%v7%<):24=:%"}
+O valor é: {"field1":"!P?=Q'! r.9$*Ko.]u2T;-Xo6+l&%l;Nc2Ms0Vm+!t2*v.W?*9~;-,30l*^7+6<(+ )By6Rs680-8b6),,V;1Ze/U=6Ty3$2\"8x#"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field1":"6&h35j5Tq*Mw57|#B99:j:6l,B58Nc#Jm'\"b5;&<L{<C+$^q?\\u;Iy!A}&%01F-0^m2 t/)6'A/)(~\"'h#D%.A!9=$#>r\"&*8&b7"}
+O valor é: {"field3":"4 8(P3'@-(W/\"%.<Y?2(2<L1/<|\"^}$!`?R;;_w&= 'Gm.*6-C{\"F{92r7&r)\\9<B#0&z\"O93,\",)&3E99To*$0-'./4d3,8<8x&"}
+O valor é: {"field3":"65>,8`1Ze*O/)Y!5$<2)p>=n)?,8Vq$;>8K1&8-<x$\\30r0/ 0Xc9Zi\"(d:-b7?43Se;; #Xs+@q)54$Ki->`6Kw.? 5+t7,p7"}
+O valor é: {"field7":"=P74449Y?(R;=1t?/&7'6,O'*! 1Za?Co6\\a56$()&.7&,=z%Wo7(.-6\"4T781n?];53|&U!+_1=Fq1Wa3%d4%>!C1$2b/$$1C3$"}
+O valor é: {"field0":"\"B?9.t:,<,Fg1->(Bu5\"6(I'4J%4]q2L.4f9Ge&E=)*p.S'7Ce+;d-I9,Y;)$`*U-\"Uy:^c/32$Im6?f>&p=Hu.Zm=Ya\"G?/? ,"}
+O valor é: {"field6":"8%.90j4=2=M9<'8)Ow0Py;@q;@i>M'>\\/,?p)Ma:9>1Vs+P?((4\\?866!B)4X=4%>7;*(]!2O/-J!Jq\"S;15h*$z<$>!6n5T!1"}
+O valor é: {"field2":"5@c298)A-8N)+8\"$L-$[c.A'3-&$S=>,x:%t9%n*'2#G%)=4#$:%( 2*v&-88Ae6Cy+A54Y=%Li\"R#(O?<)r7&z;$l!@!%<$7O/0"}
+O valor é: {"field0":"?.4$+`2525Hc5\\y:/ )Z/(H7;Ym3I5$Fg:H)+T=5]k(F5 \\#/@k#'<#%\"-Kc8>l//>%]% I37@{;;>+$n.R59-4!P'4,|#\\3H/)"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field8":"#Ik+?h'Lk:L:(8-40'#~+I!/)h&1,8A==Nq,/<=C%+!2!?h:*`\"^95'z#Rm)':0Cs#Gq&?<0$b>Z#+\"$9J/,E!9O7>S3<A},Ya:"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field3":"4 8(P3'@-(W/\"%.<Y?2(2<L1/<|\"^}$!`?R;;_w&= 'Gm.*6-C{\"F{92r7&r)\\9<B#0&z\"O93,\",)&3E99To*$0-'./4d3,8<8x&"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field1":"9[y'E%/Lo?@?:Ek+?4!, <*b#U30\"f*D39Z}/+&4])1@e>Pg ,\"5X1&Ik?8(-:*%;n7%\"<S%1*00]9/]#5\" 3N'%10./b.D5\"Q51"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field3":",=b6S/$C%,R#2?01E31>$$Ka.\"20#r!-\"0Z+8O2<`>B)!Q# A+=Iu<O747x/:j62b=Ke&7*1U919j8Me/<,-^y+Oy=S;,.p.:$="}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field3":" E#0Ha80z&%t>\\o*T#5Ky\"<j%A?%Yq/5h;N>?$8=>/>29+&>@}'>|<78 'n#[27<4\\i*-z&\\;526<Ry;S3<+:$G)?P>4z/6<("}
+O valor é: {"field2":"!!v&P9Je2E}'V3(\" (U!$6`;B5(Ko%Ns/[! \\i;Nw+2~3R{0#\"9H}0Pi.Da$N;)+`#&n\"-,\"A/$,80Uo6'v8\\=40r+Ce*D%7J%9"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field1":"8Sy26n C;=404$ 1Wk)Xg:<f,Mm''n;?48U75Do+Lq'Rg*N/.%`*_g&H3=-h +.8S1*5.8;v?1(9[;&3\"-R=,Tm?8~+!  W+0-*%"}
+O valor é: {"field0":"1Ec?F;4F5,U{-#<1.l1Sc&&~=,$,W+.])94r(Ua/L};Xg6^k,3\"9E5+Rg>[w?D!1(287*(C199l\"3<<K#!.7 2<S-(5f.M2+r+"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field7":"\"-6(5~$X;5/j#\"l?Gw:02$'(0-,8!<)V%0N%>L9),`*/41=('_7%Ea:#6!2h!Xu&Xi&L9%*(60z\"0x00`#L/$90,?j?F)(Z'/,f*"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field0":"7Ve3J=8K/$2r/3j'1|+((,<f<:l33r\"(*!Mu0P;4^%Kw6U}0L),3r2P90Gq%4x7@s,Jm+?d5C-);b-,|2Gm;J{?Z;?Wa\"-,11|."}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field3":"!E%<C'8U5(+x9(v+4<\"1:1-42<<-F-$\\m6Z=6?*1[q-308\"<-Q9$Xe9G1$7.?Z/8.&&8t.Oe8Gu/2b2\\w&1(8=2552(J'9A;!Ca\""}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field7":"3#j*^y(!0=Zy(8,4Tg/!. [s4Lq&Hi(U7 #x2/,4Aa5%b6G!?8l30f:9l\"Ge2[1%P}#2<4*~5:(8-$3H%4P=))~'Lg!@a.7&*S1%"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field1":")@),['1]i/1l*3\"1I;<3>(I!(Jq#Cw;02=Au%B/!:t480%G7&00<Rw)H-!8$<<>--l-]311l75f+3f7=2(,|-V',;<\"Lg:0p4)t7"}
+O valor é: {"field1":":T-%_9-/8-T39Ao*T12=.1Yw=-j2>b27~3)f.)29By*P#-\\+.=&,Ce&#r;Oe$Bc+(n46(%-t(;`\"Fy0_{7W'%Tw/4`)%\"$4.?Ty2"}
+O valor é: {"field4":"'Ta>D'.B=0%v82~/X)>D))3d$A?0X!8J}.Ny&*x#V%\"Lg'=t4R!13,&Zk&2j<Gg/Zg8+* '*/@+<Eg-7v#:<;R?!=j*?|:,l0,x+"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field2":"*)v3;b7P?%=690h?Uq\"44%2.$-n2.,9=:=@)2%<) v/7x&Yc0^) =l')>-8r6]{+*f=.2(_a-(r*Z?4*x*::4)*5,,18&5Zi9Aw/"}
+O valor é: {"field3":"#U)9S?=C)0Uy1Jo>Aa%F{:,\":^5(Vs=W'Jw:Bq?Mw&/t6@{&Sc#T+ Em3&`$?8%_=,h*He4Xm2Ta=>.8P{'P5=.r4%.5*6%C1("}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field1":"7)n7%l#1j3.r'S38N!5^k6)j!Y79#0/L-0Cu%T/-#n1X!)M3-(p2,<)'x&* +#~;.<\"Bo*5:8H5=,p+_#8-<1\\}3*v<Eu:Ek+W7-"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field1":"<Kg6V!<=t3 ~7G'?z3Ha'@s4Sk6\\i=Se#Es Kw#\"8!0f.\\o,+\"()t6Uy7B):7: 6r5@m\"(6.!p3>:*Zu.^5*%b2!09'v:*` .d>"}
+O valor é: {"field4":"/7<%Ti>-b.'  2b79<#X'1)r8G=!N//.&,\\q&6l36\"(!h'S-'9b>+>$*b2Es+Wm:Yk1Z=98f1?j6Mu#<>=]-!^?$X=>P75P1..~3"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field9":"=J)-Hg9*~*5z0_k&L{!G58Ja?])0\\9%$*);n8( $?*-D9(::\"L;1I}6Ui'% 4(,%Rw)<>1O#'Js+)\" @a2[o>K-!$,3*x\"@=8>v7"}
+O valor é: {"field3":"!Cc61f-^+ J='+<5[y0 z+Q+ 2j2Lu)D+<\"n3W?,$:>[/1Uy;Fq'6t\"8v#16 #z')\",U{;Mm>P!!<(3Es>4& N}2!\">D7Oe X7%"}
+O valor é: {"field6":"=^7,7 4=|;P)#I)-Es1R;0Y'9Y}*?6<$8)U+#>>!!8=,&(N}*>\"<Z5&_i3>x!\"x2%856<%Da-+$,\\g9=p+Fy$Dk*Z5?E?$/04Uy\""}
+O valor é: {"field8":"9+f7&t>Z-4Ps) r# &'-t30`%)r7M=5Ia\"_y!@)%B72<d#Fo8@+=G+7Wu+\":.Ru:3v?(2846+'<(Aw-8<1+:)[#4(n6Pe#Ew#O#$"}
+O valor é: {"field8":"0%n\"$,\"Pq+.t.),1%6\"K-<Mo ?.)101Cm?Jg?$.-,23\\71\">!)l+1&-,,1<8$H/8Fc2Ve2O;++,(Bo-Ka/Ms%=:='d.$l2Nm(?`3"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field1":"7)n7%l#1j3.r'S38N!5^k6)j!Y79#0/L-0Cu%T/-#n1X!)M3-(p2,<)'x&* +#~;.<\"Bo*5:8H5=,p+_#8-<1\\}3*v<Eu:Ek+W7-"}
+O valor é: {"field3":"!E%<C'8U5(+x9(v+4<\"1:1-42<<-F-$\\m6Z=6?*1[q-308\"<-Q9$Xe9G1$7.?Z/8.&&8t.Oe8Gu/2b2\\w&1(8=2552(J'9A;!Ca\""}
+O valor é: {"field1":".Dm#S+?\\?5\"p&#*(,6-A7=A!3Ai*0|2N?9Q-+821* ?(t+7,2)`:\"b(#r## \"]i6).<\"`7-0)7\"<Cq:&$88f23: -p#S{*Gc#A}?"}
+O valor é: {"field3":",Q-,Oy&48!P Y}*-j39x+)(+ 4=My&Xu?;t/Eu>2x\"- !>0,Pm;Gc31\"91l+#n/%*4-x;Jk=$4<P#39<()|>7z?_9('*,Oe&X58"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field5":">18,6<6D78'.(J1%;~0T7,9j8Cy.E17Bk*+~2((!42 -f&+*!:t.Jw(8l.#0?H!(-h1&l.7b&Q30U1!P/4Hy!#8,/h>=t/J'/5r*"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field6":"-4t#?.:L')2p8D%8!l0Lm; z;14)]!,:`#22$'t*[!!?*94:)608M58@759f.3~\":`:/8$:x\"X% Yw5N?1*j=!8$9h%F9!8t<.\"1"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field9":";J3-3>-@u358?A?--`>'t6)2! $$'(2Ze;9~#6x#R!,Ds+4z)Di.^#?:6!<l5(> Y#;L};S#&_g7Lo-S=(%t+3t?Kg'E;4U0E5="}
+O valor é: {"field1":"8Ve.'z)K#<M!>%t/K{7Fe.Gm2>d'Lm=S3- r 1l2@''2r3V/7Vm:#(.52$14)3f+?n1Xq/6,0)h'Ok6G#(6:+,j6L9#Ha6A0Ga#"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field9":"=J)-Hg9*~*5z0_k&L{!G58Ja?])0\\9%$*);n8( $?*-D9(::\"L;1I}6Ui'% 4(,%Rw)<>1O#'Js+)\" @a2[o>K-!$,3*x\"@=8>v7"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field9":"2 .(F-8U/0Ve&Z=(I!-# %A{'Ow?=:,^7$Q}!O+--x+])9Lg1@q/1~<^i*C-,Ku6\\3?2`'/ 1,:4@+01n&(8!S98I{9Ko#T='Re\""}
+O valor é: {"field7":"+#~*^{&0n.T+)[c&*l2'f.R)>*v3F/8[m+?f;4~2Rc#(0$>p\"'<5Km6*4 G{%=h/Lk<Zo>1:\"=z7J+*7p;P;<=x&4p2I?)T'&Nm>"}
+O valor é: {"field2":"0]s*Fo!>j.\\+0(2)(j4\"f?:f,.$,I#,#( !n3Zi7>x'^m& 026 =J/75b',\"-Sm*;2<=j6 b$;j\"Nw9Gq\"+.6-|3Jg'7(%Cc:6v2"}
+O valor é: {"field0":"*W59*j*H?4Ko#3t;607.( 5*!9x\"G53)0-Rk'4d3Z?'7*,26%L{+G?1$f3Iq,/(9?h0O1([7?\\y6Zm<]19?*&<&$)d;'&-])33~6"}
+O valor é: {"field7":"(\\m>^k$?h&4d%\\+5K).F/ W{:Ty'X+7Ia6Ew(Um*7z!T'5$x3#l'+p!_c3 89Kk2+f>)(,Q/'O/8Kk.7|2E=;S}3/r(5($***54%"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field1":"%Ow>Cy5?&<5>-3,-)$2^*Jk#74(*p*<*!/l'U{3<*?82<R)!#21\\17Ye7S)*Yw2@#+&.<;>,349)&7,4$'r*Li&\\o,Si7O,*,-"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field5":"4O==T1.3$,0h/_s++d03$%Z}:060/~*2d#B=3P956`%\"d6! *P=4Lg$$41&8(:6,924%&)Q/5X7)-d7I38/&%'f+@%=_q\"\\y.U7"}
+O valor é: {"field3":",Q-,Oy&48!P Y}*-j39x+)(+ 4=My&Xu?;t/Eu>2x\"- !>0,Pm;Gc31\"91l+#n/%*4-x;Jk=$4<P#39<()|>7z?_9('*,Oe&X58"}
+O valor é: {"field7":"&<x>(07^u* v2<:4@1<!r6>:!)*0#6#Ng+)n6Vs;#t/V-(.2:[}68~<#<4&:*0$49>7\\5)Pk)H-5T-)D1<M)1@9=184Wk*%89<$0"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field6":"=^7,7 4=|;P)#I)-Es1R;0Y'9Y}*?6<$8)U+#>>!!8=,&(N}*>\"<Z5&_i3>x!\"x2%856<%Da-+$,\\g9=p+Fy$Dk*Z5?E?$/04Uy\""}
+O valor é: {"field1":"82<9/\"!<.8=n?66%+\"'Fk'Jo$Wi.Mm.]a&Sw-Vm3]m))6=Os;%( Y38]9-?v0=>!?p%4n.(v-M)0%:6+f;:<>C;(;43D15B+>^+8"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field2":"29r>Z956\"(_c+Y-(V!3<$4W'>.&,56\"G;$)| 1d2'h=!2168.'l.P/Ym.$\"?K#<E=?4`?6p3,z3P;*?>=I).#d>J+%Ua;>f&Gq#"}
+O valor é: {"field1":"%>`;4r'V'(^/6Fy'-0#@=8\\3.3&,4n!L14T!6!n;1|2Dk>R?:/$!\\{*-*5Tm.E!-,$&Q# *,6$ (_3-7(=Le2>,)&2 %f3I)#@+ "}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field9":"8+d+'|500 Lg=!t'8 (I&;f?*$$= &Go*Rs;$>,Z{<A}'M?! \"5N=4.|6Uq&#h&-( 2><Wa2,:0C#=(>9Pa-R=8Ok%C/= j9A7="}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field4":"2>d?Ba%4\"5-d;Bi+D=1' 4?r$Yw;+60L?]/ >n\"9d,G%(+x(>&- \",Ry'%&?/b6>h#$l\"*0=O'8C{''8<4d'[) ]w.1*0_37&<8"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field7":"+#~*^{&0n.T+)[c&*l2'f.R)>*v3F/8[m+?f;4~2Rc#(0$>p\"'<5Km6*4 G{%=h/Lk<Zo>1:\"=z7J+*7p;P;<=x&4p2I?)T'&Nm>"}
+O valor é: {"field3":"8G}2\\3.[31%&\"/v6 `'Kq/P7+56<V=6Eu*/z Bc\"3b(%`39l\">t*\\=6\\g;O/0Xw3]'8 h:^e+?,0V3<>f/ ~0X7(;84A#0)*5,(1"}
+O valor é: {"field7":"\"1t;#*:R55J-\"'8!7877p&V%78z:^c'Wc:)\"5Ai'/~,?>,7v8@u#M}$7|7V!/-|6.`=5\"!W}+W!!/b18n;_=>Q/(Q#/6>%Q9*:b;"}
+O valor é: {"field4":".P#-I;5Hu3-|'K{&Ta&5l:]53Ay21&!+p*5r;Bg2G-6K+=>,:!`>#,\"8`#K?*Nc:B59M'(Kk.[g?>*6Ky/4.0?z7^i.%p>-.56,$"}
+O valor é: {"field8":"4]c>Qa,K)<82\"\\!-:$)\\{+:z(?$<U;=3t3Ho/>n.5|)2z#@)790<Y9;X3,5*-\"p6&t27v2;x0%x;\\k;K94J70=\"0Ps&[q\"A{3]%)"}
+O valor é: {"field3":">>(!^3>Ne*Oa !( !~9Ym?J!(Ay/Vk\",z3Z;/_q;Ko\"G2]m=R1 Iw&-p2^s!5(-Z-5N#- ~&4*8)|/Yq\"(t8\\y?_}\"^5)#*,V9,"}
+O valor é: {"field2":" >*<Yu(\"69-(770(=6?['8Tu5J)-X!,$: &,)*z+:~=%j/%:9, $$j4\\')U-,D+)G99L1=]c>@?%Wg >j/Ku+2n;+8/Pu.Nk\"B?8"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field5":"/,n\"'>8[1$7 &0t;<:)Kq;(*2Zy'N%1J/=+$4I+):\"./~2<r>0n+ t9Hu3No.[c#Zs1 \"!Y!\"<l6M+/T)<\\%=Fs\"\\+Y7,3< 6h7"}
+O valor é: {"field4":".P#-I;5Hu3-|'K{&Ta&5l:]53Ay21&!+p*5r;Bg2G-6K+=>,:!`>#,\"8`#K?*Nc:B59M'(Kk.[g?>*6Ky/4.0?z7^i.%p>-.56,$"}
+O valor é: {"field9":"\"Te:Qq,,|']e*Ws/Mk-Ds;\\y'?b/.l$6$=Z=!E/4#l:#$5I+.No?N%,$h+Z)7$08@u&;49U=*7*5,t!Q3$Uy6)$$V?8C)!W+%+2<"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field5":"4O==T1.3$,0h/_s++d03$%Z}:060/~*2d#B=3P956`%\"d6! *P=4Lg$$41&8(:6,924%&)Q/5X7)-d7I38/&%'f+@%=_q\"\\y.U7"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field2":":6p#\"8*&j/><;N)=$01Se?_c:7(8Q3 7h6Zs#:\"8>49?:,D3#[!43\";265G{(My/^k<9.8#j)/()-663x2C;; d68b=K{;7z3W/8"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field6":"=^7,7 4=|;P)#I)-Es1R;0Y'9Y}*?6<$8)U+#>>!!8=,&(N}*>\"<Z5&_i3>x!\"x2%856<%Da-+$,\\g9=p+Fy$Dk*Z5?E?$/04Uy\""}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field0":"6We7Vc=1>9Je:Wg?P#:8>!1(93,<%<4F;=/|#=t:I$4x&Mk9Ik?3& ]c2><)J)%7 #Dc?(j7T'4Qk*+&1367N7<Oy\"&x.8n1Qi3"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field8":"2$8$G#,Pe>I=!W#,&(.=>0)>29n.Ik>Ju\"%j4Ce:(6:;f:Aq1Vg#52(?p?Jk8K;%(**Au3]q4=x??,%(x#Hm+9<=*:;5t:%8$Jo?"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field8":"%.t7T!02<57~:Y3$[{.($(&j#Xu>(d(;`.Z-59j\"9d4)b2M3&%x>>d0$&,;f>Ic+\\1%?6!F'9#8 M;/Jq/9d4B;!G7: |6Gu,Za&"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field3":"!E%<C'8U5(+x9(v+4<\"1:1-42<<-F-$\\m6Z=6?*1[q-308\"<-Q9$Xe9G1$7.?Z/8.&&8t.Oe8Gu/2b2\\w&1(8=2552(J'9A;!Ca\""}
+O valor é: {"field3":"!)|;^=#_}&R=3Ui#\\3(34<)v3Ok'Q%/5 =<x$R&'<-9j6A5!M%(D;7 p:2l$Iq+D+/[51'h8Gg; 67%,5M%>J>Ey>Xm6K{:@35"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field2":"29r>Z956\"(_c+Y-(V!3<$4W'>.&,56\"G;$)| 1d2'h=!2168.'l.P/Ym.$\"?K#<E=?4`?6p3,z3P;*?>=I).#d>J+%Ua;>f&Gq#"}
+O valor é: {"field5":"<Dg#:j5N-,1|6Xi&2(<T5$Ku9&d;Am\"2<4\".%%`7!&#Wo#H%:%r#3l:Ko7Wc//j6J'<.d74r3Ec'Vu>H/%*v#Ig6'b#@e>!f+_g/"}
+O valor é: {"field8":"7B-=Ly%T:Oa,H:V1/ :1Fa,,v3+h,36! b&9&,, -\"v>'462p:$,6/t\"0> Qy7Y-0Qa'&b Ia.&p'Lc+M}=?2$O/8%t'H+5Z#("}
+O valor é: {"field1":"806%A'<+t/G/+= <8n'9v&K!48x/U##@y'?\"1@s2Xe!+|?(6%,(,9n9Xy*\\m,Qs:7r;Nw;+~<\"v*@o,X=12*1%b>)t;_#$%n7:x>"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field3":"(1v;Bs!Is+(( 5d\"#87])8!n; 4)>(((>)#\"2,d*Rq0Gc>^w;<`+Z{&160R}$=h7^y!H9,#`3W9-J%9Ty;B+5O%54 5-n#_{7*>,"}
+O valor é: {"field1":".Dm#S+?\\?5\"p&#*(,6-A7=A!3Ai*0|2N?9Q-+821* ?(t+7,2)`:\"b(#r## \"]i6).<\"`7-0)7\"<Cq:&$88f23: -p#S{*Gc#A}?"}
+O valor é: {"field8":"20p&Xq31b\"/p:!d\"$$:Nm2_y8@-9\"|4]i&O}7*v*W55Q?!:j#Vu:S{5N{782+14%A?2Oc'W0.z+R)9O3!Mw ;>!\"6;Kq\"\\=,W')"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field5":".%t?Yi%*n;-687f*Vy#W7 <\"7,88Hm0\"j'?($!`;R#$>r.P3#@3 .<78n6*v/B2>r5Du.+h(I{+Ig$)(0+f4O+,G+=.&= t%&`\""}
+O valor é: {"field1":",Zc2U+*2p;)411 5Z+$2d2_m+ r/Yw5O3(=x4/l78r:!.$Oe4Vo.1f,N2Io.+ 9C#)'85A' (d:,b 1|6Xg1<((@i.=$8&r\"]?)"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field3":">>(!^3>Ne*Oa !( !~9Ym?J!(Ay/Vk\",z3Z;/_q;Ko\"G2]m=R1 Iw&-p2^s!5(-Z-5N#- ~&4*8)|/Yq\"(t8\\y?_}\"^5)#*,V9,"}
+O valor é: {"field2":" K?9A+36((F=3Yq+1<$86 Tk* 0,<p5My38v1N{:Ei?305Iy1%l\"7d>Q}\" (1N}/% 9]{/Sa Oq6+:8Li/2&4Us+B}<J3!Cq4Zc3"}
+O valor é: {"field0":"?.4$+`2525Hc5\\y:/ )Z/(H7;Ym3I5$Fg:H)+T=5]k(F5 \\#/@k#'<#%\"-Kc8>l//>%]% I37@{;;>+$n.R59-4!P'4,|#\\3H/)"}
+O valor é: {"field0":"*W59*j*H?4Ko#3t;607.( 5*!9x\"G53)0-Rk'4d3Z?'7*,26%L{+G?1$f3Iq,/(9?h0O1([7?\\y6Zm<]19?*&<&$)d;'&-])33~6"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field6":"3A?4[}&\\c.Ku>Ic#[;,T3>, A3,1<7.>8!n((2(Vy!Gw.]o /|6,29(l*V{=\\k*4p>Q/)@m)2~:'6![+4@9.3j>Sg$2d:*4;=88"}
+O valor é: {"field6":"1(n+Rs-M}?X?1Ty&3d&O'4Ua&Fy\"T/4#`;Qc-/z6 f5C= .885d+%(%^!8.b*J-80n<#d.1061j\"<z?0~*;|#-p?=h)Wo2$( 'v*"}
+O valor é: {"field6":"?5h/^77B}/]/(%z'Gs,)65\"\"+-:8Tw![i'-(*F'01l+-:96:/4|6F59Bq'Dk9@+)0z/;8-(`*Xk.E;;I-4T!,[;5O{;,20L/*P)0"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field7":"+#~*^{&0n.T+)[c&*l2'f.R)>*v3F/8[m+?f;4~2Rc#(0$>p\"'<5Km6*4 G{%=h/Lk<Zo>1:\"=z7J+*7p;P;<=x&4p2I?)T'&Nm>"}
+O valor é: {"field3":"4 8(P3'@-(W/\"%.<Y?2(2<L1/<|\"^}$!`?R;;_w&= 'Gm.*6-C{\"F{92r7&r)\\9<B#0&z\"O93,\",)&3E99To*$0-'./4d3,8<8x&"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field5":">^-8/2?Eq3$d-B)49j23\"-!h:Gs;Xi!Ku6Fu)9t'> ,@w._7 Xa36|!'j: ,8.*$%h1G::~!1< Og6Ri3To>Cy:8v)Es3=&:[s/"}
+O valor é: {"field1":"'+b6B-94($Dq2?z2<\"8R11^7-3 )D-.P.@m,?6,Z%8.`>C{;Cs6;<>#>58b\"B7Ow+P%<=0 [m'5<,/|\"Ae.\\5)H%0]'=+6'Zi/"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field7":"+#~*^{&0n.T+)[c&*l2'f.R)>*v3F/8[m+?f;4~2Rc#(0$>p\"'<5Km6*4 G{%=h/Lk<Zo>1:\"=z7J+*7p;P;<=x&4p2I?)T'&Nm>"}
+O valor é: {"field0":"-$v.E5#Iw\"S1(W1,Qe3?l676#5&<3r-Y;4,v1Ne\"3: -*,$(*968&(<;:,.8)1|#=&1!v'@7#Ve7Ve77,5*z\"Ka#\",>C)(Q35'64"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field8":"-M)( j/O107l&7f*]a\"3b2]/'+88Qi6Z-4J!%X;%;,$C>H5>Ae7S#4C)87&1^{.9z;)&(Ns'I/-_%;I?-4|?O+%V{**08Rw6U#"}
+O valor é: {"field1":".Dm#S+?\\?5\"p&#*(,6-A7=A!3Ai*0|2N?9Q-+821* ?(t+7,2)`:\"b(#r## \"]i6).<\"`7-0)7\"<Cq:&$88f23: -p#S{*Gc#A}?"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field0":"\"(z2Uq3?(0  /\\'8Gg'4|#P=1^34My-3b./&,;p';4/0<<9x$=8<4(9!h6)*/.4%6<( j*=2!H3= n)Im*]3/Y#1A!1^#%4(-+x3"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field4":"2?<%Fw$4p>[)/J'5Pa*Ry&<45A;8Sg4L'<]q??&!G+,A\" :\"$b\"@-2=p:.()X'P{(*$(_538$5Oi7> ($h [/8:*/&2)Va$@u+"}
+O valor é: {"field8":"<Rm&A/6.,0Na0*293t&'r61~,Hs'Vu4W!93b.J1%2v Jw*^a'Ko&8:)N=-S9+U#5!l>F}2K)\"/< 3n9Z{'; )5><O)76|3*p(7.4"}
+O valor é: {"field4":":O9(6.\"Q}?M97\\c3G-;Ji#\\7>0<9_w+,|;&6+I!5%6;(|/;<(]{;/p3\"<<%4$;>1#b#Ba7Is+/:(H-#*<!b0]w3!:1La>\" =/f&"}
+O valor é: {"field2":" T)=H!1>v:Nc#G3 2>5_w#-<8%65#& F!,/:#U7<As8)><Iq\"-p&U)+J? 4j(>|#Oy?\"t7-b\"J#-*:!Y/^k?S}?@=8S=5D/\"_g\""}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field5":"4/n3Ye=$p+Ww9R%-F=3O554,,F/<Y#= j&K68d+:24<.8Ma(Ik'A!($*1\\g<:~7Ps-(f&W/5=b'3v7:$4_?/%$<F{24`:De&'.9"}
+O valor é: {"field4":"&G7-P) 2r';>,X3)Q9-Qm\"=(%(6!6v7Po??f(! 1Y3'7|/1p)*28N}1Ga?O0&v'Dg!):%G'/D?(_5%P?$%89/,%'0)+t:Eg<8d+"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field4":"!\\+)Jq/C#H?:6v/>$;7n.28'04%-d7;~+Y5#Yi6)0+^+,X3;Bq>F53W3 D;5^#%Vc%O1 5d4 $9\"h0&n/-f'Rs*/t?^};<<9(|/"}
+O valor é: {"field6":"(]s' z6Cg:[m&@s6#2.2$ Aa*L'1<$&N)=A{8!<=<(-K2Qw$J),7$&^e7'2/9<- v6H/,3\"4\".4Ss6L/0Hm9F;-.b5J)-2(+Eu#"}
+O valor é: {"field4":"(^i#F{;V/(>4/Vy#I)0!v#G-:Qu#As!C%)6:=544.~84t#!n>'n28f9@50)v<Li+?f#'z'@c:D}\"7&.V{7K=?B9=Lu;D-4%|8_g2"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field8":"'@%)&2'F'$>2<)n/I}'5r7.j<Uu*P'$6<%O{<J71Uu;(0=E-:>*0224',87~9'v+;`3=>1Cw.?`/C'+M/U/+_=$0p%_24,$:(("}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field0":"!.p3 n-601\"f==p&V;?;>-S-3$69Qk(E7Dg:%40Mu&X#19d0#`\"=j=Ai.,x14$(Ho!+x/9(2!(-Ig*L3(\"9>,<&p<D5$=z8Ou6"}
+O valor é: {"field1":"95b\"2~+-b.Uk<48%D{3V-0V};&n>Ja:U{/.r/Nm*0:+7t/&0;Vu3P)<Em;%f#068/>802)!l6'6$ b\"[k+Ru*?&04p44.%3$3@) "}
+O valor é: {"field2":"!\"b'&\"5Om' $'%*$Ng0Jk.9p.,2!3n%P18Lq3K783&*6h?T/3(5\\#=/\"4$(?'n.+>9;x6!6=6.0/p6\\}*L)=N/!D7;K;82:4^q*"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field8":")_?<0|''b/L!/Jw&\\{!Es73t?W=-R#(/.53*5C7)D{)9h;Re&(x:(6;Os7A7;]w'4&,B+$J#3M'Fm&Z98I%;% 94\"':(5)  T74"}
+O valor é: {"field2":"*)v3;b7P?%=690h?Uq\"44%2.$-n2.,9=:=@)2%<) v/7x&Yc0^) =l')>-8r6]{+*f=.2(_a-(r*Z?4*x*::4)*5,,18&5Zi9Aw/"}
+O valor é: {"field9":"2 .(F-8U/0Ve&Z=(I!-# %A{'Ow?=:,^7$Q}!O+--x+])9Lg1@q/1~<^i*C-,Ku6\\3?2`'/ 1,:4@+01n&(8!S98I{9Ko#T='Re\""}
+O valor é: {"field3":"3&l/Xi,N10B/-Zw#6(5Ei7O};S=9N1>K{#*&)7x3I9 (>!L74/|/4|*_i?N-3Y31[c6D/);x*Y'0.v/V=1[%26j'#\"=Cm&Y+25v2"}
+O valor é: {"field7":"&<x>(07^u* v2<:4@1<!r6>:!)*0#6#Ng+)n6Vs;#t/V-(.2:[}68~<#<4&:*0$49>7\\5)Pk)H-5T-)D1<M)1@9=184Wk*%89<$0"}
+O valor é: {"field2":"&(v26h!Xq\"A9+6$8Fq-P7,^u/Qm*Cm\")(8G55&l;Um>8 (X76Yg/L#7]e:Ii\"#n+685V71C#8/f704=).!9~#@?4Q;+6v#Kk-%0="}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field3":":T9$Se+Je/Z- $j/&~/02,&>*\\38!|1+b'+,+&j6Vc-(h\"1* C!<Xk-(j&M%$3 8#h>@;80(<Be&C=5_+$7` Y#4>**_;(N36=p?"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field1":",Dk?Es<X}??v8K+<_;.\\%8]5/)d*L+(N?,Ua>=09Fu6)>8;\"\"#v'.|9Ny;:f&080- ?+d+Zu=*z'Du)Mw+702E=1'p!<`2As1;&0"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field3":"=?l?&h##d7Do),t&Fu&K) \\q0Xq3@e+)p.5v +2%8r-Py.3,?H;,[{8$85Uw9(*4 z#7x;[e$<*5L)!?l//\"85t:<l17\"=2 =;l2"}
+O valor é: {"field8":"#:$,Ns-!>%_/ :`'.j=>&)!h#$`6#n<(v3]//1v&(.-;`.@i%+j7Wu Ye>Yg#Dm;Vs>Ry>Y93Ze?Z+<#f&&r+-n/;v#.j;\"24Ig>"}
+O valor é: {"field6":"5R/8;r6.&9S+-Ow7E+03|\"C7)<t'(j\"<(9/$*=,9^{7Ug#C%\"W946 62r7U?)E}7F?,965S;38698l1.v&O13+`7$2.&6,;n ,h;"}
+O valor é: {"field1":"54* =b#0*!<x##2<5`+82%[{4/*5((?8<<X'8929Jm-4:<B7(Os>=`1\\98De9^c*:(67z#,*%!2)>:#J?))&7Xq>-29W74->?Ra;"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field2":"*S#%!l1Og#?j$#|&A96R)!.04%,5M'=I-8F/9C-$Ks8A!1H+ N30+$'>|3Bm0Fk7_?,$05<8(2:$Xk?.j\"8<-'f.W/(%|;8$0Wk3"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field8":"'@%)&2'F'$>2<)n/I}'5r7.j<Uu*P'$6<%O{<J71Uu;(0=E-:>*0224',87~9'v+;`3=>1Cw.?`/C'+M/U/+_=$0p%_24,$:(("}
+O valor é: {"field7":"/&f.5n*Z2=r)I*,z'&4)O);Z;$ b2)\"$^a40h\"2l=Bq.Ju)K{2J9+ 442:3L'(_;&?<0U5#$n?(d8(|>5.9+&4:,\"L{'Fq%O91"}
+O valor é: {"field7":" :z*9*3?&(;<)7|+$.#64!'*>Jg:Lk2Go;C3-B+$<z0^c\"-|4Bq'.j=3t7Na&%8<J17Ug'W)6^?-<p?2$=.n65~2!z=<j\"Is%F1 "}
+O valor é: {"field1":"7)n7%l#1j3.r'S38N!5^k6)j!Y79#0/L-0Cu%T/-#n1X!)M3-(p2,<)'x&* +#~;.<\"Bo*5:8H5=,p+_#8-<1\\}3*v<Eu:Ek+W7-"}
+O valor é: {"field5":"4Jk/C{$  !+p*,f61f4=v.12 Xk?>b1I5<7h%D=)Ju32$%::\" 01We\"Bu*M{:)t.'0+/< V\", < v%5n;%b+\":8:89+.-[s<^')"}
+O valor é: {"field7":":J1<=|0K'-@;?(r?J#<[e&-j58.8Fc1Z7=0`-N-)I+/N!$8:9Ei#6j+Pq?C-> p6S3!Ge.5t.[g72r<9r*/>4>65,:4S/!(.>+|&"}
+O valor é: {"field3":"%%4-T} ' <%f$7|**j7E{2[!$00-%./Re24t6D{'Mq.Sg+60%8v75>+4t6'v4T1 Fu8_}*!*?Hs3$r:H%)@987r>Ou-B#-Ru,600"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field8":"0%n\"$,\"Pq+.t.),1%6\"K-<Mo ?.)101Cm?Jg?$.-,23\\71\">!)l+1&-,,1<8$H/8Fc2Ve2O;++,(Bo-Ka/Ms%=:='d.$l2Nm(?`3"}
+O valor é: {"field7":"=.8,Na)_y;?, ,\"8<n>Xs/2:0&|&Bm7Ba:No5^?!3('Lu#]) Sy?62=(h&8|'N# Ya9)*!Iq0- 0N&I3)>$':\"9$b?165-4>(0)"}
+O valor é: {"field8":".5j>/:?W%5A+3C9(R/((<1#|/70=M,:6$^#1'd;E-%M10'r7:r2Rq5!x>]#)T'$-(11t/;&?:8%D#)]'^9.]#8$|1D7$D)<76!"}
+O valor é: {"field0":"1Ec?F;4F5,U{-#<1.l1Sc&&~=,$,W+.])94r(Ua/L};Xg6^k,3\"9E5+Rg>[w?D!1(287*(C199l\"3<<K#!.7 2<S-(5f.M2+r+"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field8":"<Ow2\\s?78!7d:Ts3'~-Xm;2|+&d/^y)'`6Ta*+.(^c.90([k4Ru# `7Z'(/t&(.(Sw6((%Nk(8h6F)6^! Ki\"[m*N5?K#U-220 "}
+O valor é: {"field4":")Zg?^+,Py;W;2Gg#*~*Wm+U56X548l8 ~7%*&5 1!:4>b\"2x+=8<!x$Ng7Z!5*-Og:0v+I)0Qu/Ny,Iu:'.(V%(&j!,$0U{*8v."}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field2":"2Ow;/p6Zk\"N??\\m*L5#\\54:~1Q' <2$;(4@e5^s/18!Hk3Cg2S9-/f09(!W?:U3<=j%]?<R3:3|'Bw*389,*1%~+Go/Xm//$!6z2"}
+O valor é: {"field2":"3 v\"+v!=>=(x <h#<$5^5 P%<L%%'l*(*1W7)Z'!&v.^1-S;.]=$(>.;f.:020v>Jg,2,!*x+Km3Vk6*r&A1!$1M7.0f#*v(8|6"}
+O valor é: {"field6":"(]s' z6Cg:[m&@s6#2.2$ Aa*L'1<$&N)=A{8!<=<(-K2Qw$J),7$&^e7'2/9<- v6H/,3\"4\".4Ss6L/0Hm9F;-.b5J)-2(+Eu#"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field0":"*Hw&0z;+>)%0%3h2Rg+1j>I}$,.%%n0N#-6h3*t?;2$,.,Wo*Yc\"+d$R9-& -S%9-|.,$5]+=Z'4D/,/`:6|3X7=5d' h;585Xy:"}
+O valor é: {"field8":"'@%)&2'F'$>2<)n/I}'5r7.j<Uu*P'$6<%O{<J71Uu;(0=E-:>*0224',87~9'v+;`3=>1Cw.?`/C'+M/U/+_=$0p%_24,$:(("}
+O valor é: {"field8":"%Kc\"V)+Ke\"Q;?Qe>(\"(0&<,22?.$H*;~7,$>V:K{82f&Fq%6t*S!-Q}&Es6A:5(\"%$0=r/O30\\u6F) _=#4<)5,:9$= :<F;4"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field9":"4+~*Ne.Z+=-,75(8<\"73 =<28W3,-86.t:-*\"58%C#9_9(#0(#v3^75;t:?(596=J9&H3).0'% 0Ku#%p'@)7 j*$ :Nw&[?0Eg/"}
+O valor é: {"field2":"! v2$`*0z/Z{=Xy/62/R5-X!(R?)\\o$)h&:|2:~&Eu30<0P->W??80/<9@#6Jy#%&8?j*5./1x>M3?_.8>0Uy+>|=_c+8&*2r."}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field5":"3Sy.\\e= ~#*v(#:1@a+;61Dq\"D{'Di8#l&(*8Ha+Wa$.p2/&9We\"H-?;|+H+<U1!6<9Oa'K5)N!1Dc%&x' j&Ci>U)<1n3D- Di3"}
+O valor é: {"field9":"4+~*Ne.Z+=-,75(8<\"73 =<28W3,-86.t:-*\"58%C#9_9(#0(#v3^75;t:?(596=J9&H3).0'% 0Ku#%p'@)7 j*$ :Nw&[?0Eg/"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field7":"2*b36f>Mg&H5(48%B#;Pc;J;&<`#E!,9t*8f12<1E73M.Pw(1r?3f996<Jc$V7<]m1Ie\"'*/=&$L'-L=$0<8Kg\"J==r;>l=6n/"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field9":")X)<\\i/H}#3>$'$87`3Q! J{;\\o+Sq?]%=*l:Ye#-l->n6R!2%r>P/,0b+Ou8Wi#&<<@%<4(6$|:(&,O}'Bs\"5`\"3t\";2!Vu<+(("}
+O valor é: {"field9":"4Ew>H392:0%t!G#)^c8]9!,.0)j&-x!/j6<>!\"8<-,,&p>@;:E? ])$S71X=%Gi*( &A/0:r9^o25z(7&4Xy9A'(\\{(2>0Qm(]g:"}
+O valor é: {"field6":"5R/8;r6.&9S+-Ow7E+03|\"C7)<t'(j\"<(9/$*=,9^{7Ug#C%\"W946 62r7U?)E}7F?,965S;38698l1.v&O13+`7$2.&6,;n ,h;"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field1":"0P}2Zo7@c#W=6%b2U55Tw+2\"*A?(4h\"5z>6r&9*)D}5J;,D+;8, .63]s.Dm(T)!L}=#x358'+*00(:?&0B5-90 (l+Y7 :.>:`*"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field1":",Zc2U+*2p;)411 5Z+$2d2_m+ r/Yw5O3(=x4/l78r:!.$Oe4Vo.1f,N2Io.+ 9C#)'85A' (d:,b 1|6Xg1<((@i.=$8&r\"]?)"}
+O valor é: {"field3":"!E%<C'8U5(+x9(v+4<\"1:1-42<<-F-$\\m6Z=6?*1[q-308\"<-Q9$Xe9G1$7.?Z/8.&&8t.Oe8Gu/2b2\\w&1(8=2552(J'9A;!Ca\""}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field5":"4/n3Ye=$p+Ww9R%-F=3O554,,F/<Y#= j&K68d+:24<.8Ma(Ik'A!($*1\\g<:~7Ps-(f&W/5=b'3v7:$4_?/%$<F{24`:De&'.9"}
+O valor é: {"field4":":Q!9;\"*D=9$ 1<,15|2U; E9?Zy/Qy&Uy?Oo5\\m2\\{9_g/Ni3;b>D=<De&T?$Os:+0  j+1t!0`6=j=U1(Uc)$ 0U)3@k?E'2;v."}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field3":"/6h/Z9>9p';v Ay6N7$$();( ^q*6<+*|+T%.=b;).;R+8*|,6n#1t;;t6Ya2.x?!r!Qm>B%0Q1(*j)<(9::5\" 5C7*(x+U9/(\"0"}
+O valor é: {"field2":"48r'Ag1I3()x52*<Ac7Oq*=~5%p;*z0&8<)t.\\y;Iq'&&%V?;Og?G;4[q+;r%2z:7(.1*%=*4<0 <d84f\"X//Lw#G/1Zs;7j\"C;)"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field8":"-M)( j/O107l&7f*]a\"3b2]/'+88Qi6Z-4J!%X;%;,$C>H5>Ae7S#4C)87&1^{.9z;)&(Ns'I/-_%;I?-4|?O+%V{**08Rw6U#"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field0":"1Ec?F;4F5,U{-#<1.l1Sc&&~=,$,W+.])94r(Ua/L};Xg6^k,3\"9E5+Rg>[w?D!1(287*(C199l\"3<<K#!.7 2<S-(5f.M2+r+"}
+O valor é: {"field5":"3Sy.\\e= ~#*v(#:1@a+;61Dq\"D{'Di8#l&(*8Ha+Wa$.p2/&9We\"H-?;|+H+<U1!6<9Oa'K5)N!1Dc%&x' j&Ci>U)<1n3D- Di3"}
+O valor é: {"field6":"%B3@3=&88;\"*:b#[#:6v>[}+3l\" 8*Hy>$r=H}*Hw49<(3j:0<470<8v/..>K#4X-\"Ne?M12\\e7E1.8&,*n:=j/L7)&4%\\9'->4"}
+O valor é: {"field0":"*Hw&0z;+>)%0%3h2Rg+1j>I}$,.%%n0N#-6h3*t?;2$,.,Wo*Yc\"+d$R9-& -S%9-|.,$5]+=Z'4D/,/`:6|3X7=5d' h;585Xy:"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field8":"-!\"<=>%U?9L+#<>,9r*<$,)8!'l;.4>Ww?<z%V-8Y-=*>,&,'&.(^m0Ny?U}?J}2$\"8B9<;$6Te6B%4No6&`#C'51p&(t*Yg5K;$"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field4":".=\"01..!(5(:8Rw66$'Lm2Rg:1v#,v 9 5)d\"R#-C/!C= >v2< 9B'+3|/3l*W50-:?I=)U}#?~:/f/Jy\"/h?Lk33<8Dy*W!3S{\""}
+O valor é: {"field5":"%6&!&f41.8->?^3(=4$!<,Ww%S&#d+Hy3(j3<&)M979<(_/+V-)B!?/~'8z)2,4'z2G)-I!1Qm'Gi)Ve\"W1%48%@w?*<=X;=6r'"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field9":"\"Te:Qq,,|']e*Ws/Mk-Ds;\\y'?b/.l$6$=Z=!E/4#l:#$5I+.No?N%,$h+Z)7$08@u&;49U=*7*5,t!Q3$Uy6)$$V?8C)!W+%+2<"}
+O valor é: {"field7":"\"-6(5~$X;5/j#\"l?Gw:02$'(0-,8!<)V%0N%>L9),`*/41=('_7%Ea:#6!2h!Xu&Xi&L9%*(60z\"0x00`#L/$90,?j?F)(Z'/,f*"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field6":"/R!,^}52|;Ga'^3(+d$\\51?`=G;5>0+Zm?Cm*=.,$`2Cg;54(-~6Re#5>0Wg#/h:<(8V7Z3.K}'/&3-b&)z3=t/ \")\"f;\"v*0h'"}
+O valor é: {"field3":">>(!^3>Ne*Oa !( !~9Ym?J!(Ay/Vk\",z3Z;/_q;Ko\"G2]m=R1 Iw&-p2^s!5(-Z-5N#- ~&4*8)|/Yq\"(t8\\y?_}\"^5)#*,V9,"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field6":"%8p:6l\"*h;[c?(z'#n=Hs&7b:]5(+4=4t7_q+ z?\\o)98$Eo69h\",|#Hi7L- !:<+p<0v:B75;n;Eq(0,0>|5+6=N?1:z6<v ;f'"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field7":"+Xs'Pa*?z6J}=<b?!d:*618d7Ie&H5\"^9,4$#%21>f>Py&\\s2X9%Cu(U/8)n&Ja?505%814b7^555.1:x6#,01.!Oo<$61_?,S1-"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field7":"$.v+Ue=*n:2z.=h>I= ]a3*b8&l3F#/Qq;,0\"3>!<&$?p\".x*D=<Cq8:.57d'6z+Ac++v2[#>E'=*l;Fi'^34M1%K792n\"'.,5b'"}
+O valor é: {"field8":",E),Dw.1h*22:Yg\"D!)E'A}!G!)Og#/z#P}9<~?-p/B+<7`.7.<5r>E+<+2'20%&0 Lg;\\73P/-$87R=5L79%\"=K=!4\"18$/%`6"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field4":".=\"01..!(5(:8Rw66$'Lm2Rg:1v#,v 9 5)d\"R#-C/!C= >v2< 9B'+3|/3l*W50-:?I=)U}#?~:/f/Jy\"/h?Lk33<8Dy*W!3S{\""}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field1":",%(<.4'A!1Q%(-(!+` $n3.61M'$+$ 2z/C{\"K;(/d$Y?=F?\"8 %_y$?p.)2:;z77l,Ii3F'?_15 x?) 4Wi,Lm.N/(Fe.4&*?(="}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field3":"$2`>Bm2#69,$)#r?+\"7&~&\"d'X!,N=2-04A}#Y7=Di%H#<Ro2%.$]9-#4 Sw!Is\"Au:B+5#8 $`25<;1*!? 8G)1;2.@{&Dk#7.9"}
+O valor é: {"field4":">P#$ n>_a&H5<[?-#b1R+1Ca;%4-_u,W+%24(?$<2f3K=<$*9.p*Ii<Z}+Om6M-<>29M!5]%+Qi*=r<Hy+$p%H1-*f4C)8<t50<!"}
+O valor é: {"field6":"!O!9Ke3Y=0Qa1*p\"^#':6$_s<!p*=l88~\"Gg93`:?p7%r;)n+880]e7Tc.H70C' Uk-F'=,z'9:,!x*B1,>*5;*8Yy)Wo:,z=_m2"}
+O valor é: {"field7":"%Xq3=8$Yg&O19B}:66\" <%B/&Zs7((;_s/Ek>P-1N/> f\"M1(^?G-#Em7Zu81n;Du3M;06$$3h2[g(@/=5l(8t>/h5!|\"\"r=.: "}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field5":"8;8<2&)A?5?< C54164[k'J9<0~.4b#/ 5W;3Fe&&`&Z#)<f>@g&!p!L{'->;3v3/05*f*:j<M5<;:-Zc/A7$2(1R97L+(?8* 80"}
+O valor é: {"field2":"=Qk>Cy)\\k.8>-Z!(D-&$f''2:N/<5&;_/)3t&Ti+E;(>l#T;%L3-x&Ry*!,94p&P+4>8!Jo(+0,16!Z=%[g?Cs/=(/[u*+h.&&0"}
+O valor é: {"field6":"5R/8;r6.&9S+-Ow7E+03|\"C7)<t'(j\"<(9/$*=,9^{7Ug#C%\"W946 62r7U?)E}7F?,965S;38698l1.v&O13+`7$2.&6,;n ,h;"}
+O valor é: {"field6":"1.>%H}.I}? <#^g+$(#4v?O+>]-$\"6/&|&Im&@k.3j#T;,Eo/Ss2K'!Si+$\"'D/%C)=>0= ~2(>)Je132!.t)Ac+2\"2Ya>9><Y=)"}
+O valor é: {"field6":"4P+%!<8& -$$::,%^1(9h;>v-0$-H{&D-1Eq;,*4Fu07|:60$#j3Bw A+=X}0@;!P),/n;A+\"|2\\9-I-!>`=Y/%U9$V/0Wo!$z*"}
+O valor é: {"field5":"6Zs\"T%8-t'6f'H7=V31(*$7(,C10(z:Dq&Uw5X5980=Tu6=`-Wa?[g%8l.>x5 j?J735\"0Lo?!f#7h136 Lu G7,I!#%0);$0*r;"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field2":":6p#\"8*&j/><;N)=$01Se?_c:7(8Q3 7h6Zs#:\"8>49?:,D3#[!43\";265G{(My/^k<9.8#j)/()-663x2C;; d68b=K{;7z3W/8"}
+O valor é: {"field5":"=H1-Y#-*6)T1&Eq3W77:t#?b*.8) z._g.@w1@=57b8*~\"!>4\\3,Za>W#2r;=r?5,=*p/%6+*v\"Aq E#5Mq=_5-Pa,5.(Dw16j>"}
+O valor é: {"field8":",E),Dw.1h*22:Yg\"D!)E'A}!G!)Og#/z#P}9<~?-p/B+<7`.7.<5r>E+<+2'20%&0 Lg;\\73P/-$87R=5L79%\"=K=!4\"18$/%`6"}
+O valor é: {"field3":"!E%<C'8U5(+x9(v+4<\"1:1-42<<-F-$\\m6Z=6?*1[q-308\"<-Q9$Xe9G1$7.?Z/8.&&8t.Oe8Gu/2b2\\w&1(8=2552(J'9A;!Ca\""}
+O valor é: {"field8":">G1)\\k&)n>Ye=Ty#K-6\\5)T{0S7!F+\"[g>+6/'b&K{92l+Qw59l+I5;7b;N{)2v7]/<T}\"42?Pw\".22G{+\\{9J;!S=&Qs+:l2 8!"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field2":"*)v3;b7P?%=690h?Uq\"44%2.$-n2.,9=:=@)2%<) v/7x&Yc0^) =l')>-8r6]{+*f=.2(_a-(r*Z?4*x*::4)*5,,18&5Zi9Aw/"}
+O valor é: {"field7":"=.8,Na)_y;?, ,\"8<n>Xs/2:0&|&Bm7Ba:No5^?!3('Lu#]) Sy?62=(h&8|'N# Ya9)*!Iq0- 0N&I3)>$':\"9$b?165-4>(0)"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field9":"5@g*:`\"Ri;Bu\"2x\"N37D=$:t:4p3Zq,>: * 5Zc2Vq00t&G7-Z%)Y9&+<5' .Mm#9b?B-!2(>+p7Em(>6 !v\"T10.~6>$ $v>D;!"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field8":"+$<%Kk9[y/<b ]' \\1.1v'T;:6~>Xa)&25\\/?.44< &X1-)<#D71 >88:0L;%8d7Pk<%&<H;8\\)%$z>Z&Qq70j*@+6^3!&*1.b/"}
+O valor é: {"field0":")0~:+t:M#=Ge#%|2&v21,,N%%%h7*449`#2` C%1=4(\\e&*<5;(51>7?j'0z#768\\#6;0<*:>Y-0Ak.; 1V9>Y'1)b9+`\"@3+<|."}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field7":"6\"&5.>)@{\"(x0Fm+]m5;x6:8/9l?$88@!<+b::l\":*#\\)8U1>;n*L}%H}.)l4\\%0:$8Cg**d1Na'I195&9]w&!t:D;&A{2-&./j&"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field6":".Tc\"?&228=M)>C1!3<,%>4[g5?<<Nm3I5-@1*Vc3!l5Y+ 45\"~#[m)W3 U+$_5<.24&\"<H1.['<,.)5f7G5#<t\"D;&\"d2W174|#"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field0":"><($!(%+n:*(/S=!.0(Dq6$z%W;<%0;^e\"5>\"?* W3#?`\"+>:+r+P74&t&!d2Xg?La4Om6So9Ao& 8\":*(!,.@w7'6$=44200$4!"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field4":"(3>$6`,Zo#\"$%S}/&h ?x6Ty=5.!K=)&0)_##5r?1~(M:/n# r76 ,Oe''v8]{'J-':0=G)*4h'Ua V5$?84@o:L/,E3 *n(_i*"}
+O valor é: {"field9":"2 .(F-8U/0Ve&Z=(I!-# %A{'Ow?=:,^7$Q}!O+--x+])9Lg1@q/1~<^i*C-,Ku6\\3?2`'/ 1,:4@+01n&(8!S98I{9Ko#T='Re\""}
+O valor é: {"field8":"0Is&H/J;4Em=T}'* 3V5-\\%)6$!0|2Sk6?>%%`/J+8O'994'Z;<I;<3t6/r8$`+@}\"N=1Xc/0,%Gk.]#$&4;C%,N7$@%-4(35h>"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field4":"6:.$B'0<,9]=*La.Z1>5j2Wg9I/0U;$Na*Y7=Ce*]7-J7<Tk=[?9P'?A{79t1.\"$!v* v7@+8D1<P??!f'Q?>?r6D+2Y18(.-;24"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field7":"\"-6(5~$X;5/j#\"l?Gw:02$'(0-,8!<)V%0N%>L9),`*/41=('_7%Ea:#6!2h!Xu&Xi&L9%*(60z\"0x00`#L/$90,?j?F)(Z'/,f*"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field4":"1]w3Ig:Y9%. ,'z/08,!|+_7%F9==8?Bq::: T{/Aw.U1,Ow&S5)3f?Ta+K=>F/)D#6Wk+Gs9Aw#W%78d#6`)Q5<)x+M/)0 1J'0"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field5":"7<d3N#%Me/::#4x;Q1)V}'\\q'Qw?Oy)Jy2]'\"Yo+.n;U3-1n,9,$5&<\"h65(+ x?5$4#0-/\"$$l&/l?X5)?,3&h60:;Qw6Js$Iy+"}
+O valor é: {"field3":"/Q1,?z9P75;h:Fi.Ae1Xe:.t62d**|2Jo>Rk85:5Wu!Zk6Go?A54Ig Uo3Y/*Ki\"D9&I/0@'\"!,=!$=.&)1b ?j&(~/W+)_y2Yw."}
+O valor é: {"field7":"-Pm+;h(C=5,n9;h?_u(@+(=>3):43f;-2%).<Vu+04$I{&)r<0x3(0%?z*L=\"(l?T+34p>D%,'z+,|;$n?U)$_}'8p9Vs&0z\">d&"}
+O valor é: {"field6":".Tc\"?&228=M)>C1!3<,%>4[g5?<<Nm3I5-@1*Vc3!l5Y+ 45\"~#[m)W3 U+$_5<.24&\"<H1.['<,.)5f7G5#<t\"D;&\"d2W174|#"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field5":" \\'0\\q;]o'^?8Pi+483Us+@/\"6`29(#9x6Lu-G/9B;-%f>\\o<Ve#[/85: Y{\"/\"4B5[9=9\"7Qc#Ac82z?3,80:4Q;6Bu')l9Nw?"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field1":"/0d7Hq:Ti>]#-.06072`#5,2[s>8`=Sq7Hw8V3(Em17`6Pm:\"`73*\"8t/V=>Ao?Wy1D-<M#'_95>z*6 0%4?Xo;@c9V)5T+/9&<"}
+O valor é: {"field5":"(\\?)P}%*x;R! [?$Qu9_s:;p-;.)Gw4+05^q<Lm+_/!&8$@'! t7F'+84$G!),p2Ca?K%(T#7G-4\".(U}/Wg=\\/-?4>\\{2*b$3r/"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field2":"!!v&P9Je2E}'V3(\" (U!$6`;B5(Ko%Ns/[! \\i;Nw+2~3R{0#\"9H}0Pi.Da$N;)+`#&n\"-,\"A/$,80Uo6'v8\\=40r+Ce*D%7J%9"}
+O valor é: {"field1":"/0d7Hq:Ti>]#-.06072`#5,2[s>8`=Sq7Hw8V3(Em17`6Pm:\"`73*\"8t/V=>Ao?Wy1D-<M#'_95>z*6 0%4?Xo;@c9V)5T+/9&<"}
+O valor é: {"field1":",Zc2U+*2p;)411 5Z+$2d2_m+ r/Yw5O3(=x4/l78r:!.$Oe4Vo.1f,N2Io.+ 9C#)'85A' (d:,b 1|6Xg1<((@i.=$8&r\"]?)"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field3":"5Z}3,`\"Ci;;..Sm;4f0^=)\"x2!& Z?:-. Lm&A+ :&=*6$5,5Ai3Jk!6p31,+-v2Go8G5!Z38Nk7(8,Y7<Uq%5`\"A/+Tq;8.%Uo/"}
+O valor é: {"field2":"=Qk>Cy)\\k.8>-Z!(D-&$f''2:N/<5&;_/)3t&Ti+E;(>l#T;%L3-x&Ry*!,94p&P+4>8!Jo(+0,16!Z=%[g?Cs/=(/[u*+h.&&0"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field5":"$Z+-4(,**4\\! H{7Nm=3:5U{\"U{*487%d2E'.Jq\"5<#L+) ~6Ia.5<>C+!D+2).(:z-1n#;.=2f6$z$,(= >6)x#K#4Yi>Pi;(8="}
+O valor é: {"field5":"1L'0N!4So.,4';&!5469$,U=5[}>Ck0[g> :*;$=Vg;!$1W?'Uc#'l:!h\"%z7Oc2'l6Xo&,f6V;)* #<&1H{(Hk?-j2=04Z3?>j/"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field1":",%(<.4'A!1Q%(-(!+` $n3.61M'$+$ 2z/C{\"K;(/d$Y?=F?\"8 %_y$?p.)2:;z77l,Ii3F'?_15 x?) 4Wi,Lm.N/(Fe.4&*?(="}
+O valor é: {"field2":"!\"b'&\"5Om' $'%*$Ng0Jk.9p.,2!3n%P18Lq3K783&*6h?T/3(5\\#=/\"4$(?'n.+>9;x6!6=6.0/p6\\}*L)=N/!D7;K;82:4^q*"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field5":">^-8/2?Eq3$d-B)49j23\"-!h:Gs;Xi!Ku6Fu)9t'> ,@w._7 Xa36|!'j: ,8.*$%h1G::~!1< Og6Ri3To>Cy:8v)Es3=&:[s/"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field7":",K19: --*)V39N#='b66 ( :-B78Zg 08<:>%!t/N}>0p3Qo9G?)J%1h;Rk99z+(**4v&_; He:Yk6*4)-6?Ms#Ba=8n3Tw-8&,"}
+O valor é: {"field1":"1\\i>6|5S;<($+Y7!M57]/<=$+L+9=>71r/]34[u;V#?28$;:15n&(|-:t;N=)]m*:>+1x;M}!Sm>_)5'$!_e8G75!`!/v>\"n)-*9"}
+O valor é: {"field1":"5J?<7&4\\{?9<*-h7O9(5*<F-4K'9/x:Z'(Q5/.0(@50Mw.Nw2&$5!l1+,-3 /Is.-.?\"j'_)/Xi&@9& 6!3..M}? l,4\",42'Yk#"}
+O valor é: {"field8":"+$<%Kk9[y/<b ]' \\1.1v'T;:6~>Xa)&25\\/?.44< &X1-)<#D71 >88:0L;%8d7Pk<%&<H;8\\)%$z>Z&Qq70j*@+6^3!&*1.b/"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field8":"?V+,&<($x6Xs+Q!$I#No*B9&\\=)' * ,-Bq5%.1.(0B%,Lm--|\"\\/3D-1-2%7<-S?-Su?-:(E!= n7Bs+;b3S?<6&\".`3!45,d/"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field0":"1Ec?F;4F5,U{-#<1.l1Sc&&~=,$,W+.])94r(Ua/L};Xg6^k,3\"9E5+Rg>[w?D!1(287*(C199l\"3<<K#!.7 2<S-(5f.M2+r+"}
+O valor é: {"field5":"-641Q3>Xq\"Q3)504L+1<p*K!&$850<!-j'2d=$* ^3.&0![a3#,9Pe9Se.;j5Vy37b-((4Z-7Ey*6:*)*!Jc2_}:P#5Fc7\"t2A'!"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field6":"%8p:6l\"*h;[c?(z'#n=Hs&7b:]5(+4=4t7_q+ z?\\o)98$Eo69h\",|#Hi7L- !:<+p<0v:B75;n;Eq(0,0>|5+6=N?1:z6<v ;f'"}
+O valor é: {"field6":"%8p:6l\"*h;[c?(z'#n=Hs&7b:]5(+4=4t7_q+ z?\\o)98$Eo69h\",|#Hi7L- !:<+p<0v:B75;n;Eq(0,0>|5+6=N?1:z6<v ;f'"}
+O valor é: {"field3":"+F/,\\o*):)/l5R#(C!;Z%5]a*W6W144<=5b(!:828>B/<^;*R+$Mo%<6$7$2So*Zk<@}7B}!&v\"J139p?!,$-*(E%6Bm\"2(/#$)"}
+O valor é: {"field2":"9 v:*x<2n+L=& j*;\".^k*A)!K)( :?Ek2J%+Lm&-d<=|>;8!3f7_c3Pq.B#&-x2T5=2`/=l+!.0&v2;`:(60B!<?v*%:9Q=8'6="}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field3":"7T+!5. Hc;V'3!~\"*t&S=,T9,$096n'Pu>'0$/$(>(&Mo?T?=O?(_=9$$$F54>69N==20-Fa6*v;6t*789>`996!I==9`7:x6F+-"}
+O valor é: {"field4":"(3>$6`,Zo#\"$%S}/&h ?x6Ty=5.!K=)&0)_##5r?1~(M:/n# r76 ,Oe''v8]{'J-':0=G)*4h'Ua V5$?84@o:L/,E3 *n(_i*"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field1":"5J?<7&4\\{?9<*-h7O9(5*<F-4K'9/x:Z'(Q5/.0(@50Mw.Nw2&$5!l1+,-3 /Is.-.?\"j'_)/Xi&@9& 6!3..M}? l,4\",42'Yk#"}
+O valor é: {"field8":",E),Dw.1h*22:Yg\"D!)E'A}!G!)Og#/z#P}9<~?-p/B+<7`.7.<5r>E+<+2'20%&0 Lg;\\73P/-$87R=5L79%\"=K=!4\"18$/%`6"}
+O valor é: {"field3":" E#0Ha80z&%t>\\o*T#5Ky\"<j%A?%Yq/5h;N>?$8=>/>29+&>@}'>|<78 'n#[27<4\\i*-z&\\;526<Ry;S3<+:$G)?P>4z/6<("}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field6":"1(n+Rs-M}?X?1Ty&3d&O'4Ua&Fy\"T/4#`;Qc-/z6 f5C= .885d+%(%^!8.b*J-80n<#d.1061j\"<z?0~*;|#-p?=h)Wo2$( 'v*"}
+O valor é: {"field3":"5Z}3,`\"Ci;;..Sm;4f0^=)\"x2!& Z?:-. Lm&A+ :&=*6$5,5Ai3Jk!6p31,+-v2Go8G5!Z38Nk7(8,Y7<Uq%5`\"A/+Tq;8.%Uo/"}
+O valor é: {"field8":"-Fw&Ds,#\"0_7&*t/:<8#d>.&*4t.=47(t>T;$)p'+h+Uc\" \"3Cw>?~/U=9N{3Ke3L{-V/8Rq9Ry>%67P*Ow+F1%&d)N?80()_m#"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field2":"0]s*Fo!>j.\\+0(2)(j4\"f?:f,.$,I#,#( !n3Zi7>x'^m& 026 =J/75b',\"-Sm*;2<=j6 b$;j\"Nw9Gq\"+.6-|3Jg'7(%Cc:6v2"}
+O valor é: {"field2":"5S7)L),Ue+G57O? \\5=%v7&:#Ce..|&;&(6t>O+)Je946 '0!< -9:!Uw\"5:07< M-3<(58,32j;=j$A)1' #Zo3J+(>p#=b03v."}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field2":".Jy:7<8?|*Sm,*619x>+  ])%!(=)j3Y?18d0By*Us?;8%6:?8:(Fc#Ea+0j9]k>+44=z?B'(Py>>v3)`/Q?>*t3$`5%&4%0.%6<"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field3":"6;6(\\5Xm3&8-!><]=;^k?Ds7)|6_y-]o.38;P)9F}!9~24( -l/^a-R)%;r=Io'Vc'Qu&[-/@#%U?2>21Ha$Pe.Iq8C1(%(/5p>"}
+O valor é: {"field6":"7% <;>#(d7Zs$P+9_93Qy>0j)Fs2Ui3.:,?8#+z2Pg<Ky2V{5,6%-4-\\/ 56=(0-R{6P+H{'I2<&; d#W#'T184h79d?Q%)N7$"}
+O valor é: {"field4":"/H;8/4\"W=9[u1%z:*:1'>--v\"O+%6r.&:!B'!R7)Fg>F!1[-8!f/Q70-25Pg68j7W5,$`&\\c!Do:Z)0?&8X)*Zg&?z-Q}6]),>~:"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field8":"*Xk+Bu\"Pu:8$&2d#=z,4`2\\;?_94I7#<>9Z//2 <8. -$4;:6Io/\\}<,65M}%':=/~4Q!=3z&L+%]'&Z!%Me?G5(X/+' 0U}4=v6"}
+O valor é: {"field7":"=P74449Y?(R;=1t?/&7'6,O'*! 1Za?Co6\\a56$()&.7&,=z%Wo7(.-6\"4T781n?];53|&U!+_1=Fq1Wa3%d4%>!C1$2b/$$1C3$"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field6":",6`3H1,O%!)~<Rg*7t#\"h#Q1<\/~2D1;B',Iq39\")Q{7H39;d>^c*2d#O==:l?#4(7r<*n3Z{8B%-,t/Sy\"^u<2:)123)h2E?0[&"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field7":">0r?W7;I}&Va+Xo#Do8G/ =r #f>/*?I+0&(28`3>.>0j;K9.H/%E=0U}*G=$<9(f-=x#F#0&|60j,D3<Va.2h*-(\"2p?22:^}7"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field0":"+%<%+`7?n*>z%W{/L98#(1!r2O!1C?=^1,?h2Ho;Fw3Nc&Vg<\/>5J#-0(92(%1&<\/f5S!5\",6K5$%t)3n>Ca??n3?(>Z119 3*\" "}
+O valor é: {"field7":"/7< <8%5,5M'$.n/,p2(04-~&P{+Y,3\",M=*B%$K%&Gc+ r-]3,Eu/ *80p5Oo/B!:S;$.2)/x+2>:Me3. /Mo.Ak%_m\"Ls=Hy+"}
+O valor é: {"field5":"1 :=%,&Uu>/n.R-0Dm)Kw;Yo&;2)#6;_q;&8!9r+>..3>4Rs\">|*La2X}+_)8-f'806Bc\"\\q(Ny:V}9A=4^77K10;23S;1A/'^+8"}
+O valor é: {"field8":",.x30( 4v'L!7Cg>[%9R%=M+!$n.Xs3Im.+>\"Sw+#&2S38+..)6(..?>0%+l70*0Q35Y!).j)%b*5b/:p:3:*Sc+Nm-\\!1+$3+f6"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field7":"2?2=E;4)6 Ji'Wu>Cg/ *$C7<Mq6I3>W3)3n;K!$90?L+ Wc$Qq#&v(644Ae4Ca:Q=\"?,!9h\"R= C=:M2?~2C{#V%2E;24/=r'"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field8":"+$<%Kk9[y/<b ]' \\1.1v'T;:6~>Xa)&25\\/?.44< &X1-)<#D71 >88:0L;%8d7Pk<%&<H;8\\)%$z>Z&Qq70j*@+6^3!&*1.b/"}
+O valor é: {"field5":" 5~>2 *Fa;5f?L;<.l(#<!Be!\"j\"-82Z>/|,N)-#r#Hw*Tg$9n>Ci-Z7%'b45>,T=<M7=\\3#Be+.p1<n*%28Es+)x9Ti3J=)K-)"}
+O valor é: {"field4":"(3>$6`,Zo#\"$%S}/&h ?x6Ty=5.!K=)&0)_##5r?1~(M:/n# r76 ,Oe''v8]{'J-':0=G)*4h'Ua V5$?84@o:L/,E3 *n(_i*"}
+O valor é: {"field1":"9[y'E%/Lo?@?:Ek+?4!, <*b#U30\"f*D39Z}/+&4])1@e>Pg ,\"5X1&Ik?8(-:*%;n7%\"<S%1*00]9/]#5\" 3N'%10./b.D5\"Q51"}
+O valor é: {"field7":"%! 8H99^/%Ws<V{3Fm-Z#02h9*v?O1$Y#N}5)z\"1h#T7Qs0C;!Y;\"Ke2)|&Xk: d&\\7,/d><|+Qq99b.=84B/4W{-Z=,]/)'4,"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field2":"$4h27x3Hk#@q?V>;|#Eu7*|7V'!\\')N}/E%5G-8Oc:),<)f:\"~38\" R7 Xi# |;*` ? <\\+?Qy::l:Cy2*p X{+L)*P?,26>Ew2"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field2":"76*!:*4['0Yi\"Bg>7`/'*$4`$.f;!2.)r/Vo=Tk7#z63`;7:>, -]g,4&(W9> d#]s8 2%P3;<x/Go1@; Y}8Sy+Lm*Mq*-\"'>8%"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field9":":8$()*(W/!^)< ><W-*\\c:Ke+Fe*B'<X3$Ow&=( 'n:Qw/-$?E=4Wm38`>:n$Me?=`\"Mc>Tc/G'9/l?=~70:2R?%H9.Qm66l51b&"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field7":"3#j*^y(!0=Zy(8,4Tg/!. [s4Lq&Hi(U7 #x2/,4Aa5%b6G!?8l30f:9l\"Ge2[1%P}#2<4*~5:(8-$3H%4P=))~'Lg!@a.7&*S1%"}
+O valor é: {"field7":"+#~*^{&0n.T+)[c&*l2'f.R)>*v3F/8[m+?f;4~2Rc#(0$>p\"'<5Km6*4 G{%=h/Lk<Zo>1:\"=z7J+*7p;P;<=x&4p2I?)T'&Nm>"}
+O valor é: {"field2":".E+,0*7)~6Fa=+|?8<2>2)\\?&)457p7/d732 C)4>43T9046?O7!Mg7#41S96T9$3j35n/\\})M+9Ao2W)-6|/Z=%Q-+<$<B#29z6"}
+O valor é: {"field8":"0%n\"$,\"Pq+.t.),1%6\"K-<Mo ?.)101Cm?Jg?$.-,23\\71\">!)l+1&-,,1<8$H/8Fc2Ve2O;++,(Bo-Ka/Ms%=:='d.$l2Nm(?`3"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field0":"+%<%+`7?n*>z%W{/L98#(1!r2O!1C?=^1,?h2Ho;Fw3Nc&Vg<\/>5J#-0(92(%1&<\/f5S!5\",6K5$%t)3n>Ca??n3?(>Z119 3*\" "}
+O valor é: {"field3":"/Q1,?z9P75;h:Fi.Ae1Xe:.t62d**|2Jo>Rk85:5Wu!Zk6Go?A54Ig Uo3Y/*Ki\"D9&I/0@'\"!,=!$=.&)1b ?j&(~/W+)_y2Yw."}
+O valor é: {"field4":":Q!9;\"*D=9$ 1<,15|2U; E9?Zy/Qy&Uy?Oo5\\m2\\{9_g/Ni3;b>D=<De&T?$Os:+0  j+1t!0`6=j=U1(Uc)$ 0U)3@k?E'2;v."}
+O valor é: {"field7":"3#j*^y(!0=Zy(8,4Tg/!. [s4Lq&Hi(U7 #x2/,4Aa5%b6G!?8l30f:9l\"Ge2[1%P}#2<4*~5:(8-$3H%4P=))~'Lg!@a.7&*S1%"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field3":"/Q1,?z9P75;h:Fi.Ae1Xe:.t62d**|2Jo>Rk85:5Wu!Zk6Go?A54Ig Uo3Y/*Ki\"D9&I/0@'\"!,=!$=.&)1b ?j&(~/W+)_y2Yw."}
+O valor é: {"field5":">Y7 209Im: |)G}\"Jy)Yc\";r:;*<T5160 O?50.$404+2<.((A=1+b,?\"<Ze ?.1#$67\"5=8'\\397*<H/4X=4,9Kc=Iy.1v-N7!"}
+O valor é: {"field3":"/Q1,?z9P75;h:Fi.Ae1Xe:.t62d**|2Jo>Rk85:5Wu!Zk6Go?A54Ig Uo3Y/*Ki\"D9&I/0@'\"!,=!$=.&)1b ?j&(~/W+)_y2Yw."}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field6":"/R!,^}52|;Ga'^3(+d$\\51?`=G;5>0+Zm?Cm*=.,$`2Cg;54(-~6Re#5>0Wg#/h:<(8V7Z3.K}'/&3-b&)z3=t/ \")\"f;\"v*0h'"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field0":"3.$9*l54*!W!?4d\"<x6Qs7& !Y%12r..b2%t2B95+:8X%!N 9d+Bo <d.3j;,v7%2 Z10Yc>+j*!8(E?(9\"<!v?M{2)d?Be\"]-("}
+O valor é: {"field2":"5@c298)A-8N)+8\"$L-$[c.A'3-&$S=>,x:%t9%n*'2#G%)=4#$:%( 2*v&-88Ae6Cy+A54Y=%Li\"R#(O?<)r7&z;$l!@!%<$7O/0"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field3":")X1  l3Ey2V-7L.F},>~#?<8 :)7 77,,):;4j2.z A#%H;&U=8)00<<(@-9$\")H5;Bi2P?.=x:5&6He'(~/#:<? ?4f+Hk*00$"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field7":"=.8,Na)_y;?, ,\"8<n>Xs/2:0&|&Bm7Ba:No5^?!3('Lu#]) Sy?62=(h&8|'N# Ya9)*!Iq0- 0N&I3)>$':\"9$b?165-4>(0)"}
+O valor é: {"field7":"*,~&B9)J18['.R/15*\"0r3Cw'M34M9'H55-<-O{?6<&@3%C5,& 9[y2$&9[9#Vy?/p:#88%r6D-!$r9Q/<>>3R{\"Ky;Pu3'4$'$,"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field0":"-Gw;#47Ms6;t+3v?48\"]% ;(9Za3Hi-)2$I},!x*+&& v#+j7&n*X/4P149(3'f?7,2K/<_'<V'$4,+60,V*B==8p(5t/6:/Ok6"}
+O valor é: {"field0":",><8U}:A!=Es9/t>+d?Eo+*(&Ro;^7(Ia.Lm6(40!x$9: 'n),r2?x4Q!1V{?T5 8r5&j?Zm#,:%6()7>=\\744x;Fe ]/!,\"'!6)"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field8":"+$<%Kk9[y/<b ]' \\1.1v'T;:6~>Xa)&25\\/?.44< &X1-)<#D71 >88:0L;%8d7Pk<%&<H;8\\)%$z>Z&Qq70j*@+6^3!&*1.b/"}
+O valor é: {"field2":";;205x .`>\"&%9x/]{#/n65z>@o.\\k%>n._:^o+<x*5*-M;+^w72`(!j3He\"2 ,<2'B;58h7. -Zy\"E!)32/Z74Nw'..<:t/Z'!"}
+O valor é: {"field5":"&Ou*Z=4b:D{'Y}:P/?Mg7'x+@'9Qy\"_a2^u2M34L'A;5V+)-  Bk9Bk#<\"1C}+7*?/01Q1.>z7,(=,f3Tc 6&5]u6@3$(n>Sw2"}
+O valor é: {"field7":"'Fu?_y%Qw*&p0I=!S}'P=,Du\"Pa#E361:=D18'x*Um<-8,>,3?h2\"2.I#$7$.Lq+$|9A2,~>:.!Ly=<8-=*'Oo:4*#5.49:&D',"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field5":"4=85Is#C5=_a+1*<;v8\"<=;z9B999f-Pi;%(-3&(3..<v;N)9<x'8j7A!8Ec>J;9M7*S};*\"*Li2M%#U79]u>8\"=4\")\"|'Zu*&j>"}
+O valor é: {"field5":"8;8<2&)A?5?< C54164[k'J9<0~.4b#/ 5W;3Fe&&`&Z#)<f>@g&!p!L{'->;3v3/05*f*:j<M5<;:-Zc/A7$2(1R97L+(?8* 80"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field3":"/Q1,?z9P75;h:Fi.Ae1Xe:.t62d**|2Jo>Rk85:5Wu!Zk6Go?A54Ig Uo3Y/*Ki\"D9&I/0@'\"!,=!$=.&)1b ?j&(~/W+)_y2Yw."}
+O valor é: {"field0":",><8U}:A!=Es9/t>+d?Eo+*(&Ro;^7(Ia.Lm6(40!x$9: 'n),r2?x4Q!1V{?T5 8r5&j?Zm#,:%6()7>=\\744x;Fe ]/!,\"'!6)"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field8":".\"r33*<-(-Y#&X98R-.Tq;':.'*$9>:)v?..134(Y'#Gu;-$8Kk7Fk.G90583P}\"!v(A?-4$&)f'Ji!Cm&U/,B}.He4'$((<1+*("}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field3":"7T+!5. Hc;V'3!~\"*t&S=,T9,$096n'Pu>'0$/$(>(&Mo?T?=O?(_=9$$$F54>69N==20-Fa6*v;6t*789>`996!I==9`7:x6F+-"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field0":" M}?>|=_m\"-*>8b'543U;9%6<!$!B72@)9Tk8T;%!*3)|?6n-Ko#H-\"$>0=f\"3`#;~>Mc6P1<[y\"E246-\\{)Vk&X{/D{;+:!2h*"}
+O valor é: {"field5":"8;8<2&)A?5?< C54164[k'J9<0~.4b#/ 5W;3Fe&&`&Z#)<f>@g&!p!L{'->;3v3/05*f*:j<M5<;:-Zc/A7$2(1R97L+(?8* 80"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field4":".P#-I;5Hu3-|'K{&Ta&5l:]53Ay21&!+p*5r;Bg2G-6K+=>,:!`>#,\"8`#K?*Nc:B59M'(Kk.[g?>*6Ky/4.0?z7^i.%p>-.56,$"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field4":"6:.$B'0<,9]=*La.Z1>5j2Wg9I/0U;$Na*Y7=Ce*]7-J7<Tk=[?9P'?A{79t1.\"$!v* v7@+8D1<P??!f'Q?>?r6D+2Y18(.-;24"}
+O valor é: {"field0":"><($!(%+n:*(/S=!.0(Dq6$z%W;<%0;^e\"5>\"?* W3#?`\"+>:+r+P74&t&!d2Xg?La4Om6So9Ao& 8\":*(!,.@w7'6$=44200$4!"}
+O valor é: {"field4":"33<$N1*H/ E!'Y99- %Fs*6>8>h;]c;U/!'&1\\9)5 /[s?0.<T-$Jm7>8%8v<Y/!Eu.A')W/9O18!4=80-'\"#M1,^3%Z6_w17`&"}
+O valor é: {"field2":"'[w&;0*!*(M1*N?)I+3Sa*Bi6?l?,>2Fo6-8%M}?Le$Rs#\\w6 .,K)3B3=-88,|;-d.064/$9I+)*t1Oe& d'\\-,]'.Q!-[1,Qm/"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field4":"?Mm7 `8%z:,.-Ao*N3\"N{7S}=D?5L'/P'%\\)N5!I'?E)(#<6Eg6D+)@7)(f4M70H7#J/=z$Tg2B;\"$h#/\"5Sw/F7)!l:.|12*9"}
+O valor é: {"field0":"1Gw6>v65h28z\"T{+_g:Cm? r<_;!3d18|&<l&-~/Uu,I3-[m4&&0Cs4R/9/n&Bk.-l#;x++b%%~:5>4=`+1z&1|3.t-Y!5Iq4 j3"}
+O valor é: {"field3":"/Q1,?z9P75;h:Fi.Ae1Xe:.t62d**|2Jo>Rk85:5Wu!Zk6Go?A54Ig Uo3Y/*Ki\"D9&I/0@'\"!,=!$=.&)1b ?j&(~/W+)_y2Yw."}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field5":">^-8/2?Eq3$d-B)49j23\"-!h:Gs;Xi!Ku6Fu)9t'> ,@w._7 Xa36|!'j: ,8.*$%h1G::~!1< Og6Ri3To>Cy:8v)Es3=&:[s/"}
+O valor é: {"field6":"1:6)!|1!,4'.#\\;!4477b+S31_=1^':8d+R-,?6-Vu>%h*!t/>t& r94t&/> ><!I1.A39?l\"B5 5t(1.0Hk,\"j?_e1:l.=*#%v'"}
+O valor é: {"field3":"?@1!Mw!3p\"_'#6,%B?!F5<\/\"5D}*X=9#v*2~>D? #>8-&-Qg$P2#p1=,!?~2G;,$8.+6==\"6X)$Q9/Wm?L=7[q'4$:9:(!x>4v2"}
+O valor é: {"field7":"%&.<S;>-:<P/%V2Hg1@-$5$,P}:W{+Rk\"!v.-*4N3(S'=Z}:E{.)v8N#<#$.Bw>Jy*)d+Vs5K=$Ug<^u6@};#d?9>%6t70j+9~7"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field2":"1Ky><h;Ts#8v)L7$;b$*p#:49Wy.=`7E;\\3$Da:X; ?< 5|5?|>R7;Pk:Y'!G}>7\"8<j\"%~4]=0$(5O{&I93@m'=*#+`'M\"^s6"}
+O valor é: {"field9":"2 .(F-8U/0Ve&Z=(I!-# %A{'Ow?=:,^7$Q}!O+--x+])9Lg1@q/1~<^i*C-,Ku6\\3?2`'/ 1,:4@+01n&(8!S98I{9Ko#T='Re\""}
+O valor é: {"field6":"&):83&.H5 Tw8+& B}5=p/Y7%:$0O-'/j?)$?_!1A;&L{24\".9z/Yu7(j.I->2`/+\";F#472;)`&Rs($$,Vy?9,)X{20b2A36]% "}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field4":">Au;B1&;f7^u'G1-%&0Ea2[=5#b#3v*E!)F9$I'0]/<Oe;\"`<Hc.Sc)S+5!`9]'!G#;7`>B3'C)0T#$)z3#`2E7)'r- z//`&A+5"}
+O valor é: {"field5":"0=v/=v+Ku*#b0Ls?-<6-88F7&S-91,\"Os&R)#Qa:< %#8(+p,6.0]y-5d'Qu=Mu.=`%=0<Bc*E?5Xk<\\{3[y:Ns?Q762~7Tw??|3"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field4":">Au;B1&;f7^u'G1-%&0Ea2[=5#b#3v*E!)F9$I'0]/<Oe;\"`<Hc.Sc)S+5!`9]'!G#;7`>B3'C)0T#$)z3#`2E7)'r- z//`&A+5"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field9":":8$()*(W/!^)< ><W-*\\c:Ke+Fe*B'<X3$Ow&=( 'n:Qw/-$?E=4Wm38`>:n$Me?=`\"Mc>Tc/G'9/l?=~70:2R?%H9.Qm66l51b&"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field0":"\"#~/F'93n?&,+.45I1*,l#7h&Rq7)>7:4)&l-P%%)z8P;=K{41&='z:N555p<:~.Lw=049A?)^?%A3$K-1< %$, *t8,8%@# '|3"}
+O valor é: {"field7":"*!&<10!Xg;,69 |7&f$2|.R+\"Z-=88!_w'M))Qo*\\a??$922$Bm+5t=!f#Xi2X%<.,*8:8+j+Vw;Tg2Zi:Fo?4,$U55Q3(K57#<5"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field7":"*!&<10!Xg;,69 |7&f$2|.R+\"Z-=88!_w'M))Qo*\\a??$922$Bm+5t=!f#Xi2X%<.,*8:8+j+Vw;Tg2Zi:Fo?4,$U55Q3(K57#<5"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field4":"7&h.<~9Ie3+r3 45/,.'*4%t6Da.K-$]/Z'5Is/\\c&,(-- 1B-%[m?>,9\\w&1z'Og']m*6&;Zu.3d!14!!r4B5%-0 %<4C'3R/ "}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field9":"<V10]e/Am;2j%F34Au6$,1?h?]w/?22/,9M)(\"(95r?Ow*,h'-x7 (\"Q}>6.$+:$?l4A{&\\g:^),W#<4~;Ya!^u*/8+9\"-L)0E;,"}
+O valor é: {"field9":")X)<\\i/H}#3>$'$87`3Q! J{;\\o+Sq?]%=*l:Ye#-l->n6R!2%r>P/,0b+Ou8Wi#&<<@%<4(6$|:(&,O}'Bs\"5`\"3t\";2!Vu<+(("}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field4":",P?$Qs)[e;+6$%n&Ey![m+_#%t7.>/5b'N14V+,Gu10v/@{5$8,>&:M}+&21? !Oe5C=5\"f-O)9)<\/^i:Q%*[-(90,:h2F)3%\"!"}
+O valor é: {"field4":".P#-I;5Hu3-|'K{&Ta&5l:]53Ay21&!+p*5r;Bg2G-6K+=>,:!`>#,\"8`#K?*Nc:B59M'(Kk.[g?>*6Ky/4.0?z7^i.%p>-.56,$"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field8":"#&z6582!<)!,)!l#U'1U/5X!89v.Q}<F#)T/B{++j2G.+n> d#I;:3h/1$ Ls*P)2Y/(D=?V5$?j<8$,Bs&N%1)>#^{7Ee!Wa&"}
+O valor é: {"field2":"4_)!-,+#84\":9W7(@q$B?=Rc)N/0)6\"?4 ,\"=6f'=6.Do'H19!l;Bo$.*!7d30*0Kg-3\"<.l%Qa*Z;$Q!<O+98x+<*& $(@s-#p?"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field7":",K19: --*)V39N#='b66 ( :-B78Zg 08<:>%!t/N}>0p3Qo9G?)J%1h;Rk99z+(**4v&_; He:Yk6*4)-6?Ms#Ba=8n3Tw-8&,"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field2":" >*<Yu(\"69-(770(=6?['8Tu5J)-X!,$: &,)*z+:~=%j/%:9, $$j4\\')U-,D+)G99L1=]c>@?%Wg >j/Ku+2n;+8/Pu.Nk\"B?8"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field8":"/%r&Ru:S3=Ao#Ou*7&1Zi/\\o6Ya;O+&%8<Da/^/95,(G-%48+=d3T'&!\"=Z%?F#!J58(04Z5;% 8_)==x+.>\"V5=M%.>80-<>#f7"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field7":"&.(,L##\\-=B5/%<=\\)=[u7B=?Qg.5`=\\!1\\5/-\"9Pi&Ba6#z=P-1]+9Cc/^,9:9Y';Jw/=(?@m\"]%%J9!I3(V{6Bg3+p'6&=I?!"}
+O valor é: {"field5":".\\% F=)(f2P1##h+Z9(Z74'd,Qe&4& :r;3<\"?v79843:-Nk3N3(&*$\\m6F76We: j?=<1\\?(/r3Q1=X' Ve&>z&/f/X;,&0(^=)"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field1":";F;=Sk'545Hu3N34*n;!p&>$?4((By<1(0%j00d/#l#Ku+]q Le/&r;Wa&)0 \\3902<Lc?0j29j2:$!46!1r8+ !La$2:8C/%7<%"}
+O valor é: {"field5":")C598>2Rk\"Ta:R}\"%(<A%4)p!2&99l'(|*&b2Oa+>j;W; 4r4A%,1> :00Lu>94)Ns48b\"[u8&`:2r5/00;r8]{+@}86f\"P7-,>1"}
+O valor é: {"field5":"/,n\"'>8[1$7 &0t;<:)Kq;(*2Zy'N%1J/=+$4I+):\"./~2<r>0n+ t9Hu3No.[c#Zs1 \"!Y!\"<l6M+/T)<\\%=Fs\"\\+Y7,3< 6h7"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field5":">^-8/2?Eq3$d-B)49j23\"-!h:Gs;Xi!Ku6Fu)9t'> ,@w._7 Xa36|!'j: ,8.*$%h1G::~!1< Og6Ri3To>Cy:8v)Es3=&:[s/"}
+O valor é: {"field7":";X!$44%#<(Nw<Gy>&,2]2N7.Sq/#>;E3<&`$<8%N):1v>Ly40h7B#9[5)I';2.53$0]{\"\\k&(:<Gw/3l;-,<6x6I)&5l?Wq?[? "}
+O valor é: {"field2":"=Qk>Cy)\\k.8>-Z!(D-&$f''2:N/<5&;_/)3t&Ti+E;(>l#T;%L3-x&Ry*!,94p&P+4>8!Jo(+0,16!Z=%[g?Cs/=(/[u*+h.&&0"}
+O valor é: {"field9":"4+~*Ne.Z+=-,75(8<\"73 =<28W3,-86.t:-*\"58%C#9_9(#0(#v3^75;t:?(596=J9&H3).0'% 0Ku#%p'@)7 j*$ :Nw&[?0Eg/"}
+O valor é: {"field1":"![59!r3Co6., %j#Ac>**!@o!<z71h!:b>>~)H{#9>%Yo?52&C+9F-;+b.O'0O+1Uy60~/I{)# 0<t=<f\"U11**%60 $,9]c I34"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field6":">,l?>d2O=)1~+6|3T32Mo'A3#!*,Uu#Im'E7+K/4Ui>?$$:0,U=5/<8+2(Iw7=:4Ry%>4<Dc?Ty>[360>0[+'@c+S965~\"0`;Mu;"}
+O valor é: {"field2":"3Ze?Ho6Wm+N)*>,%=<?W; N9*7j#C3)6*1Vg?1\"<Di5Go/Ko'6()Do3?h?2h?3&-#r$5(,Qa86b6O?%]o*La3C/-Ca(Dg>&:%&t#"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field7":"?Pg/;>$4h/J7.-40^k $ 9<$/X'1%88&d.^e1Mm?=|+Am._y9I- T;.V?59d4Ke\"*h2$d'I'9A/554+8$!W+7V%, x*P=(Rc&O;0"}
+O valor é: {"field2":"5S7)L),Ue+G57O? \\5=%v7&:#Ce..|&;&(6t>O+)Je946 '0!< -9:!Uw\"5:07< M-3<(58,32j;=j$A)1' #Zo3J+(>p#=b03v."}
+O valor é: {"field7":">D!1P395&0^;&4x/[-( f'O#=:<!9$:Ek3(*<3l/) !->=*j0=8=Lc#-4-2:5).4F+ Oq&%$ O{\"Mw%*x+N/!-$4S7-; 8G-9U{6"}
+O valor é: {"field4":":Q!9;\"*D=9$ 1<,15|2U; E9?Zy/Qy&Uy?Oo5\\m2\\{9_g/Ni3;b>D=<De&T?$Os:+0  j+1t!0`6=j=U1(Uc)$ 0U)3@k?E'2;v."}
+O valor é: {"field2":"3Ze?Ho6Wm+N)*>,%=<?W; N9*7j#C3)6*1Vg?1\"<Di5Go/Ko'6()Do3?h?2h?3&-#r$5(,Qa86b6O?%]o*La3C/-Ca(Dg>&:%&t#"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field5":"?L+1Ag9_-0#&#6(-\\; T5-$t*_/08t\"V7 \"2;T=97j\"8$!%t6,8(:8*Z-0$(<Hw;6h3=0%Wq%]-%\".9#05$0*Ym2%h'Y?0-n S7 "}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field1":";F;=Sk'545Hu3N34*n;!p&>$?4((By<1(0%j00d/#l#Ku+]q Le/&r;Wa&)0 \\3902<Lc?0j29j2:$!46!1r8+ !La$2:8C/%7<%"}
+O valor é: {"field9":"3Gm:X'?5>4_g%\\7Po 3h\"%65$f?U5/*d;W5/<((3p*0t;/p4Fc3:<'\\10:>0Cq*Z3=\"t2= /R;0&.=Sm*Lw:#n+Le:Hk/,$5Y1<"}
+O valor é: {"field8":"=&20'l:0~>Nq*Qs#V-.S;<E-5O?,6.;Kw\"Pi%X3-A{;Uc;%.)Pw&Aa.Y}3\"p<%b;L{7(v:Aw5':8R/,'\"(Jw-/6%Og;Tm?0b*Dk:"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field2":"=Qk>Cy)\\k.8>-Z!(D-&$f''2:N/<5&;_/)3t&Ti+E;(>l#T;%L3-x&Ry*!,94p&P+4>8!Jo(+0,16!Z=%[g?Cs/=(/[u*+h.&&0"}
+O valor é: {"field0":")S),E1,.x3M%($2 T'8>n&/|$X/=4r#L+9+v.98=9t+'\"(Vu+\"\"0$` $ %D3;\\!,^+(/~7Y37L!0Hq<V35P!+H1%Z{,Ci\"P{=B7 "}
+O valor é: {"field4":"=Nm\"B+>Vo7La!+*5Co:^q;,<*<x&><?Zk?A17:j7L'0$n>!,1V=,5z6W?=/&$^u&E{7#`*Uy)_59&:78>5N31#,1S#<&f?F=)$z;"}
+O valor é: {"field2":"3Ze?Ho6Wm+N)*>,%=<?W; N9*7j#C3)6*1Vg?1\"<Di5Go/Ko'6()Do3?h?2h?3&-#r$5(,Qa86b6O?%]o*La3C/-Ca(Dg>&:%&t#"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field8":"%.t7T!02<57~:Y3$[{.($(&j#Xu>(d(;`.Z-59j\"9d4)b2M3&%x>>d0$&,;f>Ic+\\1%?6!F'9#8 M;/Jq/9d4B;!G7: |6Gu,Za&"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field4":"=R};9v*2.<'f3\\#=Zi!Gq;=|)9&$Xq>L9<0n;V!4Qm)A7,4j?A'<\"97v2Y5?'2)1x*+013b,T1$\\c&R3-9>=#p/,p2L)5&&5: 5"}
+O valor é: {"field3":"-%h2.b$[/4_% 3h6!d<V}?Jy<$>4;43( )((%I700<. 64&j&C7);8,+ 1.z?5055:9Z'58&;B=!Vk(7p;1j&X7)4>,Su/I+0)<1"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field2":"1Ky><h;Ts#8v)L7$;b$*p#:49Wy.=`7E;\\3$Da:X; ?< 5|5?|>R7;Pk:Y'!G}>7\"8<j\"%~4]=0$(5O{&I93@m'=*#+`'M\"^s6"}
+O valor é: {"field3":"+F/,\\o*):)/l5R#(C!;Z%5]a*W6W144<=5b(!:828>B/<^;*R+$Mo%<6$7$2So*Zk<@}7B}!&v\"J139p?!,$-*(E%6Bm\"2(/#$)"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field6":"9'`&Nu)#49Py3Ms'9,,2f+Rw3\"t7*4.Gy#%r;2.%-<#C%,:x?.r;4x&Kg3Hm&O1 F/2O;$P+/%`>H)2,>1[?:]#4':3I%,**?O?8"}
+O valor é: {"field7":"/7< <8%5,5M'$.n/,p2(04-~&P{+Y,3\",M=*B%$K%&Gc+ r-]3,Eu/ *80p5Oo/B!:S;$.2)/x+2>:Me3. /Mo.Ak%_m\"Ls=Hy+"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field0":";?,5Ee*3x?W#!X=4*d-\\%-<<8Km7#h'P!)0p<,$8004@u/<>5M991f:3h#?0*#p\"K5>0(=!8&9>0(\"8Jw:L{/X;5+2%Sm\"4\"?;69"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field0":"9\\a&6.0D!9.8,16!^76P+50f+@)4;f&68<B7'7z;N9=_/)Gq=Da?(:+Is7S%0@o.]}.C70.f:'2<6:$P=8>(<@u&Ha6;8-Z=>N)5"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field7":"$.v+Ue=*n:2z.=h>I= ]a3*b8&l3F#/Qq;,0\"3>!<&$?p\".x*D=<Cq8:.57d'6z+Ac++v2[#>E'=*l;Fi'^34M1%K792n\"'.,5b'"}
+O valor é: {"field2":"!1x'/x6Aw#B) ?8554*G%8.:!\\10J1-^s;J!G;5-2'8*5Q9(B#5 h8!d6(h:H2,()H;(>|3_w3^# Ys&:~*\\?%Ho,#b:Mw4Za6"}
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+O valor é: {"field4":"&;f;>$:\\5$E%?B9$]a#(8$(b4O34De#Qo:P3$G7$[o2&*$?~0#\"(^{(7h+Bk1.,<Ts\"8(99n<I#4E)1Y#,'&\"'p3D+4^o#.&/<~2"}
+O valor é: {"field7":">0r?W7;I}&Va+Xo#Do8G/ =r #f>/*?I+0&(28`3>.>0j;K9.H/%E=0U}*G=$<9(f-=x#F#0&|60j,D3<Va.2h*-(\"2p?22:^}7"}
+[ForkJoinPool.commonPool-worker-1] INFO io.atomix.cluster.messaging.impl.NettyMessagingService - Stopped
+2019-06-22 20:39:07:473 4 sec: 1000 operations; 232,88 current ops/sec; [READ: Count=520, Max=56223, Min=360, Avg=1130,1, 90=1377, 99=3705, 99.9=6995, 99.99=56223] [CLEANUP: Count=1, Max=2234367, Min=2232320, Avg=2233344, 90=2234367, 99=2234367, 99.9=2234367, 99.99=2234367] [UPDATE: Count=480, Max=10455, Min=988, Avg=1961,95, 90=2475, 99=4675, 99.9=10455, 99.99=10455] 
+[OVERALL], RunTime(ms), 4294
+[OVERALL], Throughput(ops/sec), 232.88309268747088
+[TOTAL_GCS_PS_Scavenge], Count, 1
+[TOTAL_GC_TIME_PS_Scavenge], Time(ms), 6
+[TOTAL_GC_TIME_%_PS_Scavenge], Time(%), 0.13972985561248255
+[TOTAL_GCS_PS_MarkSweep], Count, 0
+[TOTAL_GC_TIME_PS_MarkSweep], Time(ms), 0
+[TOTAL_GC_TIME_%_PS_MarkSweep], Time(%), 0.0
+[TOTAL_GCs], Count, 1
+[TOTAL_GC_TIME], Time(ms), 6
+[TOTAL_GC_TIME_%], Time(%), 0.13972985561248255
+[READ], Operations, 520
+[READ], AverageLatency(us), 1130.1038461538462
+[READ], MinLatency(us), 360
+[READ], MaxLatency(us), 56223
+[READ], 95thPercentileLatency(us), 1540
+[READ], 99thPercentileLatency(us), 3705
+[READ], Return=OK, 520
+[CLEANUP], Operations, 1
+[CLEANUP], AverageLatency(us), 2233344.0
+[CLEANUP], MinLatency(us), 2232320
+[CLEANUP], MaxLatency(us), 2234367
+[CLEANUP], 95thPercentileLatency(us), 2234367
+[CLEANUP], 99thPercentileLatency(us), 2234367
+[UPDATE], Operations, 480
+[UPDATE], AverageLatency(us), 1961.9541666666667
+[UPDATE], MinLatency(us), 988
+[UPDATE], MaxLatency(us), 10455
+[UPDATE], 95thPercentileLatency(us), 2721
+[UPDATE], 99thPercentileLatency(us), 4675
+[UPDATE], Return=OK, 480
+dblei-binding
+CENAS
+['java', '-cp', '/home/jose/Desktop/LEI/Graficos/Key-DocumentDBv1/YCSB-master/dblei/conf:/home/jose/Desktop/LEI/Graficos/Key-DocumentDBv1/YCSB-master/dblei/target/dblei-binding-0.16.0-SNAPSHOT.jar:/home/jose/.m2/repository/org/apache/htrace/htrace-core4/4.1.0-incubating/htrace-core4-4.1.0-incubating.jar:/home/jose/.m2/repository/org/slf4j/slf4j-api/1.7.25/slf4j-api-1.7.25.jar:/home/jose/.m2/repository/org/rocksdb/rocksdbjni/5.11.3/rocksdbjni-5.11.3.jar:/home/jose/.m2/repository/net/jcip/jcip-annotations/1.0/jcip-annotations-1.0.jar:/home/jose/Desktop/LEI/Graficos/Key-DocumentDBv1/YCSB-master/core/target/core-0.16.0-SNAPSHOT.jar:/home/jose/.m2/repository/org/hdrhistogram/HdrHistogram/2.1.4/HdrHistogram-2.1.4.jar:/home/jose/Desktop/LEI/Graficos/Key-DocumentDBv2/DB/target/bd-serverless-1.0-SNAPSHOT.jar:/home/jose/.m2/repository/org/codehaus/jackson/jackson-mapper-asl/1.9.4/jackson-mapper-asl-1.9.4.jar:/home/jose/.m2/repository/org/codehaus/jackson/jackson-core-asl/1.9.4/jackson-core-asl-1.9.4.jar', 'com.yahoo.ycsb.Client', '-db', 'com.yahoo.ycsb.db.dblei.DBLEIClient', '-P', 'workloads/workloada', '-p', 'operationcount=1000', '-s']
+FIM

@@ -12,7 +12,7 @@ public class Config {
     public static int nConjuntos = 9;
     public static int chunk = 50;
 
-    public static long periodoTempo = 45; //periodo de tempo em segundos
+    public static long periodoTempo = 120; //periodo de tempo em segundos
     public static TimeUnit unidade = TimeUnit.SECONDS;
 
     //Percentagens Utilizacao

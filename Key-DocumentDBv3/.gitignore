@@ -1,0 +1,6 @@
+*.class
+.idea/
+DB/.idea/
+DB/teste/
+DB/localdb/
+DB/target/

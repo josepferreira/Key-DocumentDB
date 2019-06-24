@@ -17,8 +17,8 @@
 
 package com.yahoo.ycsb.db.dblei;
 
+import Operations.ScanIterator;
 import com.yahoo.ycsb.*;
-import nodes.ScanIterator;
 import nodes.Stub;
 import org.json.JSONObject;
 
@@ -100,8 +100,8 @@ public class DBLEIClient extends com.yahoo.ycsb.DB {
     jo.put("cenas", "ola");
     Random gerador = new Random();
     int a = gerador.nextInt(10000) + 20000;
-    stub = new Stub("localhost:"+a);
-    System.out.println("-------Init------");
+    stub = new Stub();
+//    System.out.println("-------Init------");
   }
 
 
@@ -123,14 +123,17 @@ public class DBLEIClient extends com.yahoo.ycsb.DB {
     System.out.println(result);
     System.out.println("FIM OPERACAO READ");
     */
-    Long chave = Long.parseLong(key.substring(4, 7)) - 100;
-//    Long chave = Long.parseLong(key.split("user")[1].substring(0, 3)) - 100;
+    Long chave;
+    try{
+      chave = Long.parseLong(key.substring(4, 7)) - 100;
+    } catch(Exception e){
+      chave = Long.parseLong(key);
+    }
+    //    Long chave = Long.parseLong(key.split("user")[1].substring(0, 3)) - 100;
     try {
-      JSONObject jos = stub.get(chave).get();
+      JSONObject jos = stub.get(chave);
       return Status.OK;
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    } catch (ExecutionException e) {
+    }catch(Exception e){
       e.printStackTrace();
     }
     return Status.ERROR;
@@ -147,24 +150,27 @@ public class DBLEIClient extends com.yahoo.ycsb.DB {
       }
       return Status.OK;
     }catch(Exception e){
-      System.out.println(e);
+//      System.out.println(e);
     }
     return Status.ERROR;
   }
 
 
   public Status update(String table, String key, Map<String, ByteIterator> values){
-    Long chave = Long.parseLong(key.substring(4, 7)) - 100;
+    Long chave;
+    try{
+      chave = Long.parseLong(key.substring(4, 7)) - 100;
+    }catch(Exception e){
+      chave = Long.parseLong(key);
+    }
     JSONObject job = new JSONObject();
     for(Map.Entry<String, ByteIterator> v: values.entrySet()){
       job.put(v.getKey(), new String(v.getValue().toArray()));
     }
     try {
-      stub.put(chave, job).get();
+      stub.put(chave, job);
       return Status.OK;
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    } catch (ExecutionException e) {
+    } catch (Exception e) {
       e.printStackTrace();
     }
     return Status.ERROR;
@@ -172,16 +178,20 @@ public class DBLEIClient extends com.yahoo.ycsb.DB {
 
 
   public Status insert(String table, String key, Map<String, ByteIterator> values){
-    Long chave = Long.parseLong(key.substring(4, 7)) - 100;
+    Long chave;
+    try{
+      chave = Long.parseLong(key.substring(4, 7)) - 100;
+    }catch(Exception e){
+      chave = Long.parseLong(key);
+    }
     JSONObject job = new JSONObject();
     for(Map.Entry<String, ByteIterator> v: values.entrySet()){
       job.put(v.getKey(), new String(v.getValue().toArray()));
     }
     try {
-      stub.put(chave, job).get();
-    } catch (InterruptedException e) {
-      return Status.ERROR;
-    } catch (ExecutionException e) {
+//      stub.put(chave, job);
+      stub.put(chave, job);
+    } catch (Exception e) {
       return Status.ERROR;
     }
     return Status.OK;

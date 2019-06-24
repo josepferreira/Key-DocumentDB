@@ -1,0 +1,6268 @@
+[WARN]  Running against a source checkout. In order to get our runtime dependencies we'll have to invoke Maven. Depending on the state of your system, this may take ~30-45 seconds
+[DEBUG]  Running 'mvn -pl com.yahoo.ycsb:dblei-binding -am package -DskipTests dependency:build-classpath -DincludeScope=compile -Dmdep.outputFilterFile=true'
+java -cp /home/jose/Desktop/LEI/Graficos/Key-DocumentDBv1/YCSB-master/dblei/conf:/home/jose/Desktop/LEI/Graficos/Key-DocumentDBv1/YCSB-master/dblei/target/dblei-binding-0.16.0-SNAPSHOT.jar:/home/jose/.m2/repository/org/apache/htrace/htrace-core4/4.1.0-incubating/htrace-core4-4.1.0-incubating.jar:/home/jose/.m2/repository/org/slf4j/slf4j-api/1.7.25/slf4j-api-1.7.25.jar:/home/jose/.m2/repository/org/rocksdb/rocksdbjni/5.11.3/rocksdbjni-5.11.3.jar:/home/jose/.m2/repository/net/jcip/jcip-annotations/1.0/jcip-annotations-1.0.jar:/home/jose/Desktop/LEI/Graficos/Key-DocumentDBv1/YCSB-master/core/target/core-0.16.0-SNAPSHOT.jar:/home/jose/.m2/repository/org/hdrhistogram/HdrHistogram/2.1.4/HdrHistogram-2.1.4.jar:/home/jose/Desktop/LEI/Graficos/Key-DocumentDBv1/DB/target/bd-serverless-1.0-SNAPSHOT.jar:/home/jose/.m2/repository/org/codehaus/jackson/jackson-mapper-asl/1.9.4/jackson-mapper-asl-1.9.4.jar:/home/jose/.m2/repository/org/codehaus/jackson/jackson-core-asl/1.9.4/jackson-core-asl-1.9.4.jar com.yahoo.ycsb.Client -db com.yahoo.ycsb.db.dblei.DBLEIClient -P workloads/workloade -p operationcount=2000 -s -t
+Command line: -db com.yahoo.ycsb.db.dblei.DBLEIClient -P workloads/workloade -p operationcount=2000 -s -t
+YCSB Client 0.16.0-SNAPSHOT
+
+Loading workload...
+Starting test.
+2019-06-22 19:12:06:169 0 sec: 0 operations; est completion in 0 second 
+[Thread-3] WARN io.atomix.cluster.messaging.impl.NettyMessagingService - Disabling TLS for intra-cluster messaging; Could not load cluster key store: ../config/atomix.jks (No such file or directory)
+[netty-messaging-event-epoll-server-0] INFO io.atomix.cluster.messaging.impl.NettyMessagingService - localhost/127.0.0.1 accepting incoming connections on port 22036
+[netty-messaging-event-epoll-server-0] INFO io.atomix.cluster.messaging.impl.NettyMessagingService - Started
+DBWrapper: report latency for each error is false and specific error codes to track for latency are: []
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+2019-06-22 19:12:16:151 10 sec: 620 operations; 62 current ops/sec; est completion in 23 seconds [INSERT: Count=441, Max=4651, Min=208, Avg=552,06, 90=754, 99=2261, 99.9=4651, 99.99=4651] [SCAN: Count=179, Max=197119, Min=35520, Avg=51662,39, 90=63743, 99=90879, 99.9=197119, 99.99=197119] 
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+2019-06-22 19:12:26:151 20 sec: 1330 operations; 71 current ops/sec; est completion in 11 seconds [INSERT: Count=488, Max=2347, Min=181, Avg=413,91, 90=551, 99=758, 99.9=2347, 99.99=2347] [SCAN: Count=222, Max=164991, Min=33888, Avg=44031,64, 90=49279, 99=57215, 99.9=164991, 99.99=164991] 
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+java.lang.Exception: Não existem mais
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+TOu no envia mensagem!!!!!
+O endereco é nulo? false
+Ja tenho na cache
+O valor é: true
+2019-06-22 19:12:36:151 30 sec: 2000 operations; 67 current ops/sec; [INSERT: Count=476, Max=2837, Min=190, Avg=410,02, 90=545, 99=1350, 99.9=2837, 99.99=2837] [SCAN: Count=194, Max=91775, Min=35808, Avg=45112,49, 90=50399, 99=56991, 99.9=91775, 99.99=91775] 
+[ForkJoinPool.commonPool-worker-1] INFO io.atomix.cluster.messaging.impl.NettyMessagingService - Stopped
+2019-06-22 19:12:37:335 31 sec: 2000 operations; 0 current ops/sec; [CLEANUP: Count=1, Max=2252799, Min=2250752, Avg=2251776, 90=2252799, 99=2252799, 99.9=2252799, 99.99=2252799] [INSERT: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [SCAN: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+[OVERALL], RunTime(ms), 31184
+[OVERALL], Throughput(ops/sec), 64.13545407901488
+[TOTAL_GCS_PS_Scavenge], Count, 82
+[TOTAL_GC_TIME_PS_Scavenge], Time(ms), 147
+[TOTAL_GC_TIME_%_PS_Scavenge], Time(%), 0.4713955874807593
+[TOTAL_GCS_PS_MarkSweep], Count, 0
+[TOTAL_GC_TIME_PS_MarkSweep], Time(ms), 0
+[TOTAL_GC_TIME_%_PS_MarkSweep], Time(%), 0.0
+[TOTAL_GCs], Count, 82
+[TOTAL_GC_TIME], Time(ms), 147
+[TOTAL_GC_TIME_%], Time(%), 0.4713955874807593
+[CLEANUP], Operations, 1
+[CLEANUP], AverageLatency(us), 2251776.0
+[CLEANUP], MinLatency(us), 2250752
+[CLEANUP], MaxLatency(us), 2252799
+[CLEANUP], 95thPercentileLatency(us), 2252799
+[CLEANUP], 99thPercentileLatency(us), 2252799
+[INSERT], Operations, 1405
+[INSERT], AverageLatency(us), 455.95516014234875
+[INSERT], MinLatency(us), 181
+[INSERT], MaxLatency(us), 4651
+[INSERT], 95thPercentileLatency(us), 732
+[INSERT], 99thPercentileLatency(us), 1689
+[INSERT], Return=OK, 1405
+[SCAN], Operations, 595
+[SCAN], AverageLatency(us), 46679.69075630252
+[SCAN], MinLatency(us), 33888
+[SCAN], MaxLatency(us), 197119
+[SCAN], 95thPercentileLatency(us), 58911
+[SCAN], 99thPercentileLatency(us), 88959
+[SCAN], Return=OK, 595
+dblei-binding
+CENAS
+['java', '-cp', '/home/jose/Desktop/LEI/Graficos/Key-DocumentDBv1/YCSB-master/dblei/conf:/home/jose/Desktop/LEI/Graficos/Key-DocumentDBv1/YCSB-master/dblei/target/dblei-binding-0.16.0-SNAPSHOT.jar:/home/jose/.m2/repository/org/apache/htrace/htrace-core4/4.1.0-incubating/htrace-core4-4.1.0-incubating.jar:/home/jose/.m2/repository/org/slf4j/slf4j-api/1.7.25/slf4j-api-1.7.25.jar:/home/jose/.m2/repository/org/rocksdb/rocksdbjni/5.11.3/rocksdbjni-5.11.3.jar:/home/jose/.m2/repository/net/jcip/jcip-annotations/1.0/jcip-annotations-1.0.jar:/home/jose/Desktop/LEI/Graficos/Key-DocumentDBv1/YCSB-master/core/target/core-0.16.0-SNAPSHOT.jar:/home/jose/.m2/repository/org/hdrhistogram/HdrHistogram/2.1.4/HdrHistogram-2.1.4.jar:/home/jose/Desktop/LEI/Graficos/Key-DocumentDBv1/DB/target/bd-serverless-1.0-SNAPSHOT.jar:/home/jose/.m2/repository/org/codehaus/jackson/jackson-mapper-asl/1.9.4/jackson-mapper-asl-1.9.4.jar:/home/jose/.m2/repository/org/codehaus/jackson/jackson-core-asl/1.9.4/jackson-core-asl-1.9.4.jar', 'com.yahoo.ycsb.Client', '-db', 'com.yahoo.ycsb.db.dblei.DBLEIClient', '-P', 'workloads/workloade', '-p', 'operationcount=2000', '-s']
+FIM

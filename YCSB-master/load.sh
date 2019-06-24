@@ -1,1 +1,1 @@
-./bin/ycsb load dblei -P $1
+./bin/ycsb load dblei -P $* -p recordcount=25000

@@ -1070,7 +1070,7 @@ public class  Master {
 
         String ret = null;
         try {
-            Process process = Runtime.getRuntime().exec("docker run -d --network host --name " + nameContainer + " lei/testeslave " + nameContainer);//"docker", "run", "--network", "host", "--name", nameContainer, nameImage, "1", "2");
+            Process process = Runtime.getRuntime().exec("docker run -d --network host --name " + nameContainer + " lei/slave " + nameContainer);//"docker", "run", "--network", "host", "--name", nameContainer, nameImage, "1", "2");
             //Process process = processBuilder.start();
 
             StringBuilder output = new StringBuilder();

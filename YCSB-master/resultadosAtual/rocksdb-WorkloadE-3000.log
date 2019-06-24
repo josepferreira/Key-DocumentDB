@@ -1,0 +1,49 @@
+[WARN]  Running against a source checkout. In order to get our runtime dependencies we'll have to invoke Maven. Depending on the state of your system, this may take ~30-45 seconds
+[DEBUG]  Running 'mvn -pl com.yahoo.ycsb:rocksdb-binding -am package -DskipTests dependency:build-classpath -DincludeScope=compile -Dmdep.outputFilterFile=true'
+java -cp /home/jose/Desktop/LEI/Graficos/Key-DocumentDBv1/YCSB-master/rocksdb/conf:/home/jose/Desktop/LEI/Graficos/Key-DocumentDBv1/YCSB-master/rocksdb/target/rocksdb-binding-0.16.0-SNAPSHOT.jar:/home/jose/.m2/repository/org/apache/htrace/htrace-core4/4.1.0-incubating/htrace-core4-4.1.0-incubating.jar:/home/jose/.m2/repository/org/slf4j/slf4j-api/1.7.25/slf4j-api-1.7.25.jar:/home/jose/.m2/repository/org/rocksdb/rocksdbjni/5.11.3/rocksdbjni-5.11.3.jar:/home/jose/.m2/repository/net/jcip/jcip-annotations/1.0/jcip-annotations-1.0.jar:/home/jose/Desktop/LEI/Graficos/Key-DocumentDBv1/YCSB-master/core/target/core-0.16.0-SNAPSHOT.jar:/home/jose/.m2/repository/org/hdrhistogram/HdrHistogram/2.1.4/HdrHistogram-2.1.4.jar:/home/jose/.m2/repository/org/codehaus/jackson/jackson-mapper-asl/1.9.4/jackson-mapper-asl-1.9.4.jar:/home/jose/.m2/repository/org/codehaus/jackson/jackson-core-asl/1.9.4/jackson-core-asl-1.9.4.jar com.yahoo.ycsb.Client -db com.yahoo.ycsb.db.rocksdb.RocksDBClient -P workloads/workloade -p operationcount=3000 -p rocksdb.dir=./dbR/ycsb-rocksdb-data -s -t
+Command line: -db com.yahoo.ycsb.db.rocksdb.RocksDBClient -P workloads/workloade -p operationcount=3000 -p rocksdb.dir=./dbR/ycsb-rocksdb-data -s -t
+YCSB Client 0.16.0-SNAPSHOT
+
+Loading workload...
+Starting test.
+SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+2019-06-22 19:33:14:123 0 sec: 0 operations; est completion in 0 second 
+DBWrapper: report latency for each error is false and specific error codes to track for latency are: []
+2019-06-22 19:33:14:608 0 sec: 3000 operations; 5905,51 current ops/sec; [CLEANUP: Count=1, Max=2157, Min=2156, Avg=2157, 90=2157, 99=2157, 99.9=2157, 99.99=2157] [INSERT: Count=2111, Max=1176, Min=12, Avg=32,47, 90=50, 99=150, 99.9=321, 99.99=1176] [SCAN: Count=889, Max=4487, Min=14, Avg=280,29, 90=526, 99=1411, 99.9=3321, 99.99=4487] 
+[OVERALL], RunTime(ms), 508
+[OVERALL], Throughput(ops/sec), 5905.511811023622
+[TOTAL_GCS_PS_Scavenge], Count, 4
+[TOTAL_GC_TIME_PS_Scavenge], Time(ms), 8
+[TOTAL_GC_TIME_%_PS_Scavenge], Time(%), 1.574803149606299
+[TOTAL_GCS_PS_MarkSweep], Count, 0
+[TOTAL_GC_TIME_PS_MarkSweep], Time(ms), 0
+[TOTAL_GC_TIME_%_PS_MarkSweep], Time(%), 0.0
+[TOTAL_GCs], Count, 4
+[TOTAL_GC_TIME], Time(ms), 8
+[TOTAL_GC_TIME_%], Time(%), 1.574803149606299
+[CLEANUP], Operations, 1
+[CLEANUP], AverageLatency(us), 2157.0
+[CLEANUP], MinLatency(us), 2156
+[CLEANUP], MaxLatency(us), 2157
+[CLEANUP], 95thPercentileLatency(us), 2157
+[CLEANUP], 99thPercentileLatency(us), 2157
+[INSERT], Operations, 2111
+[INSERT], AverageLatency(us), 32.468498342018
+[INSERT], MinLatency(us), 12
+[INSERT], MaxLatency(us), 1176
+[INSERT], 95thPercentileLatency(us), 68
+[INSERT], 99thPercentileLatency(us), 150
+[INSERT], Return=OK, 2111
+[SCAN], Operations, 889
+[SCAN], AverageLatency(us), 280.2857142857143
+[SCAN], MinLatency(us), 14
+[SCAN], MaxLatency(us), 4487
+[SCAN], 95thPercentileLatency(us), 704
+[SCAN], 99thPercentileLatency(us), 1411
+[SCAN], Return=OK, 889
+rocksdb-binding
+CENAS
+['java', '-cp', '/home/jose/Desktop/LEI/Graficos/Key-DocumentDBv1/YCSB-master/rocksdb/conf:/home/jose/Desktop/LEI/Graficos/Key-DocumentDBv1/YCSB-master/rocksdb/target/rocksdb-binding-0.16.0-SNAPSHOT.jar:/home/jose/.m2/repository/org/apache/htrace/htrace-core4/4.1.0-incubating/htrace-core4-4.1.0-incubating.jar:/home/jose/.m2/repository/org/slf4j/slf4j-api/1.7.25/slf4j-api-1.7.25.jar:/home/jose/.m2/repository/org/rocksdb/rocksdbjni/5.11.3/rocksdbjni-5.11.3.jar:/home/jose/.m2/repository/net/jcip/jcip-annotations/1.0/jcip-annotations-1.0.jar:/home/jose/Desktop/LEI/Graficos/Key-DocumentDBv1/YCSB-master/core/target/core-0.16.0-SNAPSHOT.jar:/home/jose/.m2/repository/org/hdrhistogram/HdrHistogram/2.1.4/HdrHistogram-2.1.4.jar:/home/jose/.m2/repository/org/codehaus/jackson/jackson-mapper-asl/1.9.4/jackson-mapper-asl-1.9.4.jar:/home/jose/.m2/repository/org/codehaus/jackson/jackson-core-asl/1.9.4/jackson-core-asl-1.9.4.jar', 'com.yahoo.ycsb.Client', '-db', 'com.yahoo.ycsb.db.rocksdb.RocksDBClient', '-P', 'workloads/workloade', '-p', 'operationcount=3000', '-p', 'rocksdb.dir=./dbR/ycsb-rocksdb-data', '-s']
+FIM

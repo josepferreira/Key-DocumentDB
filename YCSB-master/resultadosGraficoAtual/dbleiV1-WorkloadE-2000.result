@@ -1,0 +1,44 @@
+2019-06-22 19:12:16:151 10 sec: 620 operations; 62 current ops/sec; est completion in 23 seconds [INSERT: Count=441, Max=4651, Min=208, Avg=552,06, 90=754, 99=2261, 99.9=4651, 99.99=4651] [SCAN: Count=179, Max=197119, Min=35520, Avg=51662,39, 90=63743, 99=90879, 99.9=197119, 99.99=197119] 
+2019-06-22 19:12:16:151 10 sec: 620 operations; 62 current ops/sec; est completion in 23 seconds [INSERT: Count=441, Max=4651, Min=208, Avg=552,06, 90=754, 99=2261, 99.9=4651, 99.99=4651] [SCAN: Count=179, Max=197119, Min=35520, Avg=51662,39, 90=63743, 99=90879, 99.9=197119, 99.99=197119] 
+2019-06-22 19:12:26:151 20 sec: 1330 operations; 71 current ops/sec; est completion in 11 seconds [INSERT: Count=488, Max=2347, Min=181, Avg=413,91, 90=551, 99=758, 99.9=2347, 99.99=2347] [SCAN: Count=222, Max=164991, Min=33888, Avg=44031,64, 90=49279, 99=57215, 99.9=164991, 99.99=164991] 
+2019-06-22 19:12:26:151 20 sec: 1330 operations; 71 current ops/sec; est completion in 11 seconds [INSERT: Count=488, Max=2347, Min=181, Avg=413,91, 90=551, 99=758, 99.9=2347, 99.99=2347] [SCAN: Count=222, Max=164991, Min=33888, Avg=44031,64, 90=49279, 99=57215, 99.9=164991, 99.99=164991] 
+2019-06-22 19:12:36:151 30 sec: 2000 operations; 67 current ops/sec; [INSERT: Count=476, Max=2837, Min=190, Avg=410,02, 90=545, 99=1350, 99.9=2837, 99.99=2837] [SCAN: Count=194, Max=91775, Min=35808, Avg=45112,49, 90=50399, 99=56991, 99.9=91775, 99.99=91775] 
+2019-06-22 19:12:36:151 30 sec: 2000 operations; 67 current ops/sec; [INSERT: Count=476, Max=2837, Min=190, Avg=410,02, 90=545, 99=1350, 99.9=2837, 99.99=2837] [SCAN: Count=194, Max=91775, Min=35808, Avg=45112,49, 90=50399, 99=56991, 99.9=91775, 99.99=91775] 
+2019-06-22 19:12:37:335 31 sec: 2000 operations; 0 current ops/sec; [CLEANUP: Count=1, Max=2252799, Min=2250752, Avg=2251776, 90=2252799, 99=2252799, 99.9=2252799, 99.99=2252799] [INSERT: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [SCAN: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2019-06-22 19:12:37:335 31 sec: 2000 operations; 0 current ops/sec; [CLEANUP: Count=1, Max=2252799, Min=2250752, Avg=2251776, 90=2252799, 99=2252799, 99.9=2252799, 99.99=2252799] [INSERT: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [SCAN: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2019-06-22 19:12:37:335 31 sec: 2000 operations; 0 current ops/sec; [CLEANUP: Count=1, Max=2252799, Min=2250752, Avg=2251776, 90=2252799, 99=2252799, 99.9=2252799, 99.99=2252799] [INSERT: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [SCAN: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+[OVERALL], RunTime(ms), 31184
+[OVERALL], Throughput(ops/sec), 64.13545407901488
+[TOTAL_GCS_PS_Scavenge], Count, 82
+[TOTAL_GC_TIME_PS_Scavenge], Time(ms), 147
+[TOTAL_GC_TIME_PS_Scavenge], Time(ms), 147
+[TOTAL_GC_TIME_%_PS_Scavenge], Time(%), 0.4713955874807593
+[TOTAL_GC_TIME_%_PS_Scavenge], Time(%), 0.4713955874807593
+[TOTAL_GCS_PS_MarkSweep], Count, 0
+[TOTAL_GC_TIME_PS_MarkSweep], Time(ms), 0
+[TOTAL_GC_TIME_PS_MarkSweep], Time(ms), 0
+[TOTAL_GC_TIME_%_PS_MarkSweep], Time(%), 0.0
+[TOTAL_GC_TIME_%_PS_MarkSweep], Time(%), 0.0
+[TOTAL_GCs], Count, 82
+[TOTAL_GC_TIME], Time(ms), 147
+[TOTAL_GC_TIME_%], Time(%), 0.4713955874807593
+[CLEANUP], Operations, 1
+[CLEANUP], AverageLatency(us), 2251776.0
+[CLEANUP], MinLatency(us), 2250752
+[CLEANUP], MaxLatency(us), 2252799
+[CLEANUP], 95thPercentileLatency(us), 2252799
+[CLEANUP], 99thPercentileLatency(us), 2252799
+[INSERT], Operations, 1405
+[INSERT], AverageLatency(us), 455.95516014234875
+[INSERT], MinLatency(us), 181
+[INSERT], MaxLatency(us), 4651
+[INSERT], 95thPercentileLatency(us), 732
+[INSERT], 99thPercentileLatency(us), 1689
+[INSERT], Return=OK, 1405
+[SCAN], Operations, 595
+[SCAN], AverageLatency(us), 46679.69075630252
+[SCAN], MinLatency(us), 33888
+[SCAN], MaxLatency(us), 197119
+[SCAN], 95thPercentileLatency(us), 58911
+[SCAN], 99thPercentileLatency(us), 88959
+[SCAN], Return=OK, 595

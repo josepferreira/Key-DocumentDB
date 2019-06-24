@@ -1,0 +1,30 @@
+2019-06-24 12:17:39:753 3 sec: 400 operations; 114,06 current ops/sec; [CLEANUP: Count=1, Max=2244607, Min=2242560, Avg=2243584, 90=2244607, 99=2244607, 99.9=2244607, 99.99=2244607] [UPDATE: Count=400, Max=59935, Min=1195, Avg=2012,81, 90=2165, 99=6219, 99.9=59935, 99.99=59935] 
+2019-06-24 12:17:39:753 3 sec: 400 operations; 114,06 current ops/sec; [CLEANUP: Count=1, Max=2244607, Min=2242560, Avg=2243584, 90=2244607, 99=2244607, 99.9=2244607, 99.99=2244607] [UPDATE: Count=400, Max=59935, Min=1195, Avg=2012,81, 90=2165, 99=6219, 99.9=59935, 99.99=59935] 
+[OVERALL], RunTime(ms), 3507
+[OVERALL], Throughput(ops/sec), 114.0575990875392
+[TOTAL_GCS_PS_Scavenge], Count, 1
+[TOTAL_GC_TIME_PS_Scavenge], Time(ms), 6
+[TOTAL_GC_TIME_PS_Scavenge], Time(ms), 6
+[TOTAL_GC_TIME_%_PS_Scavenge], Time(%), 0.1710863986313088
+[TOTAL_GC_TIME_%_PS_Scavenge], Time(%), 0.1710863986313088
+[TOTAL_GCS_PS_MarkSweep], Count, 0
+[TOTAL_GC_TIME_PS_MarkSweep], Time(ms), 0
+[TOTAL_GC_TIME_PS_MarkSweep], Time(ms), 0
+[TOTAL_GC_TIME_%_PS_MarkSweep], Time(%), 0.0
+[TOTAL_GC_TIME_%_PS_MarkSweep], Time(%), 0.0
+[TOTAL_GCs], Count, 1
+[TOTAL_GC_TIME], Time(ms), 6
+[TOTAL_GC_TIME_%], Time(%), 0.1710863986313088
+[CLEANUP], Operations, 1
+[CLEANUP], AverageLatency(us), 2243584.0
+[CLEANUP], MinLatency(us), 2242560
+[CLEANUP], MaxLatency(us), 2244607
+[CLEANUP], 95thPercentileLatency(us), 2244607
+[CLEANUP], 99thPercentileLatency(us), 2244607
+[UPDATE], Operations, 400
+[UPDATE], AverageLatency(us), 2012.8125
+[UPDATE], MinLatency(us), 1195
+[UPDATE], MaxLatency(us), 59935
+[UPDATE], 95thPercentileLatency(us), 2381
+[UPDATE], 99thPercentileLatency(us), 6219
+[UPDATE], Return=OK, 400

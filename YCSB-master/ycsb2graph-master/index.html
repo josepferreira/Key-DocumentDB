@@ -1,0 +1,591 @@
+
+<html>
+<head>
+<title>YCSB Testing Results</title>
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<script src="http://code.highcharts.com/highcharts.js"></script> 
+</head>
+<style>
+.chart {
+	width: 47%; 
+	height: 400px; 
+	margin: 5px 0 10px 10px;
+	float: left;
+}
+h1 {
+	text-align: center;
+}
+p,h2 {
+	display: table;
+	width: 100%;
+	margin: 3px;
+}
+</style>
+<body>
+<h1>YCSB Testing Results</h1>
+ <h2>WorkloadA</h2>
+<div id="WorkloadA-READ" class=chart></div>
+<script>
+$(document).ready(function() {  
+   var chart = {
+      type: 'spline'      
+   }; 
+   var title = {
+      text: 'WorkloadA READ'
+   };
+   var subtitle = {
+      text: 'Update heavy, Read/Update ratio: 50/50'
+   };
+
+   var yAxis = {
+      title: {
+         text: 'Latency (Milliseconds)'
+      },
+      labels: {
+         formatter: function () {
+            return this.value;
+         }
+      },
+      lineWidth: 2
+   };
+   var tooltip = {
+      crosshairs: true,
+      shared: true
+   };
+   var plotOptions = {
+      spline: {
+         marker: {
+            radius: 4,
+            lineColor: '#666666',
+            lineWidth: 1
+         }
+      }
+   };
+   var xAxis = {
+      title: {
+         text: 'Throughput'
+      },
+      categories: ['1000','1500']
+   };
+   var series= [ {
+         name: 'dblei',
+         marker: {
+            symbol: 'circle'
+         },
+         data: [0.518],
+         
+      }, {
+         name: 'rocksdb',
+         marker: {
+            symbol: 'square'
+         },
+         data: [0.021,0.021],
+         
+      },
+   ];
+   var json = {};
+   json.chart = chart;
+   json.title = title;
+   json.subtitle = subtitle;
+   json.tooltip = tooltip;
+   json.xAxis = xAxis;
+   json.yAxis = yAxis;  
+   json.series = series;
+   json.plotOptions = plotOptions;
+   $('#WorkloadA-READ').highcharts(json);
+  
+});
+</script>
+ 
+<div id="WorkloadA-UPDATE" class=chart></div>
+<script>
+$(document).ready(function() {  
+   var chart = {
+      type: 'spline'      
+   }; 
+   var title = {
+      text: 'WorkloadA UPDATE'
+   };
+   var subtitle = {
+      text: 'Update heavy, Read/Update ratio: 50/50'
+   };
+
+   var yAxis = {
+      title: {
+         text: 'Latency (Milliseconds)'
+      },
+      labels: {
+         formatter: function () {
+            return this.value;
+         }
+      },
+      lineWidth: 2
+   };
+   var tooltip = {
+      crosshairs: true,
+      shared: true
+   };
+   var plotOptions = {
+      spline: {
+         marker: {
+            radius: 4,
+            lineColor: '#666666',
+            lineWidth: 1
+         }
+      }
+   };
+   var xAxis = {
+      title: {
+         text: 'Throughput'
+      },
+      categories: ['1000','1500']
+   };
+   var series= [ {
+         name: 'dblei',
+         marker: {
+            symbol: 'circle'
+         },
+         data: [0.623],
+         
+      }, {
+         name: 'rocksdb',
+         marker: {
+            symbol: 'square'
+         },
+         data: [0.065,0.065],
+         
+      },
+   ];
+   var json = {};
+   json.chart = chart;
+   json.title = title;
+   json.subtitle = subtitle;
+   json.tooltip = tooltip;
+   json.xAxis = xAxis;
+   json.yAxis = yAxis;  
+   json.series = series;
+   json.plotOptions = plotOptions;
+   $('#WorkloadA-UPDATE').highcharts(json);
+  
+});
+</script>
+ 
+<div id="WorkloadA-OVERALL-RunTime" class=chart></div>
+<script>
+$(document).ready(function() {  
+   var chart = {
+      type: 'spline'      
+   }; 
+   var title = {
+      text: 'WorkloadA OVERALL-RunTime'
+   };
+   var subtitle = {
+      text: 'Update heavy, Read/Update ratio: 50/50'
+   };
+
+   var yAxis = {
+      title: {
+         text: 'RunTime (Seconds)'
+      },
+      labels: {
+         formatter: function () {
+            return this.value;
+         }
+      },
+      lineWidth: 2
+   };
+   var tooltip = {
+      crosshairs: true,
+      shared: true
+   };
+   var plotOptions = {
+      spline: {
+         marker: {
+            radius: 4,
+            lineColor: '#666666',
+            lineWidth: 1
+         }
+      }
+   };
+   var xAxis = {
+      title: {
+         text: 'Throughput'
+      },
+      categories: ['1000','1500']
+   };
+   var series= [ {
+         name: 'dblei',
+         marker: {
+            symbol: 'circle'
+         },
+         data: [3.560],
+         
+      }, {
+         name: 'rocksdb',
+         marker: {
+            symbol: 'square'
+         },
+         data: [0.186,0.186],
+         
+      },
+   ];
+   var json = {};
+   json.chart = chart;
+   json.title = title;
+   json.subtitle = subtitle;
+   json.tooltip = tooltip;
+   json.xAxis = xAxis;
+   json.yAxis = yAxis;  
+   json.series = series;
+   json.plotOptions = plotOptions;
+   $('#WorkloadA-OVERALL-RunTime').highcharts(json);
+  
+});
+</script>
+ 
+<div id="WorkloadA-OVERALL-Throughput" class=chart></div>
+<script>
+$(document).ready(function() {  
+   var chart = {
+      type: 'spline'      
+   }; 
+   var title = {
+      text: 'WorkloadA OVERALL-Throughput'
+   };
+   var subtitle = {
+      text: 'Update heavy, Read/Update ratio: 50/50'
+   };
+
+   var yAxis = {
+      title: {
+         text: 'Throughput (ops/sec)'
+      },
+      labels: {
+         formatter: function () {
+            return this.value;
+         }
+      },
+      lineWidth: 2
+   };
+   var tooltip = {
+      crosshairs: true,
+      shared: true
+   };
+   var plotOptions = {
+      spline: {
+         marker: {
+            radius: 4,
+            lineColor: '#666666',
+            lineWidth: 1
+         }
+      }
+   };
+   var xAxis = {
+      title: {
+         text: 'Throughput'
+      },
+      categories: ['1000','1500']
+   };
+   var series= [ {
+         name: 'dblei',
+         marker: {
+            symbol: 'circle'
+         },
+         data: [421.34831460674155],
+         
+      }, {
+         name: 'rocksdb',
+         marker: {
+            symbol: 'square'
+         },
+         data: [5376.344086021505,5376.344086021505],
+         
+      },
+   ];
+   var json = {};
+   json.chart = chart;
+   json.title = title;
+   json.subtitle = subtitle;
+   json.tooltip = tooltip;
+   json.xAxis = xAxis;
+   json.yAxis = yAxis;  
+   json.series = series;
+   json.plotOptions = plotOptions;
+   $('#WorkloadA-OVERALL-Throughput').highcharts(json);
+  
+});
+</script>
+ <h2>WorkloadB</h2>
+<div id="WorkloadB-READ" class=chart></div>
+<script>
+$(document).ready(function() {  
+   var chart = {
+      type: 'spline'      
+   }; 
+   var title = {
+      text: 'WorkloadB READ'
+   };
+   var subtitle = {
+      text: 'Read mostly, Read/Update ratio: 95/5'
+   };
+
+   var yAxis = {
+      title: {
+         text: 'Latency (Milliseconds)'
+      },
+      labels: {
+         formatter: function () {
+            return this.value;
+         }
+      },
+      lineWidth: 2
+   };
+   var tooltip = {
+      crosshairs: true,
+      shared: true
+   };
+   var plotOptions = {
+      spline: {
+         marker: {
+            radius: 4,
+            lineColor: '#666666',
+            lineWidth: 1
+         }
+      }
+   };
+   var xAxis = {
+      title: {
+         text: 'Throughput'
+      },
+      categories: ['1000','1500']
+   };
+   var series= [ {
+         name: 'rocksdb',
+         marker: {
+            symbol: 'circle'
+         },
+         data: [0.021,0.021],
+         
+      },
+   ];
+   var json = {};
+   json.chart = chart;
+   json.title = title;
+   json.subtitle = subtitle;
+   json.tooltip = tooltip;
+   json.xAxis = xAxis;
+   json.yAxis = yAxis;  
+   json.series = series;
+   json.plotOptions = plotOptions;
+   $('#WorkloadB-READ').highcharts(json);
+  
+});
+</script>
+ 
+<div id="WorkloadB-UPDATE" class=chart></div>
+<script>
+$(document).ready(function() {  
+   var chart = {
+      type: 'spline'      
+   }; 
+   var title = {
+      text: 'WorkloadB UPDATE'
+   };
+   var subtitle = {
+      text: 'Read mostly, Read/Update ratio: 95/5'
+   };
+
+   var yAxis = {
+      title: {
+         text: 'Latency (Milliseconds)'
+      },
+      labels: {
+         formatter: function () {
+            return this.value;
+         }
+      },
+      lineWidth: 2
+   };
+   var tooltip = {
+      crosshairs: true,
+      shared: true
+   };
+   var plotOptions = {
+      spline: {
+         marker: {
+            radius: 4,
+            lineColor: '#666666',
+            lineWidth: 1
+         }
+      }
+   };
+   var xAxis = {
+      title: {
+         text: 'Throughput'
+      },
+      categories: ['1000','1500']
+   };
+   var series= [ {
+         name: 'rocksdb',
+         marker: {
+            symbol: 'circle'
+         },
+         data: [0.065,0.065],
+         
+      },
+   ];
+   var json = {};
+   json.chart = chart;
+   json.title = title;
+   json.subtitle = subtitle;
+   json.tooltip = tooltip;
+   json.xAxis = xAxis;
+   json.yAxis = yAxis;  
+   json.series = series;
+   json.plotOptions = plotOptions;
+   $('#WorkloadB-UPDATE').highcharts(json);
+  
+});
+</script>
+ 
+<div id="WorkloadB-OVERALL-RunTime" class=chart></div>
+<script>
+$(document).ready(function() {  
+   var chart = {
+      type: 'spline'      
+   }; 
+   var title = {
+      text: 'WorkloadB OVERALL-RunTime'
+   };
+   var subtitle = {
+      text: 'Read mostly, Read/Update ratio: 95/5'
+   };
+
+   var yAxis = {
+      title: {
+         text: 'RunTime (Seconds)'
+      },
+      labels: {
+         formatter: function () {
+            return this.value;
+         }
+      },
+      lineWidth: 2
+   };
+   var tooltip = {
+      crosshairs: true,
+      shared: true
+   };
+   var plotOptions = {
+      spline: {
+         marker: {
+            radius: 4,
+            lineColor: '#666666',
+            lineWidth: 1
+         }
+      }
+   };
+   var xAxis = {
+      title: {
+         text: 'Throughput'
+      },
+      categories: ['1000','1500']
+   };
+   var series= [ {
+         name: 'rocksdb',
+         marker: {
+            symbol: 'circle'
+         },
+         data: [0.186,0.186],
+         
+      },
+   ];
+   var json = {};
+   json.chart = chart;
+   json.title = title;
+   json.subtitle = subtitle;
+   json.tooltip = tooltip;
+   json.xAxis = xAxis;
+   json.yAxis = yAxis;  
+   json.series = series;
+   json.plotOptions = plotOptions;
+   $('#WorkloadB-OVERALL-RunTime').highcharts(json);
+  
+});
+</script>
+ 
+<div id="WorkloadB-OVERALL-Throughput" class=chart></div>
+<script>
+$(document).ready(function() {  
+   var chart = {
+      type: 'spline'      
+   }; 
+   var title = {
+      text: 'WorkloadB OVERALL-Throughput'
+   };
+   var subtitle = {
+      text: 'Read mostly, Read/Update ratio: 95/5'
+   };
+
+   var yAxis = {
+      title: {
+         text: 'Throughput (ops/sec)'
+      },
+      labels: {
+         formatter: function () {
+            return this.value;
+         }
+      },
+      lineWidth: 2
+   };
+   var tooltip = {
+      crosshairs: true,
+      shared: true
+   };
+   var plotOptions = {
+      spline: {
+         marker: {
+            radius: 4,
+            lineColor: '#666666',
+            lineWidth: 1
+         }
+      }
+   };
+   var xAxis = {
+      title: {
+         text: 'Throughput'
+      },
+      categories: ['1000','1500']
+   };
+   var series= [ {
+         name: 'rocksdb',
+         marker: {
+            symbol: 'circle'
+         },
+         data: [5376.344086021505,5376.344086021505],
+         
+      },
+   ];
+   var json = {};
+   json.chart = chart;
+   json.title = title;
+   json.subtitle = subtitle;
+   json.tooltip = tooltip;
+   json.xAxis = xAxis;
+   json.yAxis = yAxis;  
+   json.series = series;
+   json.plotOptions = plotOptions;
+   $('#WorkloadB-OVERALL-Throughput').highcharts(json);
+  
+});
+</script>
+
+<p>
+<hr>
+Reference results: .
+<br>
+Last updated at 2019-06-22_16:09:47.
+</p>
+</body>
+</html>
+

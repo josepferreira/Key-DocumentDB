@@ -1,0 +1,299 @@
+
+<html>
+<head>
+<title>YCSB Testing Results</title>
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<script src="http://code.highcharts.com/highcharts.js"></script> 
+</head>
+<style>
+.chart {
+	width: 47%; 
+	height: 400px; 
+	margin: 5px 0 10px 10px;
+	float: left;
+}
+h1 {
+	text-align: center;
+}
+p,h2 {
+	display: table;
+	width: 100%;
+	margin: 3px;
+}
+</style>
+<body>
+<h1>YCSB Testing Results</h1>
+ <h2>WorkloadA</h2>
+<div id="WorkloadA-READ" class=chart></div>
+<script>
+$(document).ready(function() {  
+   var chart = {
+      type: 'spline'      
+   }; 
+   var title = {
+      text: 'WorkloadA READ'
+   };
+   var subtitle = {
+      text: 'Update heavy, Read/Update ratio: 50/50'
+   };
+
+   var yAxis = {
+      title: {
+         text: 'Latency (Milliseconds)'
+      },
+      labels: {
+         formatter: function () {
+            return this.value;
+         }
+      },
+      lineWidth: 2
+   };
+   var tooltip = {
+      crosshairs: true,
+      shared: true
+   };
+   var plotOptions = {
+      spline: {
+         marker: {
+            radius: 4,
+            lineColor: '#666666',
+            lineWidth: 1
+         }
+      }
+   };
+   var xAxis = {
+      title: {
+         text: 'Throughput'
+      },
+      categories: ['500','1000','1500','2000','2500','3000','3500','4000']
+   };
+   var series= [ {
+         name: 'dbleiAux',
+         marker: {
+            symbol: 'circle'
+         },
+         data: [1.404,0.892,0.735,0.665,0.551,0.524,0.499,0.457],
+         
+      },
+   ];
+   var json = {};
+   json.chart = chart;
+   json.title = title;
+   json.subtitle = subtitle;
+   json.tooltip = tooltip;
+   json.xAxis = xAxis;
+   json.yAxis = yAxis;  
+   json.series = series;
+   json.plotOptions = plotOptions;
+   $('#WorkloadA-READ').highcharts(json);
+  
+});
+</script>
+ 
+<div id="WorkloadA-UPDATE" class=chart></div>
+<script>
+$(document).ready(function() {  
+   var chart = {
+      type: 'spline'      
+   }; 
+   var title = {
+      text: 'WorkloadA UPDATE'
+   };
+   var subtitle = {
+      text: 'Update heavy, Read/Update ratio: 50/50'
+   };
+
+   var yAxis = {
+      title: {
+         text: 'Latency (Milliseconds)'
+      },
+      labels: {
+         formatter: function () {
+            return this.value;
+         }
+      },
+      lineWidth: 2
+   };
+   var tooltip = {
+      crosshairs: true,
+      shared: true
+   };
+   var plotOptions = {
+      spline: {
+         marker: {
+            radius: 4,
+            lineColor: '#666666',
+            lineWidth: 1
+         }
+      }
+   };
+   var xAxis = {
+      title: {
+         text: 'Throughput'
+      },
+      categories: ['500','1000','1500','2000','2500','3000','3500','4000']
+   };
+   var series= [ {
+         name: 'dbleiAux',
+         marker: {
+            symbol: 'circle'
+         },
+         data: [1.960,1.416,1.215,1.071,1.014,0.899,0.889,0.809],
+         
+      },
+   ];
+   var json = {};
+   json.chart = chart;
+   json.title = title;
+   json.subtitle = subtitle;
+   json.tooltip = tooltip;
+   json.xAxis = xAxis;
+   json.yAxis = yAxis;  
+   json.series = series;
+   json.plotOptions = plotOptions;
+   $('#WorkloadA-UPDATE').highcharts(json);
+  
+});
+</script>
+ 
+<div id="WorkloadA-OVERALL-RunTime" class=chart></div>
+<script>
+$(document).ready(function() {  
+   var chart = {
+      type: 'spline'      
+   }; 
+   var title = {
+      text: 'WorkloadA OVERALL-RunTime'
+   };
+   var subtitle = {
+      text: 'Update heavy, Read/Update ratio: 50/50'
+   };
+
+   var yAxis = {
+      title: {
+         text: 'RunTime (Seconds)'
+      },
+      labels: {
+         formatter: function () {
+            return this.value;
+         }
+      },
+      lineWidth: 2
+   };
+   var tooltip = {
+      crosshairs: true,
+      shared: true
+   };
+   var plotOptions = {
+      spline: {
+         marker: {
+            radius: 4,
+            lineColor: '#666666',
+            lineWidth: 1
+         }
+      }
+   };
+   var xAxis = {
+      title: {
+         text: 'Throughput'
+      },
+      categories: ['500','1000','1500','2000','2500','3000','3500','4000']
+   };
+   var series= [ {
+         name: 'dbleiAux',
+         marker: {
+            symbol: 'circle'
+         },
+         data: [3.572,3.918,4.193,4.502,4.718,4.883,5.193,5.285],
+         
+      },
+   ];
+   var json = {};
+   json.chart = chart;
+   json.title = title;
+   json.subtitle = subtitle;
+   json.tooltip = tooltip;
+   json.xAxis = xAxis;
+   json.yAxis = yAxis;  
+   json.series = series;
+   json.plotOptions = plotOptions;
+   $('#WorkloadA-OVERALL-RunTime').highcharts(json);
+  
+});
+</script>
+ 
+<div id="WorkloadA-OVERALL-Throughput" class=chart></div>
+<script>
+$(document).ready(function() {  
+   var chart = {
+      type: 'spline'      
+   }; 
+   var title = {
+      text: 'WorkloadA OVERALL-Throughput'
+   };
+   var subtitle = {
+      text: 'Update heavy, Read/Update ratio: 50/50'
+   };
+
+   var yAxis = {
+      title: {
+         text: 'Throughput (ops/sec)'
+      },
+      labels: {
+         formatter: function () {
+            return this.value;
+         }
+      },
+      lineWidth: 2
+   };
+   var tooltip = {
+      crosshairs: true,
+      shared: true
+   };
+   var plotOptions = {
+      spline: {
+         marker: {
+            radius: 4,
+            lineColor: '#666666',
+            lineWidth: 1
+         }
+      }
+   };
+   var xAxis = {
+      title: {
+         text: 'Throughput'
+      },
+      categories: ['500','1000','1500','2000','2500','3000','3500','4000']
+   };
+   var series= [ {
+         name: 'dbleiAux',
+         marker: {
+            symbol: 'circle'
+         },
+         data: [139.97760358342666,255.23226135783563,357.7390889577868,444.247001332741,529.88554472234,614.3764079459348,673.9842095128057,756.8590350047303],
+         
+      },
+   ];
+   var json = {};
+   json.chart = chart;
+   json.title = title;
+   json.subtitle = subtitle;
+   json.tooltip = tooltip;
+   json.xAxis = xAxis;
+   json.yAxis = yAxis;  
+   json.series = series;
+   json.plotOptions = plotOptions;
+   $('#WorkloadA-OVERALL-Throughput').highcharts(json);
+  
+});
+</script>
+
+<p>
+<hr>
+Reference results: resultadosGrafico/
+<br>
+Last updated at 2019-06-24_16:42:10.
+</p>
+</body>
+</html>
+

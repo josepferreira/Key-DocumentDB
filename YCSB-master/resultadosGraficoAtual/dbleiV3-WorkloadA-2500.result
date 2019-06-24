@@ -1,0 +1,38 @@
+2019-06-22 21:21:50:759 4 sec: 2500 operations; 504,54 current ops/sec; [READ: Count=1230, Max=10783, Min=189, Avg=509,19, 90=729, 99=2179, 99.9=7095, 99.99=10783] [CLEANUP: Count=1, Max=2230271, Min=2228224, Avg=2229248, 90=2230271, 99=2230271, 99.9=2230271, 99.99=2230271] [UPDATE: Count=1270, Max=54175, Min=525, Avg=1024,55, 90=1305, 99=2449, 99.9=5771, 99.99=54175] 
+2019-06-22 21:21:50:759 4 sec: 2500 operations; 504,54 current ops/sec; [READ: Count=1230, Max=10783, Min=189, Avg=509,19, 90=729, 99=2179, 99.9=7095, 99.99=10783] [CLEANUP: Count=1, Max=2230271, Min=2228224, Avg=2229248, 90=2230271, 99=2230271, 99.9=2230271, 99.99=2230271] [UPDATE: Count=1270, Max=54175, Min=525, Avg=1024,55, 90=1305, 99=2449, 99.9=5771, 99.99=54175] 
+2019-06-22 21:21:50:759 4 sec: 2500 operations; 504,54 current ops/sec; [READ: Count=1230, Max=10783, Min=189, Avg=509,19, 90=729, 99=2179, 99.9=7095, 99.99=10783] [CLEANUP: Count=1, Max=2230271, Min=2228224, Avg=2229248, 90=2230271, 99=2230271, 99.9=2230271, 99.99=2230271] [UPDATE: Count=1270, Max=54175, Min=525, Avg=1024,55, 90=1305, 99=2449, 99.9=5771, 99.99=54175] 
+[OVERALL], RunTime(ms), 4955
+[OVERALL], Throughput(ops/sec), 504.54086781029264
+[TOTAL_GCS_PS_Scavenge], Count, 2
+[TOTAL_GC_TIME_PS_Scavenge], Time(ms), 16
+[TOTAL_GC_TIME_PS_Scavenge], Time(ms), 16
+[TOTAL_GC_TIME_%_PS_Scavenge], Time(%), 0.3229061553985873
+[TOTAL_GC_TIME_%_PS_Scavenge], Time(%), 0.3229061553985873
+[TOTAL_GCS_PS_MarkSweep], Count, 0
+[TOTAL_GC_TIME_PS_MarkSweep], Time(ms), 0
+[TOTAL_GC_TIME_PS_MarkSweep], Time(ms), 0
+[TOTAL_GC_TIME_%_PS_MarkSweep], Time(%), 0.0
+[TOTAL_GC_TIME_%_PS_MarkSweep], Time(%), 0.0
+[TOTAL_GCs], Count, 2
+[TOTAL_GC_TIME], Time(ms), 16
+[TOTAL_GC_TIME_%], Time(%), 0.3229061553985873
+[READ], Operations, 1230
+[READ], AverageLatency(us), 509.18943089430894
+[READ], MinLatency(us), 189
+[READ], MaxLatency(us), 10783
+[READ], 95thPercentileLatency(us), 882
+[READ], 99thPercentileLatency(us), 2179
+[READ], Return=OK, 1230
+[CLEANUP], Operations, 1
+[CLEANUP], AverageLatency(us), 2229248.0
+[CLEANUP], MinLatency(us), 2228224
+[CLEANUP], MaxLatency(us), 2230271
+[CLEANUP], 95thPercentileLatency(us), 2230271
+[CLEANUP], 99thPercentileLatency(us), 2230271
+[UPDATE], Operations, 1270
+[UPDATE], AverageLatency(us), 1024.5527559055117
+[UPDATE], MinLatency(us), 525
+[UPDATE], MaxLatency(us), 54175
+[UPDATE], 95thPercentileLatency(us), 1473
+[UPDATE], 99thPercentileLatency(us), 2449
+[UPDATE], Return=OK, 1270

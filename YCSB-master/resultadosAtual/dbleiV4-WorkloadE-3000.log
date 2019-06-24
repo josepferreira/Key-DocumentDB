@@ -1,0 +1,982 @@
+[WARN]  Running against a source checkout. In order to get our runtime dependencies we'll have to invoke Maven. Depending on the state of your system, this may take ~30-45 seconds
+[DEBUG]  Running 'mvn -pl com.yahoo.ycsb:dblei-binding -am package -DskipTests dependency:build-classpath -DincludeScope=compile -Dmdep.outputFilterFile=true'
+java -cp /home/jose/Desktop/LEI/Graficos/Key-DocumentDBv1/YCSB-master/dblei/conf:/home/jose/Desktop/LEI/Graficos/Key-DocumentDBv1/YCSB-master/dblei/target/dblei-binding-0.16.0-SNAPSHOT.jar:/home/jose/.m2/repository/org/apache/htrace/htrace-core4/4.1.0-incubating/htrace-core4-4.1.0-incubating.jar:/home/jose/.m2/repository/org/slf4j/slf4j-api/1.7.25/slf4j-api-1.7.25.jar:/home/jose/.m2/repository/org/rocksdb/rocksdbjni/5.11.3/rocksdbjni-5.11.3.jar:/home/jose/.m2/repository/net/jcip/jcip-annotations/1.0/jcip-annotations-1.0.jar:/home/jose/Desktop/LEI/Graficos/Key-DocumentDBv1/YCSB-master/core/target/core-0.16.0-SNAPSHOT.jar:/home/jose/.m2/repository/org/hdrhistogram/HdrHistogram/2.1.4/HdrHistogram-2.1.4.jar:/home/jose/Desktop/LEI/Key-DocumentDB/DB/target/bd-serverless-1.0-SNAPSHOT.jar:/home/jose/.m2/repository/org/codehaus/jackson/jackson-mapper-asl/1.9.4/jackson-mapper-asl-1.9.4.jar:/home/jose/.m2/repository/org/codehaus/jackson/jackson-core-asl/1.9.4/jackson-core-asl-1.9.4.jar com.yahoo.ycsb.Client -db com.yahoo.ycsb.db.dblei.DBLEIClient -P workloads/workloade -p operationcount=3000 -s -t
+Command line: -db com.yahoo.ycsb.db.dblei.DBLEIClient -P workloads/workloade -p operationcount=3000 -s -t
+YCSB Client 0.16.0-SNAPSHOT
+
+Loading workload...
+Starting test.
+2019-06-23 17:16:12:350 0 sec: 0 operations; est completion in 0 second 
+Vou conectar ao spread
+[Thread-3] WARN io.atomix.cluster.messaging.impl.NettyMessagingService - Disabling TLS for intra-cluster messaging; Could not load cluster key store: ../config/atomix.jks (No such file or directory)
+[netty-messaging-event-epoll-server-0] WARN io.atomix.cluster.messaging.impl.NettyMessagingService - localhost/127.0.0.1 failed to bind to port 12340 due to {}
+io.netty.channel.unix.Errors$NativeIoException: bind(..) failed: Address already in use
+	at io.netty.channel.unix.Errors.newIOException(Errors.java:122)
+	at io.netty.channel.unix.Socket.bind(Socket.java:287)
+	at io.netty.channel.epoll.AbstractEpollChannel.doBind(AbstractEpollChannel.java:684)
+	at io.netty.channel.epoll.EpollServerSocketChannel.doBind(EpollServerSocketChannel.java:70)
+	at io.netty.channel.AbstractChannel$AbstractUnsafe.bind(AbstractChannel.java:558)
+	at io.netty.channel.DefaultChannelPipeline$HeadContext.bind(DefaultChannelPipeline.java:1358)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeBind(AbstractChannelHandlerContext.java:501)
+	at io.netty.channel.AbstractChannelHandlerContext.bind(AbstractChannelHandlerContext.java:486)
+	at io.netty.channel.DefaultChannelPipeline.bind(DefaultChannelPipeline.java:1019)
+	at io.netty.channel.AbstractChannel.bind(AbstractChannel.java:254)
+	at io.netty.bootstrap.AbstractBootstrap$2.run(AbstractBootstrap.java:366)
+	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute(AbstractEventExecutor.java:163)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:404)
+	at io.netty.channel.epoll.EpollEventLoop.run(EpollEventLoop.java:322)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:884)
+	at java.lang.Thread.run(Thread.java:748)
+Porta em uso: 12340
+[Thread-3] WARN io.atomix.cluster.messaging.impl.NettyMessagingService - Disabling TLS for intra-cluster messaging; Could not load cluster key store: ../config/atomix.jks (No such file or directory)
+[netty-messaging-event-epoll-server-0] WARN io.atomix.cluster.messaging.impl.NettyMessagingService - localhost/127.0.0.1 failed to bind to port 12341 due to {}
+io.netty.channel.unix.Errors$NativeIoException: bind(..) failed: Address already in use
+	at io.netty.channel.unix.Errors.newIOException(Errors.java:122)
+	at io.netty.channel.unix.Socket.bind(Socket.java:287)
+	at io.netty.channel.epoll.AbstractEpollChannel.doBind(AbstractEpollChannel.java:684)
+	at io.netty.channel.epoll.EpollServerSocketChannel.doBind(EpollServerSocketChannel.java:70)
+	at io.netty.channel.AbstractChannel$AbstractUnsafe.bind(AbstractChannel.java:558)
+	at io.netty.channel.DefaultChannelPipeline$HeadContext.bind(DefaultChannelPipeline.java:1358)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeBind(AbstractChannelHandlerContext.java:501)
+	at io.netty.channel.AbstractChannelHandlerContext.bind(AbstractChannelHandlerContext.java:486)
+	at io.netty.channel.DefaultChannelPipeline.bind(DefaultChannelPipeline.java:1019)
+	at io.netty.channel.AbstractChannel.bind(AbstractChannel.java:254)
+	at io.netty.bootstrap.AbstractBootstrap$2.run(AbstractBootstrap.java:366)
+	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute(AbstractEventExecutor.java:163)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:404)
+	at io.netty.channel.epoll.EpollEventLoop.run(EpollEventLoop.java:322)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:884)
+	at java.lang.Thread.run(Thread.java:748)
+Porta em uso: 12341
+[Thread-3] WARN io.atomix.cluster.messaging.impl.NettyMessagingService - Disabling TLS for intra-cluster messaging; Could not load cluster key store: ../config/atomix.jks (No such file or directory)
+[netty-messaging-event-epoll-server-0] WARN io.atomix.cluster.messaging.impl.NettyMessagingService - localhost/127.0.0.1 failed to bind to port 12342 due to {}
+io.netty.channel.unix.Errors$NativeIoException: bind(..) failed: Address already in use
+	at io.netty.channel.unix.Errors.newIOException(Errors.java:122)
+	at io.netty.channel.unix.Socket.bind(Socket.java:287)
+	at io.netty.channel.epoll.AbstractEpollChannel.doBind(AbstractEpollChannel.java:684)
+	at io.netty.channel.epoll.EpollServerSocketChannel.doBind(EpollServerSocketChannel.java:70)
+	at io.netty.channel.AbstractChannel$AbstractUnsafe.bind(AbstractChannel.java:558)
+	at io.netty.channel.DefaultChannelPipeline$HeadContext.bind(DefaultChannelPipeline.java:1358)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeBind(AbstractChannelHandlerContext.java:501)
+	at io.netty.channel.AbstractChannelHandlerContext.bind(AbstractChannelHandlerContext.java:486)
+	at io.netty.channel.DefaultChannelPipeline.bind(DefaultChannelPipeline.java:1019)
+	at io.netty.channel.AbstractChannel.bind(AbstractChannel.java:254)
+	at io.netty.bootstrap.AbstractBootstrap$2.run(AbstractBootstrap.java:366)
+	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute(AbstractEventExecutor.java:163)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:404)
+	at io.netty.channel.epoll.EpollEventLoop.run(EpollEventLoop.java:322)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:884)
+	at java.lang.Thread.run(Thread.java:748)
+Porta em uso: 12342
+[Thread-3] WARN io.atomix.cluster.messaging.impl.NettyMessagingService - Disabling TLS for intra-cluster messaging; Could not load cluster key store: ../config/atomix.jks (No such file or directory)
+[netty-messaging-event-epoll-server-0] INFO io.atomix.cluster.messaging.impl.NettyMessagingService - localhost/127.0.0.1 accepting incoming connections on port 12343
+[netty-messaging-event-epoll-server-0] INFO io.atomix.cluster.messaging.impl.NettyMessagingService - Started
+DBWrapper: report latency for each error is false and specific error codes to track for latency are: []
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+2019-06-23 17:16:22:331 10 sec: 644 operations; 64,4 current ops/sec; est completion in 37 seconds [INSERT: Count=446, Max=3725, Min=412, Avg=875,57, 90=1216, 99=2441, 99.9=3725, 99.99=3725] [SCAN: Count=198, Max=178175, Min=30752, Avg=44764,89, 90=51743, 99=84991, 99.9=178175, 99.99=178175] 
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+2019-06-23 17:16:32:331 20 sec: 1472 operations; 82,8 current ops/sec; est completion in 21 seconds [INSERT: Count=595, Max=2359, Min=375, Avg=746,66, 90=1089, 99=1336, 99.9=2311, 99.99=2359] [SCAN: Count=233, Max=67775, Min=29712, Avg=40954,3, 90=47839, 99=65727, 99.9=67775, 99.99=67775] 
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+2019-06-23 17:16:42:331 30 sec: 2251 operations; 77,9 current ops/sec; est completion in 10 seconds [INSERT: Count=543, Max=3467, Min=340, Avg=742,21, 90=1056, 99=2315, 99.9=2897, 99.99=3467] [SCAN: Count=236, Max=58175, Min=28656, Avg=40558,37, 90=46815, 99=52927, 99.9=58175, 99.99=58175] 
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+java.lang.Exception: Não existem mais
+2019-06-23 17:16:52:332 40 sec: 3000 operations; 74,9 current ops/sec; [INSERT: Count=549, Max=3099, Min=354, Avg=684,23, 90=1001, 99=1247, 99.9=3039, 99.99=3099] [SCAN: Count=200, Max=160511, Min=29168, Avg=39660,08, 90=46079, 99=55359, 99.9=160511, 99.99=160511] 
+[ForkJoinPool.commonPool-worker-1] INFO io.atomix.cluster.messaging.impl.NettyMessagingService - Stopped
+2019-06-23 17:16:52:889 40 sec: 3000 operations; 0 current ops/sec; [CLEANUP: Count=1, Max=2246655, Min=2244608, Avg=2245632, 90=2246655, 99=2246655, 99.9=2246655, 99.99=2246655] [INSERT: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [SCAN: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+[OVERALL], RunTime(ms), 40558
+[OVERALL], Throughput(ops/sec), 73.96814438581784
+[TOTAL_GCS_PS_Scavenge], Count, 139
+[TOTAL_GC_TIME_PS_Scavenge], Time(ms), 221
+[TOTAL_GC_TIME_%_PS_Scavenge], Time(%), 0.5448986636421914
+[TOTAL_GCS_PS_MarkSweep], Count, 1
+[TOTAL_GC_TIME_PS_MarkSweep], Time(ms), 120
+[TOTAL_GC_TIME_%_PS_MarkSweep], Time(%), 0.2958725775432714
+[TOTAL_GCs], Count, 140
+[TOTAL_GC_TIME], Time(ms), 341
+[TOTAL_GC_TIME_%], Time(%), 0.8407712411854628
+[CLEANUP], Operations, 1
+[CLEANUP], AverageLatency(us), 2245632.0
+[CLEANUP], MinLatency(us), 2244608
+[CLEANUP], MaxLatency(us), 2246655
+[CLEANUP], 95thPercentileLatency(us), 2246655
+[CLEANUP], 99thPercentileLatency(us), 2246655
+[INSERT], Operations, 2133
+[INSERT], AverageLatency(us), 756.4153774027192
+[INSERT], MinLatency(us), 340
+[INSERT], MaxLatency(us), 3725
+[INSERT], 95thPercentileLatency(us), 1189
+[INSERT], 99thPercentileLatency(us), 2038
+[INSERT], Return=OK, 2133
+[SCAN], Operations, 867
+[SCAN], AverageLatency(us), 41418.21453287197
+[SCAN], MinLatency(us), 28656
+[SCAN], MaxLatency(us), 178175
+[SCAN], 95thPercentileLatency(us), 51807
+[SCAN], 99thPercentileLatency(us), 65727
+[SCAN], Return=OK, 867
+dblei-binding
+CENAS
+['java', '-cp', '/home/jose/Desktop/LEI/Graficos/Key-DocumentDBv1/YCSB-master/dblei/conf:/home/jose/Desktop/LEI/Graficos/Key-DocumentDBv1/YCSB-master/dblei/target/dblei-binding-0.16.0-SNAPSHOT.jar:/home/jose/.m2/repository/org/apache/htrace/htrace-core4/4.1.0-incubating/htrace-core4-4.1.0-incubating.jar:/home/jose/.m2/repository/org/slf4j/slf4j-api/1.7.25/slf4j-api-1.7.25.jar:/home/jose/.m2/repository/org/rocksdb/rocksdbjni/5.11.3/rocksdbjni-5.11.3.jar:/home/jose/.m2/repository/net/jcip/jcip-annotations/1.0/jcip-annotations-1.0.jar:/home/jose/Desktop/LEI/Graficos/Key-DocumentDBv1/YCSB-master/core/target/core-0.16.0-SNAPSHOT.jar:/home/jose/.m2/repository/org/hdrhistogram/HdrHistogram/2.1.4/HdrHistogram-2.1.4.jar:/home/jose/Desktop/LEI/Key-DocumentDB/DB/target/bd-serverless-1.0-SNAPSHOT.jar:/home/jose/.m2/repository/org/codehaus/jackson/jackson-mapper-asl/1.9.4/jackson-mapper-asl-1.9.4.jar:/home/jose/.m2/repository/org/codehaus/jackson/jackson-core-asl/1.9.4/jackson-core-asl-1.9.4.jar', 'com.yahoo.ycsb.Client', '-db', 'com.yahoo.ycsb.db.dblei.DBLEIClient', '-P', 'workloads/workloade', '-p', 'operationcount=3000', '-s']
+FIM
