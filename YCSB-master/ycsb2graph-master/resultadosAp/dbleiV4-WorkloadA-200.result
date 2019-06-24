@@ -1,30 +1,30 @@
-2019-06-24 12:13:52:346 3 sec: 200 operations; 62,77 current ops/sec; [CLEANUP: Count=1, Max=2250751, Min=2248704, Avg=2249728, 90=2250751, 99=2250751, 99.9=2250751, 99.99=2250751] [UPDATE: Count=200, Max=54879, Min=1441, Avg=2350,57, 90=2299, 99=8311, 99.9=54879, 99.99=54879] 
-2019-06-24 12:13:52:346 3 sec: 200 operations; 62,77 current ops/sec; [CLEANUP: Count=1, Max=2250751, Min=2248704, Avg=2249728, 90=2250751, 99=2250751, 99.9=2250751, 99.99=2250751] [UPDATE: Count=200, Max=54879, Min=1441, Avg=2350,57, 90=2299, 99=8311, 99.9=54879, 99.99=54879] 
-[OVERALL], RunTime(ms), 3186
-[OVERALL], Throughput(ops/sec), 62.77463904582549
+2019-06-24 18:05:52:268 3 sec: 200 operations; 57,03 current ops/sec; [CLEANUP: Count=1, Max=2246655, Min=2244608, Avg=2245632, 90=2246655, 99=2246655, 99.9=2246655, 99.99=2246655] [UPDATE: Count=200, Max=85695, Min=1600, Avg=3229,23, 90=4151, 99=11711, 99.9=85695, 99.99=85695] 
+2019-06-24 18:05:52:268 3 sec: 200 operations; 57,03 current ops/sec; [CLEANUP: Count=1, Max=2246655, Min=2244608, Avg=2245632, 90=2246655, 99=2246655, 99.9=2246655, 99.99=2246655] [UPDATE: Count=200, Max=85695, Min=1600, Avg=3229,23, 90=4151, 99=11711, 99.9=85695, 99.99=85695] 
+[OVERALL], RunTime(ms), 3507
+[OVERALL], Throughput(ops/sec), 57.0287995437696
 [TOTAL_GCS_PS_Scavenge], Count, 1
-[TOTAL_GC_TIME_PS_Scavenge], Time(ms), 6
-[TOTAL_GC_TIME_PS_Scavenge], Time(ms), 6
-[TOTAL_GC_TIME_%_PS_Scavenge], Time(%), 0.18832391713747645
-[TOTAL_GC_TIME_%_PS_Scavenge], Time(%), 0.18832391713747645
+[TOTAL_GC_TIME_PS_Scavenge], Time(ms), 5
+[TOTAL_GC_TIME_PS_Scavenge], Time(ms), 5
+[TOTAL_GC_TIME_%_PS_Scavenge], Time(%), 0.142571998859424
+[TOTAL_GC_TIME_%_PS_Scavenge], Time(%), 0.142571998859424
 [TOTAL_GCS_PS_MarkSweep], Count, 0
 [TOTAL_GC_TIME_PS_MarkSweep], Time(ms), 0
 [TOTAL_GC_TIME_PS_MarkSweep], Time(ms), 0
 [TOTAL_GC_TIME_%_PS_MarkSweep], Time(%), 0.0
 [TOTAL_GC_TIME_%_PS_MarkSweep], Time(%), 0.0
 [TOTAL_GCs], Count, 1
-[TOTAL_GC_TIME], Time(ms), 6
-[TOTAL_GC_TIME_%], Time(%), 0.18832391713747645
+[TOTAL_GC_TIME], Time(ms), 5
+[TOTAL_GC_TIME_%], Time(%), 0.142571998859424
 [CLEANUP], Operations, 1
-[CLEANUP], AverageLatency(us), 2249728.0
-[CLEANUP], MinLatency(us), 2248704
-[CLEANUP], MaxLatency(us), 2250751
-[CLEANUP], 95thPercentileLatency(us), 2250751
-[CLEANUP], 99thPercentileLatency(us), 2250751
+[CLEANUP], AverageLatency(us), 2245632.0
+[CLEANUP], MinLatency(us), 2244608
+[CLEANUP], MaxLatency(us), 2246655
+[CLEANUP], 95thPercentileLatency(us), 2246655
+[CLEANUP], 99thPercentileLatency(us), 2246655
 [UPDATE], Operations, 200
-[UPDATE], AverageLatency(us), 2350.57
-[UPDATE], MinLatency(us), 1441
-[UPDATE], MaxLatency(us), 54879
-[UPDATE], 95thPercentileLatency(us), 2513
-[UPDATE], 99thPercentileLatency(us), 8311
+[UPDATE], AverageLatency(us), 3229.23
+[UPDATE], MinLatency(us), 1600
+[UPDATE], MaxLatency(us), 85695
+[UPDATE], 95thPercentileLatency(us), 4747
+[UPDATE], 99thPercentileLatency(us), 11711
 [UPDATE], Return=OK, 200
