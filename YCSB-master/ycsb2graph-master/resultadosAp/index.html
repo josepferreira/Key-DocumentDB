@@ -23,7 +23,7 @@ p,h2 {
 </style>
 <body>
 <h1>YCSB Testing Results</h1>
- <h2>WorkloadA</h2>
+ <h2>Workload</h2>
 <div id="WorkloadA-UPDATE" class=chart></div>
 <script>
 $(document).ready(function() {  
@@ -31,10 +31,10 @@ $(document).ready(function() {
       type: 'spline'      
    }; 
    var title = {
-      text: 'WorkloadA UPDATE'
+      text: 'Workload UPDATE'
    };
    var subtitle = {
-      text: 'Update heavy, Read/Update ratio: 50/50'
+      text: 'Update heavy, Update ratio: 100'
    };
 
    var yAxis = {
@@ -68,25 +68,25 @@ $(document).ready(function() {
       categories: ['200','400','600','800']
    };
    var series= [ {
-         name: 'dbleiV4Redistribuicao',
+         name: 'dbleiV4Falha',
          marker: {
             symbol: 'circle'
+         },
+         data: [3.229,3.092,2.899,2.190],
+         
+      }, {
+         name: 'dbleiV4Redistribuicao',
+         marker: {
+            symbol: 'square'
          },
          data: [3.327,2.714,2.875,2.410],
          
       }, {
          name: 'dbleiV4SemFalha',
          marker: {
-            symbol: 'square'
-         },
-         data: [2.409,2.013,1.770,1.578],
-         
-      }, {
-         name: 'dbleiV4',
-         marker: {
             symbol: 'diamond'
          },
-         data: [3.229,3.092,2.899,2.190],
+         data: [2.409,2.013,1.770,1.578],
          
       },
    ];
@@ -111,10 +111,10 @@ $(document).ready(function() {
       type: 'spline'      
    }; 
    var title = {
-      text: 'WorkloadA OVERALL-RunTime'
+      text: 'Workload OVERALL-RunTime'
    };
    var subtitle = {
-      text: 'Update heavy, Read/Update ratio: 50/50'
+      text: 'Update heavy, Update ratio: 100'
    };
 
    var yAxis = {
@@ -148,25 +148,25 @@ $(document).ready(function() {
       categories: ['200','400','600','800']
    };
    var series= [ {
-         name: 'dbleiV4Redistribuicao',
+         name: 'dbleiV4Falha',
          marker: {
             symbol: 'circle'
+         },
+         data: [3.507,4.095,4.615,4.616],
+         
+      }, {
+         name: 'dbleiV4Redistribuicao',
+         marker: {
+            symbol: 'square'
          },
          data: [3.517,3.969,4.633,4.820],
          
       }, {
          name: 'dbleiV4SemFalha',
          marker: {
-            symbol: 'square'
-         },
-         data: [3.197,3.507,3.769,3.986],
-         
-      }, {
-         name: 'dbleiV4',
-         marker: {
             symbol: 'diamond'
          },
-         data: [3.507,4.095,4.615,4.616],
+         data: [3.197,3.507,3.769,3.986],
          
       },
    ];
@@ -191,10 +191,10 @@ $(document).ready(function() {
       type: 'spline'      
    }; 
    var title = {
-      text: 'WorkloadA OVERALL-Throughput'
+      text: 'Workload OVERALL-Throughput'
    };
    var subtitle = {
-      text: 'Update heavy, Read/Update ratio: 50/50'
+      text: 'Update heavy, Update ratio: 100'
    };
 
    var yAxis = {
@@ -228,25 +228,25 @@ $(document).ready(function() {
       categories: ['200','400','600','800']
    };
    var series= [ {
-         name: 'dbleiV4Redistribuicao',
+         name: 'dbleiV4Falha',
          marker: {
             symbol: 'circle'
+         },
+         data: [57.0287995437696,97.68009768009767,130.01083423618635,173.3102253032929],
+         
+      }, {
+         name: 'dbleiV4Redistribuicao',
+         marker: {
+            symbol: 'square'
          },
          data: [56.86664771111743,100.78105316200555,129.5057198359594,165.97510373443984],
          
       }, {
          name: 'dbleiV4SemFalha',
          marker: {
-            symbol: 'square'
-         },
-         data: [62.55864873318736,114.0575990875392,159.19342000530645,200.70245860511793],
-         
-      }, {
-         name: 'dbleiV4',
-         marker: {
             symbol: 'diamond'
          },
-         data: [57.0287995437696,97.68009768009767,130.01083423618635,173.3102253032929],
+         data: [62.55864873318736,114.0575990875392,159.19342000530645,200.70245860511793],
          
       },
    ];
@@ -268,7 +268,7 @@ $(document).ready(function() {
 <hr>
 Reference results: resultadosAp/
 <br>
-Last updated at 2019-06-24_18:14:55.
+Last updated at 2019-06-25_11:26:01.
 </p>
 </body>
 </html>
