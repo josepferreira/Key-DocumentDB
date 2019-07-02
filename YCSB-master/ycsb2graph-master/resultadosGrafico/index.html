@@ -287,12 +287,276 @@ $(document).ready(function() {
   
 });
 </script>
+ <h2>WorkloadE</h2>
+<div id="WorkloadE-INSERT" class=chart></div>
+<script>
+$(document).ready(function() {  
+   var chart = {
+      type: 'spline'      
+   }; 
+   var title = {
+      text: 'WorkloadE INSERT'
+   };
+   var subtitle = {
+      text: 'Short ranges scan, Scan/Insert ratio: 30/70'
+   };
+
+   var yAxis = {
+      title: {
+         text: 'Latency (Milliseconds)'
+      },
+      labels: {
+         formatter: function () {
+            return this.value;
+         }
+      },
+      lineWidth: 2
+   };
+   var tooltip = {
+      crosshairs: true,
+      shared: true
+   };
+   var plotOptions = {
+      spline: {
+         marker: {
+            radius: 4,
+            lineColor: '#666666',
+            lineWidth: 1
+         }
+      }
+   };
+   var xAxis = {
+      title: {
+         text: 'Throughput'
+      },
+      categories: ['500','1000','1500','2000','2500','3000','3500','4000']
+   };
+   var series= [ {
+         name: 'dbleiAux',
+         marker: {
+            symbol: 'circle'
+         },
+         data: [1.264,1.341,15.816,1.132,0.927,0.948,0.915,0.906],
+         
+      },
+   ];
+   var json = {};
+   json.chart = chart;
+   json.title = title;
+   json.subtitle = subtitle;
+   json.tooltip = tooltip;
+   json.xAxis = xAxis;
+   json.yAxis = yAxis;  
+   json.series = series;
+   json.plotOptions = plotOptions;
+   $('#WorkloadE-INSERT').highcharts(json);
+  
+});
+</script>
+ 
+<div id="WorkloadE-SCAN" class=chart></div>
+<script>
+$(document).ready(function() {  
+   var chart = {
+      type: 'spline'      
+   }; 
+   var title = {
+      text: 'WorkloadE SCAN'
+   };
+   var subtitle = {
+      text: 'Short ranges scan, Scan/Insert ratio: 30/70'
+   };
+
+   var yAxis = {
+      title: {
+         text: 'Latency (Milliseconds)'
+      },
+      labels: {
+         formatter: function () {
+            return this.value;
+         }
+      },
+      lineWidth: 2
+   };
+   var tooltip = {
+      crosshairs: true,
+      shared: true
+   };
+   var plotOptions = {
+      spline: {
+         marker: {
+            radius: 4,
+            lineColor: '#666666',
+            lineWidth: 1
+         }
+      }
+   };
+   var xAxis = {
+      title: {
+         text: 'Throughput'
+      },
+      categories: ['500','1000','1500','2000','2500','3000','3500','4000']
+   };
+   var series= [ {
+         name: 'dbleiAux',
+         marker: {
+            symbol: 'circle'
+         },
+         data: [61.148,32.263,29.590,25.323,27.865,29.005,30.337,33.276],
+         
+      },
+   ];
+   var json = {};
+   json.chart = chart;
+   json.title = title;
+   json.subtitle = subtitle;
+   json.tooltip = tooltip;
+   json.xAxis = xAxis;
+   json.yAxis = yAxis;  
+   json.series = series;
+   json.plotOptions = plotOptions;
+   $('#WorkloadE-SCAN').highcharts(json);
+  
+});
+</script>
+ 
+<div id="WorkloadE-OVERALL-RunTime" class=chart></div>
+<script>
+$(document).ready(function() {  
+   var chart = {
+      type: 'spline'      
+   }; 
+   var title = {
+      text: 'WorkloadE OVERALL-RunTime'
+   };
+   var subtitle = {
+      text: 'Short ranges scan, Scan/Insert ratio: 30/70'
+   };
+
+   var yAxis = {
+      title: {
+         text: 'RunTime (Seconds)'
+      },
+      labels: {
+         formatter: function () {
+            return this.value;
+         }
+      },
+      lineWidth: 2
+   };
+   var tooltip = {
+      crosshairs: true,
+      shared: true
+   };
+   var plotOptions = {
+      spline: {
+         marker: {
+            radius: 4,
+            lineColor: '#666666',
+            lineWidth: 1
+         }
+      }
+   };
+   var xAxis = {
+      title: {
+         text: 'Throughput'
+      },
+      categories: ['500','1000','1500','2000','2500','3000','3500','4000']
+   };
+   var series= [ {
+         name: 'dbleiAux',
+         marker: {
+            symbol: 'circle'
+         },
+         data: [12.625,13.291,33.182,19.866,24.763,32.907,37.383,45.181],
+         
+      },
+   ];
+   var json = {};
+   json.chart = chart;
+   json.title = title;
+   json.subtitle = subtitle;
+   json.tooltip = tooltip;
+   json.xAxis = xAxis;
+   json.yAxis = yAxis;  
+   json.series = series;
+   json.plotOptions = plotOptions;
+   $('#WorkloadE-OVERALL-RunTime').highcharts(json);
+  
+});
+</script>
+ 
+<div id="WorkloadE-OVERALL-Throughput" class=chart></div>
+<script>
+$(document).ready(function() {  
+   var chart = {
+      type: 'spline'      
+   }; 
+   var title = {
+      text: 'WorkloadE OVERALL-Throughput'
+   };
+   var subtitle = {
+      text: 'Short ranges scan, Scan/Insert ratio: 30/70'
+   };
+
+   var yAxis = {
+      title: {
+         text: 'Throughput (ops/sec)'
+      },
+      labels: {
+         formatter: function () {
+            return this.value;
+         }
+      },
+      lineWidth: 2
+   };
+   var tooltip = {
+      crosshairs: true,
+      shared: true
+   };
+   var plotOptions = {
+      spline: {
+         marker: {
+            radius: 4,
+            lineColor: '#666666',
+            lineWidth: 1
+         }
+      }
+   };
+   var xAxis = {
+      title: {
+         text: 'Throughput'
+      },
+      categories: ['500','1000','1500','2000','2500','3000','3500','4000']
+   };
+   var series= [ {
+         name: 'dbleiAux',
+         marker: {
+            symbol: 'circle'
+         },
+         data: [39.603960396039604,75.23888345496952,45.20523175215478,100.67451927917044,100.95707305253806,91.16601331023794,93.62544472086242,88.53279033221929],
+         
+      },
+   ];
+   var json = {};
+   json.chart = chart;
+   json.title = title;
+   json.subtitle = subtitle;
+   json.tooltip = tooltip;
+   json.xAxis = xAxis;
+   json.yAxis = yAxis;  
+   json.series = series;
+   json.plotOptions = plotOptions;
+   $('#WorkloadE-OVERALL-Throughput').highcharts(json);
+  
+});
+</script>
 
 <p>
 <hr>
 Reference results: resultadosGrafico/
 <br>
-Last updated at 2019-06-24_16:42:10.
+Last updated at 2019-07-02_12:53:46.
 </p>
 </body>
 </html>

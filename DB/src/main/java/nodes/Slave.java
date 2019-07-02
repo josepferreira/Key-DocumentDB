@@ -208,7 +208,9 @@ public class Slave {
                 }
 
             } else if (o instanceof PedidoEstado) {
+                System.out.println("Recebi pedido de estado!");
                 PedidoEstado pe = (PedidoEstado) o;
+                System.out.println("Sender: " + pe.endereco);
 
                 Grupo g = grupos.get(pe.ku);
 
@@ -220,7 +222,7 @@ public class Slave {
                         g.fila.add(new ElementoFila(o, spreadMessage.getSender().toString()));
                     } else {
 
-                        g.pedidoEstado(pe, spreadMessage.getSender(), s);
+                        g.pedidoEstado(pe, pe.endereco, ms,s);
                     }
                 }
             } else {
@@ -260,6 +262,7 @@ public class Slave {
                                 g.origemEstado = exPrimario;
                                 String id = UUID.randomUUID().toString();
                                 PedidoEstado pe = new PedidoEstado(id, entry.getKey());
+                                pe.endereco = endereco;
                                 SpreadMessage sm = new SpreadMessage();
                                 sm.setData(s.encode(pe));
                                 sm.addGroup(exPrimario);
@@ -297,6 +300,7 @@ public class Slave {
                                 } else {
                                     pe = new PedidoEstado(id, entry.getKey());
                                 }
+                                pe.endereco = endereco;
                                 SpreadMessage sm = new SpreadMessage();
                                 sm.setData(s.encode(pe));
                                 sm.addGroup(exPrimario);
@@ -692,7 +696,7 @@ public class Slave {
             }
             else if(ef.o instanceof PedidoEstado){
                 PedidoEstado pe = (PedidoEstado)ef.o;
-                g.pedidoEstado(pe,ef.origem,s);
+                g.pedidoEstado(pe,pe.endereco,ms,s);
             }
             else{
                 System.out.println("Sou primario e recebi: " + ef.o.getClass());
@@ -957,13 +961,6 @@ public class Slave {
                         ms.sendAsync(o, "removeReply", s.encode(rrp));
                     });
                 }
-
-
-
-
-
-
-
             }
 
         },ses);
@@ -1034,6 +1031,26 @@ public class Slave {
                 }*/
             }
         }, ses);
+
+        ms.registerHandler("estado", (o,m) -> {
+            System.out.println("Recebi estado");
+            EstadoSlave es = s.decode(m);
+            Object auxKey = es.key;
+            KeysUniverse ku = new KeysUniverse(auxKey, auxKey);
+            Grupo g = grupos.get(ku);
+            if (g == null) {
+                System.out.println("Recupera estado num grupo null!!!");
+            } else {
+                /*if (!spreadMessage.getSender().toString().split("#")[1].equals(g.origemEstado)) {
+                    System.out.println("Recebi estado de um q n é o suposto!");
+                    return;
+                }*/
+
+                g.recuperaEstado(es);
+                if (es.last)
+                    trataFila(g);
+            }
+        },ses);
     }
 
     public void adicionaConexao(String id, KeysUniverse grupo, boolean podeEntrar) {

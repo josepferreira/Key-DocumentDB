@@ -7,6 +7,7 @@ public class PedidoEstado {
     public KeysUniverse ku;
     public boolean estadoAMeio = false;
     public Object lastKey;
+    public String endereco;
 
     public PedidoEstado(String id, KeysUniverse ku) {
         this.id = id;
@@ -24,4 +25,5 @@ public class PedidoEstado {
         this.lastKey = lastKey;
         this.estadoAMeio = true;
     }
+
 }

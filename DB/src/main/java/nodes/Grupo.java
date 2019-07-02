@@ -5,6 +5,8 @@ import Configuration.KeysUniverse;
 import Operations.Put;
 //import com.sun.xml.internal.ws.client.SenderException;
 import Operations.Remove;
+import io.atomix.cluster.messaging.ManagedMessagingService;
+import io.atomix.utils.net.Address;
 import io.atomix.utils.serializer.Serializer;
 import messages.Operation.GetRequest;
 import messages.Operation.PutRequest;
@@ -530,9 +532,17 @@ public class Grupo {
 
     }
 
+    public void enviaEstado(EstadoSlave es, String dest, int i, ManagedMessagingService ms, Serializer s){
+        System.out.println("Enviar estado: " + i);
 
-    public void pedidoEstado(PedidoEstado pe, String sender, Serializer s) {
+        byte[] estado = s.encode(es);
+        ms.sendAsync(Address.from(dest),"estado",estado);
 
+    }
+
+
+    public void pedidoEstado(PedidoEstado pe, String sender, ManagedMessagingService ms, Serializer s) {
+        int i = 0;
         long quantos = 0;
         long max = 20;
         HashMap<Object,JSONObject> map = new HashMap<>();
@@ -574,16 +584,7 @@ public class Grupo {
                 quantos = 0;
                 es.lastKey = Config.decode(k);
 
-                SpreadMessage sm = new SpreadMessage();
-                sm.setData(s.encode(es));
-                sm.setReliable();
-                sm.addGroup(sender);
-
-                try {
-                    connection.multicast(sm);
-                } catch (SpreadException e) {
-                    e.printStackTrace();
-                }
+                enviaEstado(es,sender,i++,ms,s);
 
                 map.clear();
             }
@@ -591,19 +592,12 @@ public class Grupo {
 
         if(!enviei) {
             es.last = !iterador.isValid();
-            SpreadMessage sm = new SpreadMessage();
+//            SpreadMessage sm = new SpreadMessage();
             es.valores = map;
             es.lastKey = (k == null ? k : Config.decode(k));
 
-            sm.setData(s.encode(es));
-            sm.setReliable();
-            sm.addGroup(sender);
+            enviaEstado(es,sender,i++,ms,s);
 
-            try {
-                connection.multicast(sm);
-            } catch (SpreadException e) {
-                e.printStackTrace();
-            }
         }
     }
     public void pedidoEstado(PedidoEstado pe, SpreadGroup sender, Serializer s) {
