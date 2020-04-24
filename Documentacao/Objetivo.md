@@ -1,0 +1,3 @@
+# Base de dados NoSQL orientada ao modelo serverless
+
+Neste projeto pretende-se o desenvolvimento e avaliação de um protótipo para investigação de uma base de dados NoSQL especialmente desenhada para lidar com cargas dinâmicas e imprevisíveis, altamente escalável, com geo-replicação para elevada disponibilidade e optimizada para modelos serverless. Esta deve ser baseada em sistemas NoSQL serverless já existentes como Azure Cosmos DB, Google Cloud Firestore, FaunaDB.
